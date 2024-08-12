@@ -1,0 +1,137 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  background-color: rgb(244, 243, 243);
+	height: 100vh;
+	width: 100vw;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.projects {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.page {
+    width: 90%;
+    margin: 0 auto;
+    padding: 0;
+}
+
+.page li {
+    list-style: none;
+    margin: 10px auto;
+    background: white;
+    border-radius: 10px;
+    text-align: center;
+    display: flex;
+}
+
+.page > li > .image-container {
+    width: 20%;
+    height: 100%;
+}
+
+.page > li > .image-container > img{
+    height: 10em;
+}
+
+.page > li > .text-container {
+    width: 80%;
+    text-align: start;
+    padding: 12px;
+}
+
+.pagination {
+    text-align: center;
+    margin-top: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    margin-bottom: 1em;
+}
+
+.pages {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 100%;
+    width: 200px;
+}
+
+.page-number {
+    cursor: pointer;
+    background-color: white;
+    color: #999;
+    border-radius: 50%;
+    height: 30px;
+    width: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: .4s ease;
+}
+
+.active {
+    font-size: 1.3em;
+    height: 40px;
+    width: 40px;
+    background-color: #0057b3;
+    color: white;
+}
+
+button {
+    width: 120px;
+    padding: 8px 16px;
+    background-color: #ffffff00;
+    color: #0057b3;
+    border: none;
+    cursor: pointer;
+    margin: 0 5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+button:hover {
+    color: #0056b3;
+}
+
+button:disabled {
+    background-color: #ffffff00;
+    color: #ccc;
+    cursor: not-allowed;
+}
+
+#prevPage {
+    margin-right: 20px;
+}
+
+#nextPage {
+    margin-left: 20px;
+}
+
+.arrow {
+    font-size: 1.2em;
+}
+
+.nav-text {
+    font-size: 0.7em;
+    letter-spacing: 0.3em;
+}
+
+@media (max-width: 400px) {
+    /* Add your styles for screens with a maximum width of 400px here */
+}
