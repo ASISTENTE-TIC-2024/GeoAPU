@@ -7,7 +7,7 @@
 body {
   font-family: 'Roboto', sans-serif;
   margin: 0;
-  background-color: rgb(244, 243, 243);
+  background-color: rgb(255, 255, 255);
 	height: 100vh;
 	width: 100vw;
 	display: flex;
@@ -40,11 +40,6 @@ body {
 
 .page > li > .image-container {
     width: 20%;
-    height: 100%;
-}
-
-.page > li > .image-container > img{
-    height: 10em;
 }
 
 .page > li > .text-container {
@@ -132,6 +127,11 @@ button:disabled {
     letter-spacing: 0.3em;
 }
 
-@media (max-width: 400px) {
-    /* Add your styles for screens with a maximum width of 400px here */
+#content-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+    position: relative;
+    top: 100px;
 }
