@@ -4,6 +4,7 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <script src="https://cdn.tailwindcss.com"></script>
+        <link rel="icon" href="../img/icono geo.ico" type="image/png" />
         <title>GeoAPU</title>
     </head>
     <body>
@@ -601,7 +602,7 @@
                         tabindex="0"
                         class="focus:outline-none w-24"
                     >
-                        <a href="./principal.html">
+                        <a href="./informacion.html">
                             <img
                                 class="h-10 w-15"
                                 src="https://i.imgur.com/xQhZRWX.png"
@@ -671,7 +672,7 @@
                                             class="flex items-center justify-between w-full"
                                         >
                                             <div class="flex items-center">
-                                                <a href="../principal.html">
+                                                <a href="./informacion.html">
                                                     <img
                                                         class="h-10 w-15"
                                                         src="https://i.imgur.com/xQhZRWX.png"
@@ -939,14 +940,19 @@
             <!-- Code block ends -->
         </div>
 
-        <div class="informacion-section">
-            <h1 id="nombre-proyecto"></h1>
-            <p id="datepicker-actions"></p>
-            <p id="cliente"></p>
-            <p id="contacto"></p>
-            <p id="correo"></p>
-            <p id="departamento"></p>
-            <p id="municipio"></p>
+        <div
+            class="informacion-section w-full flex flex-col"
+            style="position: relative; top: 100px"
+        >
+            <h1 id="nombre-proyecto" class="text-3xl text-center"></h1>
+            <div id="paragraph-container" class="mx-10 my-2">
+                <p id="datepicker-actions"></p>
+                <p id="cliente"></p>
+                <p id="contacto"></p>
+                <p id="correo"></p>
+                <p id="departamento"></p>
+                <p id="municipio"></p>
+            </div>
         </div>
 
         <div
@@ -1050,6 +1056,7 @@
             </button>
             <button
                 class="focus:ring-2 focus:ring-offset-2 focus:ring-blue-700 focus:text-gray-50 focus:outline-none bg-blue-700 border-blue-300 border transition duration-150 ease-in-out hover:bg-blue-300 rounded text-gray-50 px-5 py-2 text-xs"
+                onclick="window.location.href='./rotulos-apu.html'"
             >
                 CREAR UNA NUEVA APU
             </button>

@@ -1,13 +1,13 @@
 window.onload = function () {
     const params = new URLSearchParams(window.location.search)
 
+    document.getElementById('nombre-proyecto').innerText = `${params.get(
+        'nombre-proyecto'
+    )}`
+
     document.getElementById(
         'datepicker-actions'
     ).innerText = `Fecha: ${params.get('datepicker-actions')}`
-
-    document.getElementById(
-        'nombre-proyecto'
-    ).innerText = `Nombre del proyecto: ${params.get('nombre-proyecto')}`
 
     document.getElementById('cliente').innerText = `Cliente: ${params.get(
         'cliente'

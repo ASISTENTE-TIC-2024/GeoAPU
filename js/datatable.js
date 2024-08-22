@@ -2,81 +2,36 @@ document.addEventListener('DOMContentLoaded', function () {
     const data = [
         {
             ID: 1,
-            CAPITULO: 'Excavación',
-            DESCRIPCION: 'Excavación, Conformación y Nivelación',
-            UNIDAD: 'm3',
+            CAPITULO: '1. Trabajos preliminares',
+            DESCRIPCION: 'Limpieza del area de trabajo',
+            UNIDAD: 'dias',
         },
 
         {
             ID: 2,
-            CAPITULO: 'ddddd',
-            DESCRIPCION: 'dddddd',
-            UNIDAD: 'ddd',
+            CAPITULO: '2. Excavación y movimiento de tierras',
+            DESCRIPCION: 'Excavación en zanjas para cimentación',
+            UNIDAD: 'm3',
         },
         {
-            ID: 1,
-            CAPITULO: 'Excavación',
-            DESCRIPCION: 'Excavación, Conformación y Nivelación',
+            ID: 3,
+            CAPITULO: '3. Cimentación',
+            DESCRIPCION: 'Cimentación corrida de concreto fc=150',
             UNIDAD: 'm3',
         },
 
         {
-            ID: 2,
-            CAPITULO: 'ddddd',
-            DESCRIPCION: 'dddddd',
-            UNIDAD: 'ddd',
+            ID: 4,
+            CAPITULO: '4. Estructura del reservorio',
+            DESCRIPCION: 'Escalera de acceso a la cisterna',
+            UNIDAD: 'und',
         },
         {
-            ID: 1,
-            CAPITULO: 'Excavación',
-            DESCRIPCION: 'Excavación, Conformación y Nivelación',
-            UNIDAD: 'm3',
-        },
-
-        {
-            ID: 2,
-            CAPITULO: 'ddddd',
-            DESCRIPCION: 'dddddd',
-            UNIDAD: 'ddd',
-        },
-        {
-            ID: 1,
-            CAPITULO: 'Excavación',
-            DESCRIPCION: 'Excavación, Conformación y Nivelación',
-            UNIDAD: 'm3',
-        },
-
-        {
-            ID: 2,
-            CAPITULO: 'ddddd',
-            DESCRIPCION: 'dddddd',
-            UNIDAD: 'ddd',
-        },
-        {
-            ID: 1,
-            CAPITULO: 'Excavación',
-            DESCRIPCION: 'Excavación, Conformación y Nivelación',
-            UNIDAD: 'm3',
-        },
-
-        {
-            ID: 2,
-            CAPITULO: 'ddddd',
-            DESCRIPCION: 'dddddd',
-            UNIDAD: 'ddd',
-        },
-        {
-            ID: 1,
-            CAPITULO: 'Excavación',
-            DESCRIPCION: 'Excavación, Conformación y Nivelación',
-            UNIDAD: 'm3',
-        },
-
-        {
-            ID: 2,
-            CAPITULO: 'ddddd',
-            DESCRIPCION: 'dddddd',
-            UNIDAD: 'ddd',
+            ID: 5,
+            CAPITULO: '5. Impermeabilización',
+            DESCRIPCION:
+                'Impermeabilización de cisterna con membrana asfáltica',
+            UNIDAD: 'm2',
         },
     ]
 
