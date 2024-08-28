@@ -47,9 +47,24 @@ function actualizarTablaEquipos() {
     tbody.innerHTML = ''
     datosEquipos.forEach((item) => {
         let tr = document.createElement('tr')
-        tr.innerHTML = `<td>${item.descripcion_equipos}</td><td>${item.marca_equipos}</td><td>${item.tipo_equipos}</td><td>${item.tarifa_dia_equipos}</td><td>${item.rendimiento_equipos}</td><td>${item.valor_unitario_equipos}</td><td>${item.incidencia_equipos}</td>`
+        tr.innerHTML = `<td>${item.descripcion_equipos}</td><td>${
+            item.marca_equipos
+        }</td><td>${item.tipo_equipos}</td><td>${
+            item.tarifa_dia_equipos
+        }</td><td>${item.rendimiento_equipos}</td><td>${
+            item.valor_unitario_equipos
+        }</td><td>${
+            item.incidencia_equipos
+        }</td><td><button onclick="eliminarElementoEquipos(${datosEquipos.indexOf(
+            item
+        )})"><i class="fa-solid fa-trash-can"></i></button></td>`
         tbody.appendChild(tr)
     })
+}
+
+function eliminarElementoEquipos(index) {
+    datosEquipos.splice(index, 1)
+    actualizarTablaEquipos()
 }
 
 document
@@ -59,9 +74,7 @@ document
             (sum, item) => sum + item.valor_unitario_equipos,
             0
         )
-        document.getElementById(
-            'resultadoEquipos'
-        ).textContent = `Total: ${total}`
+        document.getElementById('resultadoEquipos').textContent = `${total}`
     })
 
 /******************************* MATERIALES *******************************/
@@ -116,9 +129,24 @@ function actualizarTablaMateriales() {
     tbody.innerHTML = ''
     datosMateriales.forEach((item) => {
         let tr = document.createElement('tr')
-        tr.innerHTML = `<td>${item.descripcion_materiales}</td><td>${item.tipo_moneda_materiales}</td><td>${item.unidad_materiales}</td><td>${item.precio_unitario_materiales}</td><td>${item.rendimiento_materiales}</td><td>${item.valor_unitario_materiales}</td><td>${item.incidencia_materiales}</td>`
+        tr.innerHTML = `<td>${item.descripcion_materiales}</td><td>${
+            item.tipo_moneda_materiales
+        }</td><td>${item.unidad_materiales}</td><td>${
+            item.precio_unitario_materiales
+        }</td><td>${item.rendimiento_materiales}</td><td>${
+            item.valor_unitario_materiales
+        }</td><td>${
+            item.incidencia_materiales
+        }</td><td><button onclick="eliminarElementoMateriales(${datosMateriales.indexOf(
+            item
+        )})"><i class="fa-solid fa-trash-can"></i></button></td>`
         tbody.appendChild(tr)
     })
+}
+
+function eliminarElementoMateriales(index) {
+    datosMateriales.splice(index, 1)
+    actualizarTablaMateriales()
 }
 
 document
@@ -180,9 +208,24 @@ function actualizarTablaTransporte() {
     tbody.innerHTML = ''
     datosTransporte.forEach((item) => {
         let tr = document.createElement('tr')
-        tr.innerHTML = `<td>${item.descripcion_transporte}</td><td>${item.unidad_transporte}</td><td>${item.distancia_transporte}</td><td>${item.precio_unitario_transporte}</td><td>${item.rendimiento_transporte}</td><td>${item.valor_unitario_transporte}</td><td>${item.incidencia_transporte}</td>`
+        tr.innerHTML = `<td>${item.descripcion_transporte}</td><td>${
+            item.unidad_transporte
+        }</td><td>${item.distancia_transporte}</td><td>${
+            item.precio_unitario_transporte
+        }</td><td>${item.rendimiento_transporte}</td><td>${
+            item.valor_unitario_transporte
+        }</td><td>${
+            item.incidencia_transporte
+        }</td><td><button onclick="eliminarElementoTransporte(${datosTransporte.indexOf(
+            item
+        )})"><i class="fa-solid fa-trash-can"></i></button></td>`
         tbody.appendChild(tr)
     })
+}
+
+function eliminarElementoTransporte(index) {
+    datosTransporte.splice(index, 1)
+    actualizarTablaTransporte()
 }
 
 document
@@ -245,9 +288,24 @@ function actualizarTablaManoDeObra() {
     tbody.innerHTML = ''
     datosManoDeObra.forEach((item) => {
         let tr = document.createElement('tr')
-        tr.innerHTML = `<td>${item.trabajador_mano_de_obra}</td><td>${item.jornal_mano_de_obra}</td><td>${item.prestacion_mano_de_obra}</td><td>${item.jornal_total_mano_de_obra}</td><td>${item.rendimiento_mano_de_obra}</td><td>${item.valor_unitario_mano_de_obra}</td><td>${item.incidencia_mano_de_obra}</td>`
+        tr.innerHTML = `<td>${item.trabajador_mano_de_obra}</td><td>${
+            item.jornal_mano_de_obra
+        }</td><td>${item.prestacion_mano_de_obra}</td><td>${
+            item.jornal_total_mano_de_obra
+        }</td><td>${item.rendimiento_mano_de_obra}</td><td>${
+            item.valor_unitario_mano_de_obra
+        }</td><td>${
+            item.incidencia_mano_de_obra
+        }</td><td><button onclick="eliminarElementoManoDeObra(${datosManoDeObra.indexOf(
+            item
+        )})"><i class="fa-solid fa-trash-can"></i></button></td>`
         tbody.appendChild(tr)
     })
+}
+
+function eliminarElementoManoDeObra(index) {
+    datosManoDeObra.splice(index, 1)
+    actualizarTablaManoDeObra()
 }
 
 document
