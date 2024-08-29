@@ -51,7 +51,7 @@ function actualizarTablaEquipos() {
             item.marca_equipos
         }</td><td>${item.tipo_equipos}</td><td>${
             item.tarifa_dia_equipos
-        }</td><td>${item.rendimiento_equipos}</td><td>${
+        }</td><td>${item.rendimiento_equipos}</td><td>$ ${
             item.valor_unitario_equipos
         }</td><td>${
             item.incidencia_equipos
@@ -66,16 +66,6 @@ function eliminarElementoEquipos(index) {
     datosEquipos.splice(index, 1)
     actualizarTablaEquipos()
 }
-
-document
-    .getElementById('calcularEquipos')
-    .addEventListener('click', function () {
-        let total = datosEquipos.reduce(
-            (sum, item) => sum + item.valor_unitario_equipos,
-            0
-        )
-        document.getElementById('resultadoEquipos').textContent = `${total}`
-    })
 
 /******************************* MATERIALES *******************************/
 
@@ -131,9 +121,9 @@ function actualizarTablaMateriales() {
         let tr = document.createElement('tr')
         tr.innerHTML = `<td>${item.descripcion_materiales}</td><td>${
             item.tipo_moneda_materiales
-        }</td><td>${item.unidad_materiales}</td><td>${
+        }</td><td>${item.unidad_materiales}</td><td>$ ${
             item.precio_unitario_materiales
-        }</td><td>${item.rendimiento_materiales}</td><td>${
+        }</td><td>${item.rendimiento_materiales}</td><td>$ ${
             item.valor_unitario_materiales
         }</td><td>${
             item.incidencia_materiales
@@ -148,18 +138,6 @@ function eliminarElementoMateriales(index) {
     datosMateriales.splice(index, 1)
     actualizarTablaMateriales()
 }
-
-document
-    .getElementById('calcularMateriales')
-    .addEventListener('click', function () {
-        let total = datosMateriales.reduce(
-            (sum, item) => sum + item.valor_unitario_materiales,
-            0
-        )
-        document.getElementById(
-            'resultadoMateriales'
-        ).textContent = `Total: ${total}`
-    })
 
 /******************************* TRANSPORTE *******************************/
 
@@ -210,9 +188,9 @@ function actualizarTablaTransporte() {
         let tr = document.createElement('tr')
         tr.innerHTML = `<td>${item.descripcion_transporte}</td><td>${
             item.unidad_transporte
-        }</td><td>${item.distancia_transporte}</td><td>${
+        }</td><td>${item.distancia_transporte}</td><td>$ ${
             item.precio_unitario_transporte
-        }</td><td>${item.rendimiento_transporte}</td><td>${
+        }</td><td>${item.rendimiento_transporte}</td><td>$ ${
             item.valor_unitario_transporte
         }</td><td>${
             item.incidencia_transporte
@@ -227,18 +205,6 @@ function eliminarElementoTransporte(index) {
     datosTransporte.splice(index, 1)
     actualizarTablaTransporte()
 }
-
-document
-    .getElementById('calcularTransporte')
-    .addEventListener('click', function () {
-        let total = datosTransporte.reduce(
-            (sum, item) => sum + item.valor_unitario_transporte,
-            0
-        )
-        document.getElementById(
-            'resultadoTransporte'
-        ).textContent = `Total: ${total}`
-    })
 
 /******************************* MANO DE OBRA *******************************/
 
@@ -288,11 +254,11 @@ function actualizarTablaManoDeObra() {
     tbody.innerHTML = ''
     datosManoDeObra.forEach((item) => {
         let tr = document.createElement('tr')
-        tr.innerHTML = `<td>${item.trabajador_mano_de_obra}</td><td>${
+        tr.innerHTML = `<td>${item.trabajador_mano_de_obra}</td><td>$ ${
             item.jornal_mano_de_obra
-        }</td><td>${item.prestacion_mano_de_obra}</td><td>${
+        }</td><td>${item.prestacion_mano_de_obra}</td><td>$ ${
             item.jornal_total_mano_de_obra
-        }</td><td>${item.rendimiento_mano_de_obra}</td><td>${
+        }</td><td>${item.rendimiento_mano_de_obra}</td><td>$ ${
             item.valor_unitario_mano_de_obra
         }</td><td>${
             item.incidencia_mano_de_obra
@@ -308,14 +274,101 @@ function eliminarElementoManoDeObra(index) {
     actualizarTablaManoDeObra()
 }
 
-document
-    .getElementById('calcularManoDeObra')
-    .addEventListener('click', function () {
-        let total = datosManoDeObra.reduce(
-            (sum, item) => sum + item.valor_unitario_mano_de_obra,
-            0
-        )
-        document.getElementById(
-            'resultadoManoDeObra'
-        ).textContent = `Total: ${total}`
-    })
+/******************************* TOTAL *******************************/
+
+function calcularTotalGeneral() {
+    // Sumar los valores
+    let totalEquipos = datosEquipos.reduce(
+        (sum, item) => sum + item.valor_unitario_equipos,
+        0
+    )
+    // Sumar los valores
+    let totalMateriales = datosMateriales.reduce(
+        (sum, item) => sum + item.valor_unitario_materiales,
+        0
+    )
+    // Sumar los valores
+    let totalTransporte = datosTransporte.reduce(
+        (sum, item) => sum + item.valor_unitario_transporte,
+        0
+    )
+    // Sumar los valores
+    let totalManoDeObra = datosManoDeObra.reduce(
+        (sum, item) => sum + item.valor_unitario_mano_de_obra,
+        0
+    )
+
+    // Sumar todos los totales
+    let totalGeneral =
+        totalManoDeObra + totalEquipos + totalMateriales + totalTransporte
+
+    let administracion = totalGeneral * 0.13
+    let imprevistos = totalGeneral * 0.07
+    let utilidad = totalGeneral * 0.05
+
+    let totalGlobal = totalGeneral + administracion + imprevistos + utilidad
+
+    // Mostrar los sub-totales en el DOM con dos decimales
+    document.getElementById(
+        'resultadoEquipos'
+    ).textContent = `$ ${totalEquipos.toFixed(2)}`
+    document.getElementById(
+        'resultadoMateriales'
+    ).textContent = `$ ${totalMateriales.toFixed(2)}`
+    document.getElementById(
+        'resultadoTransporte'
+    ).textContent = `$ ${totalTransporte.toFixed(2)}`
+    document.getElementById(
+        'resultadoManoDeObra'
+    ).textContent = `$ ${totalManoDeObra.toFixed(2)}`
+
+    // Mostrar el resultado en un elemento del DOM con dos decimales
+    document.getElementById(
+        'resultadoTotalGeneral'
+    ).textContent = `$ ${totalGeneral.toFixed(2)}`
+    document.getElementById(
+        'administracion'
+    ).textContent = `$ ${administracion.toFixed(2)}`
+    document.getElementById(
+        'imprevistos'
+    ).textContent = `$ ${imprevistos.toFixed(2)}`
+    document.getElementById('utilidad').textContent = `$ ${utilidad.toFixed(2)}`
+    document.getElementById(
+        'totalGlobal'
+    ).textContent = `$ ${totalGlobal.toFixed(2)}`
+}
+
+// Agregar un event listener para calcular el total general cuando sea necesario
+// document
+//     .getElementById('calcularTotalGeneral')
+//     .addEventListener('click', calcularTotalGeneral)
+
+// Configurar el MutationObserver para observar cambios en el contenedor de filas
+const observer = new MutationObserver((mutationsList) => {
+    for (let mutation of mutationsList) {
+        if (mutation.type === 'childList') {
+            calcularTotalGeneral()
+        }
+    }
+})
+
+// Seleccionar el contenedor donde se agregan las filas
+const filaContenedorEquipos = document.getElementById('filaContenedorEquipos')
+const filaContenedorMateriales = document.getElementById(
+    'filaContenedorMateriales'
+)
+const filaContenedorTransporte = document.getElementById(
+    'filaContenedorTransporte'
+)
+const filaContenedorManoDeObra = document.getElementById(
+    'filaContenedorManoDeObra'
+)
+
+// Configurar el observer para observar cambios en los hijos del contenedor
+observer.observe(filaContenedorEquipos, { childList: true })
+observer.observe(filaContenedorMateriales, { childList: true })
+observer.observe(filaContenedorTransporte, { childList: true })
+observer.observe(filaContenedorManoDeObra, { childList: true })
+
+// Llamar a calcularTotalGeneral inicialmente para calcular el total al cargar la página
+calcularTotalGeneral()
