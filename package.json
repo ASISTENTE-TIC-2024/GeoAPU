@@ -1,22 +1,26 @@
 {
-  "name": "geoapu",
-  "version": "1.0.0",
-  "description": "Software para la automatizacion del calculo de APU",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build:css": "tailwindcss build styles/tailwind.css -o styles/styles.css"
-  },
-  "author": "Jesus Daniel Cuadro Dita",
-  "license": "MIT",
-  "devDependencies": {
-    "autoprefixer": "^10.4.20",
-    "postcss": "^8.4.41",
-    "postcss-cli": "^11.0.0",
-    "tailwindcss": "^3.4.9"
-  },
-  "dependencies": {
-    "datatables.net-dt": "^2.1.3",
-    "flowbite": "^2.5.1"
-  }
+    "name": "geoapu",
+    "version": "1.0.0",
+    "description": "Software para la automatizacion del calculo de APU",
+    "main": "index.js",
+    "type": "module",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "build:css": "tailwindcss build styles/tailwind.css -o styles/styles.css",
+        "start": "node db/server.js"
+    },
+    "author": "Jesus Daniel Cuadro Dita",
+    "license": "MIT",
+    "devDependencies": {
+        "autoprefixer": "^10.4.20",
+        "postcss": "^8.4.41",
+        "postcss-cli": "^11.0.0",
+        "tailwindcss": "^3.4.9"
+    },
+    "dependencies": {
+        "datatables.net-dt": "^2.1.3",
+        "express": "^4.19.2",
+        "flowbite": "^2.5.1",
+        "mysql2": "^3.11.0"
+    }
 }

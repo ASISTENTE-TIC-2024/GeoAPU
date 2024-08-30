@@ -45,8 +45,12 @@ document
 function actualizarTablaEquipos() {
     let tbody = document.querySelector('#dataTableEquipos tbody')
     tbody.innerHTML = ''
-    datosEquipos.forEach((item) => {
+    datosEquipos.forEach((item, index) => {
         let tr = document.createElement('tr')
+        tr.className =
+            index % 2 === 0
+                ? 'even:bg-gray-50 border-b'
+                : 'odd:bg-white even:bg-gray-50 border-b'
         tr.innerHTML = `<td>${item.descripcion_equipos}</td><td>${
             item.marca_equipos
         }</td><td>${item.tipo_equipos}</td><td>${
@@ -55,7 +59,7 @@ function actualizarTablaEquipos() {
             item.valor_unitario_equipos
         }</td><td>${
             item.incidencia_equipos
-        }</td><td><button onclick="eliminarElementoEquipos(${datosEquipos.indexOf(
+        }</td><td><button class="active:scale-90 transition-transform" onclick="eliminarElementoEquipos(${datosEquipos.indexOf(
             item
         )})"><i class="fa-solid fa-trash-can"></i></button></td>`
         tbody.appendChild(tr)
@@ -117,17 +121,21 @@ document
 function actualizarTablaMateriales() {
     let tbody = document.querySelector('#dataTableMateriales tbody')
     tbody.innerHTML = ''
-    datosMateriales.forEach((item) => {
+    datosMateriales.forEach((item, index) => {
         let tr = document.createElement('tr')
+        tr.className =
+            index % 2 === 0
+                ? 'even:bg-gray-50 border-b'
+                : 'odd:bg-white even:bg-gray-50 border-b'
         tr.innerHTML = `<td>${item.descripcion_materiales}</td><td>${
             item.tipo_moneda_materiales
-        }</td><td>${item.unidad_materiales}</td><td>$ ${
+        }</td><td>${item.unidad_materiales}</td><td>${
             item.precio_unitario_materiales
         }</td><td>${item.rendimiento_materiales}</td><td>$ ${
             item.valor_unitario_materiales
         }</td><td>${
             item.incidencia_materiales
-        }</td><td><button onclick="eliminarElementoMateriales(${datosMateriales.indexOf(
+        }</td><td><button class="active:scale-90 transition-transform" onclick="eliminarElementoMateriales(${datosMateriales.indexOf(
             item
         )})"><i class="fa-solid fa-trash-can"></i></button></td>`
         tbody.appendChild(tr)
@@ -184,8 +192,12 @@ document
 function actualizarTablaTransporte() {
     let tbody = document.querySelector('#dataTableTransporte tbody')
     tbody.innerHTML = ''
-    datosTransporte.forEach((item) => {
+    datosTransporte.forEach((item, index) => {
         let tr = document.createElement('tr')
+        tr.className =
+            index % 2 === 0
+                ? 'even:bg-gray-50 border-b'
+                : 'odd:bg-white even:bg-gray-50 border-b'
         tr.innerHTML = `<td>${item.descripcion_transporte}</td><td>${
             item.unidad_transporte
         }</td><td>${item.distancia_transporte}</td><td>$ ${
@@ -194,7 +206,7 @@ function actualizarTablaTransporte() {
             item.valor_unitario_transporte
         }</td><td>${
             item.incidencia_transporte
-        }</td><td><button onclick="eliminarElementoTransporte(${datosTransporte.indexOf(
+        }</td><td><button class="active:scale-90 transition-transform" onclick="eliminarElementoTransporte(${datosTransporte.indexOf(
             item
         )})"><i class="fa-solid fa-trash-can"></i></button></td>`
         tbody.appendChild(tr)
@@ -252,8 +264,12 @@ document
 function actualizarTablaManoDeObra() {
     let tbody = document.querySelector('#dataTableManoDeObra tbody')
     tbody.innerHTML = ''
-    datosManoDeObra.forEach((item) => {
+    datosManoDeObra.forEach((item, index) => {
         let tr = document.createElement('tr')
+        tr.className =
+            index % 2 === 0
+                ? 'even:bg-gray-50 border-b'
+                : 'odd:bg-white even:bg-gray-50 border-b'
         tr.innerHTML = `<td>${item.trabajador_mano_de_obra}</td><td>$ ${
             item.jornal_mano_de_obra
         }</td><td>${item.prestacion_mano_de_obra}</td><td>$ ${
@@ -262,7 +278,7 @@ function actualizarTablaManoDeObra() {
             item.valor_unitario_mano_de_obra
         }</td><td>${
             item.incidencia_mano_de_obra
-        }</td><td><button onclick="eliminarElementoManoDeObra(${datosManoDeObra.indexOf(
+        }</td><td><button class="active:scale-90 transition-transform" onclick="eliminarElementoManoDeObra(${datosManoDeObra.indexOf(
             item
         )})"><i class="fa-solid fa-trash-can"></i></button></td>`
         tbody.appendChild(tr)
