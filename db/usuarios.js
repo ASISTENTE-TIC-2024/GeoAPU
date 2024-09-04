@@ -40,6 +40,7 @@ function editUser(id_usuario, nombre_usuario, correo_usuario, contraseña, rol) 
 
 function closeModal() {
     document.getElementById('editModal').classList.add('hidden')
+    document.getElementById('addModal').classList.add('hidden')
 }
 
 document
@@ -76,6 +77,41 @@ document
             console.error('Error al actualizar al usuario:', error)
         }
     })
+
+document
+    .getElementById('addForm')
+    .addEventListener('submit', async function (event) {
+        event.preventDefault()
+        const nombre_usuario = document.getElementById('addUserName').value
+        const correo_usuario = document.getElementById('addUserEmail').value
+        const contraseña = document.getElementById('addUserPwd').value
+        const rol = document.getElementById('addUserRol').value
+
+        try {
+            const response = await fetch('http://localhost:5000/addUser', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    nombre_usuario: nombre_usuario,
+                    correo_usuario: correo_usuario,
+                    contraseña: contraseña,
+                    rol: rol,
+                }),
+            })
+            const data = await response.json()
+            console.log('Usuario agregado:', data)
+            closeModal()
+            fetchData() // Actualizar la tabla después de agregar
+        } catch (error) {
+            console.error('Error al agregar al usuario:', error)
+        }
+    })
+
+function openAddModal() {
+    document.getElementById('addModal').classList.remove('hidden')
+}
 
 function deleteUser(id_usuario, nombre_usuario) {
     // Implementar la lógica para eliminar el usuario

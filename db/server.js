@@ -62,3 +62,21 @@ app.delete('/deleteUser/:id_usuario', (req, res) => {
         return res.json({ message: 'Usuario eliminado correctamente' })
     })
 })
+
+app.post('/addUser', (req, res) => {
+    const { nombre_usuario, correo_usuario, contraseña, rol } = req.body
+
+    const query = `INSERT INTO usuarios (nombre_usuario, correo_usuario, contraseña, rol) VALUES (?, ?, ?, ?)`
+
+    db_con.query(
+        query,
+        [nombre_usuario, correo_usuario, contraseña, rol],
+        (err, result) => {
+            if (err) {
+                console.error('Error al agregar usuario:', err)
+                return res.status(500).send('Error al agregar usuario')
+            }
+            res.send({ message: 'Usuario agregado correctamente' })
+        }
+    )
+})

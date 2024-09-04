@@ -943,6 +943,12 @@
         >
             <div id="title-container" class="w-full block text-center">
                 <h1 class="text-6xl">Panel de Usuarios</h1>
+                <button
+                    class="bg-green-500 text-white px-4 py-2 rounded mt-10 w-80"
+                    onclick="openAddModal()"
+                >
+                    Agregar Usuario
+                </button>
             </div>
 
             <div
@@ -1060,7 +1066,74 @@
             </div>
         </div>
 
-        <!-- Modal -->
+        <!-- Modal para agregar usuario -->
+        <div
+            id="addModal"
+            class="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 hidden"
+        >
+            <div class="bg-white p-6 rounded-lg">
+                <h2 class="text-xl mb-4">Agregar Usuario</h2>
+                <form id="addForm">
+                    <div class="mb-4">
+                        <label for="addUserName" class="block text-gray-700"
+                            >Nombre:</label
+                        >
+                        <input
+                            type="text"
+                            id="addUserName"
+                            class="w-full px-3 py-2 border rounded"
+                        />
+                    </div>
+                    <div class="mb-4">
+                        <label for="addUserEmail" class="block text-gray-700"
+                            >Correo:</label
+                        >
+                        <input
+                            type="email"
+                            id="addUserEmail"
+                            class="w-full px-3 py-2 border rounded"
+                        />
+                    </div>
+                    <div class="mb-4">
+                        <label for="addUserPwd" class="block text-gray-700"
+                            >Contraseña:</label
+                        >
+                        <input
+                            type="password"
+                            id="addUserPwd"
+                            class="w-full px-3 py-2 border rounded"
+                        />
+                    </div>
+                    <div class="mb-4">
+                        <label for="addUserRol" class="block text-gray-700"
+                            >Rol:</label
+                        >
+                        <input
+                            type="number"
+                            id="addUserRol"
+                            class="w-full px-3 py-2 border rounded"
+                        />
+                    </div>
+                    <div class="flex justify-end">
+                        <button
+                            type="button"
+                            class="bg-gray-500 text-white px-4 py-2 rounded mr-2"
+                            onclick="closeModal()"
+                        >
+                            Cancelar
+                        </button>
+                        <button
+                            type="submit"
+                            class="bg-blue-500 text-white px-4 py-2 rounded"
+                        >
+                            Aceptar
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Modal para editar usuario-->
         <div
             id="editModal"
             class="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 hidden"
