@@ -16,9 +16,10 @@ async function fetchData() {
                 <td>${user.nombre_usuario}</td>
                 <td>${user.correo_usuario}</td>
                 <td>${user.contraseña}</td>
+                <td>${user.rol}</td>
                 <td>
-                    <button class="bg-yellow-500 text-white px-2 py-1 rounded" onclick="editUser(${user.id_usuario}, '${user.nombre_usuario}', '${user.correo_usuario}', '${user.contraseña}')">Editar</button>
-                    <button class="bg-red-500 text-white px-2 py-1 rounded" onclick="deleteUser(${user.id_usuario})">Eliminar</button>
+                    <button class="bg-yellow-500 text-white px-2 py-1 rounded" onclick="editUser(${user.id_usuario}, '${user.nombre_usuario}', '${user.correo_usuario}', '${user.contraseña}', '${user.rol}')">Editar</button>
+                    <button class="bg-red-500 text-white px-2 py-1 rounded" onclick="deleteUser(${user.id_usuario}, '${user.nombre_usuario}')">Eliminar</button>
                 </td>
             `
             dataTable.appendChild(row)
@@ -28,11 +29,12 @@ async function fetchData() {
     }
 }
 
-function editUser(id_usuario, nombre_usuario, correo_usuario, contraseña) {
+function editUser(id_usuario, nombre_usuario, correo_usuario, contraseña, rol) {
     document.getElementById('editUserId').value = id_usuario
     document.getElementById('editUserName').value = nombre_usuario
     document.getElementById('editUserEmail').value = correo_usuario
     document.getElementById('editUserPwd').value = contraseña
+    document.getElementById('editUserRol').value = rol
     document.getElementById('editModal').classList.remove('hidden')
 }
 
@@ -48,6 +50,7 @@ document
         const nombre_usuario = document.getElementById('editUserName').value
         const correo_usuario = document.getElementById('editUserEmail').value
         const contraseña = document.getElementById('editUserPwd').value
+        const rol = document.getElementById('editUserRol').value
 
         try {
             const response = await fetch(
@@ -61,6 +64,7 @@ document
                         nombre_usuario: nombre_usuario,
                         correo_usuario: correo_usuario,
                         contraseña: contraseña,
+                        rol: rol,
                     }),
                 }
             )
@@ -69,15 +73,15 @@ document
             closeModal()
             fetchData() // Actualizar la tabla después de editar
         } catch (error) {
-            console.error('Error updating user:', error)
+            console.error('Error al actualizar al usuario:', error)
         }
     })
 
-function deleteUser(id_usuario) {
+function deleteUser(id_usuario, nombre_usuario) {
     // Implementar la lógica para eliminar el usuario
     if (
         confirm(
-            `¿Está seguro de que desea eliminar el usuario con ID: ${id_usuario}?`
+            `¿Está seguro de que desea eliminar el usuario ${nombre_usuario}?`
         )
     ) {
         fetch(`http://localhost:5000/deleteUser/${id_usuario}`, {

@@ -8,7 +8,7 @@ const app = express()
 app.use(cors())
 
 // Middleware para parsear JSON
-app.use(express.json());
+app.use(express.json())
 
 app.listen(5000, () => {
     console.log(`El servidor está corriendo en el puerto 5000 ...`)
@@ -37,11 +37,12 @@ app.get('/selectData', (_, res) => {
 
 app.put('/updateUser/:id_usuario', (req, res) => {
     const { id_usuario } = req.params
-    const { nombre_usuario } = req.body
-    let updateQuery = `UPDATE usuarios SET nombre_usuario = ? WHERE id_usuario = ?`
+    const { nombre_usuario, correo_usuario, contraseña, rol } = req.body
+
+    let updateQuery = `UPDATE usuarios SET nombre_usuario = ?, correo_usuario = ?, contraseña = ?, rol = ? WHERE id_usuario = ?`
     db_con.query(
         updateQuery,
-        [nombre_usuario, id_usuario],
+        [nombre_usuario, correo_usuario, contraseña, rol, id_usuario],
         (error, results) => {
             if (error) throw error
 
