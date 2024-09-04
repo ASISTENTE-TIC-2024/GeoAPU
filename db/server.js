@@ -1,13 +1,20 @@
 import express from 'express'
+import cors from 'cors'
 import db_con from '../db/db.js'
 
 const app = express()
 
+// Configurar CORS
+app.use(cors())
+
+// Middleware para parsear JSON
+app.use(express.json());
+
 app.listen(5000, () => {
-    console.log(`El servidor esta corriendo en el puerto 5000 ...`)
+    console.log(`El servidor está corriendo en el puerto 5000 ...`)
 })
 
-app.get('/createDatabase', (_, res) => {
+app.get('/useData', (_, res) => {
     let useQuery = `USE geoapu`
     db_con.query(useQuery, (error) => {
         if (error) throw error
@@ -24,7 +31,33 @@ app.get('/selectData', (_, res) => {
         if (error) throw error
 
         console.log('Datos seleccionados:', results)
+        return res.json(results) // Devuelve los resultados como JSON
+    })
+})
 
-        return res.send(results)
+app.put('/updateUser/:id_usuario', (req, res) => {
+    const { id_usuario } = req.params
+    const { nombre_usuario } = req.body
+    let updateQuery = `UPDATE usuarios SET nombre_usuario = ? WHERE id_usuario = ?`
+    db_con.query(
+        updateQuery,
+        [nombre_usuario, id_usuario],
+        (error, results) => {
+            if (error) throw error
+
+            console.log('Usuario actualizado:', results)
+            return res.json({ message: 'Usuario actualizado correctamente' })
+        }
+    )
+})
+
+app.delete('/deleteUser/:id_usuario', (req, res) => {
+    const { id_usuario } = req.params
+    let deleteQuery = `DELETE FROM usuarios WHERE id_usuario = ?`
+    db_con.query(deleteQuery, [id_usuario], (error, results) => {
+        if (error) throw error
+
+        console.log('Usuario eliminado:', results)
+        return res.json({ message: 'Usuario eliminado correctamente' })
     })
 })
