@@ -1,19 +1,36 @@
 import express from 'express'
 import cors from 'cors'
+import multer from 'multer';
+import bodyParser from 'body-parser';
 import db_con from '../db/db.js'
+import routes from './routes/image.routes.js';
 
 const app = express()
+
+const upload = multer({ storage: multer.memoryStorage() });
+
+
+// Middleware to add getConnection to req object
+app.use((req, res, next) => {
+    req.getConnection = (callback) => {
+        db_con.getConnection(callback);
+    };
+    next();
+});
+
+
+// Configurar body-parser
+app.use(bodyParser.json());
 
 // Configurar CORS
 app.use(cors())
 
-// Middleware para parsear JSON
-app.use(express.json())
+app.use('/', routes);
 
-app.listen(5000, () => {
-    console.log(`El servidor está corriendo en el puerto 5000 ...`)
-})
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
+// useData - Usar la base de datos GeoAPU
 app.get('/useData', (_, res) => {
     let useQuery = `USE geoapu`
     db_con.query(useQuery, (error) => {
@@ -25,6 +42,7 @@ app.get('/useData', (_, res) => {
     })
 })
 
+// selectData - Seleccionar datos de la tabla usuarios
 app.get('/selectData', (_, res) => {
     let selectQuery = `SELECT * FROM usuarios`
     db_con.query(selectQuery, (error, results) => {
@@ -35,6 +53,7 @@ app.get('/selectData', (_, res) => {
     })
 })
 
+// updateData - Actualizar datos de la tabla usuarios
 app.put('/updateUser/:id_usuario', (req, res) => {
     const { id_usuario } = req.params
     const { nombre_usuario, correo_usuario, contraseña, rol } = req.body
@@ -52,6 +71,7 @@ app.put('/updateUser/:id_usuario', (req, res) => {
     )
 })
 
+// deleteData - Eliminar datos de la tabla usuarios
 app.delete('/deleteUser/:id_usuario', (req, res) => {
     const { id_usuario } = req.params
     let deleteQuery = `DELETE FROM usuarios WHERE id_usuario = ?`
@@ -63,20 +83,32 @@ app.delete('/deleteUser/:id_usuario', (req, res) => {
     })
 })
 
-app.post('/addUser', (req, res) => {
-    const { nombre_usuario, correo_usuario, contraseña, rol } = req.body
+// addData - Agregar datos a la tabla usuarios
 
-    const query = `INSERT INTO usuarios (nombre_usuario, correo_usuario, contraseña, rol) VALUES (?, ?, ?, ?)`
+// Obtener __dirname en módulos ES
+// const __filename = fileURLToPath(import.meta.url);
+// const __dirname = dirname(__filename);
+
+app.post('/addUser', upload.single('foto'), (req, res) => {
+
+    const { nombre_usuario, correo_usuario, contraseña, rol } = req.body;
+    const foto = req.file ? req.file.buffer.toString('base64') : null;
+
+    const query = `INSERT INTO usuarios (foto, nombre_usuario, correo_usuario, contraseña, rol) VALUES (?, ?, ?, ?, ?)`;
 
     db_con.query(
         query,
-        [nombre_usuario, correo_usuario, contraseña, rol],
+        [foto, nombre_usuario, correo_usuario, contraseña, rol],
         (err, result) => {
             if (err) {
-                console.error('Error al agregar usuario:', err)
-                return res.status(500).send('Error al agregar usuario')
+                console.error('Error al agregar usuario:', err);
+                return res.status(500).send('Error al agregar usuario');
             }
-            res.send({ message: 'Usuario agregado correctamente' })
+            res.send({ message: 'Usuario agregado correctamente' });
         }
-    )
+    );
+});
+
+app.listen(5000, () => {
+    console.log(`El servidor está corriendo en el puerto 5000 ...`)
 })

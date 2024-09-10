@@ -5,10 +5,14 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>GeoAPU</title>
         <script src="https://cdn.tailwindcss.com"></script>
+        <link rel="stylesheet" href="../styles/pagination.css" />
         <link rel="icon" href="../img/icono geo.ico" type="image/png" />
     </head>
+
     <body>
         <div class="h-full w-full">
+            <!-- Code block starts -->
+            <!--- more free and premium Tailwind CSS components at https://tailwinduikit.com/ --->
             <nav
                 role="navigation"
                 class="bg-white shadow xl:block hidden fixed w-full z-50"
@@ -649,6 +653,7 @@
                 <!--Mobile responsive sidebar-->
                 <div
                     class="absolute w-full h-full transform -translate-x-full z-40 xl:hidden"
+                    style="transform: translateX(0px); position: fixed"
                     id="mobile-nav"
                 >
                     <div
@@ -937,315 +942,437 @@
 
             <!-- Code block ends -->
         </div>
-        <div
-            id="content-container"
-            class="w-full relative top-[110px] block flex flex-col"
-        >
-            <div id="title-container" class="w-full block text-center">
-                <h1 class="text-6xl">Panel de Usuarios</h1>
-                <button
-                    class="bg-green-500 text-white px-4 py-2 rounded mt-10 w-80"
-                    onclick="openAddModal()"
-                >
-                    Agregar Usuario
+
+        <div id="content-container">
+            <section>
+                <div class="p-10">
+                    <h1 class="text-4xl font-bold text-gray-800">
+                        GENERADOR DE ANALISIS DE PRECIOS UNITARIOS
+                    </h1>
+                    <p class="text-gray-600 mt-4">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                        Accusamus deserunt quas aspernatur consequuntur. Aut eos
+                        ipsa est cumque recusandae, voluptatem id dolorem iusto
+                        repellat eaque ducimus praesentium! Quasi, fuga omnis!
+                    </p>
+                </div>
+            </section>
+
+            <div class="projects">
+                <ul class="page">
+                    <li class="rounded-lg">
+                        <div class="image-container">
+                            <img
+                                class="object-cover h-full w-full"
+                                src="https://i.imgur.com/LPdpeGn.jpg"
+                                alt=""
+                            />
+                        </div>
+                        <div class="text-container">
+                            <h1 id="title" class="text-2xl">Reservorios</h1>
+                            <p id="description" class="text-sm text-gray-400">
+                                Lorem ipsum dolor sit amet consectetur
+                                adipisicing elit. Accusamus deserunt quas
+                                aspernatur consequuntur. Aut eos ipsa est cumque
+                                recusandae, voluptatem id dolorem iusto repellat
+                                eaque ducimus praesentium! Quasi, fuga omnis!
+                            </p>
+                            <button
+                                id="generar apu"
+                                class="focus:ring-2 focus:ring-offset-2 focus:ring-pink-700 focus:text-black-700 focus:outline-none bg-gray-100 border-gray-300 border transition duration-150 ease-in-out hover:bg-gray-300 rounded text-gray-600 px-5 py-2 text-xs"
+                                onclick="window.location.href='../pages/informacion.html'"
+                            >
+                                CONTINUAR ->
+                            </button>
+                        </div>
+                    </li>
+                    <li class="rounded-lg">
+                        <div class="image-container">
+                            <img
+                                class="object-cover h-full w-full"
+                                src="https://geopolimerossas.com/wp-content/uploads/2022/02/geo5-2048x962.jpg"
+                                alt=""
+                            />
+                        </div>
+                        <div class="text-container">
+                            <h1 id="title" class="text-2xl">Acuicultivos</h1>
+                            <p id="description" class="text-sm text-gray-400">
+                                Lorem ipsum dolor sit amet consectetur
+                                adipisicing elit. Accusamus deserunt quas
+                                aspernatur consequuntur. Aut eos ipsa est cumque
+                                recusandae, voluptatem id dolorem iusto repellat
+                                eaque ducimus praesentium! Quasi, fuga omnis!
+                            </p>
+                            <button
+                                id="generar apu"
+                                class="focus:ring-2 focus:ring-offset-2 focus:ring-pink-700 focus:text-black-700 focus:outline-none bg-gray-100 border-gray-300 border transition duration-150 ease-in-out hover:bg-gray-300 rounded text-gray-600 px-5 py-2 text-xs"
+                            >
+                                CONTINUAR ->
+                            </button>
+                        </div>
+                    </li>
+                    <li class="rounded-lg">
+                        <div class="image-container">
+                            <img
+                                class="object-cover h-full"
+                                src="https://geopolimerossas.com/wp-content/uploads/2023/03/pis1.jpg"
+                                alt=""
+                            />
+                        </div>
+                        <div class="text-container">
+                            <h1 id="title" class="text-2xl">Piscinas</h1>
+                            <p id="description" class="text-sm text-gray-400">
+                                Lorem ipsum dolor sit amet consectetur
+                                adipisicing elit. Accusamus deserunt quas
+                                aspernatur consequuntur. Aut eos ipsa est cumque
+                                recusandae, voluptatem id dolorem iusto repellat
+                                eaque ducimus praesentium! Quasi, fuga omnis!
+                            </p>
+                            <button
+                                id="generar apu"
+                                class="focus:ring-2 focus:ring-offset-2 focus:ring-pink-700 focus:text-black-700 focus:outline-none bg-gray-100 border-gray-300 border transition duration-150 ease-in-out hover:bg-gray-300 rounded text-gray-600 px-5 py-2 text-xs"
+                            >
+                                CONTINUAR ->
+                            </button>
+                        </div>
+                    </li>
+                </ul>
+                <!-- Page 1 -->
+
+                <ul class="page">
+                    <li class="rounded-lg">
+                        <div class="image-container">
+                            <img
+                                class="object-cover h-full w-full"
+                                src="https://i.imgur.com/LPdpeGn.jpg"
+                                alt=""
+                            />
+                        </div>
+                        <div class="text-container">
+                            <h1 id="title" class="text-2xl">Reservorios</h1>
+                            <p id="description" class="text-sm text-gray-400">
+                                Lorem ipsum dolor sit amet consectetur
+                                adipisicing elit. Accusamus deserunt quas
+                                aspernatur consequuntur. Aut eos ipsa est cumque
+                                recusandae, voluptatem id dolorem iusto repellat
+                                eaque ducimus praesentium! Quasi, fuga omnis!
+                            </p>
+                            <button
+                                id="generar apu"
+                                class="focus:ring-2 focus:ring-offset-2 focus:ring-pink-700 focus:text-black-700 focus:outline-none bg-gray-100 border-gray-300 border transition duration-150 ease-in-out hover:bg-gray-300 rounded text-gray-600 px-5 py-2 text-xs"
+                            >
+                                CONTINUAR ->
+                            </button>
+                        </div>
+                    </li>
+                    <li class="rounded-lg">
+                        <div class="image-container">
+                            <img
+                                class="object-cover h-full w-full"
+                                src="https://i.imgur.com/LPdpeGn.jpg"
+                                alt=""
+                            />
+                        </div>
+                        <div class="text-container">
+                            <h1 id="title" class="text-2xl">Reservorios</h1>
+                            <p id="description" class="text-sm text-gray-400">
+                                Lorem ipsum dolor sit amet consectetur
+                                adipisicing elit. Accusamus deserunt quas
+                                aspernatur consequuntur. Aut eos ipsa est cumque
+                                recusandae, voluptatem id dolorem iusto repellat
+                                eaque ducimus praesentium! Quasi, fuga omnis!
+                            </p>
+                            <button
+                                id="generar apu"
+                                class="focus:ring-2 focus:ring-offset-2 focus:ring-pink-700 focus:text-black-700 focus:outline-none bg-gray-100 border-gray-300 border transition duration-150 ease-in-out hover:bg-gray-300 rounded text-gray-600 px-5 py-2 text-xs"
+                            >
+                                CONTINUAR ->
+                            </button>
+                        </div>
+                    </li>
+                    <li class="rounded-lg">
+                        <div class="image-container">
+                            <img
+                                class="object-cover h-full w-full"
+                                src="https://i.imgur.com/LPdpeGn.jpg"
+                                alt=""
+                            />
+                        </div>
+                        <div class="text-container">
+                            <h1 id="title" class="text-2xl">Reservorios</h1>
+                            <p id="description" class="text-sm text-gray-400">
+                                Lorem ipsum dolor sit amet consectetur
+                                adipisicing elit. Accusamus deserunt quas
+                                aspernatur consequuntur. Aut eos ipsa est cumque
+                                recusandae, voluptatem id dolorem iusto repellat
+                                eaque ducimus praesentium! Quasi, fuga omnis!
+                            </p>
+                            <button
+                                id="generar apu"
+                                class="focus:ring-2 focus:ring-offset-2 focus:ring-pink-700 focus:text-black-700 focus:outline-none bg-gray-100 border-gray-300 border transition duration-150 ease-in-out hover:bg-gray-300 rounded text-gray-600 px-5 py-2 text-xs"
+                            >
+                                CONTINUAR ->
+                            </button>
+                        </div>
+                    </li>
+                </ul>
+                <!-- Page 2 -->
+
+                <ul class="page">
+                    <li class="rounded-lg">
+                        <div class="image-container">
+                            <img
+                                class="object-cover h-full w-full"
+                                src="https://i.imgur.com/LPdpeGn.jpg"
+                                alt=""
+                            />
+                        </div>
+                        <div class="text-container">
+                            <h1 id="title" class="text-2xl">Reservorios</h1>
+                            <p id="description" class="text-sm text-gray-400">
+                                Lorem ipsum dolor sit amet consectetur
+                                adipisicing elit. Accusamus deserunt quas
+                                aspernatur consequuntur. Aut eos ipsa est cumque
+                                recusandae, voluptatem id dolorem iusto repellat
+                                eaque ducimus praesentium! Quasi, fuga omnis!
+                            </p>
+                            <button
+                                id="generar apu"
+                                class="focus:ring-2 focus:ring-offset-2 focus:ring-pink-700 focus:text-black-700 focus:outline-none bg-gray-100 border-gray-300 border transition duration-150 ease-in-out hover:bg-gray-300 rounded text-gray-600 px-5 py-2 text-xs"
+                            >
+                                CONTINUAR ->
+                            </button>
+                        </div>
+                    </li>
+                    <li class="rounded-lg">
+                        <div class="image-container">
+                            <img
+                                class="object-cover h-full w-full"
+                                src="https://i.imgur.com/LPdpeGn.jpg"
+                                alt=""
+                            />
+                        </div>
+                        <div class="text-container">
+                            <h1 id="title" class="text-2xl">Reservorios</h1>
+                            <p id="description" class="text-sm text-gray-400">
+                                Lorem ipsum dolor sit amet consectetur
+                                adipisicing elit. Accusamus deserunt quas
+                                aspernatur consequuntur. Aut eos ipsa est cumque
+                                recusandae, voluptatem id dolorem iusto repellat
+                                eaque ducimus praesentium! Quasi, fuga omnis!
+                            </p>
+                            <button
+                                id="generar apu"
+                                class="focus:ring-2 focus:ring-offset-2 focus:ring-pink-700 focus:text-black-700 focus:outline-none bg-gray-100 border-gray-300 border transition duration-150 ease-in-out hover:bg-gray-300 rounded text-gray-600 px-5 py-2 text-xs"
+                            >
+                                CONTINUAR ->
+                            </button>
+                        </div>
+                    </li>
+                    <li class="rounded-lg">
+                        <div class="image-container">
+                            <img
+                                class="object-cover h-full w-full"
+                                src="https://i.imgur.com/LPdpeGn.jpg"
+                                alt=""
+                            />
+                        </div>
+                        <div class="text-container">
+                            <h1 id="title" class="text-2xl">Reservorios</h1>
+                            <p id="description" class="text-sm text-gray-400">
+                                Lorem ipsum dolor sit amet consectetur
+                                adipisicing elit. Accusamus deserunt quas
+                                aspernatur consequuntur. Aut eos ipsa est cumque
+                                recusandae, voluptatem id dolorem iusto repellat
+                                eaque ducimus praesentium! Quasi, fuga omnis!
+                            </p>
+                            <button
+                                id="generar apu"
+                                class="focus:ring-2 focus:ring-offset-2 focus:ring-pink-700 focus:text-black-700 focus:outline-none bg-gray-100 border-gray-300 border transition duration-150 ease-in-out hover:bg-gray-300 rounded text-gray-600 px-5 py-2 text-xs"
+                            >
+                                CONTINUAR ->
+                            </button>
+                        </div>
+                    </li>
+                </ul>
+                <!-- Page 3 -->
+
+                <ul class="page">
+                    <li class="rounded-lg">
+                        <div class="image-container">
+                            <img
+                                class="object-cover h-full w-full"
+                                src="https://i.imgur.com/LPdpeGn.jpg"
+                                alt=""
+                            />
+                        </div>
+                        <div class="text-container">
+                            <h1 id="title" class="text-2xl">Reservorios</h1>
+                            <p id="description" class="text-sm text-gray-400">
+                                Lorem ipsum dolor sit amet consectetur
+                                adipisicing elit. Accusamus deserunt quas
+                                aspernatur consequuntur. Aut eos ipsa est cumque
+                                recusandae, voluptatem id dolorem iusto repellat
+                                eaque ducimus praesentium! Quasi, fuga omnis!
+                            </p>
+                            <button
+                                id="generar apu"
+                                class="focus:ring-2 focus:ring-offset-2 focus:ring-pink-700 focus:text-black-700 focus:outline-none bg-gray-100 border-gray-300 border transition duration-150 ease-in-out hover:bg-gray-300 rounded text-gray-600 px-5 py-2 text-xs"
+                            >
+                                CONTINUAR ->
+                            </button>
+                        </div>
+                    </li>
+                    <li class="rounded-lg">
+                        <div class="image-container">
+                            <img
+                                class="object-cover h-full w-full"
+                                src="https://i.imgur.com/LPdpeGn.jpg"
+                                alt=""
+                            />
+                        </div>
+                        <div class="text-container">
+                            <h1 id="title" class="text-2xl">Reservorios</h1>
+                            <p id="description" class="text-sm text-gray-400">
+                                Lorem ipsum dolor sit amet consectetur
+                                adipisicing elit. Accusamus deserunt quas
+                                aspernatur consequuntur. Aut eos ipsa est cumque
+                                recusandae, voluptatem id dolorem iusto repellat
+                                eaque ducimus praesentium! Quasi, fuga omnis!
+                            </p>
+                            <button
+                                id="generar apu"
+                                class="focus:ring-2 focus:ring-offset-2 focus:ring-pink-700 focus:text-black-700 focus:outline-none bg-gray-100 border-gray-300 border transition duration-150 ease-in-out hover:bg-gray-300 rounded text-gray-600 px-5 py-2 text-xs"
+                            >
+                                CONTINUAR ->
+                            </button>
+                        </div>
+                    </li>
+                    <li class="rounded-lg">
+                        <div class="image-container">
+                            <img
+                                class="object-cover h-full w-full"
+                                src="https://i.imgur.com/LPdpeGn.jpg"
+                                alt=""
+                            />
+                        </div>
+                        <div class="text-container">
+                            <h1 id="title" class="text-2xl">Reservorios</h1>
+                            <p id="description" class="text-sm text-gray-400">
+                                Lorem ipsum dolor sit amet consectetur
+                                adipisicing elit. Accusamus deserunt quas
+                                aspernatur consequuntur. Aut eos ipsa est cumque
+                                recusandae, voluptatem id dolorem iusto repellat
+                                eaque ducimus praesentium! Quasi, fuga omnis!
+                            </p>
+                            <button
+                                id="generar apu"
+                                class="focus:ring-2 focus:ring-offset-2 focus:ring-pink-700 focus:text-black-700 focus:outline-none bg-gray-100 border-gray-300 border transition duration-150 ease-in-out hover:bg-gray-300 rounded text-gray-600 px-5 py-2 text-xs"
+                            >
+                                CONTINUAR ->
+                            </button>
+                        </div>
+                    </li>
+                </ul>
+                <!-- Page 4 -->
+
+                <ul class="page">
+                    <li class="rounded-lg">
+                        <div class="image-container">
+                            <img
+                                class="object-cover h-full w-full"
+                                src="https://i.imgur.com/LPdpeGn.jpg"
+                                alt=""
+                            />
+                        </div>
+                        <div class="text-container">
+                            <h1 id="title" class="text-2xl">Reservorios</h1>
+                            <p id="description" class="text-sm text-gray-400">
+                                Lorem ipsum dolor sit amet consectetur
+                                adipisicing elit. Accusamus deserunt quas
+                                aspernatur consequuntur. Aut eos ipsa est cumque
+                                recusandae, voluptatem id dolorem iusto repellat
+                                eaque ducimus praesentium! Quasi, fuga omnis!
+                            </p>
+                            <button
+                                id="generar apu"
+                                class="focus:ring-2 focus:ring-offset-2 focus:ring-pink-700 focus:text-black-700 focus:outline-none bg-gray-100 border-gray-300 border transition duration-150 ease-in-out hover:bg-gray-300 rounded text-gray-600 px-5 py-2 text-xs"
+                            >
+                                CONTINUAR ->
+                            </button>
+                        </div>
+                    </li>
+                    <li class="rounded-lg">
+                        <div class="image-container">
+                            <img
+                                class="object-cover h-full w-full"
+                                src="https://i.imgur.com/LPdpeGn.jpg"
+                                alt=""
+                            />
+                        </div>
+                        <div class="text-container">
+                            <h1 id="title" class="text-2xl">Reservorios</h1>
+                            <p id="description" class="text-sm text-gray-400">
+                                Lorem ipsum dolor sit amet consectetur
+                                adipisicing elit. Accusamus deserunt quas
+                                aspernatur consequuntur. Aut eos ipsa est cumque
+                                recusandae, voluptatem id dolorem iusto repellat
+                                eaque ducimus praesentium! Quasi, fuga omnis!
+                            </p>
+                            <button
+                                id="generar apu"
+                                class="focus:ring-2 focus:ring-offset-2 focus:ring-pink-700 focus:text-black-700 focus:outline-none bg-gray-100 border-gray-300 border transition duration-150 ease-in-out hover:bg-gray-300 rounded text-gray-600 px-5 py-2 text-xs"
+                            >
+                                CONTINUAR ->
+                            </button>
+                        </div>
+                    </li>
+                    <li class="rounded-lg">
+                        <div class="image-container">
+                            <img
+                                class="object-cover h-full w-full"
+                                src="https://i.imgur.com/LPdpeGn.jpg"
+                                alt=""
+                            />
+                        </div>
+                        <div class="text-container">
+                            <h1 id="title" class="text-2xl">Reservorios</h1>
+                            <p id="description" class="text-sm text-gray-400">
+                                Lorem ipsum dolor sit amet consectetur
+                                adipisicing elit. Accusamus deserunt quas
+                                aspernatur consequuntur. Aut eos ipsa est cumque
+                                recusandae, voluptatem id dolorem iusto repellat
+                                eaque ducimus praesentium! Quasi, fuga omnis!
+                            </p>
+                            <button
+                                id="generar apu"
+                                class="focus:ring-2 focus:ring-offset-2 focus:ring-pink-700 focus:text-black-700 focus:outline-none bg-gray-100 border-gray-300 border transition duration-150 ease-in-out hover:bg-gray-300 rounded text-gray-600 px-5 py-2 text-xs"
+                            >
+                                CONTINUAR ->
+                            </button>
+                        </div>
+                    </li>
+                </ul>
+                <!-- Page 5 -->
+            </div>
+            <div class="pagination">
+                <button class="arrow" id="prevPage" disabled>
+                    ← <span class="nav-text">ANTERIOR</span>
+                </button>
+                <div class="pages">
+                    <div class="page-number active">1</div>
+                    <div class="page-number">2</div>
+                    <div class="page-number">3</div>
+                    <div class="page-number">4</div>
+                    <div class="page-number">5</div>
+                </div>
+                <button class="arrow" id="nextPage">
+                    <span class="nav-text">SIGUIENTE</span> →
                 </button>
             </div>
 
-            <div
-                class="table-container mx-10 overflow-x-auto"
-                style="position: relative; top: 100px"
-            >
-                <table class="min-w-full bg-white border">
-                    <thead class="bg-sky-500">
-                        <tr>
-                            <th class="py-2 p-2" onclick="sortTable(0)">
-                                <div class="flex items-center text-gray-50">
-                                    ID
-                                    <a href="#"
-                                        ><svg
-                                            class="w-3 h-3 ms-1.5"
-                                            aria-hidden="true"
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            fill="currentColor"
-                                            viewBox="0 0 24 24"
-                                            color="white"
-                                        >
-                                            <path
-                                                d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z"
-                                            ></path>
-                                        </svg>
-                                    </a>
-                                </div>
-                            </th>
-                            <th class="py-2 p-2" onclick="sortTable(1)">
-                                <div class="flex items-center text-gray-50">
-                                    NOMBRE
-                                    <a href="#"
-                                        ><svg
-                                            class="w-3 h-3 ms-1.5"
-                                            aria-hidden="true"
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            fill="currentColor"
-                                            viewBox="0 0 24 24"
-                                            color="white"
-                                        >
-                                            <path
-                                                d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z"
-                                            ></path>
-                                        </svg>
-                                    </a>
-                                </div>
-                            </th>
-                            <th class="py-2 p-2" onclick="sortTable(2)">
-                                <div class="flex items-center text-gray-50">
-                                    CORREO
-                                    <a href="#"
-                                        ><svg
-                                            class="w-3 h-3 ms-1.5"
-                                            aria-hidden="true"
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            fill="currentColor"
-                                            viewBox="0 0 24 24"
-                                            color="white"
-                                        >
-                                            <path
-                                                d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z"
-                                            ></path>
-                                        </svg>
-                                    </a>
-                                </div>
-                            </th>
-                            <th class="py-2 p-2" onclick="sortTable(3)">
-                                <div class="flex items-center text-gray-50">
-                                    CONTRASEÑA
-                                    <a href="#"
-                                        ><svg
-                                            class="w-3 h-3 ms-1.5"
-                                            aria-hidden="true"
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            fill="currentColor"
-                                            viewBox="0 0 24 24"
-                                            color="white"
-                                        >
-                                            <path
-                                                d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z"
-                                            ></path>
-                                        </svg>
-                                    </a>
-                                </div>
-                            </th>
-
-                            <th class="py-2 p-2" onclick="sortTable(4)">
-                                <div class="flex items-center text-gray-50">
-                                    ROL
-                                    <a href="#"
-                                        ><svg
-                                            class="w-3 h-3 ms-1.5"
-                                            aria-hidden="true"
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            fill="currentColor"
-                                            viewBox="0 0 24 24"
-                                            color="white"
-                                        >
-                                            <path
-                                                d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z"
-                                            ></path>
-                                        </svg>
-                                    </a>
-                                </div>
-                            </th>
-                            <th class="py-2 p-2" onclick="sortTable(5)">
-                                <div class="flex items-center text-gray-50">
-                                    ACCIONES
-                                </div>
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody id="data-table"></tbody>
-                </table>
-            </div>
+            <script src="../js/nav.js"></script>
+            <script src="../js/pagination.js"></script>
         </div>
-
-        <!-- Modal para agregar usuario -->
-        <div
-            id="addModal"
-            class="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 hidden"
-        >
-            <div class="bg-white p-6 rounded-lg">
-                <h2 class="text-xl mb-4">Agregar Usuario</h2>
-                <form id="addForm">
-                    <div class="mb-4">
-                        <label for="addUserName" class="block text-gray-700"
-                            >Nombre:</label
-                        >
-                        <input
-                            type="text"
-                            id="addUserName"
-                            class="w-full px-3 py-2 border rounded"
-                        />
-                    </div>
-                    <div class="mb-4">
-                        <label for="addUserEmail" class="block text-gray-700"
-                            >Correo:</label
-                        >
-                        <input
-                            type="email"
-                            id="addUserEmail"
-                            class="w-full px-3 py-2 border rounded"
-                        />
-                    </div>
-                    <div class="mb-4">
-                        <label for="addUserPwd" class="block text-gray-700"
-                            >Contraseña:</label
-                        >
-                        <input
-                            type="password"
-                            id="addUserPwd"
-                            class="w-full px-3 py-2 border rounded"
-                        />
-                    </div>
-                    <div class="mb-4">
-                        <label for="addUserRol" class="block text-gray-700"
-                            >Rol:</label
-                        >
-                        <input
-                            type="number"
-                            id="addUserRol"
-                            class="w-full px-3 py-2 border rounded"
-                        />
-                    </div>
-                    <div class="flex justify-end">
-                        <button
-                            type="button"
-                            class="bg-gray-500 text-white px-4 py-2 rounded mr-2"
-                            onclick="closeModal()"
-                        >
-                            Cancelar
-                        </button>
-                        <button
-                            type="submit"
-                            class="bg-blue-500 text-white px-4 py-2 rounded"
-                        >
-                            Aceptar
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
-
-        <!-- Modal para editar usuario-->
-        <div
-            id="editModal"
-            class="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 hidden"
-        >
-            <div class="bg-white p-6 rounded-lg w-[40em]">
-                <h2 class="text-xl mb-4">Editar Usuario</h2>
-                <form id="editForm">
-                    <input type="hidden" id="editUserId" />
-                    <div class="mb-4">
-                        <label for="editUserName" class="block text-gray-700"
-                            >Nombre:</label
-                        >
-                        <input
-                            type="text"
-                            id="editUserName"
-                            class="w-full px-3 py-2 border rounded"
-                        />
-                        <label for="editUserEmail" class="block text-gray-700"
-                            >Correo:</label
-                        >
-                        <input
-                            type="text"
-                            id="editUserEmail"
-                            class="w-full px-3 py-2 border rounded"
-                        />
-                        <label for="editUserPwd" class="block text-gray-700"
-                            >Contraseña:</label
-                        >
-
-                        <div class="relative">
-                            <input
-                                id="editUserPwd"
-                                type="password"
-                                class="py-3 px-4 block w-full border rounded border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
-                            />
-                            <button
-                                id="editUserPwdIcon"
-                                type="button"
-                                class="absolute inset-y-0 end-0 flex items-center z-20 px-3 cursor-pointer text-gray-400 rounded-e-md focus:outline-none focus:text-blue-600"
-                            >
-                                <svg
-                                    class="shrink-0 size-3.5"
-                                    width="24"
-                                    height="24"
-                                    viewBox="0 0 24 24"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    stroke-width="2"
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                >
-                                    <path
-                                        class="editUserPwd:hidden"
-                                        d="M9.88 9.88a3 3 0 1 0 4.24 4.24"
-                                    ></path>
-                                    <path
-                                        class="editUserPwd:hidden"
-                                        d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"
-                                    ></path>
-                                    <path
-                                        class="editUserPwd:hidden"
-                                        d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"
-                                    ></path>
-                                    <line
-                                        class="editUserPwd:hidden"
-                                        x1="2"
-                                        x2="22"
-                                        y1="2"
-                                        y2="22"
-                                    ></line>
-                                    <path
-                                        class="hidden editUserPwd:block"
-                                        d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"
-                                    ></path>
-                                    <circle
-                                        class="hidden editUserPwd:block"
-                                        cx="12"
-                                        cy="12"
-                                        r="3"
-                                    ></circle>
-                                </svg>
-                            </button>
-                        </div>
-                        <label for="editUserRol" class="block text-gray-700"
-                            >Rol:</label
-                        >
-                        <input
-                            type="number"
-                            id="editUserRol"
-                            class="w-full px-3 py-2 border rounded"
-                        />
-                    </div>
-                    <div class="flex justify-end">
-                        <button
-                            type="button"
-                            class="bg-gray-500 text-white px-4 py-2 rounded mr-2"
-                            onclick="closeModal()"
-                        >
-                            Cancelar
-                        </button>
-                        <button
-                            type="submit"
-                            class="bg-blue-500 text-white px-4 py-2 rounded"
-                        >
-                            Aceptar
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
-
-        <script src="../js/nav.js"></script>
-        <script src="../db/usuarios.js"></script>
     </body>
 </html>

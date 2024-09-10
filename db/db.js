@@ -1,18 +1,22 @@
-import mysql2 from 'mysql2'
+import mysql2 from 'mysql2';
 
-const db_con = mysql2.createConnection({
+const db_con = mysql2.createPool({
     host: 'localhost',
     user: 'root',
-    password: 'GeopolimMySQL2024*', // Asegúrate de reemplazar 'your_password' con tu contraseña real
+    password: 'GeopolimMySQL2024*',
     database: 'geoapu',
-})
+    waitForConnections: true,
+    connectionLimit: 10,
+    queueLimit: 0
+});
 
-db_con.connect((err) => {
+db_con.getConnection((err, connection) => {
     if (err) {
-        console.log('La conexión con la base de datos falló !!!', err)
-    } else {
-        console.log('Conectado con la base de datos !!!')
+        console.error('Error connecting to the database:', err);
+        return;
     }
-})
+    console.log('Connected to the database');
+    connection.release();
+});
 
-export default db_con
+export default db_con;
