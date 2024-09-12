@@ -5,26 +5,27 @@ async function fetchData() {
         const response = await fetch('http://localhost:5000/selectData')
         const data = await response.json()
 
-        console.log(data)
+        console.log(JSON.stringify(data))
+
         // Aquí puedes actualizar tu tabla con los datos recibidos
         const dataTable = document.getElementById('data-table')
+
         dataTable.innerHTML = '' // Limpiar la tabla antes de agregar nuevos datos
         data.forEach((user) => {
             const row = document.createElement('tr')
             row.innerHTML = `
                 <td>${user.id_usuario}</td>
                 <td>
-                    <img src="${user.foto
-                }" alt="Foto de perfil" width="50" height="50">
+                    <img src="${user.foto_usuario}" alt="Foto de perfil" width="50" height="50">
                 </td>
                 <td>${user.nombre_usuario}</td>
                 <td>${user.correo_usuario}</td>
-                <td>${'•'.repeat(user.contraseña.length)}</td>
-                <td>${user.rol}</td>
+                <td>${'•'.repeat(user.contrasena_usuario.length)}</td>
+                <td>${user.rol_usuario}</td>
                 <td>
                     <button class="bg-yellow-500 text-white px-2 py-1 rounded" onclick="editUser(${user.id_usuario
-                }, '${user.foto}', '${user.nombre_usuario}', '${user.correo_usuario
-                }', '${user.contraseña}', '${user.rol
+                }, '${user.foto_usuario}', '${user.nombre_usuario}', '${user.correo_usuario
+                }', '${user.contrasena_usuario}', '${user.rol_usuario
                 }')"><i class="fa-solid fa-user-pen" style="color: #ffffff;"></i></i> Editar</button>
                     <button class="bg-red-500 text-white px-2 py-1 rounded" onclick="openDeleteModal(${user.id_usuario
                 }, '${user.nombre_usuario
@@ -42,21 +43,21 @@ async function fetchData() {
 
 function editUser(
     id_usuario,
-    foto,
+    foto_usuario,
     nombre_usuario,
     correo_usuario,
-    contraseña,
-    rol
+    constrasena_usuario,
+    rol_usuario
 ) {
     document.getElementById('editUserId').value = id_usuario
-    document.getElementById('currentPhoto').src = foto
-        ? `data:image/jpeg;base64,${foto}`
+    document.getElementById('currentPhoto').src = foto_usuario
+        ? `data:image/jpeg;base64,${foto_usuario}`
         : '' // Asumiendo que la foto está en base64
     document.getElementById('newPhotoPreview').src = '' // Limpiar la previsualización de la nueva imagen
     document.getElementById('editUserName').value = nombre_usuario
     document.getElementById('editUserEmail').value = correo_usuario
-    document.getElementById('editUserPwd').value = contraseña
-    document.getElementById('editUserRol').value = rol
+    document.getElementById('editUserPwd').value = constrasena_usuario
+    document.getElementById('editUserRol').value = rol_usuario
     document.getElementById('editModal').classList.remove('hidden')
 }
 
@@ -70,19 +71,18 @@ document
     .addEventListener('submit', async function (event) {
         event.preventDefault()
         const id_usuario = document.getElementById('editUserId').value
-        const foto = document.getElementById('addUserPhoto').files[0];
+        const foto_usuario = document.getElementById('addUserPhoto').files[0];
         const nombre_usuario = document.getElementById('editUserName').value
         const correo_usuario = document.getElementById('editUserEmail').value
-        const contraseña = document.getElementById('editUserPwd').value
-        const rol = document.getElementById('editUserRol').value
-        let foto_usuario = null
+        const constrasena_usuario = document.getElementById('editUserPwd').value
+        const rol_usuario = document.getElementById('editUserRol').value
 
-        if (foto.files && foto.files[0]) {
+        if (foto_usuario.files && foto_usuario.files[0]) {
             const reader = new FileReader()
             reader.onload = function (e) {
-                foto_usuario = e.target.result.split(',')[1] // Obtener solo la parte base64
+                foto = e.target.result.split(',')[1] // Obtener solo la parte base64
             }
-            reader.readAsDataURL(foto.files[0])
+            reader.readAsDataURL(foto_usuario.files[0])
         }
 
         try {
@@ -95,10 +95,10 @@ document
                     },
                     body: JSON.stringify({
                         nombre_usuario: nombre_usuario,
-                        foto: foto,
+                        foto_usuario: foto_usuario,
                         correo_usuario: correo_usuario,
-                        contraseña: contraseña,
-                        rol: rol,
+                        constrasena_usuario: constrasena_usuario,
+                        rol_usuario: rol_usuario,
                     }),
                 }
             )
@@ -126,36 +126,37 @@ document
 
 /* ---------------------------------------------------------------- AGREGAR USUARIO ----------------------------------------------------------------------------- */
 
+
 document
     .getElementById('addForm')
     .addEventListener('submit', async function (event) {
         event.preventDefault()
+
+        const formData = new FormData(this);
+
         const nombre_usuario = document.getElementById('addUserName').value.trim();
-        const foto = document.getElementById('addUserPhoto');
+        const foto_usuario = document.getElementById('addUserPhoto').value.trim();
         const correo_usuario = document.getElementById('addUserEmail').value.trim();
-        const contraseña = document.getElementById('addUserPwd').value.trim();
-        const rol = document.getElementById('addUserRol').value.trim();
+        const contrasena_usuario = document.getElementById('addUserPwd').value.trim();
+        const rol_usuario = document.getElementById('addUserRol').value.trim();
 
-        console.log(nombre_usuario, foto, correo_usuario, contraseña, rol);
+        console.log(foto_usuario, nombre_usuario, correo_usuario, contrasena_usuario, rol_usuario);
 
-        const formData = new FormData();
+        formData.append('foto_usuario', foto_usuario);
         formData.append('nombre_usuario', nombre_usuario);
         formData.append('correo_usuario', correo_usuario);
-        formData.append('contraseña', contraseña);
-        formData.append('rol', rol);
+        formData.append('contrasena_usuario', contrasena_usuario);
+        formData.append('rol_usuario', rol_usuario);
 
-        if (foto) {
-            formData.append('foto', foto.files[0]);
-        } else {
-            console.log('No se ha seleccionado ninguna foto');
-        }
+        console.log(foto_usuario, nombre_usuario, correo_usuario, contrasena_usuario, rol_usuario);
 
-        if (!nombre_usuario || !correo_usuario || !contraseña || !rol) {
+        if (!nombre_usuario || !correo_usuario || !contrasena_usuario || !rol_usuario) {
             alert('Por favor, complete todos los campos');
             return;
         }
 
         try {
+
             const response = await fetch('http://localhost:5000/addUser', {
                 method: 'POST',
                 body: formData,
@@ -165,19 +166,6 @@ document
             const result = await response.json();
 
             console.log(result);
-
-            // Verificar el tipo de contenido de la respuesta
-            // const contentType = response.headers.get('content-type');
-
-            // let data;
-
-            // if (contentType && contentType.includes('application/json')) {
-            //     data = await response.json();
-            // } else {
-            //     data = await response.text();
-            // }
-
-            console.log('Usuario agregado:', data);
 
             closeModal();
             fetchData();
@@ -286,13 +274,6 @@ document
     .addEventListener('mousedown', function () {
         const passwordInputAdd = document.getElementById('addUserPwd')
         passwordInputAdd.setAttribute('type', 'text')
-    })
-
-document
-    .getElementById('addUserPwdIcon')
-    .addEventListener('mouseup', function () {
-        const passwordInputAdd = document.getElementById('addUserPwd')
-        passwordInputAdd.setAttribute('type', 'password')
     })
 
 document

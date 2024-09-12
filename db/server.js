@@ -3,7 +3,10 @@ import cors from 'cors'
 import multer from 'multer';
 import bodyParser from 'body-parser';
 import db_con from '../db/db.js'
-import routes from './routes/image.routes.js';
+import imageRoutes from './routes/image.routes.js';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
 
 const app = express()
 
@@ -18,17 +21,17 @@ app.use((req, res, next) => {
     next();
 });
 
-
 // Configurar body-parser
 app.use(bodyParser.json());
 
 // Configurar CORS
 app.use(cors())
 
-app.use('/', routes);
-
+app.use(express.static('public'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+app.use('/api', imageRoutes);
 
 // useData - Usar la base de datos GeoAPU
 app.get('/useData', (_, res) => {
@@ -83,23 +86,29 @@ app.delete('/deleteUser/:id_usuario', (req, res) => {
     })
 })
 
-// addData - Agregar datos a la tabla usuarios
 
-// Obtener __dirname en módulos ES
-// const __filename = fileURLToPath(import.meta.url);
-// const __dirname = dirname(__filename);
+// Get the current file URL and convert it to a file path
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-app.post('/addUser', upload.single('foto'), (req, res) => {
+// Your existing code
+const storage = multer.diskStorage({
+    destination: path.join(__dirname, "../images"),
+    filename: function (_, file, cb) {
+        cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+    }
+});
 
-    const { nombre_usuario, correo_usuario, contraseña, rol } = req.body;
-    const foto = req.file ? req.file.buffer.toString('base64') : null;
+app.post('/addUser', multer({ storage }).single('foto_usuario'), (req, res) => {
 
-    const query = `INSERT INTO usuarios (foto, nombre_usuario, correo_usuario, contraseña, rol) VALUES (?, ?, ?, ?, ?)`;
+    const { nombre_usuario, correo_usuario, contrasena_usuario, rol_usuario } = req.body;
+    const ruta_foto_usuario = `../images/${req.file.filename}`;
+    const query = `INSERT INTO usuarios (foto_usuario, nombre_usuario, correo_usuario, contrasena_usuario, rol_usuario) VALUES (?, ?, ?, ?, ?)`;
 
     db_con.query(
         query,
-        [foto, nombre_usuario, correo_usuario, contraseña, rol],
-        (err, result) => {
+        [ruta_foto_usuario, nombre_usuario, correo_usuario, contrasena_usuario, rol_usuario],
+        (err) => {
             if (err) {
                 console.error('Error al agregar usuario:', err);
                 return res.status(500).send('Error al agregar usuario');

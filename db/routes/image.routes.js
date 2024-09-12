@@ -1,14 +1,9 @@
 import express from 'express';
 import { upload, getImages, uploadFile } from '../controller/image.controller.js';
 
-const routes = express.Router();
+const router = express.Router();
 
-routes.post(
-    "/images/:tabla",
-    upload,
-    uploadFile
-);
+router.post('/upload', upload, uploadFile);
+router.get('/images', getImages);
 
-routes.get("/images", getImages);
-
-export default routes;
+export default router;

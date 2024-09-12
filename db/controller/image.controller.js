@@ -1,6 +1,5 @@
 import multer from 'multer';
 import path from 'path';
-import fs from 'fs';
 import { fileURLToPath } from 'url';
 
 // Get the current file URL and convert it to a file path
@@ -16,33 +15,22 @@ const storage = multer.diskStorage({
 });
 
 // Create the multer upload middleware
-const upload = multer({ storage }).single('file'); // Adjust the field name as needed
+const upload = multer({ storage }).single('foto'); // Adjust the field name as needed
 
 const uploadFile = (req, res) => {
     req.getConnection((err, conn) => {
 
         if (err) return res.status(500).send(err);
 
-        const tipo_images = req.file.mimetype;
-        const nombre_images = req.file.originalname;
         const imagePath = `/images/${req.file.filename}`;
-
-        conn.query(
-            "INSERT INTO " + req.params.tabla + " set ?",
-            [{ tipo_images, nombre_images, imagePath }],
-            (err, rows) => {
-                console.log(
-                    err
-                        ? "Err INSERT INTO " + req.params.tabla + " " + err
-                        : req.params.tabla + ": Image added!"
-                );
-                res.json(
-                    err
-                        ? { err: "Error al cargar la imagen" }
-                        : { msg: "Imagen cargada satisfactoriamente" }
-                );
+        const query = "INSERT INTO usuarios (foto, nombre_usuario, correo_usuario, contraseña, rol) VALUES (?, ?, ?, ?, ?)";
+        const { nombre_usuario, correo_usuario, contraseña, rol } = req.body;
+        conn.query(query, [imagePath, nombre_usuario, correo_usuario, contraseña, rol], (err, result) => {
+            if (err) {
+                return res.status(500).send(err);
             }
-        );
+            res.send({ message: 'Usuario agregado correctamente' });
+        });
 
 
     });
@@ -50,10 +38,14 @@ const uploadFile = (req, res) => {
 
 const getImages = (req, res) => {
     req.getConnection((err, conn) => {
-        if (err) return res.status(500).send(err);
-        const query = "SELECT * FROM images";
+        if (err) {
+            return res.status(500).send(err);
+        }
+        const query = "SELECT * FROM usuarios";
         conn.query(query, (err, results) => {
-            if (err) return res.status(500).send(err);
+            if (err) {
+                return res.status(500).send(err);
+            }
             res.json(results);
         });
     });
