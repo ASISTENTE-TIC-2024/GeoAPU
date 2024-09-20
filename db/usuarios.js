@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', fetchData)
 async function fetchData() {
     try {
         const response = await fetch('http://localhost:5000/selectData')
+
         const data = await response.json()
 
         console.log(JSON.stringify(data))
@@ -12,15 +13,16 @@ async function fetchData() {
 
         dataTable.innerHTML = '' // Limpiar la tabla antes de agregar nuevos datos
         data.forEach((user) => {
+            const contrasena = user.contrasena_usuario ? '•'.repeat(user.contrasena_usuario.length) : '';
             const row = document.createElement('tr')
             row.innerHTML = `
                 <td>${user.id_usuario}</td>
                 <td>
-                    <img src="${user.foto_usuario}" alt="Foto de perfil" width="50" height="50">
+                    <img class="rounded-full" src="${user.foto_usuario}" alt="Foto de perfil" width="50" height="50">
                 </td>
                 <td>${user.nombre_usuario}</td>
                 <td>${user.correo_usuario}</td>
-                <td>${'•'.repeat(user.contrasena_usuario.length)}</td>
+                <td>${contrasena}</td>
                 <td>${user.rol_usuario}</td>
                 <td>
                     <button class="bg-yellow-500 text-white px-2 py-1 rounded" onclick="editUser(${user.id_usuario
@@ -41,6 +43,62 @@ async function fetchData() {
 
 /* ---------------------------------------------------------------- EDITAR USUARIO ----------------------------------------------------------------------------- */
 
+document
+    .getElementById('editForm')
+    .addEventListener('submit', async function (event) {
+        event.preventDefault()
+
+        const formData = new FormData(this);
+
+        const id_usuario = document.getElementById('editUserId').value.trim();
+        const nombre_usuario = document.getElementById('editUserName').value.trim();
+        const foto_usuario = document.getElementById('editUserPhoto').value.trim();
+        const correo_usuario = document.getElementById('editUserEmail').value.trim();
+        const contrasena_usuario = document.getElementById('editUserPwd').value.trim();
+        const rol_usuario = document.getElementById('editUserRol').value.trim();
+
+        formData.append('id_usuario', id_usuario);
+        formData.append('nombre_usuario', nombre_usuario);
+        formData.append('correo_usuario', correo_usuario);
+        formData.append('contrasena_usuario', contrasena_usuario);
+        formData.append('rol_usuario', rol_usuario);
+
+        if (foto_usuario) {
+            formData.append('foto', foto_usuario);
+        }
+
+        try {
+            const response = await fetch(
+                `http://localhost:5000/updateUser/${id_usuario}`,
+                {
+                    method: 'PUT',
+                    body: formData,
+                }
+            )
+
+            console.log('Usuario actualizado:', response)
+
+            closeModal()
+            fetchData() // Actualizar la tabla después de editar
+
+        } catch (error) {
+            console.error('Error al actualizar al usuario:', error)
+        }
+
+
+    })
+
+// Función para mostrar el modal de confirmación y actualizar la página
+function showConfirmationModal() {
+    const modal = document.getElementById('confirmationModal');
+    modal.classList.remove('hidden');
+
+    // Actualizar la página cuando se cierra el modal
+    document.getElementById('refreshPageButton').addEventListener('click', function () {
+        location.reload();
+    });
+}
+
 function editUser(
     id_usuario,
     foto_usuario,
@@ -50,9 +108,8 @@ function editUser(
     rol_usuario
 ) {
     document.getElementById('editUserId').value = id_usuario
+    document.getElementById('editUserPhoto').value = ''; // Clear the file input
     document.getElementById('currentPhoto').src = foto_usuario
-        ? `data:image/jpeg;base64,${foto_usuario}`
-        : '' // Asumiendo que la foto está en base64
     document.getElementById('newPhotoPreview').src = '' // Limpiar la previsualización de la nueva imagen
     document.getElementById('editUserName').value = nombre_usuario
     document.getElementById('editUserEmail').value = correo_usuario
@@ -65,51 +122,6 @@ function closeModal() {
     document.getElementById('editModal').classList.add('hidden')
     document.getElementById('addModal').classList.add('hidden')
 }
-
-document
-    .getElementById('editForm')
-    .addEventListener('submit', async function (event) {
-        event.preventDefault()
-        const id_usuario = document.getElementById('editUserId').value
-        const foto_usuario = document.getElementById('addUserPhoto').files[0];
-        const nombre_usuario = document.getElementById('editUserName').value
-        const correo_usuario = document.getElementById('editUserEmail').value
-        const constrasena_usuario = document.getElementById('editUserPwd').value
-        const rol_usuario = document.getElementById('editUserRol').value
-
-        if (foto_usuario.files && foto_usuario.files[0]) {
-            const reader = new FileReader()
-            reader.onload = function (e) {
-                foto = e.target.result.split(',')[1] // Obtener solo la parte base64
-            }
-            reader.readAsDataURL(foto_usuario.files[0])
-        }
-
-        try {
-            const response = await fetch(
-                `http://localhost:5000/updateUser/${id_usuario}`,
-                {
-                    method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        nombre_usuario: nombre_usuario,
-                        foto_usuario: foto_usuario,
-                        correo_usuario: correo_usuario,
-                        constrasena_usuario: constrasena_usuario,
-                        rol_usuario: rol_usuario,
-                    }),
-                }
-            )
-            const data = await response.json()
-            console.log('Usuario actualizado:', data)
-            closeModal()
-            fetchData() // Actualizar la tabla después de editar
-        } catch (error) {
-            console.error('Error al actualizar al usuario:', error)
-        }
-    })
 
 document
     .getElementById('editUserPhoto')
@@ -162,7 +174,6 @@ document
                 body: formData,
             });
 
-
             const result = await response.json();
 
             console.log(result);
@@ -172,7 +183,6 @@ document
 
         } catch (error) {
             console.error('Error al agregar al usuario:', error);
-            alert(error.message);
         }
     })
 
@@ -229,6 +239,7 @@ async function confirmDelete() {
     }
 }
 
+
 /* ---------------------------------------------------------------- ORDENAR TABLA ----------------------------------------------------------------------------- */
 
 function sortTable(column) {
@@ -252,22 +263,6 @@ function sortTable(column) {
 
     rows.forEach((row) => table.appendChild(row))
 }
-
-// Función para alternar la visibilidad de la contraseña mientras se mantiene presionado el botón
-
-document
-    .getElementById('editUserPwdIcon')
-    .addEventListener('mousedown', function () {
-        const passwordInput = document.getElementById('editUserPwd')
-        passwordInput.setAttribute('type', 'text')
-    })
-
-document
-    .getElementById('editUserPwdIcon')
-    .addEventListener('mouseup', function () {
-        const passwordInput = document.getElementById('editUserPwd')
-        passwordInput.setAttribute('type', 'password')
-    })
 
 document
     .getElementById('addUserPwdIcon')

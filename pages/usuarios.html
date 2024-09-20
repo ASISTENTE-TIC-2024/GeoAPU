@@ -944,21 +944,21 @@
             class="w-full relative top-[110px] block flex flex-col"
         >
             <div id="title-container" class="w-full block text-center">
-                <h1 class="text-6xl">Panel de Usuarios</h1>
+                <h1 class="text-6xl">PANEL DE USUARIOS</h1>
                 <button
                     class="bg-green-500 text-white px-4 py-2 rounded mt-10 w-80"
                     onclick="openAddModal()"
                 >
                     <i class="fa-solid fa-user-plus" style="color: #ffffff"></i>
-                    Agregar Usuario
+                    AGREGAR USUARIO
                 </button>
             </div>
 
             <div
-                class="table-container mx-10 mb-40 overflow-x-auto relative top-[50px]"
+                class="table-container mx-10 mb-40 overflow-x-auto relative top-[50px] rounded-lg"
             >
-                <table class="min-w-full bg-white border">
-                    <thead class="bg-sky-500">
+                <table class="min-w-full bg-white border rounded-lg">
+                    <thead class="bg-sky-500 rounded-lg">
                         <tr>
                             <th class="py-2 p-2" onclick="sortTable(0)">
                                 <div class="flex items-center text-gray-50">
@@ -1103,15 +1103,15 @@
                     enctype="multipart/form-data"
                 >
                     <div class="mb-4">
-                        <div class="mb-4">
+                        <div class="mb-4 flex flex-col items-center ">
                             <label class="block text-gray-700"
                                 >Previsualización de Imagen:</label
                             >
                             <img
                                 id="addPhotoPreview"
-                                src=""
+                                src="../img//preview.jpg"
                                 alt="Previsualización de Imagen"
-                                class="w-32 h-32 object-cover border rounded"
+                                class="w-32 h-32 object-cover border rounded-full"
                             />
                         </div>
                         <div class="mb-4">
@@ -1248,30 +1248,30 @@
         >
             <div class="bg-white p-6 rounded-lg w-[40em]">
                 <h2 class="text-xl mb-4">Editar Usuario</h2>
-                <form id="editForm">
+                <form id="editForm" enctype="multipart/form-data">
                     <input type="hidden" id="editUserId" />
                     <div class="mb-4">
-                        <div class="mb-4">
-                            <label class="block text-gray-700"
-                                >Imagen Anterior:</label
-                            >
-                            <img
-                                id="currentPhoto"
-                                src=""
-                                alt="Imagen Anterior"
-                                class="w-32 h-32 object-cover border rounded"
-                            />
-                        </div>
-                        <div class="mb-4">
-                            <label class="block text-gray-700"
-                                >Nueva Imagen:</label
-                            >
-                            <img
-                                id="newPhotoPreview"
-                                src=""
-                                alt="Nueva Imagen"
-                                class="w-32 h-32 object-cover border rounded"
-                            />
+                        <div class="flex flex-row justify-around">
+                            <div class="mb-4">
+                                <label class="block text-gray-700"
+                                    >Imagen Anterior:</label
+                                >
+                                <img
+                                    id="currentPhoto"
+                                    src=""
+                                    alt="Imagen Anterior"
+                                    class="w-32 h-32 object-cover border rounded-full"
+                                />
+                            </div>
+                            <div class="mb-4">
+                                <label class="block text-gray-700"
+                                    >Nueva Imagen:</label
+                                >
+                                <img
+                                    id="newPhotoPreview"
+                                    class="w-32 h-32 object-cover border rounded-full"
+                                />
+                            </div>
                         </div>
                         <div class="mb-4">
                             <label
@@ -1284,6 +1284,7 @@
                                 id="editUserPhoto"
                                 class="w-full px-3 py-2 border rounded"
                                 accept="image/*"
+                                name="foto_usuario"
                             />
                         </div>
                         <label for="editUserName" class="block text-gray-700"
@@ -1309,56 +1310,9 @@
                         <div class="relative">
                             <input
                                 id="editUserPwd"
-                                type="password"
+                                type="text"
                                 class="py-3 px-4 block w-full border rounded border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
                             />
-                            <button
-                                id="editUserPwdIcon"
-                                type="button"
-                                class="absolute inset-y-0 end-0 flex items-center z-20 px-3 cursor-pointer text-gray-400 rounded-e-md focus:outline-none focus:text-blue-600"
-                            >
-                                <svg
-                                    class="shrink-0 size-3.5"
-                                    width="24"
-                                    height="24"
-                                    viewBox="0 0 24 24"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    stroke-width="2"
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                >
-                                    <path
-                                        class="editUserPwd:hidden"
-                                        d="M9.88 9.88a3 3 0 1 0 4.24 4.24"
-                                    ></path>
-                                    <path
-                                        class="editUserPwd:hidden"
-                                        d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"
-                                    ></path>
-                                    <path
-                                        class="editUserPwd:hidden"
-                                        d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"
-                                    ></path>
-                                    <line
-                                        class="editUserPwd:hidden"
-                                        x1="2"
-                                        x2="22"
-                                        y1="2"
-                                        y2="22"
-                                    ></line>
-                                    <path
-                                        class="hidden editUserPwd:block"
-                                        d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"
-                                    ></path>
-                                    <circle
-                                        class="hidden editUserPwd:block"
-                                        cx="12"
-                                        cy="12"
-                                        r="3"
-                                    ></circle>
-                                </svg>
-                            </button>
                         </div>
                         <label for="editUserRol" class="block text-gray-700"
                             >Rol:</label
@@ -1380,6 +1334,7 @@
                         <button
                             type="submit"
                             class="bg-blue-500 text-white px-4 py-2 rounded"
+                            onclick="showConfirmationModal()"
                         >
                             Aceptar
                         </button>
@@ -1410,6 +1365,25 @@
                         onclick="confirmDelete()"
                     >
                         Eliminar
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal de confirmación -->
+        <div
+            id="confirmationModal"
+            class="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 hidden"
+        >
+            <div class="bg-white rounded-lg shadow-lg p-6">
+                <h2 class="text-xl font-semibold mb-4">Confirmación</h2>
+                <p>Usuario actualizado exitosamente.</p>
+                <div class="mt-4">
+                    <button
+                        id="refreshPageButton"
+                        class="bg-blue-500 text-white px-4 py-2 rounded"
+                    >
+                        Aceptar
                     </button>
                 </div>
             </div>

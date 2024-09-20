@@ -27,6 +27,7 @@
         "express": "^4.19.2",
         "express-myconnection": "^1.0.4",
         "flowbite": "^2.5.1",
+        "fs-extra": "^11.2.0",
         "multer": "^1.4.5-lts.1",
         "mysql2": "^3.11.0",
         "nodemon": "^3.1.4",
