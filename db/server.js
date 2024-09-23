@@ -63,6 +63,40 @@ app.get('/selectData', (_, res) => {
     })
 })
 
+
+
+// deleteData - Eliminar datos de la tabla usuarios
+app.delete('/deleteUser/:id_usuario', (req, res) => {
+    const { id_usuario } = req.params
+    let deleteQuery = `DELETE FROM usuarios WHERE id_usuario = ?`
+    db_con.query(deleteQuery, [id_usuario], (error, results) => {
+        if (error) throw error
+
+        console.log('Usuario eliminado:', results)
+        return res.json({ message: 'Usuario eliminado correctamente' })
+    })
+})
+
+
+app.post('/addUser', multer({ storage }).single('foto_usuario'), (req, res) => {
+
+    const { nombre_usuario, correo_usuario, contrasena_usuario, rol_usuario } = req.body;
+    const ruta_foto_usuario = `../images/${req.file.filename}`;
+    const query = `INSERT INTO usuarios (foto_usuario, nombre_usuario, correo_usuario, contrasena_usuario, rol_usuario) VALUES (?, ?, ?, ?, ?)`;
+
+    db_con.query(
+        query,
+        [ruta_foto_usuario, nombre_usuario, correo_usuario, contrasena_usuario, rol_usuario],
+        (err) => {
+            if (err) {
+                console.error('Error al agregar usuario:', err);
+                return res.status(500).send('Error al agregar usuario');
+            }
+            res.send({ message: 'Usuario agregado correctamente' });
+        }
+    );
+});
+
 // updateData - Actualizar datos de la tabla usuarios
 app.put('/updateUser/:id_usuario', multer({ storage }).single('foto_usuario'), (req, res) => {
 
@@ -72,7 +106,6 @@ app.put('/updateUser/:id_usuario', multer({ storage }).single('foto_usuario'), (
     const newImagePath = req.file ? `../images/${req.file.filename}` : null;
 
     console.log('Nueva ruta de la imagen:', newImagePath);
-
 
     const getOldImageQuery = "SELECT foto_usuario FROM usuarios WHERE id_usuario = ?";
 
@@ -112,38 +145,6 @@ app.put('/updateUser/:id_usuario', multer({ storage }).single('foto_usuario'), (
             }
         )
     })
-
-    // deleteData - Eliminar datos de la tabla usuarios
-    app.delete('/deleteUser/:id_usuario', (req, res) => {
-        const { id_usuario } = req.params
-        let deleteQuery = `DELETE FROM usuarios WHERE id_usuario = ?`
-        db_con.query(deleteQuery, [id_usuario], (error, results) => {
-            if (error) throw error
-
-            console.log('Usuario eliminado:', results)
-            return res.json({ message: 'Usuario eliminado correctamente' })
-        })
-    })
-
-
-    app.post('/addUser', multer({ storage }).single('foto_usuario'), (req, res) => {
-
-        const { nombre_usuario, correo_usuario, contrasena_usuario, rol_usuario } = req.body;
-        const ruta_foto_usuario = `../images/${req.file.filename}`;
-        const query = `INSERT INTO usuarios (foto_usuario, nombre_usuario, correo_usuario, contrasena_usuario, rol_usuario) VALUES (?, ?, ?, ?, ?)`;
-
-        db_con.query(
-            query,
-            [ruta_foto_usuario, nombre_usuario, correo_usuario, contrasena_usuario, rol_usuario],
-            (err) => {
-                if (err) {
-                    console.error('Error al agregar usuario:', err);
-                    return res.status(500).send('Error al agregar usuario');
-                }
-                res.send({ message: 'Usuario agregado correctamente' });
-            }
-        );
-    });
 })
 
 

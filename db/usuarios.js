@@ -6,7 +6,7 @@ async function fetchData() {
 
         const data = await response.json()
 
-        console.log(JSON.stringify(data))
+        console.log("Usuarios de la base de datos: " + JSON.stringify(data))
 
         // Aquí puedes actualizar tu tabla con los datos recibidos
         const dataTable = document.getElementById('data-table')
@@ -18,7 +18,7 @@ async function fetchData() {
             row.innerHTML = `
                 <td>${user.id_usuario}</td>
                 <td>
-                    <img class="rounded-full" src="${user.foto_usuario}" alt="Foto de perfil" width="50" height="50">
+                    <img class="rounded-full h-10 w-10 cursor-pointer transition-transform duration-300" src="${user.foto_usuario}" alt="Foto de perfil" onclick="enlargeImage(this)">
                 </td>
                 <td>${user.nombre_usuario}</td>
                 <td>${user.correo_usuario}</td>
@@ -27,8 +27,8 @@ async function fetchData() {
                 <td>
                     <button class="bg-yellow-500 text-white px-2 py-1 rounded" onclick="editUser(${user.id_usuario
                 }, '${user.foto_usuario}', '${user.nombre_usuario}', '${user.correo_usuario
-                }', '${user.contrasena_usuario}', '${user.rol_usuario
-                }')"><i class="fa-solid fa-user-pen" style="color: #ffffff;"></i></i> Editar</button>
+                }', '${user.contrasena_usuario}', ${user.rol_usuario
+                })"><i class="fa-solid fa-user-pen" style="color: #ffffff;"></i> Editar</button>
                     <button class="bg-red-500 text-white px-2 py-1 rounded" onclick="openDeleteModal(${user.id_usuario
                 }, '${user.nombre_usuario
                 }')"><i class="fa-solid fa-user-minus" style="color: #ffffff;"></i> Eliminar</button>
@@ -41,6 +41,23 @@ async function fetchData() {
     }
 }
 
+function enlargeImage(img) {
+    const modal = document.createElement('div');
+    modal.classList.add('fixed', 'inset-0', 'flex', 'items-center', 'justify-center', 'bg-black', 'bg-opacity-75', 'z-50');
+    modal.innerHTML = `
+<div class="relative">
+<img src="${img.src}" class="w-[40em] h-[40em]">
+<button class="absolute top-0 right-0 m-2 rounded-full h-10 w-10 text-white text-6xl" onclick="closeImageModal(this)">×</button>
+</div>
+`;
+    document.body.appendChild(modal);
+}
+
+function closeImageModal(button) {
+    const modal = button.closest('div.fixed');
+    modal.remove();
+}
+
 /* ---------------------------------------------------------------- EDITAR USUARIO ----------------------------------------------------------------------------- */
 
 document
@@ -50,8 +67,6 @@ document
         event.preventDefault()
 
         const formData = new FormData(this);
-
-        console.log('Form data:', formData);
 
         const id_usuario = document.getElementById('editUserId').value.trim();
         const nombre_usuario = document.getElementById('editUserName').value.trim();
@@ -81,7 +96,9 @@ document
                 }
             )
 
-            console.log('Usuario actualizado:', response)
+            const data = await response.json()
+
+            console.log('Usuario actualizado:', data);
 
             closeModal()
             fetchData() // Actualizar la tabla después de editar
@@ -122,11 +139,6 @@ function editUser(
     document.getElementById('editModal').classList.remove('hidden')
 }
 
-function closeModal() {
-    document.getElementById('editModal').classList.add('hidden')
-    document.getElementById('addModal').classList.add('hidden')
-}
-
 document
     .getElementById('editUserPhoto')
     .addEventListener('change', function (event) {
@@ -146,7 +158,8 @@ document
 document
     .getElementById('addForm')
     .addEventListener('submit', async function (event) {
-        event.preventDefault()
+
+        event.preventDefault();
 
         const formData = new FormData(this);
 
@@ -156,31 +169,30 @@ document
         const contrasena_usuario = document.getElementById('addUserPwd').value.trim();
         const rol_usuario = document.getElementById('addUserRol').value.trim();
 
-        console.log(foto_usuario, nombre_usuario, correo_usuario, contrasena_usuario, rol_usuario);
+        console.log("Agregar usuarios:", foto_usuario, nombre_usuario, correo_usuario, contrasena_usuario, rol_usuario);
 
-        formData.append('foto_usuario', foto_usuario);
         formData.append('nombre_usuario', nombre_usuario);
         formData.append('correo_usuario', correo_usuario);
         formData.append('contrasena_usuario', contrasena_usuario);
         formData.append('rol_usuario', rol_usuario);
 
-        console.log(foto_usuario, nombre_usuario, correo_usuario, contrasena_usuario, rol_usuario);
-
-        if (!nombre_usuario || !correo_usuario || !contrasena_usuario || !rol_usuario) {
-            alert('Por favor, complete todos los campos');
-            return;
+        if (foto_usuario) {
+            formData.append('foto_usuario', foto_usuario); // Append the file object directly
         }
 
         try {
-
-            const response = await fetch('http://localhost:5000/addUser', {
+            const response = await fetch(`http://localhost:5000/addUser`, {
                 method: 'POST',
                 body: formData,
             });
 
-            const result = await response.json();
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
 
-            console.log(result);
+            const data = await response.json();
+
+            console.log('Usuario agregado:', data);
 
             closeModal();
             fetchData();
@@ -188,7 +200,7 @@ document
         } catch (error) {
             console.error('Error al agregar al usuario:', error);
         }
-    })
+    });
 
 function openAddModal() {
     document.getElementById('addModal').classList.remove('hidden')
@@ -209,37 +221,48 @@ document
 
 /* ---------------------------------------------------------------- ELIMINAR USUARIO ----------------------------------------------------------------------------- */
 
+
 let userIdToDelete = null
 
 function openDeleteModal(id_usuario, nombre_usuario) {
     userIdToDelete = id_usuario
     document.getElementById(
         'deleteMessage'
-    ).textContent = `¿Está seguro de que desea eliminar el usuario ${nombre_usuario}?`
+    ).textContent = `¿Está seguro de que desea eliminar el usuario ${nombre_usuario} de la base de datos?`
     document.getElementById('deleteModal').classList.remove('hidden')
 }
 
 function closeDeleteModal() {
-    userIdToDelete = null
     document.getElementById('deleteModal').classList.add('hidden')
 }
 
 async function confirmDelete() {
-    if (userIdToDelete !== null) {
-        try {
-            const response = await fetch(
-                `http://localhost:5000/deleteUser/${userIdToDelete}`,
-                {
-                    method: 'DELETE',
-                }
-            )
-            const data = await response.json()
-            console.log('Usuario eliminado:', data)
-            closeDeleteModal()
-            fetchData() // Actualizar la tabla después de eliminar
-        } catch (error) {
-            console.error('Error deleting user:', error)
+    if (userIdToDelete === null) {
+        console.error('No user ID specified for deletion.');
+        return;
+    }
+
+    try {
+        console.log("Usuario a eliminar: " + userIdToDelete);
+
+        const response = await fetch(`http://localhost:5000/deleteUser/${userIdToDelete}`, {
+            method: 'DELETE',
+        });
+
+        if (!response.ok) {
+            const errorMessage = response.status === 404
+                ? `User with ID ${userIdToDelete} not found.`
+                : `HTTP error! status: ${response.status}`;
+            throw new Error(errorMessage);
         }
+
+        const data = await response.json();
+        console.log('Usuario eliminado:', JSON.stringify(data));
+
+        closeDeleteModal();
+        fetchData();
+    } catch (error) {
+        console.error('Error deleting user:', error);
     }
 }
 
@@ -281,6 +304,11 @@ document
         const passwordInputAdd = document.getElementById('addUserPwd')
         passwordInputAdd.setAttribute('type', 'password')
     })
+
+function closeModal() {
+    document.getElementById('editModal').classList.add('hidden')
+    document.getElementById('addModal').classList.add('hidden')
+}
 
 // Llamar a la función fetchData cuando el DOM esté completamente cargado
 
