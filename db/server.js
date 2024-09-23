@@ -1,13 +1,17 @@
+import db_con from '../db/db.js'
 import express from 'express'
 import cors from 'cors'
 import multer from 'multer';
-import db_con from '../db/db.js'
 import path from 'path';
 import fs from 'fs-extra'
 import { fileURLToPath } from 'url';
 import bodyParser from 'body-parser';
 
 const app = express()
+
+app.listen(5000, () => {
+    console.log(`El servidor está corriendo en el puerto 5000 ...`)
+})
 
 app.use((req, res, next) => {
     req.getConnection = (callback) => {
@@ -24,6 +28,17 @@ app.use(express.static('public'));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// Configurar multer
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const storage = multer.diskStorage({
+    destination: path.join(__dirname, "../images"),
+    filename: function (_, file, cb) {
+        cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+    }
+});
 
 // useData - Usar la base de datos GeoAPU
 app.get('/useData', (_, res) => {
@@ -48,27 +63,6 @@ app.get('/selectData', (_, res) => {
     })
 })
 
-// Get the current file URL and convert it to a file path
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-// Your existing code
-const storage = multer.diskStorage({
-    destination: path.join(__dirname, "../images"),
-    filename: function (_, file, cb) {
-        cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
-    }
-});
-
-// Ruta que maneja multipart/form-data
-app.post('/upload', multer({ storage }).single('foto_usuario'), (req, res) => {
-    if (!req.file) {
-        return res.status(400).send('No se subió ningún archivo.');
-    }
-    res.send('Archivo subido exitosamente');
-});
-
-
 // updateData - Actualizar datos de la tabla usuarios
 app.put('/updateUser/:id_usuario', multer({ storage }).single('foto_usuario'), (req, res) => {
 
@@ -77,13 +71,19 @@ app.put('/updateUser/:id_usuario', multer({ storage }).single('foto_usuario'), (
 
     const newImagePath = req.file ? `../images/${req.file.filename}` : null;
 
+    console.log('Nueva ruta de la imagen:', newImagePath);
+
+
     const getOldImageQuery = "SELECT foto_usuario FROM usuarios WHERE id_usuario = ?";
 
     db_con.query(getOldImageQuery, [id_usuario], (err, results) => {
         if (err) {
             return res.status(500).send(err);
         }
+
         const oldImagePath = results[0].foto_usuario;
+
+        console.log('Ruta de la imagen antigua:', oldImagePath);
 
         let updateQuery;
         let queryParams;
@@ -144,10 +144,6 @@ app.put('/updateUser/:id_usuario', multer({ storage }).single('foto_usuario'), (
             }
         );
     });
-
 })
 
 
-app.listen(5000, () => {
-    console.log(`El servidor está corriendo en el puerto 5000 ...`)
-})

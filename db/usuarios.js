@@ -46,9 +46,12 @@ async function fetchData() {
 document
     .getElementById('editForm')
     .addEventListener('submit', async function (event) {
+
         event.preventDefault()
 
         const formData = new FormData(this);
+
+        console.log('Form data:', formData);
 
         const id_usuario = document.getElementById('editUserId').value.trim();
         const nombre_usuario = document.getElementById('editUserName').value.trim();
@@ -57,6 +60,8 @@ document
         const contrasena_usuario = document.getElementById('editUserPwd').value.trim();
         const rol_usuario = document.getElementById('editUserRol').value.trim();
 
+        console.log("Las variables de editar: " + id_usuario, foto_usuario, nombre_usuario, correo_usuario, contrasena_usuario, rol_usuario);
+
         formData.append('id_usuario', id_usuario);
         formData.append('nombre_usuario', nombre_usuario);
         formData.append('correo_usuario', correo_usuario);
@@ -64,7 +69,7 @@ document
         formData.append('rol_usuario', rol_usuario);
 
         if (foto_usuario) {
-            formData.append('foto', foto_usuario);
+            formData.append('foto_usuario', foto_usuario);
         }
 
         try {
@@ -84,7 +89,6 @@ document
         } catch (error) {
             console.error('Error al actualizar al usuario:', error)
         }
-
 
     })
 
