@@ -1,17 +1,17 @@
 import db_con from '../db/db.js'
 import express from 'express'
+import jwt from 'jsonwebtoken';
+import bcrypt from "bcrypt";
+import bodyParser from 'body-parser';
+import passport from './auth.js';
+import path from 'path';
+import { fileURLToPath } from 'url';
 import cors from 'cors'
 import multer from 'multer';
-import path from 'path';
 import fs from 'fs-extra'
-import { fileURLToPath } from 'url';
-import bodyParser from 'body-parser';
+import dotenv from 'dotenv';
 
 const app = express()
-
-app.listen(5000, () => {
-    console.log(`El servidor está corriendo en el puerto 5000 ...`)
-})
 
 app.use((req, res, next) => {
     req.getConnection = (callback) => {
@@ -21,13 +21,85 @@ app.use((req, res, next) => {
 });
 
 app.use(bodyParser.json());
+app.use(passport.initialize()); // Inicializar passport
 
+dotenv.config();
 // Configurar CORS
 app.use(cors())
 app.use(express.static('public'));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+const secretKey = process.env.SECRET_KEY;
+
+
+// Ruta de login
+app.post('/login', (req, res) => {
+    const { email, password } = req.body;
+    db_con.query('SELECT * FROM usuarios WHERE correo_usuario = ?', [email], (err, results) => {
+        if (err) throw err;
+        if (results.length > 0) {
+            const user = results[0];
+
+            console.log('Usuario encontrado: ', user);
+
+            bcrypt.compare(password, user.contrasena_usuario, (err, isMatch) => {
+                if (isMatch) {
+                    const token = jwt.sign({ id: user.id_usuario, email: user.correo_usuario, role: user.rol }, secretKey, { expiresIn: '1h' });
+                    console.log('Token generado: ', JSON.stringify(token));
+                    res.json({ token });
+                } else {
+                    res.status(401).json({ message: 'Invalid credentials' });
+                }
+            });
+        } else {
+            res.status(401).json({ message: 'Invalid credentials' });
+        }
+    });
+});
+
+// Ruta para verificar el token
+app.post('/verify-token', (req, res) => {
+    const token = req.header('Authorization');
+
+    if (!token) {
+        return res.status(401).json({ message: 'Access denied. No token provided.' });
+    }
+
+    try {
+        const decoded = jwt.verify(token, secretKey);
+        res.json({ message: 'Token is valid', user: decoded });
+    } catch (err) {
+        res.status(400).json({ message: 'Invalid token.' });
+    }
+});
+
+
+app.get('/protected', (req, res) => {
+    const token = req.header('Authorization');
+
+    if (!token) {
+        return res.status(401).json({ message: 'Access denied. No token provided.' });
+    }
+
+    try {
+        const decoded = jwt.verify(token, secretKey);
+        req.user = decoded;
+        res.redirect(`../index.html?token=${token}`);
+    } catch (err) {
+        res.status(400).json({ message: 'Invalid token.' });
+    }
+});
+
+// Rutas de OAuth 2.0 y OIDC
+app.get('/auth/oidc', passport.authenticate('openidconnect'));
+
+app.get('/callback', passport.authenticate('openidconnect', {
+    failureRedirect: '/'
+}), (req, res) => {
+    res.redirect(`../index.html?token=${token}`);
+});
 
 // Configurar multer
 const __filename = fileURLToPath(import.meta.url);
@@ -77,24 +149,31 @@ app.delete('/deleteUser/:id_usuario', (req, res) => {
     })
 })
 
-
 app.post('/addUser', multer({ storage }).single('foto_usuario'), (req, res) => {
-
     const { nombre_usuario, correo_usuario, contrasena_usuario, rol_usuario } = req.body;
     const ruta_foto_usuario = `../images/${req.file.filename}`;
-    const query = `INSERT INTO usuarios (foto_usuario, nombre_usuario, correo_usuario, contrasena_usuario, rol_usuario) VALUES (?, ?, ?, ?, ?)`;
 
-    db_con.query(
-        query,
-        [ruta_foto_usuario, nombre_usuario, correo_usuario, contrasena_usuario, rol_usuario],
-        (err) => {
-            if (err) {
-                console.error('Error al agregar usuario:', err);
-                return res.status(500).send('Error al agregar usuario');
-            }
-            res.send({ message: 'Usuario agregado correctamente' });
+    // Hash the password before storing it in the database
+    bcrypt.hash(contrasena_usuario, 10, (err, hashedPassword) => {
+        if (err) {
+            console.error('Error al encriptar la contraseña:', err);
+            return res.status(500).send('Error al encriptar la contraseña');
         }
-    );
+
+        const query = `INSERT INTO usuarios (foto_usuario, nombre_usuario, correo_usuario, contrasena_usuario, rol_usuario) VALUES (?, ?, ?, ?, ?)`;
+
+        db_con.query(
+            query,
+            [ruta_foto_usuario, nombre_usuario, correo_usuario, hashedPassword, rol_usuario],
+            (err) => {
+                if (err) {
+                    console.error('Error al agregar usuario:', err);
+                    return res.status(500).send('Error al agregar usuario');
+                }
+                res.send({ message: 'Usuario agregado correctamente' });
+            }
+        );
+    });
 });
 
 // updateData - Actualizar datos de la tabla usuarios
@@ -147,4 +226,6 @@ app.put('/updateUser/:id_usuario', multer({ storage }).single('foto_usuario'), (
     })
 })
 
-
+app.listen(5000, () => {
+    console.log(`El servidor está corriendo en el puerto 5000 ...`)
+})

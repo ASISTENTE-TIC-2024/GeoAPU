@@ -37,7 +37,7 @@ async function fetchData() {
             dataTable.appendChild(row)
         })
     } catch (error) {
-        console.error('Error fetching data:', error)
+        console.error('Error buscando los datos:', error)
     }
 }
 
@@ -130,8 +130,8 @@ function editUser(
 ) {
     document.getElementById('editUserId').value = id_usuario
     document.getElementById('editUserPhoto').value = ''; // Clear the file input
-    document.getElementById('currentPhoto').src = foto_usuario
     document.getElementById('newPhotoPreview').src = '' // Limpiar la previsualización de la nueva imagen
+    document.getElementById('currentPhoto').src = foto_usuario
     document.getElementById('editUserName').value = nombre_usuario
     document.getElementById('editUserEmail').value = correo_usuario
     document.getElementById('editUserPwd').value = constrasena_usuario
@@ -238,7 +238,7 @@ function closeDeleteModal() {
 
 async function confirmDelete() {
     if (userIdToDelete === null) {
-        console.error('No user ID specified for deletion.');
+        console.error('No se especifico un ID para proceder con la eliminación.');
         return;
     }
 
@@ -262,7 +262,7 @@ async function confirmDelete() {
         closeDeleteModal();
         fetchData();
     } catch (error) {
-        console.error('Error deleting user:', error);
+        console.error('Error eliminando al usuario: ', error);
     }
 }
 
