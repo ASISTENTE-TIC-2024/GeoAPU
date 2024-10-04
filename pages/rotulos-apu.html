@@ -4,10 +4,30 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>GeoAPU</title>
-        <script src="https://cdn.tailwindcss.com"></script>
+        <link rel="stylesheet" href="build/main.css" />
         <link rel="icon" href="../img/icono geo.ico" type="image/png" />
+        <script src="../db/check_auth.js"></script>
+        <link
+            href="https://fonts.cdnfonts.com/css/museo-sans-rounded"
+            rel="stylesheet"
+        />
     </head>
-    <body>
+
+    <style>
+        .bg-fixed {
+            background-image: url('https://geopolimerossas.com/wp-content/uploads/2022/11/manto-permanente-3.jpg'); /* Ruta a tu imagen de fondo */
+            background-color: rgba(0, 0, 0, 0.5); /* Oscurece la imagen */
+            background-blend-mode: darken; /* Mezcla el color de fondo con la imagen */
+            background-size: cover; /* Asegura que la imagen cubra toda la pantalla */
+            background-position: center; /* Centra la imagen */
+            background-attachment: fixed; /* Hace que la imagen sea estática */
+        }
+    </style>
+
+    <body
+        style="font-family: 'Museo Sans Rounded', sans-serif"
+        class="bg-fixed"
+    >
         <div class="w-full h-full flex flex-col items-center justify-center">
             <div class="h-full w-full">
                 <!-- Code block starts -->
@@ -113,38 +133,6 @@
                                                         >Proyectos</span
                                                     >
                                                 </div>
-                                            </li>
-                                            <li
-                                                class="flex xl:hidden cursor-pointer text-gray-600 text-sm leading-3 tracking-normal py-2 hover:text-pink-700 flex items-center focus:text-pink-700 focus:outline-none"
-                                            >
-                                                <svg
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    class="icon icon-tabler icon-tabler-compass"
-                                                    width="20"
-                                                    height="20"
-                                                    viewBox="0 0 24 24"
-                                                    stroke-width="1.5"
-                                                    stroke="currentColor"
-                                                    fill="none"
-                                                    stroke-linecap="round"
-                                                    stroke-linejoin="round"
-                                                >
-                                                    <path
-                                                        stroke="none"
-                                                        d="M0 0h24v24H0z"
-                                                    ></path>
-                                                    <polyline
-                                                        points="8 16 10 10 16 8 14 14 8 16"
-                                                    ></polyline>
-                                                    <circle
-                                                        cx="12"
-                                                        cy="12"
-                                                        r="9"
-                                                    ></circle>
-                                                </svg>
-                                                <span class="ml-2 font-bold"
-                                                    >Rendimiento</span
-                                                >
                                             </li>
                                             <li
                                                 class="border-b border-gray-300 flex xl:hidden cursor-pointer text-gray-600 text-sm leading-3 tracking-normal pt-2 pb-4 hover:text-pink-700 flex items-center focus:text-pink-700 focus:outline-none"
@@ -478,13 +466,6 @@
                                         class="focus:text-pink-700 border-b-2 border-transparent focus:border-pink-700 flex px-5 items-center py-6 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none transition duration-150 ease-in-out"
                                         style="text-align: center"
                                     >
-                                        Rendimiento
-                                    </a>
-                                    <a
-                                        href="javascript: void(0)"
-                                        class="focus:text-pink-700 border-b-2 border-transparent focus:border-pink-700 flex px-5 items-center py-6 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none transition duration-150 ease-in-out"
-                                        style="text-align: center"
-                                    >
                                         Equipos
                                     </a>
                                     <a
@@ -570,14 +551,32 @@
                                                         >
                                                     </a>
                                                 </li>
+                                                <li
+                                                    class="cursor-pointer text-gray-600 text-sm leading-3 tracking-normal py-2 hover:text-pink-700 focus:text-pink-700 focus:outline-none"
+                                                >
+                                                    <a
+                                                        href=""
+                                                        class="focus:underline focus:text-pink-700 focus:outline-none flex items-center"
+                                                        onclick="logout()"
+                                                    >
+                                                        <i
+                                                            class="fas fa-sign-out-alt"
+                                                        ></i>
+                                                        <span class="ml-2"
+                                                            >Cerrar Sesión</span
+                                                        >
+                                                    </a>
+                                                </li>
                                             </ul>
                                             <div
                                                 class="cursor-pointer flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-white transition duration-150 ease-in-out"
                                             >
                                                 <img
                                                     class="rounded-full h-10 w-10 object-cover"
-                                                    src="https://i.imgur.com/gubXaPN.png"
-                                                    alt="logo"
+                                                    src=""
+                                                    alt="foto de perfil"
+                                                    id="userPhoto"
+                                                    class="user-photo"
                                                 />
                                             </div>
                                             <div class="ml-2">
@@ -630,7 +629,7 @@
                         <div class="flex items-center">
                             <div class="relative mr-6">
                                 <button
-                                    class="focus:ring-2 focus:ring-offset-2 focus:ring-pink-700 focus:outline-none bg-gray-100 border-gray-300 border transition duration-150 ease-in-out hover:bg-gray-300 rounded text-gray-600 px-5 py-2 text-xs text-center"
+                                    class="focus:ring-2 focus:ring-offset-2 focus:ring-pink-700 focus:text-pink-700 focus:outline-none bg-gray-100 border-gray-300 border transition duration-150 ease-in-out hover:bg-gray-300 rounded text-gray-600 px-5 py-2 text-xs"
                                 >
                                     Usuarios
                                 </button>
@@ -668,7 +667,7 @@
                     <!--Mobile responsive sidebar-->
                     <div
                         class="absolute w-full h-full transform -translate-x-full z-40 xl:hidden"
-                        style="transform: translateX(0px); position: fixed"
+                        style="position: fixed"
                         id="mobile-nav"
                     >
                         <div
@@ -786,24 +785,7 @@
                                                     </div>
                                                 </a>
                                             </li>
-                                            <li>
-                                                <a class="cursor-pointer">
-                                                    <div
-                                                        class="text-gray-800 pt-10"
-                                                    >
-                                                        <div
-                                                            class="flex items-center"
-                                                        >
-                                                            <p
-                                                                tabindex="0"
-                                                                class="focus:outline-none focus:text-pink-600 text-gray-800 xl:text-base md:text-2xl text-base ml-3"
-                                                            >
-                                                                Rendimiento
-                                                            </p>
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                            </li>
+
                                             <li>
                                                 <a class="cursor-pointer">
                                                     <div
@@ -903,17 +885,17 @@
                                             >
                                                 <div class="flex items-center">
                                                     <img
-                                                        alt="profile-pic"
-                                                        src="https://i.imgur.com/gubXaPN.png"
+                                                        alt="foto de perfil"
+                                                        src=""
                                                         tabindex="0"
                                                         class="focus:outline-none w-8 h-8 rounded-md"
+                                                        id="mobileUserPhoto"
                                                     />
                                                     <p
                                                         tabindex="0"
                                                         class="focus:outline-none text-gray-800 text-base leading-4 ml-2"
-                                                    >
-                                                        Jesus Cuadro
-                                                    </p>
+                                                        id="mobileUserName"
+                                                    ></p>
                                                 </div>
                                                 <ul class="flex">
                                                     <li
@@ -950,6 +932,19 @@
                                                             </svg>
                                                         </div>
                                                     </li>
+                                                    <li
+                                                        class="cursor-pointer text-gray-800 pt-5 pb-3 pl-3"
+                                                    >
+                                                        <div
+                                                            tabindex="0"
+                                                            class="focus:outline-none focus:text-pink-600 w-6 h-6 md:w-8 md:h-8"
+                                                            onclick="logout()"
+                                                        >
+                                                            <i
+                                                                class="fas fa-sign-out-alt"
+                                                            ></i>
+                                                        </div>
+                                                    </li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -961,9 +956,14 @@
                 </nav>
             </div>
 
-            <div class="w-full h-screen relative top-[110px] block">
+            <div class="w-full relative top-[6em]">
                 <div class="title-container text-center">
-                    <h1 class="text-4xl">CONFIGURA LOS ROTULOS DE LA APU</h1>
+                    <i
+                        class="fa-solid fa-diagram-project text-6xl text-white mb-10"
+                    ></i>
+                    <h1 class="text-4xl text-white">
+                        CONFIGURA LOS ROTULOS DE LA APU
+                    </h1>
                 </div>
                 <div
                     class="form-container w-full flex flex-col justify-center items-center"
@@ -971,7 +971,7 @@
                     <form
                         id="formulario-rotulos"
                         action="../pages/apu.html"
-                        class="w-6/12 p-10 border border-gray-300 mt-5 flex flex-col justify-start items-stretch rounded-xl"
+                        class="w-6/12 p-10 border border-gray-300 mt-5 flex flex-col justify-start items-stretch rounded-xl bg-gray-200 mb-6"
                         method="post"
                     >
                         <div class="capitulo-container my-2">
@@ -1184,5 +1184,9 @@
 
         <script src="../js/input.js"></script>
         <script src="../js/nav.js"></script>
+        <script
+            src="https://kit.fontawesome.com/a233ca1469.js"
+            crossorigin="anonymous"
+        ></script>
     </body>
 </html>

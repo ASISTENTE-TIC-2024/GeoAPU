@@ -46,15 +46,15 @@ app.post('/login', (req, res) => {
 
             bcrypt.compare(password, user.contrasena_usuario, (err, isMatch) => {
                 if (isMatch) {
-                    const token = jwt.sign({ id: user.id_usuario, email: user.correo_usuario, role: user.rol }, secretKey, { expiresIn: '1h' });
+                    const token = jwt.sign({ id: user.id_usuario, email: user.correo_usuario, name: user.nombre_usuario, photoPath: user.foto_usuario, role: user.rol_usuario }, secretKey, { expiresIn: '24h' });
                     console.log('Token generado: ', JSON.stringify(token));
                     res.json({ token });
                 } else {
-                    res.status(401).json({ message: 'Invalid credentials' });
+                    res.status(401).json({ message: 'Credenciales incorrectas!' });
                 }
             });
         } else {
-            res.status(401).json({ message: 'Invalid credentials' });
+            res.status(401).json({ message: 'Credenciales incorrectas!' });
         }
     });
 });
@@ -64,14 +64,14 @@ app.post('/verify-token', (req, res) => {
     const token = req.header('Authorization');
 
     if (!token) {
-        return res.status(401).json({ message: 'Access denied. No token provided.' });
+        return res.status(401).json({ message: 'Acceso denegado!' });
     }
 
     try {
         const decoded = jwt.verify(token, secretKey);
-        res.json({ message: 'Token is valid', user: decoded });
+        res.json({ message: 'El token es valido.', user: decoded });
     } catch (err) {
-        res.status(400).json({ message: 'Invalid token.' });
+        res.status(400).json({ message: 'El token es invalido!' });
     }
 });
 
@@ -80,7 +80,7 @@ app.get('/protected', (req, res) => {
     const token = req.header('Authorization');
 
     if (!token) {
-        return res.status(401).json({ message: 'Access denied. No token provided.' });
+        return res.status(401).json({ message: 'Acceso denegado!' });
     }
 
     try {
@@ -100,6 +100,24 @@ app.get('/callback', passport.authenticate('openidconnect', {
 }), (req, res) => {
     res.redirect(`../index.html?token=${token}`);
 });
+
+// Ruta para verificar la contraseña
+app.post('/verify-password', (req, res) => {
+    const { plainTextPassword, hashedPassword } = req.body;
+
+    bcrypt.compare(plainTextPassword, hashedPassword, (err, isMatch) => {
+        if (err) {
+            return res.status(500).json({ message: 'Error verifying password' });
+        }
+
+        if (!isMatch) {
+            return res.status(401).json({ message: 'Password verification failed' });
+        }
+
+        res.json({ message: 'Password verified successfully' });
+    });
+});
+
 
 // Configurar multer
 const __filename = fileURLToPath(import.meta.url);
@@ -136,18 +154,40 @@ app.get('/selectData', (_, res) => {
 })
 
 
-
 // deleteData - Eliminar datos de la tabla usuarios
 app.delete('/deleteUser/:id_usuario', (req, res) => {
-    const { id_usuario } = req.params
-    let deleteQuery = `DELETE FROM usuarios WHERE id_usuario = ?`
-    db_con.query(deleteQuery, [id_usuario], (error, results) => {
-        if (error) throw error
+    const { id_usuario } = req.params;
 
-        console.log('Usuario eliminado:', results)
-        return res.json({ message: 'Usuario eliminado correctamente' })
-    })
-})
+    // Primero, obtener la ruta de la foto del usuario
+    const getPhotoQuery = `SELECT foto_usuario FROM usuarios WHERE id_usuario = ?`;
+    db_con.query(getPhotoQuery, [id_usuario], (error, results) => {
+        if (error) throw error;
+
+        if (results.length > 0) {
+            const photoPath = results[0].foto_usuario;
+
+            // Luego, eliminar el usuario de la base de datos
+            let deleteQuery = `DELETE FROM usuarios WHERE id_usuario = ?`;
+            db_con.query(deleteQuery, [id_usuario], (error, results) => {
+                if (error) throw error;
+
+                console.log('Usuario eliminado:', results);
+
+                // Eliminar la foto del usuario de la carpeta images
+                if (photoPath) {
+                    fs.unlink(path.join(__dirname, photoPath), (err) => {
+                        if (err) console.error('Error al eliminar la foto del usuario:', err);
+                        else console.log('Foto del usuario eliminada:', photoPath);
+                    });
+                }
+
+                return res.json({ message: 'Usuario eliminado correctamente' });
+            });
+        } else {
+            return res.status(404).json({ message: 'Usuario no encontrado' });
+        }
+    });
+});
 
 app.post('/addUser', multer({ storage }).single('foto_usuario'), (req, res) => {
     const { nombre_usuario, correo_usuario, contrasena_usuario, rol_usuario } = req.body;
@@ -186,7 +226,7 @@ app.put('/updateUser/:id_usuario', multer({ storage }).single('foto_usuario'), (
 
     console.log('Nueva ruta de la imagen:', newImagePath);
 
-    const getOldImageQuery = "SELECT foto_usuario FROM usuarios WHERE id_usuario = ?";
+    const getOldImageQuery = "SELECT foto_usuario, contrasena_usuario FROM usuarios WHERE id_usuario = ?";
 
     db_con.query(getOldImageQuery, [id_usuario], (err, results) => {
         if (err) {
@@ -194,35 +234,51 @@ app.put('/updateUser/:id_usuario', multer({ storage }).single('foto_usuario'), (
         }
 
         const oldImagePath = results[0].foto_usuario;
+        const oldPasswordHash = results[0].contrasena_usuario;
 
         console.log('Ruta de la imagen antigua:', oldImagePath);
 
         let updateQuery;
         let queryParams;
 
-        if (newImagePath) {
-            updateQuery = `UPDATE usuarios SET foto_usuario = ?, nombre_usuario = ?, correo_usuario = ?, contrasena_usuario = ?, rol_usuario = ? WHERE id_usuario = ?`;
-            queryParams = [newImagePath, nombre_usuario, correo_usuario, contrasena_usuario, rol_usuario, id_usuario];
-        } else {
-            updateQuery = `UPDATE usuarios SET nombre_usuario = ?, correo_usuario = ?, contrasena_usuario = ?, rol_usuario = ? WHERE id_usuario = ?`;
-            queryParams = [nombre_usuario, correo_usuario, contrasena_usuario, rol_usuario, id_usuario];
-        }
-
-        db_con.query(
-            updateQuery,
-            queryParams,
-            (error, results) => {
-                if (error) throw error
-                // Delete the old image file if a new one was uploaded
-                if (newImagePath && oldImagePath) {
-                    fs.unlink(path.join(__dirname, oldImagePath), (err) => {
-                        if (err) console.error(err);
-                    });
-                }
-
-                console.log('Usuario actualizado:', results)
+        const updateUser = (hashedPassword) => {
+            if (newImagePath) {
+                updateQuery = `UPDATE usuarios SET foto_usuario = ?, nombre_usuario = ?, correo_usuario = ?, contrasena_usuario = ?, rol_usuario = ? WHERE id_usuario = ?`;
+                queryParams = [newImagePath, nombre_usuario, correo_usuario, hashedPassword, rol_usuario, id_usuario];
+            } else {
+                updateQuery = `UPDATE usuarios SET nombre_usuario = ?, correo_usuario = ?, contrasena_usuario = ?, rol_usuario = ? WHERE id_usuario = ?`;
+                queryParams = [nombre_usuario, correo_usuario, hashedPassword, rol_usuario, id_usuario];
             }
-        )
+
+            db_con.query(
+                updateQuery,
+                queryParams,
+                (error, results) => {
+                    if (error) throw error
+                    // Delete the old image file if a new one was uploaded
+                    if (newImagePath && oldImagePath) {
+                        fs.unlink(path.join(__dirname, oldImagePath), (err) => {
+                            if (err) console.error(err);
+                        });
+                    }
+
+                    console.log('Usuario actualizado:', results)
+                    res.json({ message: 'Usuario actualizado correctamente' });
+                }
+            )
+        };
+
+        if (contrasena_usuario) {
+            bcrypt.hash(contrasena_usuario, 10, (err, hashedPassword) => {
+                if (err) {
+                    console.error('Error al encriptar la contraseña:', err);
+                    return res.status(500).send('Error al encriptar la contraseña');
+                }
+                updateUser(hashedPassword);
+            });
+        } else {
+            updateUser(oldPasswordHash);
+        }
     })
 })
 

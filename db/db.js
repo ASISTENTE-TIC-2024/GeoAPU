@@ -16,7 +16,7 @@ db_con.getConnection((err, connection) => {
         console.error('Error connecting to the database:', err);
         return;
     }
-    console.log('Connected to the database');
+    console.log('Conexión a la base de datos establecida');
     connection.release();
 });
 

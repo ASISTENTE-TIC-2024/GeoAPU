@@ -17,8 +17,7 @@ document.getElementById('loginForm').addEventListener('submit', async function (
         if (response.ok) {
             const data = await response.json();
             localStorage.setItem('token', data.token);
-            alert('Login successful!');
-            window.location.href = './index.html';
+            window.location.href = 'pages/index.html';
         } else {
             const errorData = await response.json();
             document.getElementById('message').textContent = errorData.message || 'Login failed!';

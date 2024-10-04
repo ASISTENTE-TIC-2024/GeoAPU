@@ -4,10 +4,18 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>GeoAPU</title>
-        <script src="https://cdn.tailwindcss.com"></script>
+        <link rel="stylesheet" href="build/main.css" />
         <link rel="icon" href="../img/icono geo.ico" type="image/png" />
+        <script src="../db/check_auth.js"></script>
+        <link
+            href="https://fonts.cdnfonts.com/css/museo-sans-rounded"
+            rel="stylesheet"
+        />
     </head>
-    <body class="flex items-center justify-center bg-gray-100">
+    <body
+        class="flex items-center justify-center bg-gray-100"
+        style="font-family: 'Museo Sans Rounded', sans-serif"
+    >
         <div class="container w-full h-auto flex items-center justify-center">
             <div class="grid-container p-8">
                 <div class="grid grid-cols-8">
@@ -26,117 +34,107 @@
                     </div>
                     <div
                         class="col-start-8 col-end-9 col-span-8 border border-solid border-gray-400 text-center flex items-center justify-center break-all text-2xl p-5"
-                    >
-                        29/08/2024
-                    </div>
+                        id="fecha"
+                    ></div>
                 </div>
 
                 <div class="grid grid-cols-8">
                     <div
                         class="row-start-2 border border-solid border-gray-400 text-center flex items-center justify-center break-all"
                     >
-                        Proyecto
+                        <b>Proyecto:</b>
                     </div>
                     <div
                         class="row-start-2 border border-solid border-gray-400 text-center flex items-center justify-center break-all"
-                    >
-                        {Proyecto}
-                    </div>
+                        id="proyecto"
+                    ></div>
                     <div
                         class="row-start-2 border border-solid border-gray-400 text-center flex items-center justify-center break-all"
                     >
-                        Departamento
+                        <b>Departamento:</b>
                     </div>
                     <div
                         class="row-start-2 border border-solid border-gray-400 text-center flex items-center justify-center break-all"
-                    >
-                        {Departamento}
-                    </div>
+                        id="departamento"
+                    ></div>
                     <div
                         class="col-span-2 row-start-2 border border-solid border-gray-400 text-center flex items-center justify-center break-all"
                     >
-                        Municipio
+                        <b>Municipio:</b>
                     </div>
                     <div
                         class="col-span-2 col-start-7 row-start-2 border border-solid border-gray-400 text-center flex items-center justify-center break-all"
-                    >
-                        {Municipio}
-                    </div>
+                        id="municipio"
+                    ></div>
                     <div
                         class="row-start-3 border border-solid border-gray-400 text-center flex items-center justify-center break-all"
                     >
-                        Item de pago
+                        <b>Item de pago:</b>
                     </div>
                     <div
                         class="row-start-3 border border-solid border-gray-400 text-center flex items-center justify-center break-all"
-                    >
-                        {Item de pago}
-                    </div>
+                        id="itemPago"
+                    ></div>
                     <div
                         class="row-start-3 border border-solid border-gray-400 text-center flex items-center justify-center break-all"
                     >
-                        Capitulo
+                        <b>Capitulo:</b>
                     </div>
                     <div
                         class="row-start-3 border border-solid border-gray-400 text-center flex items-center justify-center break-all"
-                    >
-                        {Capitulo}
-                    </div>
+                    ></div>
                     <div
                         class="col-span-2 row-start-3 border border-solid border-gray-400 text-center flex items-center justify-center break-all"
+                        id="capitulo"
                     >
-                        Unidad
+                        <b>Unidad:</b>
                     </div>
                     <div
                         class="col-span-2 col-start-7 row-start-3 border border-solid border-gray-400 text-center flex items-center justify-center break-all"
-                    >
-                        {Unidad}
-                    </div>
+                        class="unidad"
+                    ></div>
                     <div
                         class="col-span-4 row-start-4 border border-solid border-gray-400 text-center flex items-center justify-center break-all"
                     >
-                        Actividad
+                        <b>Descripción de la actividad:</b>
                     </div>
                     <div
                         class="col-span-4 col-start-5 row-start-4 border border-solid border-gray-400 text-center flex items-center justify-center break-all"
-                    >
-                        {Actividad}
-                    </div>
+                        id="actividad"
+                    ></div>
                     <div
                         class="col-span-2 row-start-5 border border-solid border-gray-400 text-center flex items-center justify-center break-all"
                     >
-                        Rendimiento diario promedio
+                        <b>Rendimiento diario promedio:</b>
                     </div>
                     <div
                         class="col-start-3 row-start-5 border border-solid border-gray-400 text-center flex items-center justify-center break-all"
-                    >
-                        {Rendimiento diario promedio}
-                    </div>
+                        id="rendimientoDiarioPromedio"
+                    ></div>
                     <div
                         class="col-start-4 row-start-5 border border-solid border-gray-400 text-center flex items-center justify-center break-all"
                     >
-                        {Unidad}/dia
+                        <p class="unidad"></p>
+                        /dia
                     </div>
                     <div
                         class="col-start-5 row-start-5 border border-solid border-gray-400 text-center flex items-center justify-center break-all"
                     >
-                        Cantidad a instalar
+                        <b>Cantidad a instalar:</b>
                     </div>
                     <div
                         class="col-start-6 row-start-5 border border-solid border-gray-400 text-center flex items-center justify-center break-all"
-                    >
-                        {Cantidad a instalar}
-                    </div>
+                        id="cantidadAInstalar"
+                    ></div>
                     <div
                         class="col-start-7 row-start-5 border border-solid border-gray-400 text-center flex items-center justify-center break-all"
                     >
-                        Distancia de movilización
+                        <b>Distancia de movilización</b>
                     </div>
                     <div
                         class="col-start-8 row-start-5 border border-solid border-gray-400 text-center flex items-center justify-center break-all"
-                    >
-                        { Distancia de movilización }
-                    </div>
+                        id="distanciaMovilizacion"
+                    ></div>
                 </div>
                 <div
                     class="col-span-8 border border-solid border-gray-400 text-center flex items-center justify-center break-all"
@@ -688,20 +686,12 @@
                     >
                         Cancelar APU
                     </button>
-
-                    <script>
-                        function cancelAPU() {
-                            if (confirm('¿Estás seguro de cancelar el APU?')) {
-                                window.location.href =
-                                    '../pages/administrador-apu.html'
-                            }
-                        }
-                    </script>
                 </div>
             </div>
         </div>
 
         <script src="../js/tabla-apu.js"></script>
+        <script src="../js/apu.js"></script>
         <script
             src="https://kit.fontawesome.com/a233ca1469.js"
             crossorigin="anonymous"

@@ -6,122 +6,56 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>GeoAPU</title>
         <link rel="icon" href="../img/icono geo.ico" type="image/png" />
-        <script src="https://cdn.tailwindcss.com"></script>
+        <link rel="stylesheet" href="build/main.css" />
+        <script src="../db/check_auth.js"></script>
+        <link
+            href="https://fonts.cdnfonts.com/css/museo-sans-rounded"
+            rel="stylesheet"
+        />
     </head>
 
-    <body>
-        <div class="w-full h-full flex flex-col items-center justify-center">
-            <div class="h-full w-full relative">
-                <!-- Code block starts -->
-                <!--- more free and premium Tailwind CSS components at https://tailwinduikit.com/ --->
-                <nav
-                    role="navigation"
-                    class="bg-white shadow xl:block hidden fixed w-full z-50"
-                    id="navegador-principal"
-                >
-                    <div class="mx-auto container px-6 py-2 xl:py-0">
-                        <div class="flex items-center justify-between">
+    <style>
+        .bg-fixed {
+            background-image: url('https://geopolimerossas.com/wp-content/uploads/2022/11/manto-permanente-3.jpg'); /* Ruta a tu imagen de fondo */
+            background-color: rgba(0, 0, 0, 0.5); /* Oscurece la imagen */
+            background-blend-mode: darken; /* Mezcla el color de fondo con la imagen */
+            background-size: cover; /* Asegura que la imagen cubra toda la pantalla */
+            background-position: center; /* Centra la imagen */
+            background-attachment: fixed; /* Hace que la imagen sea estática */
+        }
+    </style>
+
+    <body
+        style="font-family: 'Museo Sans Rounded', sans-serif"
+        class="bg-fixed"
+    >
+        <div class="h-full w-full relative">
+            <!-- Code block starts -->
+            <!--- more free and premium Tailwind CSS components at https://tailwinduikit.com/ --->
+            <nav
+                role="navigation"
+                class="bg-white shadow xl:block hidden fixed w-full z-50"
+                id="navegador-principal"
+            >
+                <div class="mx-auto container px-6 py-2 xl:py-0">
+                    <div class="flex items-center justify-between">
+                        <div
+                            class="inset-y-0 left-0 flex items-center xl:hidden"
+                        >
                             <div
-                                class="inset-y-0 left-0 flex items-center xl:hidden"
+                                class="inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-gray-100 focus:outline-none transition duration-150 ease-in-out"
                             >
-                                <div
-                                    class="inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-gray-100 focus:outline-none transition duration-150 ease-in-out"
-                                >
-                                    <div class="visible xl:hidden">
-                                        <ul
-                                            class="p-2 border-r bg-white absolute rounded left-0 right-0 shadow mt-8 md:mt-8 hidden"
+                                <div class="visible xl:hidden">
+                                    <ul
+                                        class="p-2 border-r bg-white absolute rounded left-0 right-0 shadow mt-8 md:mt-8 hidden"
+                                    >
+                                        <li
+                                            class="flex xl:hidden cursor-pointer text-gray-600 text-sm leading-3 tracking-normal mt-2 py-2 hover:text-pink-700 focus:text-pink-700 focus:outline-none"
                                         >
-                                            <li
-                                                class="flex xl:hidden cursor-pointer text-gray-600 text-sm leading-3 tracking-normal mt-2 py-2 hover:text-pink-700 focus:text-pink-700 focus:outline-none"
-                                            >
-                                                <div class="flex items-center">
-                                                    <svg
-                                                        xmlns="http://www.w3.org/2000/svg"
-                                                        class="icon icon-tabler icon-tabler-grid"
-                                                        width="20"
-                                                        height="20"
-                                                        viewBox="0 0 24 24"
-                                                        stroke-width="1.5"
-                                                        stroke="currentColor"
-                                                        fill="none"
-                                                        stroke-linecap="round"
-                                                        stroke-linejoin="round"
-                                                    >
-                                                        <path
-                                                            stroke="none"
-                                                            d="M0 0h24v24H0z"
-                                                        ></path>
-                                                        <rect
-                                                            x="4"
-                                                            y="4"
-                                                            width="6"
-                                                            height="6"
-                                                            rx="1"
-                                                        ></rect>
-                                                        <rect
-                                                            x="14"
-                                                            y="4"
-                                                            width="6"
-                                                            height="6"
-                                                            rx="1"
-                                                        ></rect>
-                                                        <rect
-                                                            x="4"
-                                                            y="14"
-                                                            width="6"
-                                                            height="6"
-                                                            rx="1"
-                                                        ></rect>
-                                                        <rect
-                                                            x="14"
-                                                            y="14"
-                                                            width="6"
-                                                            height="6"
-                                                            rx="1"
-                                                        ></rect>
-                                                    </svg>
-                                                    <span class="ml-2 font-bold"
-                                                        >Ofertas
-                                                        Comerciales</span
-                                                    >
-                                                </div>
-                                            </li>
-                                            <li
-                                                class="flex xl:hidden flex-col cursor-pointer text-gray-600 text-sm leading-3 tracking-normal py-2 hover:text-pink-700 focus:text-pink-700 focus:outline-none flex justify-center"
-                                                onclick="dropdownHandler(this)"
-                                            >
-                                                <div class="flex items-center">
-                                                    <svg
-                                                        xmlns="http://www.w3.org/2000/svg"
-                                                        class="icon icon-tabler icon-tabler-puzzle"
-                                                        width="20"
-                                                        height="20"
-                                                        viewBox="0 0 24 24"
-                                                        stroke-width="1.5"
-                                                        stroke="currentColor"
-                                                        fill="none"
-                                                        stroke-linecap="round"
-                                                        stroke-linejoin="round"
-                                                    >
-                                                        <path
-                                                            stroke="none"
-                                                            d="M0 0h24v24H0z"
-                                                        ></path>
-                                                        <path
-                                                            d="M4 7h3a1 1 0 0 0 1 -1v-1a2 2 0 0 1 4 0v1a1 1 0 0 0 1 1h3a1 1 0 0 1 1 1v3a1 1 0 0 0 1 1h1a2 2 0 0 1 0 4h-1a1 1 0 0 0 -1 1v3a1 1 0 0 1 -1 1h-3a1 1 0 0 1 -1 -1v-1a2 2 0 0 0 -4 0v1a1 1 0 0 1 -1 1h-3a1 1 0 0 1 -1 -1v-3a1 1 0 0 1 1 -1h1a2 2 0 0 0 0 -4h-1a1 1 0 0 1 -1 -1v-3a1 1 0 0 1 1 -1"
-                                                        ></path>
-                                                    </svg>
-                                                    <span class="ml-2 font-bold"
-                                                        >Proyectos</span
-                                                    >
-                                                </div>
-                                            </li>
-                                            <li
-                                                class="flex xl:hidden cursor-pointer text-gray-600 text-sm leading-3 tracking-normal py-2 hover:text-pink-700 flex items-center focus:text-pink-700 focus:outline-none"
-                                            >
+                                            <div class="flex items-center">
                                                 <svg
                                                     xmlns="http://www.w3.org/2000/svg"
-                                                    class="icon icon-tabler icon-tabler-compass"
+                                                    class="icon icon-tabler icon-tabler-grid"
                                                     width="20"
                                                     height="20"
                                                     viewBox="0 0 24 24"
@@ -135,218 +69,442 @@
                                                         stroke="none"
                                                         d="M0 0h24v24H0z"
                                                     ></path>
-                                                    <polyline
-                                                        points="8 16 10 10 16 8 14 14 8 16"
-                                                    ></polyline>
+                                                    <rect
+                                                        x="4"
+                                                        y="4"
+                                                        width="6"
+                                                        height="6"
+                                                        rx="1"
+                                                    ></rect>
+                                                    <rect
+                                                        x="14"
+                                                        y="4"
+                                                        width="6"
+                                                        height="6"
+                                                        rx="1"
+                                                    ></rect>
+                                                    <rect
+                                                        x="4"
+                                                        y="14"
+                                                        width="6"
+                                                        height="6"
+                                                        rx="1"
+                                                    ></rect>
+                                                    <rect
+                                                        x="14"
+                                                        y="14"
+                                                        width="6"
+                                                        height="6"
+                                                        rx="1"
+                                                    ></rect>
+                                                </svg>
+                                                <span class="ml-2 font-bold"
+                                                    >Ofertas Comerciales</span
+                                                >
+                                            </div>
+                                        </li>
+                                        <li
+                                            class="flex xl:hidden flex-col cursor-pointer text-gray-600 text-sm leading-3 tracking-normal py-2 hover:text-pink-700 focus:text-pink-700 focus:outline-none flex justify-center"
+                                            onclick="dropdownHandler(this)"
+                                        >
+                                            <div class="flex items-center">
+                                                <svg
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    class="icon icon-tabler icon-tabler-puzzle"
+                                                    width="20"
+                                                    height="20"
+                                                    viewBox="0 0 24 24"
+                                                    stroke-width="1.5"
+                                                    stroke="currentColor"
+                                                    fill="none"
+                                                    stroke-linecap="round"
+                                                    stroke-linejoin="round"
+                                                >
+                                                    <path
+                                                        stroke="none"
+                                                        d="M0 0h24v24H0z"
+                                                    ></path>
+                                                    <path
+                                                        d="M4 7h3a1 1 0 0 0 1 -1v-1a2 2 0 0 1 4 0v1a1 1 0 0 0 1 1h3a1 1 0 0 1 1 1v3a1 1 0 0 0 1 1h1a2 2 0 0 1 0 4h-1a1 1 0 0 0 -1 1v3a1 1 0 0 1 -1 1h-3a1 1 0 0 1 -1 -1v-1a2 2 0 0 0 -4 0v1a1 1 0 0 1 -1 1h-3a1 1 0 0 1 -1 -1v-3a1 1 0 0 1 1 -1h1a2 2 0 0 0 0 -4h-1a1 1 0 0 1 -1 -1v-3a1 1 0 0 1 1 -1"
+                                                    ></path>
+                                                </svg>
+                                                <span class="ml-2 font-bold"
+                                                    >Proyectos</span
+                                                >
+                                            </div>
+                                        </li>
+                                        <li
+                                            class="border-b border-gray-300 flex xl:hidden cursor-pointer text-gray-600 text-sm leading-3 tracking-normal pt-2 pb-4 hover:text-pink-700 flex items-center focus:text-pink-700 focus:outline-none"
+                                        >
+                                            <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                class="icon icon-tabler icon-tabler-code"
+                                                width="20"
+                                                height="20"
+                                                viewBox="0 0 24 24"
+                                                stroke-width="1.5"
+                                                stroke="currentColor"
+                                                fill="none"
+                                                stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                            >
+                                                <path
+                                                    stroke="none"
+                                                    d="M0 0h24v24H0z"
+                                                ></path>
+                                                <polyline
+                                                    points="7 8 3 12 7 16"
+                                                ></polyline>
+                                                <polyline
+                                                    points="17 8 21 12 17 16"
+                                                ></polyline>
+                                                <line
+                                                    x1="14"
+                                                    y1="4"
+                                                    x2="10"
+                                                    y2="20"
+                                                ></line>
+                                            </svg>
+                                            <span class="ml-2 font-bold"
+                                                >Equipos</span
+                                            >
+                                        </li>
+                                        <li
+                                            class="border-b border-gray-300 flex xl:hidden cursor-pointer text-gray-600 text-sm leading-3 tracking-normal pt-2 pb-4 hover:text-pink-700 flex items-center focus:text-pink-700 focus:outline-none"
+                                        >
+                                            <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                class="icon icon-tabler icon-tabler-code"
+                                                width="20"
+                                                height="20"
+                                                viewBox="0 0 24 24"
+                                                stroke-width="1.5"
+                                                stroke="currentColor"
+                                                fill="none"
+                                                stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                            >
+                                                <path
+                                                    stroke="none"
+                                                    d="M0 0h24v24H0z"
+                                                ></path>
+                                                <polyline
+                                                    points="7 8 3 12 7 16"
+                                                ></polyline>
+                                                <polyline
+                                                    points="17 8 21 12 17 16"
+                                                ></polyline>
+                                                <line
+                                                    x1="14"
+                                                    y1="4"
+                                                    x2="10"
+                                                    y2="20"
+                                                ></line>
+                                            </svg>
+                                            <span class="ml-2 font-bold"
+                                                >Materiales</span
+                                            >
+                                        </li>
+                                        <li
+                                            class="border-b border-gray-300 flex xl:hidden cursor-pointer text-gray-600 text-sm leading-3 tracking-normal pt-2 pb-4 hover:text-pink-700 flex items-center focus:text-pink-700 focus:outline-none"
+                                        >
+                                            <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                class="icon icon-tabler icon-tabler-code"
+                                                width="20"
+                                                height="20"
+                                                viewBox="0 0 24 24"
+                                                stroke-width="1.5"
+                                                stroke="currentColor"
+                                                fill="none"
+                                                stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                            >
+                                                <path
+                                                    stroke="none"
+                                                    d="M0 0h24v24H0z"
+                                                ></path>
+                                                <polyline
+                                                    points="7 8 3 12 7 16"
+                                                ></polyline>
+                                                <polyline
+                                                    points="17 8 21 12 17 16"
+                                                ></polyline>
+                                                <line
+                                                    x1="14"
+                                                    y1="4"
+                                                    x2="10"
+                                                    y2="20"
+                                                ></line>
+                                            </svg>
+                                            <span class="ml-2 font-bold"
+                                                >Mano de Obra</span
+                                            >
+                                        </li>
+                                        <li
+                                            class="border-b border-gray-300 flex xl:hidden cursor-pointer text-gray-600 text-sm leading-3 tracking-normal pt-2 pb-4 hover:text-pink-700 flex items-center focus:text-pink-700 focus:outline-none"
+                                        >
+                                            <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                class="icon icon-tabler icon-tabler-code"
+                                                width="20"
+                                                height="20"
+                                                viewBox="0 0 24 24"
+                                                stroke-width="1.5"
+                                                stroke="currentColor"
+                                                fill="none"
+                                                stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                            >
+                                                <path
+                                                    stroke="none"
+                                                    d="M0 0h24v24H0z"
+                                                ></path>
+                                                <polyline
+                                                    points="7 8 3 12 7 16"
+                                                ></polyline>
+                                                <polyline
+                                                    points="17 8 21 12 17 16"
+                                                ></polyline>
+                                                <line
+                                                    x1="14"
+                                                    y1="4"
+                                                    x2="10"
+                                                    y2="20"
+                                                ></line>
+                                            </svg>
+                                            <span class="ml-2 font-bold"
+                                                >AIU y IVA</span
+                                            >
+                                        </li>
+                                        <li
+                                            class="border-b border-gray-300 flex xl:hidden cursor-pointer text-gray-600 text-sm leading-3 tracking-normal pt-2 pb-4 hover:text-pink-700 flex items-center focus:text-pink-700 focus:outline-none"
+                                        >
+                                            <span class="ml-2 font-bold"
+                                                >Transporte</span
+                                            >
+                                        </li>
+                                        <li
+                                            class="cursor-pointer text-gray-600 text-sm leading-3 tracking-normal mt-2 py-2 hover:text-pink-700 flex items-center focus:text-pink-700 focus:outline-none"
+                                        >
+                                            <div class="flex items-center">
+                                                <div
+                                                    class="w-12 cursor-pointer flex text-sm border-2 border-transparent rounded focus:outline-none focus:border-white transition duration-150 ease-in-out"
+                                                >
+                                                    <img
+                                                        class="rounded h-10 w-10 object-cover"
+                                                        src="https://tuk-cdn.s3.amazonaws.com/assets/components/horizontal_navigation/hn_1.png"
+                                                        alt="logo"
+                                                    />
+                                                </div>
+                                                <p
+                                                    class="text-sm ml-2 cursor-pointer"
+                                                >
+                                                    Jesus Cuadro
+                                                </p>
+                                                <div
+                                                    class="sm:ml-2 text-white relative"
+                                                >
+                                                    <svg
+                                                        xmlns="http://www.w3.org/2000/svg"
+                                                        class="icon icon-tabler icon-tabler-chevron-down cursor-pointer"
+                                                        width="20"
+                                                        height="20"
+                                                        viewBox="0 0 24 24"
+                                                        stroke-width="1.5"
+                                                        stroke="currentColor"
+                                                        fill="none"
+                                                        stroke-linecap="round"
+                                                        stroke-linejoin="round"
+                                                    >
+                                                        <path
+                                                            stroke="none"
+                                                            d="M0 0h24v24H0z"
+                                                        ></path>
+                                                        <polyline
+                                                            points="6 9 12 15 18 9"
+                                                        ></polyline>
+                                                    </svg>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li
+                                            class="cursor-pointer text-gray-600 text-sm leading-3 tracking-normal py-2 hover:text-pink-700 focus:text-pink-700 focus:outline-none"
+                                        >
+                                            <div class="flex items-center">
+                                                <svg
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    class="icon icon-tabler icon-tabler-user"
+                                                    width="20"
+                                                    height="20"
+                                                    viewBox="0 0 24 24"
+                                                    stroke-width="1.5"
+                                                    stroke="currentColor"
+                                                    fill="none"
+                                                    stroke-linecap="round"
+                                                    stroke-linejoin="round"
+                                                >
+                                                    <path
+                                                        stroke="none"
+                                                        d="M0 0h24v24H0z"
+                                                    />
                                                     <circle
                                                         cx="12"
-                                                        cy="12"
-                                                        r="9"
-                                                    ></circle>
-                                                </svg>
-                                                <span class="ml-2 font-bold"
-                                                    >Rendimiento</span
-                                                >
-                                            </li>
-                                            <li
-                                                class="border-b border-gray-300 flex xl:hidden cursor-pointer text-gray-600 text-sm leading-3 tracking-normal pt-2 pb-4 hover:text-pink-700 flex items-center focus:text-pink-700 focus:outline-none"
-                                            >
-                                                <svg
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    class="icon icon-tabler icon-tabler-code"
-                                                    width="20"
-                                                    height="20"
-                                                    viewBox="0 0 24 24"
-                                                    stroke-width="1.5"
-                                                    stroke="currentColor"
-                                                    fill="none"
-                                                    stroke-linecap="round"
-                                                    stroke-linejoin="round"
-                                                >
+                                                        cy="7"
+                                                        r="4"
+                                                    />
                                                     <path
-                                                        stroke="none"
-                                                        d="M0 0h24v24H0z"
-                                                    ></path>
-                                                    <polyline
-                                                        points="7 8 3 12 7 16"
-                                                    ></polyline>
-                                                    <polyline
-                                                        points="17 8 21 12 17 16"
-                                                    ></polyline>
-                                                    <line
-                                                        x1="14"
-                                                        y1="4"
-                                                        x2="10"
-                                                        y2="20"
-                                                    ></line>
+                                                        d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"
+                                                    />
                                                 </svg>
-                                                <span class="ml-2 font-bold"
-                                                    >Equipos</span
-                                                >
-                                            </li>
-                                            <li
-                                                class="border-b border-gray-300 flex xl:hidden cursor-pointer text-gray-600 text-sm leading-3 tracking-normal pt-2 pb-4 hover:text-pink-700 flex items-center focus:text-pink-700 focus:outline-none"
-                                            >
-                                                <svg
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    class="icon icon-tabler icon-tabler-code"
-                                                    width="20"
-                                                    height="20"
-                                                    viewBox="0 0 24 24"
-                                                    stroke-width="1.5"
-                                                    stroke="currentColor"
-                                                    fill="none"
-                                                    stroke-linecap="round"
-                                                    stroke-linejoin="round"
-                                                >
-                                                    <path
-                                                        stroke="none"
-                                                        d="M0 0h24v24H0z"
-                                                    ></path>
-                                                    <polyline
-                                                        points="7 8 3 12 7 16"
-                                                    ></polyline>
-                                                    <polyline
-                                                        points="17 8 21 12 17 16"
-                                                    ></polyline>
-                                                    <line
-                                                        x1="14"
-                                                        y1="4"
-                                                        x2="10"
-                                                        y2="20"
-                                                    ></line>
-                                                </svg>
-                                                <span class="ml-2 font-bold"
-                                                    >Materiales</span
-                                                >
-                                            </li>
-                                            <li
-                                                class="border-b border-gray-300 flex xl:hidden cursor-pointer text-gray-600 text-sm leading-3 tracking-normal pt-2 pb-4 hover:text-pink-700 flex items-center focus:text-pink-700 focus:outline-none"
-                                            >
-                                                <svg
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    class="icon icon-tabler icon-tabler-code"
-                                                    width="20"
-                                                    height="20"
-                                                    viewBox="0 0 24 24"
-                                                    stroke-width="1.5"
-                                                    stroke="currentColor"
-                                                    fill="none"
-                                                    stroke-linecap="round"
-                                                    stroke-linejoin="round"
-                                                >
-                                                    <path
-                                                        stroke="none"
-                                                        d="M0 0h24v24H0z"
-                                                    ></path>
-                                                    <polyline
-                                                        points="7 8 3 12 7 16"
-                                                    ></polyline>
-                                                    <polyline
-                                                        points="17 8 21 12 17 16"
-                                                    ></polyline>
-                                                    <line
-                                                        x1="14"
-                                                        y1="4"
-                                                        x2="10"
-                                                        y2="20"
-                                                    ></line>
-                                                </svg>
-                                                <span class="ml-2 font-bold"
-                                                    >Mano de Obra</span
-                                                >
-                                            </li>
-                                            <li
-                                                class="border-b border-gray-300 flex xl:hidden cursor-pointer text-gray-600 text-sm leading-3 tracking-normal pt-2 pb-4 hover:text-pink-700 flex items-center focus:text-pink-700 focus:outline-none"
-                                            >
-                                                <svg
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    class="icon icon-tabler icon-tabler-code"
-                                                    width="20"
-                                                    height="20"
-                                                    viewBox="0 0 24 24"
-                                                    stroke-width="1.5"
-                                                    stroke="currentColor"
-                                                    fill="none"
-                                                    stroke-linecap="round"
-                                                    stroke-linejoin="round"
-                                                >
-                                                    <path
-                                                        stroke="none"
-                                                        d="M0 0h24v24H0z"
-                                                    ></path>
-                                                    <polyline
-                                                        points="7 8 3 12 7 16"
-                                                    ></polyline>
-                                                    <polyline
-                                                        points="17 8 21 12 17 16"
-                                                    ></polyline>
-                                                    <line
-                                                        x1="14"
-                                                        y1="4"
-                                                        x2="10"
-                                                        y2="20"
-                                                    ></line>
-                                                </svg>
-                                                <span class="ml-2 font-bold"
-                                                    >AIU y IVA</span
-                                                >
-                                            </li>
-                                            <li
-                                                class="border-b border-gray-300 flex xl:hidden cursor-pointer text-gray-600 text-sm leading-3 tracking-normal pt-2 pb-4 hover:text-pink-700 flex items-center focus:text-pink-700 focus:outline-none"
-                                            >
-                                                <span class="ml-2 font-bold"
-                                                    >Transporte</span
-                                                >
-                                            </li>
-                                            <li
-                                                class="cursor-pointer text-gray-600 text-sm leading-3 tracking-normal mt-2 py-2 hover:text-pink-700 flex items-center focus:text-pink-700 focus:outline-none"
-                                            >
-                                                <div class="flex items-center">
-                                                    <div
-                                                        class="w-12 cursor-pointer flex text-sm border-2 border-transparent rounded focus:outline-none focus:border-white transition duration-150 ease-in-out"
-                                                    >
-                                                        <img
-                                                            class="rounded h-10 w-10 object-cover"
-                                                            src="https://tuk-cdn.s3.amazonaws.com/assets/components/horizontal_navigation/hn_1.png"
-                                                            alt="logo"
-                                                        />
-                                                    </div>
-                                                    <p
-                                                        class="text-sm ml-2 cursor-pointer"
-                                                    >
-                                                        Jesus Cuadro
-                                                    </p>
-                                                    <div
-                                                        class="sm:ml-2 text-white relative"
-                                                    >
-                                                        <svg
-                                                            xmlns="http://www.w3.org/2000/svg"
-                                                            class="icon icon-tabler icon-tabler-chevron-down cursor-pointer"
-                                                            width="20"
-                                                            height="20"
-                                                            viewBox="0 0 24 24"
-                                                            stroke-width="1.5"
-                                                            stroke="currentColor"
-                                                            fill="none"
-                                                            stroke-linecap="round"
-                                                            stroke-linejoin="round"
-                                                        >
-                                                            <path
-                                                                stroke="none"
-                                                                d="M0 0h24v24H0z"
-                                                            ></path>
-                                                            <polyline
-                                                                points="6 9 12 15 18 9"
-                                                            ></polyline>
-                                                        </svg>
-                                                    </div>
-                                                </div>
-                                            </li>
+                                                <span class="ml-2">Perfil</span>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                    <svg
+                                        onclick="MenuHandler(this,true)"
+                                        aria-haspopup="true"
+                                        aria-label="Main Menu"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        class="show-m-menu icon icon-tabler icon-tabler-menu"
+                                        width="28"
+                                        height="28"
+                                        viewBox="0 0 24 24"
+                                        stroke-width="1.5"
+                                        stroke="currentColor"
+                                        fill="none"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                    >
+                                        <path
+                                            stroke="none"
+                                            d="M0 0h24v24H0z"
+                                        ></path>
+                                        <line
+                                            x1="4"
+                                            y1="8"
+                                            x2="20"
+                                            y2="8"
+                                        ></line>
+                                        <line
+                                            x1="4"
+                                            y1="16"
+                                            x2="20"
+                                            y2="16"
+                                        ></line>
+                                    </svg>
+                                </div>
+                                <div
+                                    class="hidden close-m-menu text-gray-700"
+                                    onclick="MenuHandler(this,false)"
+                                >
+                                    <svg
+                                        aria-label="Close"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        width="24"
+                                        height="24"
+                                        viewBox="0 0 24 24"
+                                        stroke-width="1.5"
+                                        stroke="currentColor"
+                                        fill="none"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                    >
+                                        <path stroke="none" d="M0 0h24v24H0z" />
+                                        <line x1="18" y1="6" x2="6" y2="18" />
+                                        <line x1="6" y1="6" x2="18" y2="18" />
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                        <button
+                            class="focus:outline-none rounded-md flex w-full sm:w-auto items-center sm:items-stretch justify-end sm:justify-start"
+                            onclick="window.location.href='../pages/principal.html'"
+                        >
+                            <div class="flex items-center">
+                                <img
+                                    class="h-15 w-20"
+                                    src="https://i.imgur.com/xQhZRWX.png"
+                                    alt="logo"
+                                />
+                            </div>
+                        </button>
+                        <div class="flex">
+                            <div class="hidden xl:flex md:mr-6 xl:mr-16">
+                                <a
+                                    href="javascript: void(0)"
+                                    class="focus:text-pink-700 border-b-2 border-transparent focus:border-pink-700 flex px-5 items-center py-6 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none transition duration-150 ease-in-out"
+                                    style="text-align: center"
+                                >
+                                    Ofertas Comerciales
+                                </a>
+                                <a
+                                    href="javascript: void(0)"
+                                    class="focus:text-pink-700 border-b-2 border-transparent focus:border-pink-700 flex px-5 items-center py-6 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none transition duration-150 ease-in-out"
+                                    style="text-align: center"
+                                >
+                                    Proyectos
+                                </a>
+                                <a
+                                    href="javascript: void(0)"
+                                    class="focus:text-pink-700 border-b-2 border-transparent focus:border-pink-700 flex px-5 items-center py-6 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none transition duration-150 ease-in-out"
+                                    style="text-align: center"
+                                >
+                                    Equipos
+                                </a>
+                                <a
+                                    href="javascript: void(0)"
+                                    class="focus:text-pink-700 border-b-2 border-transparent focus:border-pink-700 flex px-5 items-center py-6 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none transition duration-150 ease-in-out"
+                                    style="text-align: center"
+                                >
+                                    Materiales
+                                </a>
+                                <a
+                                    href="javascript: void(0)"
+                                    class="focus:text-pink-700 border-b-2 border-transparent focus:border-pink-700 flex px-5 items-center py-6 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none transition duration-150 ease-in-out"
+                                    style="text-align: center"
+                                >
+                                    Mano de Obra
+                                </a>
+                                <a
+                                    href="javascript: void(0)"
+                                    class="focus:text-pink-700 border-b-2 border-transparent focus:border-pink-700 flex px-5 items-center py-6 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none transition duration-150 ease-in-out"
+                                    style="text-align: center"
+                                >
+                                    AIU y IVA
+                                </a>
+                                <a
+                                    href="javascript: void(0)"
+                                    class="focus:text-pink-700 border-b-2 border-transparent focus:border-pink-700 flex px-5 items-center py-6 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none transition duration-150 ease-in-out"
+                                    style="text-align: center"
+                                >
+                                    Transporte
+                                </a>
+                            </div>
+                            <div class="hidden xl:flex items-center">
+                                <div class="relative md:mr-6 my-2">
+                                    <button
+                                        class="focus:ring-2 focus:ring-offset-2 focus:ring-pink-700 focus:text-pink-700 focus:outline-none bg-gray-100 border-gray-300 border transition duration-150 ease-in-out hover:bg-gray-300 rounded text-gray-600 px-5 py-2 text-xs"
+                                    >
+                                        Usuarios
+                                    </button>
+                                </div>
+                                <div class="ml-6 relative">
+                                    <button
+                                        aria-label="dropdown"
+                                        class="focus:outline-none border-b-2 border-transparent focus:border-pink-700 py-3 focus:text-pink-700 text-gray-600 hover:text-pink-700 flex items-center relative"
+                                        onclick="dropdownHandler(this)"
+                                    >
+                                        <ul
+                                            class="p-2 w-40 border-r bg-white absolute rounded right-0 shadow top-0 mt-16 hidden"
+                                        >
                                             <li
                                                 class="cursor-pointer text-gray-600 text-sm leading-3 tracking-normal py-2 hover:text-pink-700 focus:text-pink-700 focus:outline-none"
                                             >
-                                                <div class="flex items-center">
+                                                <a
+                                                    href=""
+                                                    class="focus:underline focus:text-pink-700 focus:outline-none flex items-center"
+                                                >
                                                     <svg
                                                         xmlns="http://www.w3.org/2000/svg"
                                                         class="icon icon-tabler icon-tabler-user"
@@ -373,174 +531,359 @@
                                                         />
                                                     </svg>
                                                     <span class="ml-2"
-                                                        >Perfil</span
+                                                        >Mi Perfil</span
                                                     >
-                                                </div>
+                                                </a>
+                                            </li>
+                                            <li
+                                                class="cursor-pointer text-gray-600 text-sm leading-3 tracking-normal py-2 hover:text-pink-700 focus:text-pink-700 focus:outline-none"
+                                            >
+                                                <a
+                                                    href=""
+                                                    class="focus:underline focus:text-pink-700 focus:outline-none flex items-center"
+                                                    onclick="logout()"
+                                                >
+                                                    <i
+                                                        class="fas fa-sign-out-alt"
+                                                    ></i>
+                                                    <span class="ml-2"
+                                                        >Cerrar Sesión</span
+                                                    >
+                                                </a>
                                             </li>
                                         </ul>
-                                        <svg
-                                            onclick="MenuHandler(this,true)"
-                                            aria-haspopup="true"
-                                            aria-label="Main Menu"
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            class="show-m-menu icon icon-tabler icon-tabler-menu"
-                                            width="28"
-                                            height="28"
-                                            viewBox="0 0 24 24"
-                                            stroke-width="1.5"
-                                            stroke="currentColor"
-                                            fill="none"
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
+                                        <div
+                                            class="cursor-pointer flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-white transition duration-150 ease-in-out"
                                         >
-                                            <path
-                                                stroke="none"
-                                                d="M0 0h24v24H0z"
-                                            ></path>
-                                            <line
-                                                x1="4"
-                                                y1="8"
-                                                x2="20"
-                                                y2="8"
-                                            ></line>
-                                            <line
-                                                x1="4"
-                                                y1="16"
-                                                x2="20"
-                                                y2="16"
-                                            ></line>
-                                        </svg>
-                                    </div>
-                                    <div
-                                        class="hidden close-m-menu text-gray-700"
-                                        onclick="MenuHandler(this,false)"
-                                    >
-                                        <svg
-                                            aria-label="Close"
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            width="24"
-                                            height="24"
-                                            viewBox="0 0 24 24"
-                                            stroke-width="1.5"
-                                            stroke="currentColor"
-                                            fill="none"
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
-                                        >
-                                            <path
-                                                stroke="none"
-                                                d="M0 0h24v24H0z"
+                                            <img
+                                                class="rounded-full h-10 w-10 object-cover"
+                                                src=""
+                                                alt="foto de perfil"
+                                                id="userPhoto"
+                                                class="user-photo"
                                             />
-                                            <line
-                                                x1="18"
-                                                y1="6"
-                                                x2="6"
-                                                y2="18"
-                                            />
-                                            <line
-                                                x1="6"
-                                                y1="6"
-                                                x2="18"
-                                                y2="18"
-                                            />
-                                        </svg>
-                                    </div>
+                                        </div>
+                                        <div class="ml-2">
+                                            <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                class="icon icon-tabler icon-tabler-chevron-down cursor-pointer"
+                                                width="20"
+                                                height="20"
+                                                viewBox="0 0 24 24"
+                                                stroke-width="1.5"
+                                                stroke="currentColor"
+                                                fill="none"
+                                                stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                            >
+                                                <path
+                                                    stroke="none"
+                                                    d="M0 0h24v24H0z"
+                                                ></path>
+                                                <polyline
+                                                    points="6 9 12 15 18 9"
+                                                ></polyline>
+                                            </svg>
+                                        </div>
+                                    </button>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+            <nav>
+                <div
+                    class="py-4 px-6 w-full flex xl:hidden justify-between items-center bg-white fixed top-0 z-40"
+                >
+                    <div
+                        aria-label="logo"
+                        role="img"
+                        tabindex="0"
+                        class="focus:outline-none w-24"
+                    >
+                        <a href="../pages/principal.html">
+                            <img
+                                class="h-10 w-15"
+                                src="https://i.imgur.com/xQhZRWX.png"
+                                alt="logo"
+                            />
+                        </a>
+                    </div>
+                    <div class="flex items-center">
+                        <div class="relative mr-6">
                             <button
-                                class="focus:outline-none rounded-md flex w-full sm:w-auto items-center sm:items-stretch justify-end sm:justify-start"
-                                onclick="window.location.href='../pages/principal.html'"
+                                class="focus:ring-2 focus:ring-offset-2 focus:ring-pink-700 focus:text-pink-700 focus:outline-none bg-gray-100 border-gray-300 border transition duration-150 ease-in-out hover:bg-gray-300 rounded text-gray-600 px-5 py-2 text-xs"
                             >
-                                <div class="flex items-center">
-                                    <img
-                                        class="h-15 w-20"
-                                        src="https://i.imgur.com/xQhZRWX.png"
-                                        alt="logo"
-                                    />
-                                </div>
+                                Usuarios
                             </button>
-                            <div class="flex">
-                                <div class="hidden xl:flex md:mr-6 xl:mr-16">
-                                    <a
-                                        href="javascript: void(0)"
-                                        class="focus:text-pink-700 border-b-2 border-transparent focus:border-pink-700 flex px-5 items-center py-6 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none transition duration-150 ease-in-out"
-                                        style="text-align: center"
+                        </div>
+                        <button
+                            id="menu"
+                            aria-label="open menu"
+                            class="focus:outline-none focus:ring-2 focus:ring-gray-600 rounded-md text-gray-800"
+                            onclick="sidebarHandler(true)"
+                        >
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                class="icon icon-tabler icon-tabler-menu-2"
+                                width="24"
+                                height="24"
+                                viewBox="0 0 24 24"
+                                stroke-width="1.5"
+                                stroke="currentColor"
+                                fill="none"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            >
+                                <path
+                                    stroke="none"
+                                    d="M0 0h24v24H0z"
+                                    fill="none"
+                                />
+                                <line x1="4" y1="6" x2="20" y2="6" />
+                                <line x1="4" y1="12" x2="20" y2="12" />
+                                <line x1="4" y1="18" x2="20" y2="18" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                <!--Mobile responsive sidebar-->
+                <div
+                    class="absolute w-full h-full transform -translate-x-full z-40 xl:hidden"
+                    style="position: fixed"
+                    id="mobile-nav"
+                >
+                    <div
+                        class="bg-gray-800 opacity-50 w-full h-full"
+                        onclick="sidebarHandler(false)"
+                    ></div>
+                    <div
+                        class="w-64 z-40 fixed overflow-y-auto z-40 top-0 bg-white shadow h-full flex-col justify-between xl:hidden pb-4 transition duration-150 ease-in-out"
+                    >
+                        <div class="px-6 h-full">
+                            <div
+                                class="flex flex-col justify-between h-full w-full"
+                            >
+                                <div>
+                                    <div
+                                        class="mt-6 flex w-full items-center justify-between"
                                     >
-                                        Ofertas Comerciales
-                                    </a>
-                                    <a
-                                        href="javascript: void(0)"
-                                        class="focus:text-pink-700 border-b-2 border-transparent focus:border-pink-700 flex px-5 items-center py-6 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none transition duration-150 ease-in-out"
-                                        style="text-align: center"
-                                    >
-                                        Proyectos
-                                    </a>
-                                    <a
-                                        href="javascript: void(0)"
-                                        class="focus:text-pink-700 border-b-2 border-transparent focus:border-pink-700 flex px-5 items-center py-6 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none transition duration-150 ease-in-out"
-                                        style="text-align: center"
-                                    >
-                                        Rendimiento
-                                    </a>
-                                    <a
-                                        href="javascript: void(0)"
-                                        class="focus:text-pink-700 border-b-2 border-transparent focus:border-pink-700 flex px-5 items-center py-6 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none transition duration-150 ease-in-out"
-                                        style="text-align: center"
-                                    >
-                                        Equipos
-                                    </a>
-                                    <a
-                                        href="javascript: void(0)"
-                                        class="focus:text-pink-700 border-b-2 border-transparent focus:border-pink-700 flex px-5 items-center py-6 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none transition duration-150 ease-in-out"
-                                        style="text-align: center"
-                                    >
-                                        Materiales
-                                    </a>
-                                    <a
-                                        href="javascript: void(0)"
-                                        class="focus:text-pink-700 border-b-2 border-transparent focus:border-pink-700 flex px-5 items-center py-6 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none transition duration-150 ease-in-out"
-                                        style="text-align: center"
-                                    >
-                                        Mano de Obra
-                                    </a>
-                                    <a
-                                        href="javascript: void(0)"
-                                        class="focus:text-pink-700 border-b-2 border-transparent focus:border-pink-700 flex px-5 items-center py-6 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none transition duration-150 ease-in-out"
-                                        style="text-align: center"
-                                    >
-                                        AIU y IVA
-                                    </a>
-                                    <a
-                                        href="javascript: void(0)"
-                                        class="focus:text-pink-700 border-b-2 border-transparent focus:border-pink-700 flex px-5 items-center py-6 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none transition duration-150 ease-in-out"
-                                        style="text-align: center"
-                                    >
-                                        Transporte
-                                    </a>
-                                </div>
-                                <div class="hidden xl:flex items-center">
-                                    <div class="relative md:mr-6 my-2">
-                                        <button
-                                            class="focus:ring-2 focus:ring-offset-2 focus:ring-pink-700 focus:text-pink-700 focus:outline-none bg-gray-100 border-gray-300 border transition duration-150 ease-in-out hover:bg-gray-300 rounded text-gray-600 px-5 py-2 text-xs"
+                                        <div
+                                            class="flex items-center justify-between w-full"
                                         >
-                                            Usuarios
-                                        </button>
-                                    </div>
-                                    <div class="ml-6 relative">
-                                        <button
-                                            aria-label="dropdown"
-                                            class="focus:outline-none border-b-2 border-transparent focus:border-pink-700 py-3 focus:text-pink-700 text-gray-600 hover:text-pink-700 flex items-center relative"
-                                            onclick="dropdownHandler(this)"
-                                        >
-                                            <ul
-                                                class="p-2 w-40 border-r bg-white absolute rounded right-0 shadow top-0 mt-16 hidden"
-                                            >
-                                                <li
-                                                    class="cursor-pointer text-gray-600 text-sm leading-3 tracking-normal py-2 hover:text-pink-700 focus:text-pink-700 focus:outline-none"
+                                            <div class="flex items-center">
+                                                <a
+                                                    href="../pages/principal.html"
                                                 >
-                                                    <a
-                                                        href=""
-                                                        class="focus:underline focus:text-pink-700 focus:outline-none flex items-center"
+                                                    <img
+                                                        class="h-10 w-15"
+                                                        src="https://i.imgur.com/xQhZRWX.png"
+                                                        alt="logo"
+                                                    />
+                                                </a>
+                                                <p
+                                                    tabindex="0"
+                                                    class="focus:outline-none text-base md:text-2xl text-gray-800 ml-3"
+                                                >
+                                                    GeoAPU
+                                                </p>
+                                            </div>
+                                            <button
+                                                id="cross"
+                                                aria-label="close menu"
+                                                class="focus:outline-none focus:ring-2 rounded-md text-gray-800"
+                                                onclick="sidebarHandler(false)"
+                                            >
+                                                <svg
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    class="icon icon-tabler icon-tabler-x"
+                                                    width="24"
+                                                    height="24"
+                                                    viewBox="0 0 24 24"
+                                                    stroke-width="1.5"
+                                                    stroke="currentColor"
+                                                    fill="none"
+                                                    stroke-linecap="round"
+                                                    stroke-linejoin="round"
+                                                >
+                                                    <path
+                                                        stroke="none"
+                                                        d="M0 0h24v24H0z"
+                                                    ></path>
+                                                    <line
+                                                        x1="18"
+                                                        y1="6"
+                                                        x2="6"
+                                                        y2="18"
+                                                    ></line>
+                                                    <line
+                                                        x1="6"
+                                                        y1="6"
+                                                        x2="18"
+                                                        y2="18"
+                                                    ></line>
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <ul class="f-m-m">
+                                        <li>
+                                            <a class="cursor-pointer">
+                                                <div
+                                                    class="text-gray-800 pt-10"
+                                                >
+                                                    <div
+                                                        class="flex items-center"
+                                                    >
+                                                        <p
+                                                            tabindex="0"
+                                                            class="focus:outline-none focus:text-pink-600 text-gray-800 xl:text-base md:text-2xl text-base ml-3"
+                                                        >
+                                                            Ofertas Comerciales
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="cursor-pointer">
+                                                <div class="text-gray-800 pt-8">
+                                                    <div
+                                                        class="flex items-center justify-between"
+                                                    >
+                                                        <div
+                                                            class="flex items-center"
+                                                        >
+                                                            <p
+                                                                tabindex="0"
+                                                                class="focus:outline-none focus:text-pink-600 text-gray-800 xl:text-base md:text-2xl text-base ml-3"
+                                                            >
+                                                                Proyectos
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="cursor-pointer">
+                                                <div
+                                                    class="text-gray-800 pt-10"
+                                                >
+                                                    <div
+                                                        class="flex items-center"
+                                                    >
+                                                        <p
+                                                            tabindex="0"
+                                                            class="focus:outline-none focus:text-pink-600 text-gray-800 xl:text-base md:text-2xl text-base ml-3"
+                                                        >
+                                                            Equipos
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="cursor-pointer">
+                                                <div
+                                                    class="text-gray-800 pt-10"
+                                                >
+                                                    <div
+                                                        class="flex items-center"
+                                                    >
+                                                        <p
+                                                            tabindex="0"
+                                                            class="focus:outline-none focus:text-pink-600 text-gray-800 xl:text-base md:text-2xl text-base ml-3"
+                                                        >
+                                                            Materiales
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="cursor-pointer">
+                                                <div
+                                                    class="text-gray-800 pt-10"
+                                                >
+                                                    <div
+                                                        class="flex items-center"
+                                                    >
+                                                        <p
+                                                            tabindex="0"
+                                                            class="focus:outline-none focus:text-pink-600 text-gray-800 xl:text-base md:text-2xl text-base ml-3"
+                                                        >
+                                                            Mano de Obra
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="cursor-pointer">
+                                                <div
+                                                    class="text-gray-800 pt-10"
+                                                >
+                                                    <div
+                                                        class="flex items-center"
+                                                    >
+                                                        <p
+                                                            tabindex="0"
+                                                            class="focus:outline-none focus:text-pink-600 text-gray-800 xl:text-base md:text-2xl text-base ml-3"
+                                                        >
+                                                            AIU y IVA
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="cursor-pointer">
+                                                <div
+                                                    class="text-gray-800 pt-10"
+                                                >
+                                                    <div
+                                                        class="flex items-center"
+                                                    >
+                                                        <p
+                                                            tabindex="0"
+                                                            class="focus:outline-none focus:text-pink-600 text-gray-800 xl:text-base md:text-2xl text-base ml-3"
+                                                        >
+                                                            Transporte
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="w-full pt-4">
+                                    <div class="border-t border-gray-300">
+                                        <div
+                                            class="w-full flex items-center justify-between pt-1"
+                                        >
+                                            <div class="flex items-center">
+                                                <img
+                                                    alt="foto de perfil"
+                                                    src=""
+                                                    tabindex="0"
+                                                    class="focus:outline-none w-8 h-8 rounded-md"
+                                                    id="mobileUserPhoto"
+                                                />
+                                                <p
+                                                    tabindex="0"
+                                                    class="focus:outline-none text-gray-800 text-base leading-4 ml-2"
+                                                    id="mobileUserName"
+                                                ></p>
+                                            </div>
+                                            <ul class="flex">
+                                                <li
+                                                    class="cursor-pointer text-gray-800 pt-5 pb-3 pl-3"
+                                                >
+                                                    <div
+                                                        tabindex="0"
+                                                        class="focus:outline-none focus:text-pink-600 w-6 h-6 md:w-8 md:h-8"
                                                     >
                                                         <svg
                                                             xmlns="http://www.w3.org/2000/svg"
@@ -567,575 +910,189 @@
                                                                 d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"
                                                             />
                                                         </svg>
-                                                        <span class="ml-2"
-                                                            >Mi Perfil</span
-                                                        >
-                                                    </a>
+                                                    </div>
+                                                </li>
+                                                <li
+                                                    class="cursor-pointer text-gray-800 pt-5 pb-3 pl-3"
+                                                >
+                                                    <div
+                                                        tabindex="0"
+                                                        class="focus:outline-none focus:text-pink-600 w-6 h-6 md:w-8 md:h-8"
+                                                        onclick="logout()"
+                                                    >
+                                                        <i
+                                                            class="fas fa-sign-out-alt"
+                                                        ></i>
+                                                    </div>
                                                 </li>
                                             </ul>
-                                            <div
-                                                class="cursor-pointer flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-white transition duration-150 ease-in-out"
-                                            >
-                                                <img
-                                                    class="rounded-full h-10 w-10 object-cover"
-                                                    src="https://i.imgur.com/gubXaPN.png"
-                                                    alt="logo"
-                                                />
-                                            </div>
-                                            <div class="ml-2">
-                                                <svg
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    class="icon icon-tabler icon-tabler-chevron-down cursor-pointer"
-                                                    width="20"
-                                                    height="20"
-                                                    viewBox="0 0 24 24"
-                                                    stroke-width="1.5"
-                                                    stroke="currentColor"
-                                                    fill="none"
-                                                    stroke-linecap="round"
-                                                    stroke-linejoin="round"
-                                                >
-                                                    <path
-                                                        stroke="none"
-                                                        d="M0 0h24v24H0z"
-                                                    ></path>
-                                                    <polyline
-                                                        points="6 9 12 15 18 9"
-                                                    ></polyline>
-                                                </svg>
-                                            </div>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </nav>
-                <nav>
-                    <div
-                        class="py-4 px-6 w-full flex xl:hidden justify-between items-center bg-white fixed top-0 z-40"
-                    >
-                        <div
-                            aria-label="logo"
-                            role="img"
-                            tabindex="0"
-                            class="focus:outline-none w-24"
-                        >
-                            <a href="../pages/principal.html">
-                                <img
-                                    class="h-10 w-15"
-                                    src="https://i.imgur.com/xQhZRWX.png"
-                                    alt="logo"
-                                />
-                            </a>
-                        </div>
-                        <div class="flex items-center">
-                            <div class="relative mr-6">
-                                <button
-                                    class="focus:ring-2 focus:ring-offset-2 focus:ring-pink-700 focus:outline-none bg-gray-100 border-gray-300 border transition duration-150 ease-in-out hover:bg-gray-300 rounded text-gray-600 px-5 py-2 text-xs text-center"
-                                >
-                                    Usuarios
-                                </button>
-                            </div>
-                            <button
-                                id="menu"
-                                aria-label="open menu"
-                                class="focus:outline-none focus:ring-2 focus:ring-gray-600 rounded-md text-gray-800"
-                                onclick="sidebarHandler(true)"
-                            >
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    class="icon icon-tabler icon-tabler-menu-2"
-                                    width="24"
-                                    height="24"
-                                    viewBox="0 0 24 24"
-                                    stroke-width="1.5"
-                                    stroke="currentColor"
-                                    fill="none"
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                >
-                                    <path
-                                        stroke="none"
-                                        d="M0 0h24v24H0z"
-                                        fill="none"
-                                    />
-                                    <line x1="4" y1="6" x2="20" y2="6" />
-                                    <line x1="4" y1="12" x2="20" y2="12" />
-                                    <line x1="4" y1="18" x2="20" y2="18" />
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
-                    <!--Mobile responsive sidebar-->
-                    <div
-                        class="absolute w-full h-full transform -translate-x-full z-40 xl:hidden"
-                        style="transform: translateX(0px); position: fixed"
-                        id="mobile-nav"
-                    >
-                        <div
-                            class="bg-gray-800 opacity-50 w-full h-full"
-                            onclick="sidebarHandler(false)"
-                        ></div>
-                        <div
-                            class="w-64 z-40 fixed overflow-y-auto z-40 top-0 bg-white shadow h-full flex-col justify-between xl:hidden pb-4 transition duration-150 ease-in-out"
-                        >
-                            <div class="px-6 h-full">
-                                <div
-                                    class="flex flex-col justify-between h-full w-full"
-                                >
-                                    <div>
-                                        <div
-                                            class="mt-6 flex w-full items-center justify-between"
-                                        >
-                                            <div
-                                                class="flex items-center justify-between w-full"
-                                            >
-                                                <div class="flex items-center">
-                                                    <a
-                                                        href="../pages/principal.html"
-                                                    >
-                                                        <img
-                                                            class="h-10 w-15"
-                                                            src="https://i.imgur.com/xQhZRWX.png"
-                                                            alt="logo"
-                                                        />
-                                                    </a>
-                                                    <p
-                                                        tabindex="0"
-                                                        class="focus:outline-none text-base md:text-2xl text-gray-800 ml-3"
-                                                    >
-                                                        GeoAPU
-                                                    </p>
-                                                </div>
-                                                <button
-                                                    id="cross"
-                                                    aria-label="close menu"
-                                                    class="focus:outline-none focus:ring-2 rounded-md text-gray-800"
-                                                    onclick="sidebarHandler(false)"
-                                                >
-                                                    <svg
-                                                        xmlns="http://www.w3.org/2000/svg"
-                                                        class="icon icon-tabler icon-tabler-x"
-                                                        width="24"
-                                                        height="24"
-                                                        viewBox="0 0 24 24"
-                                                        stroke-width="1.5"
-                                                        stroke="currentColor"
-                                                        fill="none"
-                                                        stroke-linecap="round"
-                                                        stroke-linejoin="round"
-                                                    >
-                                                        <path
-                                                            stroke="none"
-                                                            d="M0 0h24v24H0z"
-                                                        ></path>
-                                                        <line
-                                                            x1="18"
-                                                            y1="6"
-                                                            x2="6"
-                                                            y2="18"
-                                                        ></line>
-                                                        <line
-                                                            x1="6"
-                                                            y1="6"
-                                                            x2="18"
-                                                            y2="18"
-                                                        ></line>
-                                                    </svg>
-                                                </button>
-                                            </div>
-                                        </div>
-                                        <ul class="f-m-m">
-                                            <li>
-                                                <a class="cursor-pointer">
-                                                    <div
-                                                        class="text-gray-800 pt-10"
-                                                    >
-                                                        <div
-                                                            class="flex items-center"
-                                                        >
-                                                            <p
-                                                                tabindex="0"
-                                                                class="focus:outline-none focus:text-pink-600 text-gray-800 xl:text-base md:text-2xl text-base ml-3"
-                                                            >
-                                                                Ofertas
-                                                                Comerciales
-                                                            </p>
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a class="cursor-pointer">
-                                                    <div
-                                                        class="text-gray-800 pt-8"
-                                                    >
-                                                        <div
-                                                            class="flex items-center justify-between"
-                                                        >
-                                                            <div
-                                                                class="flex items-center"
-                                                            >
-                                                                <p
-                                                                    tabindex="0"
-                                                                    class="focus:outline-none focus:text-pink-600 text-gray-800 xl:text-base md:text-2xl text-base ml-3"
-                                                                >
-                                                                    Proyectos
-                                                                </p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a class="cursor-pointer">
-                                                    <div
-                                                        class="text-gray-800 pt-10"
-                                                    >
-                                                        <div
-                                                            class="flex items-center"
-                                                        >
-                                                            <p
-                                                                tabindex="0"
-                                                                class="focus:outline-none focus:text-pink-600 text-gray-800 xl:text-base md:text-2xl text-base ml-3"
-                                                            >
-                                                                Rendimiento
-                                                            </p>
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a class="cursor-pointer">
-                                                    <div
-                                                        class="text-gray-800 pt-10"
-                                                    >
-                                                        <div
-                                                            class="flex items-center"
-                                                        >
-                                                            <p
-                                                                tabindex="0"
-                                                                class="focus:outline-none focus:text-pink-600 text-gray-800 xl:text-base md:text-2xl text-base ml-3"
-                                                            >
-                                                                Equipos
-                                                            </p>
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a class="cursor-pointer">
-                                                    <div
-                                                        class="text-gray-800 pt-10"
-                                                    >
-                                                        <div
-                                                            class="flex items-center"
-                                                        >
-                                                            <p
-                                                                tabindex="0"
-                                                                class="focus:outline-none focus:text-pink-600 text-gray-800 xl:text-base md:text-2xl text-base ml-3"
-                                                            >
-                                                                Materiales
-                                                            </p>
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a class="cursor-pointer">
-                                                    <div
-                                                        class="text-gray-800 pt-10"
-                                                    >
-                                                        <div
-                                                            class="flex items-center"
-                                                        >
-                                                            <p
-                                                                tabindex="0"
-                                                                class="focus:outline-none focus:text-pink-600 text-gray-800 xl:text-base md:text-2xl text-base ml-3"
-                                                            >
-                                                                Mano de Obra
-                                                            </p>
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a class="cursor-pointer">
-                                                    <div
-                                                        class="text-gray-800 pt-10"
-                                                    >
-                                                        <div
-                                                            class="flex items-center"
-                                                        >
-                                                            <p
-                                                                tabindex="0"
-                                                                class="focus:outline-none focus:text-pink-600 text-gray-800 xl:text-base md:text-2xl text-base ml-3"
-                                                            >
-                                                                AIU y IVA
-                                                            </p>
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a class="cursor-pointer">
-                                                    <div
-                                                        class="text-gray-800 pt-10"
-                                                    >
-                                                        <div
-                                                            class="flex items-center"
-                                                        >
-                                                            <p
-                                                                tabindex="0"
-                                                                class="focus:outline-none focus:text-pink-600 text-gray-800 xl:text-base md:text-2xl text-base ml-3"
-                                                            >
-                                                                Transporte
-                                                            </p>
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="w-full pt-4">
-                                        <div class="border-t border-gray-300">
-                                            <div
-                                                class="w-full flex items-center justify-between pt-1"
-                                            >
-                                                <div class="flex items-center">
-                                                    <img
-                                                        alt="profile-pic"
-                                                        src="https://i.imgur.com/gubXaPN.png"
-                                                        tabindex="0"
-                                                        class="focus:outline-none w-8 h-8 rounded-md"
-                                                    />
-                                                    <p
-                                                        tabindex="0"
-                                                        class="focus:outline-none text-gray-800 text-base leading-4 ml-2"
-                                                    >
-                                                        Jesus Cuadro
-                                                    </p>
-                                                </div>
-                                                <ul class="flex">
-                                                    <li
-                                                        class="cursor-pointer text-gray-800 pt-5 pb-3 pl-3"
-                                                    >
-                                                        <div
-                                                            tabindex="0"
-                                                            class="focus:outline-none focus:text-pink-600 w-6 h-6 md:w-8 md:h-8"
-                                                        >
-                                                            <svg
-                                                                xmlns="http://www.w3.org/2000/svg"
-                                                                class="icon icon-tabler icon-tabler-user"
-                                                                width="20"
-                                                                height="20"
-                                                                viewBox="0 0 24 24"
-                                                                stroke-width="1.5"
-                                                                stroke="currentColor"
-                                                                fill="none"
-                                                                stroke-linecap="round"
-                                                                stroke-linejoin="round"
-                                                            >
-                                                                <path
-                                                                    stroke="none"
-                                                                    d="M0 0h24v24H0z"
-                                                                />
-                                                                <circle
-                                                                    cx="12"
-                                                                    cy="7"
-                                                                    r="4"
-                                                                />
-                                                                <path
-                                                                    d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"
-                                                                />
-                                                            </svg>
-                                                        </div>
-                                                    </li>
-                                                </ul>
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </nav>
+                </div>
+            </nav>
 
-                <!-- Code block ends -->
+            <!-- Code block ends -->
+        </div>
+
+        <div
+            class="w-full flex flex-col justify-center items-center relative top-[6em]"
+        >
+            <div class="title-container text-center">
+                <i
+                    class="fa-solid fa-circle-info text-[5em] mb-6"
+                    style="color: #ffffff"
+                ></i>
+                <h1 class="text-4xl text-white">INFORMACIÓN DEL PROYECTO</h1>
             </div>
-
             <div
-                class="w-full h-screen flex flex-col justify-center items-center relative"
-                style="top: 150px"
+                class="form-container w-full flex flex-col justify-center items-center"
             >
-                <div class="title-container text-center">
-                    <h1 class="text-4xl">INFORMACIÓN DEL PROYECTO</h1>
-                </div>
-                <div
-                    class="form-container w-full flex flex-col justify-center items-center"
+                <form
+                    id="formulario-informacion"
+                    action="../pages/administrador-apu.html"
+                    class="w-6/12 p-10 border border-gray-300 mt-5 flex flex-col justify-start items-stretch rounded-xl bg-gray-200 mb-6"
+                    method="post"
+                    onsubmit="handleSubmit(event)"
                 >
-                    <form
-                        id="formulario-informacion"
-                        action="../pages/administrador-apu.html"
-                        class="w-6/12 p-10 border border-gray-300 mt-5 flex flex-col justify-start items-stretch rounded-xl"
-                        method="post"
-                        onsubmit="handleSubmit(event)"
+                    <label for="fecha">Fecha:</label>
+                    <div class="relative w-full">
+                        <input
+                            id="datepicker-actions"
+                            type="date"
+                            class="bg-white-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 cursor-pointer"
+                            onclick="this.showPicker()"
+                        />
+                    </div>
+                    <label for="nombre-proyecto">Nombre del proyecto:</label>
+                    <input
+                        type="text"
+                        id="nombre-proyecto"
+                        name="nombre-proyecto"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                        placeholder="Ingrese el nombre del proyecto"
+                    />
+                    <label for="cliente">Cliente:</label>
+                    <input
+                        type="text"
+                        id="cliente"
+                        name="cliente"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                        placeholder="Ingrese el nombre del cliente"
+                    />
+                    <label for="contacto">Contacto:</label>
+                    <input
+                        type="text"
+                        id="contacto"
+                        name="contacto"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                        placeholder="Ingrese el nombre del contacto"
+                    />
+                    <label for="correo">Correo del contacto:</label>
+                    <div class="relative mb-6">
+                        <div
+                            class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none"
+                        >
+                            <svg
+                                class="w-4 h-4 text-gray-500"
+                                aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="currentColor"
+                                viewBox="0 0 20 16"
+                            >
+                                <path
+                                    d="m10.036 8.278 9.258-7.79A1.979 1.979 0 0 0 18 0H2A1.987 1.987 0 0 0 .641.541l9.395 7.737Z"
+                                />
+                                <path
+                                    d="M11.241 9.817c-.36.275-.801.425-1.255.427-.428 0-.845-.138-1.187-.395L0 2.6V14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2.5l-8.759 7.317Z"
+                                />
+                            </svg>
+                        </div>
+                        <input
+                            type="text"
+                            id="correo"
+                            name="correo"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5"
+                            placeholder="name@example.com"
+                        />
+                    </div>
+
+                    <label for="departamento">Departamento:</label>
+                    <select
+                        id="departamento"
+                        name="departamento"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                        onchange="cargarMunicipios()"
                     >
-                        <label for="fecha">Fecha:</label>
-                        <div class="relative w-full">
-                            <div
-                                class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none w-full"
-                            >
-                                <svg
-                                    class="w-4 h-4 text-gray-500"
-                                    aria-hidden="true"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="currentColor"
-                                    viewBox="0 0 20 20"
-                                >
-                                    <path
-                                        d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"
-                                    />
-                                </svg>
-                            </div>
-                            <input
-                                id="datepicker-actions"
-                                name="datepicker-actions"
-                                datepicker
-                                datepicker-buttons
-                                datepicker-autoselect-today
-                                type="text"
-                                class="bg-white-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full ps-10 p-2.5"
-                                placeholder="Selecciona una fecha"
-                            />
-                        </div>
-                        <label for="nombre-proyecto"
-                            >Nombre del proyecto:</label
-                        >
-                        <input
-                            type="text"
-                            id="nombre-proyecto"
-                            name="nombre-proyecto"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                            placeholder="Ingrese el nombre del proyecto"
-                        />
-                        <label for="cliente">Cliente:</label>
-                        <input
-                            type="text"
-                            id="cliente"
-                            name="cliente"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                            placeholder="Ingrese el nombre del cliente"
-                        />
-                        <label for="contacto">Contacto:</label>
-                        <input
-                            type="text"
-                            id="contacto"
-                            name="contacto"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                            placeholder="Ingrese el nombre del contacto"
-                        />
-                        <label for="correo">Correo del contacto:</label>
-                        <div class="relative mb-6">
-                            <div
-                                class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none"
-                            >
-                                <svg
-                                    class="w-4 h-4 text-gray-500 dark:text-gray-400"
-                                    aria-hidden="true"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="currentColor"
-                                    viewBox="0 0 20 16"
-                                >
-                                    <path
-                                        d="m10.036 8.278 9.258-7.79A1.979 1.979 0 0 0 18 0H2A1.987 1.987 0 0 0 .641.541l9.395 7.737Z"
-                                    />
-                                    <path
-                                        d="M11.241 9.817c-.36.275-.801.425-1.255.427-.428 0-.845-.138-1.187-.395L0 2.6V14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2.5l-8.759 7.317Z"
-                                    />
-                                </svg>
-                            </div>
-                            <input
-                                type="text"
-                                id="correo"
-                                name="correo"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5"
-                                placeholder="name@example.com"
-                            />
-                        </div>
+                        <option value="">Selecciona un departamento</option>
+                        <option value="Amazonas">Amazonas</option>
+                        <option value="Antioquia">Antioquia</option>
+                        <option value="Arauca">Arauca</option>
+                        <option value="Atlántico">Atlántico</option>
+                        <option value="Bogotá">Bogotá D.C.</option>
+                        <option value="Bolívar">Bolívar</option>
+                        <option value="Boyacá">Boyacá</option>
+                        <option value="Caldas">Caldas</option>
+                        <option value="Caquetá">Caquetá</option>
+                        <option value="Casanare">Casanare</option>
+                        <option value="Cauca">Cauca</option>
+                        <option value="Cesar">Cesar</option>
+                        <option value="Chocó">Chocó</option>
+                        <option value="Córdoba">Córdoba</option>
+                        <option value="Cundinamarca">Cundinamarca</option>
+                        <option value="Guainía">Guainía</option>
+                        <option value="Guaviare">Guaviare</option>
+                        <option value="Huila">Huila</option>
+                        <option value="La Guajira">La Guajira</option>
+                        <option value="Magdalena">Magdalena</option>
+                        <option value="Meta">Meta</option>
+                        <option value="Nariño">Nariño</option>
+                        <option value="Norte de Santander">
+                            Norte de Santander
+                        </option>
+                        <option value="Putumayo">Putumayo</option>
+                        <option value="Quindío">Quindío</option>
+                        <option value="Risaralda">Risaralda</option>
+                        <option value="San Andrés y Providencia">
+                            San Andrés y Providencia
+                        </option>
+                        <option value="Santander">Santander</option>
+                        <option value="Sucre">Sucre</option>
+                        <option value="Tolima">Tolima</option>
+                        <option value="Valle del Cauca">Valle del Cauca</option>
+                        <option value="Vaupés">Vaupés</option>
+                        <option value="Vichada">Vichada</option>
+                    </select>
 
-                        <label for="departamento">Departamento:</label>
-                        <select
-                            id="departamento"
-                            name="departamento"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                            onchange="cargarMunicipios()"
-                        >
-                            <option value="">Selecciona un departamento</option>
-                            <option value="Amazonas">Amazonas</option>
-                            <option value="Antioquia">Antioquia</option>
-                            <option value="Arauca">Arauca</option>
-                            <option value="Atlántico">Atlántico</option>
-                            <option value="Bogotá">Bogotá D.C.</option>
-                            <option value="Bolívar">Bolívar</option>
-                            <option value="Boyacá">Boyacá</option>
-                            <option value="Caldas">Caldas</option>
-                            <option value="Caquetá">Caquetá</option>
-                            <option value="Casanare">Casanare</option>
-                            <option value="Cauca">Cauca</option>
-                            <option value="Cesar">Cesar</option>
-                            <option value="Chocó">Chocó</option>
-                            <option value="Córdoba">Córdoba</option>
-                            <option value="Cundinamarca">Cundinamarca</option>
-                            <option value="Guainía">Guainía</option>
-                            <option value="Guaviare">Guaviare</option>
-                            <option value="Huila">Huila</option>
-                            <option value="La Guajira">La Guajira</option>
-                            <option value="Magdalena">Magdalena</option>
-                            <option value="Meta">Meta</option>
-                            <option value="Nariño">Nariño</option>
-                            <option value="Norte de Santander">
-                                Norte de Santander
-                            </option>
-                            <option value="Putumayo">Putumayo</option>
-                            <option value="Quindío">Quindío</option>
-                            <option value="Risaralda">Risaralda</option>
-                            <option value="San Andrés y Providencia">
-                                San Andrés y Providencia
-                            </option>
-                            <option value="Santander">Santander</option>
-                            <option value="Sucre">Sucre</option>
-                            <option value="Tolima">Tolima</option>
-                            <option value="Valle del Cauca">
-                                Valle del Cauca
-                            </option>
-                            <option value="Vaupés">Vaupés</option>
-                            <option value="Vichada">Vichada</option>
-                        </select>
-
-                        <label for="municipio">Municipio:</label>
-                        <select
-                            id="municipio"
-                            name="municipio"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                        >
-                            <option value="">Selecciona un municipio</option>
-                        </select>
-                        <button
-                            type="submit"
-                            class="focus:ring-2 focus:ring-offset-2 focus:ring-pink-700 focus:text-pink-700 focus:outline-none bg-gray-100 border-gray-300 border transition duration-150 ease-in-out hover:bg-gray-300 rounded text-gray-600 px-5 py-2 text-xs mt-10"
-                        >
-                            CONTINUAR
-                        </button>
-                    </form>
-                </div>
+                    <label for="municipio">Municipio:</label>
+                    <select
+                        id="municipio"
+                        name="municipio"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                    >
+                        <option value="">Selecciona un municipio</option>
+                    </select>
+                    <button
+                        type="button"
+                        onclick="saveFormData()"
+                        class="focus:ring-2 focus:ring-offset-2 focus:ring-pink-700 focus:text-pink-700 focus:outline-none bg-gray-100 border-gray-300 border transition duration-150 ease-in-out hover:bg-gray-300 rounded text-gray-600 px-5 py-2 text-xs mt-10"
+                    >
+                        CONTINUAR
+                    </button>
+                </form>
             </div>
         </div>
 
         <script src="../js/nav.js"></script>
-        <script src="../js/mostrar-datos.js"></script>
         <script src="../js/departamentos.js"></script>
+        <script src="../js/informacion.js"></script>
         <script src="../node_modules/flowbite/dist/flowbite.min.js"></script>
+        <script
+            src="https://kit.fontawesome.com/a233ca1469.js"
+            crossorigin="anonymous"
+        ></script>
     </body>
 </html>

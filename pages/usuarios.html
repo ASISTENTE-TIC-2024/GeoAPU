@@ -4,10 +4,28 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>GeoAPU</title>
-        <script src="https://cdn.tailwindcss.com"></script>
+        <link rel="stylesheet" href="build/main.css" />
         <link rel="icon" href="../img/icono geo.ico" type="image/png" />
+        <script src="../db/check_auth.js"></script>
+        <link
+            href="https://fonts.cdnfonts.com/css/museo-sans-rounded"
+            rel="stylesheet"
+        />
     </head>
-    <body>
+
+    <style>
+        .bg-fixed {
+            background-color: rgb(229, 229, 229); /* Oscurece la imagen */
+            background-size: cover; /* Asegura que la imagen cubra toda la pantalla */
+            background-position: center; /* Centra la imagen */
+            background-attachment: fixed; /* Hace que la imagen sea estática */
+        }
+    </style>
+
+    <body
+        style="font-family: 'Museo Sans Rounded', sans-serif"
+        class="bg-fixed"
+    >
         <div class="h-full w-full">
             <nav
                 role="navigation"
@@ -397,7 +415,7 @@
                         </div>
                         <button
                             class="focus:outline-none rounded-md flex w-full sm:w-auto items-center sm:items-stretch justify-end sm:justify-start"
-                            onclick="window.location.href='../index.html'"
+                            onclick="window.location.href='./index.html'"
                         >
                             <div class="flex items-center">
                                 <img
@@ -513,14 +531,32 @@
                                                     >
                                                 </a>
                                             </li>
+                                            <li
+                                                class="cursor-pointer text-gray-600 text-sm leading-3 tracking-normal py-2 hover:text-pink-700 focus:text-pink-700 focus:outline-none"
+                                            >
+                                                <a
+                                                    href=""
+                                                    class="focus:underline focus:text-pink-700 focus:outline-none flex items-center"
+                                                    onclick="logout()"
+                                                >
+                                                    <i
+                                                        class="fas fa-sign-out-alt"
+                                                    ></i>
+                                                    <span class="ml-2"
+                                                        >Cerrar Sesión</span
+                                                    >
+                                                </a>
+                                            </li>
                                         </ul>
                                         <div
                                             class="cursor-pointer flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-white transition duration-150 ease-in-out"
                                         >
                                             <img
                                                 class="rounded-full h-10 w-10 object-cover"
-                                                src="https://i.imgur.com/gubXaPN.png"
-                                                alt="logo"
+                                                src=""
+                                                alt="foto de perfil"
+                                                id="userPhoto"
+                                                class="user-photo"
                                             />
                                         </div>
                                         <div class="ml-2">
@@ -562,7 +598,7 @@
                         tabindex="0"
                         class="focus:outline-none w-24"
                     >
-                        <a href="../index.html">
+                        <a href="./index.html">
                             <img
                                 class="h-10 w-15"
                                 src="https://i.imgur.com/xQhZRWX.png"
@@ -573,7 +609,7 @@
                     <div class="flex items-center">
                         <div class="relative mr-6">
                             <button
-                                class="focus:ring-2 focus:ring-offset-2 focus:ring-pink-700 focus:outline-none bg-gray-100 border-gray-300 border transition duration-150 ease-in-out hover:bg-gray-300 rounded text-gray-600 px-5 py-2 text-xs text-center"
+                                class="focus:ring-2 focus:ring-offset-2 focus:ring-pink-700 focus:text-pink-700 focus:outline-none bg-gray-100 border-gray-300 border transition duration-150 ease-in-out hover:bg-gray-300 rounded text-gray-600 px-5 py-2 text-xs"
                             >
                                 Usuarios
                             </button>
@@ -611,7 +647,7 @@
                 <!--Mobile responsive sidebar-->
                 <div
                     class="absolute w-full h-full transform -translate-x-full z-40 xl:hidden"
-                    style="transform: translateX(0px); position: fixed"
+                    style="position: fixed"
                     id="mobile-nav"
                 >
                     <div
@@ -633,7 +669,7 @@
                                             class="flex items-center justify-between w-full"
                                         >
                                             <div class="flex items-center">
-                                                <a href="../index.html">
+                                                <a href="./index.html">
                                                     <img
                                                         class="h-10 w-15"
                                                         src="https://i.imgur.com/xQhZRWX.png"
@@ -823,17 +859,17 @@
                                         >
                                             <div class="flex items-center">
                                                 <img
-                                                    alt="profile-pic"
-                                                    src="https://i.imgur.com/gubXaPN.png"
+                                                    alt="foto de perfil"
+                                                    src=""
                                                     tabindex="0"
                                                     class="focus:outline-none w-8 h-8 rounded-md"
+                                                    id="mobileUserPhoto"
                                                 />
                                                 <p
                                                     tabindex="0"
                                                     class="focus:outline-none text-gray-800 text-base leading-4 ml-2"
-                                                >
-                                                    Jesus Cuadro
-                                                </p>
+                                                    id="mobileUserName"
+                                                ></p>
                                             </div>
                                             <ul class="flex">
                                                 <li
@@ -870,6 +906,19 @@
                                                         </svg>
                                                     </div>
                                                 </li>
+                                                <li
+                                                    class="cursor-pointer text-gray-800 pt-5 pb-3 pl-3"
+                                                >
+                                                    <div
+                                                        tabindex="0"
+                                                        class="focus:outline-none focus:text-pink-600 w-6 h-6 md:w-8 md:h-8"
+                                                        onclick="logout()"
+                                                    >
+                                                        <i
+                                                            class="fas fa-sign-out-alt"
+                                                        ></i>
+                                                    </div>
+                                                </li>
                                             </ul>
                                         </div>
                                     </div>
@@ -888,12 +937,15 @@
             class="w-full relative top-[110px] block flex flex-col"
         >
             <div id="title-container" class="w-full block text-center">
-                <h1 class="text-6xl">PANEL DE USUARIOS</h1>
+                <i
+                    class="fa-solid fa-users-rays text-6xl text-gray-600 mb-10"
+                ></i>
+                <h1 class="text-6xl text-gray-600">PANEL DE USUARIOS</h1>
                 <button
-                    class="bg-green-500 text-white px-4 py-2 rounded mt-10 w-80"
+                    class="bg-green-500 text-white px-4 py-2 rounded mt-10 w-80 text-gray-200"
                     onclick="openAddModal()"
                 >
-                    <i class="fa-solid fa-user-plus" style="color: #ffffff"></i>
+                    <i class="fa-solid fa-user-plus text-gray-200"></i>
                     AGREGAR USUARIO
                 </button>
             </div>
@@ -901,7 +953,7 @@
             <div
                 class="table-container mx-10 mb-40 overflow-x-auto relative top-[50px] rounded-lg"
             >
-                <table class="min-w-full bg-white border rounded-lg">
+                <table class="min-w-full bg-gray-100 border rounded-lg">
                     <thead class="bg-sky-500 rounded-lg">
                         <tr>
                             <th class="py-2 p-2" onclick="sortTable(0)">

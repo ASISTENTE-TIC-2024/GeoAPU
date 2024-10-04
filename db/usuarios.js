@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', fetchData)
 
+
 async function fetchData() {
     try {
         const response = await fetch('http://localhost:5000/selectData')
@@ -13,7 +14,7 @@ async function fetchData() {
 
         dataTable.innerHTML = '' // Limpiar la tabla antes de agregar nuevos datos
         data.forEach((user) => {
-            const contrasena = user.contrasena_usuario ? '•'.repeat(user.contrasena_usuario.length) : '';
+            const contrasena = '•'.repeat(10);
             const row = document.createElement('tr')
             row.innerHTML = `
                 <td>${user.id_usuario}</td>
@@ -120,23 +121,44 @@ function showConfirmationModal() {
     });
 }
 
-function editUser(
+
+async function editUser(
     id_usuario,
     foto_usuario,
     nombre_usuario,
     correo_usuario,
-    constrasena_usuario,
+    contrasena_usuario,
     rol_usuario
 ) {
-    document.getElementById('editUserId').value = id_usuario
-    document.getElementById('editUserPhoto').value = ''; // Clear the file input
-    document.getElementById('newPhotoPreview').src = '' // Limpiar la previsualización de la nueva imagen
-    document.getElementById('currentPhoto').src = foto_usuario
-    document.getElementById('editUserName').value = nombre_usuario
-    document.getElementById('editUserEmail').value = correo_usuario
-    document.getElementById('editUserPwd').value = constrasena_usuario
-    document.getElementById('editUserRol').value = rol_usuario
-    document.getElementById('editModal').classList.remove('hidden')
+    try {
+        const plainTextPassword = prompt('Ingresa la contraseña del usuario para editar:');
+
+        const response = await fetch('http://localhost:5000/verify-password', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': localStorage.getItem('token') // Enviar el token JWT si es necesario
+            },
+            body: JSON.stringify({ plainTextPassword, hashedPassword: contrasena_usuario })
+        });
+
+        if (!response.ok) {
+            alert('La verificación de la contraseña falló. Inténtalo de nuevo.');
+            return;
+        }
+
+        document.getElementById('editUserId').value = id_usuario;
+        document.getElementById('editUserPhoto').value = ''; // Clear the file input
+        document.getElementById('newPhotoPreview').src = ''; // Clear the new image preview
+        document.getElementById('currentPhoto').src = foto_usuario;
+        document.getElementById('editUserName').value = nombre_usuario;
+        document.getElementById('editUserEmail').value = correo_usuario;
+        document.getElementById('editUserPwd').value = plainTextPassword; // Use the plain text password
+        document.getElementById('editUserRol').value = rol_usuario;
+        document.getElementById('editModal').classList.remove('hidden');
+    } catch (error) {
+        console.error('Error verifying password:', error);
+    }
 }
 
 document

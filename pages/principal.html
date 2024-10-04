@@ -4,12 +4,17 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>GeoAPU</title>
-        <script src="https://cdn.tailwindcss.com"></script>
+        <link rel="stylesheet" href="build/main.css" />
         <link rel="stylesheet" href="../styles/pagination.css" />
         <link rel="icon" href="../img/icono geo.ico" type="image/png" />
+        <link
+            href="https://fonts.cdnfonts.com/css/museo-sans-rounded"
+            rel="stylesheet"
+        />
+        <script src="../db/check_auth.js"></script>
     </head>
 
-    <body>
+    <body style="font-family: 'Museo Sans Rounded', sans-serif">
         <div class="h-full w-full">
             <!-- Code block starts -->
             <!--- more free and premium Tailwind CSS components at https://tailwinduikit.com/ --->
@@ -113,38 +118,6 @@
                                                     >Proyectos</span
                                                 >
                                             </div>
-                                        </li>
-                                        <li
-                                            class="flex xl:hidden cursor-pointer text-gray-600 text-sm leading-3 tracking-normal py-2 hover:text-pink-700 flex items-center focus:text-pink-700 focus:outline-none"
-                                        >
-                                            <svg
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                class="icon icon-tabler icon-tabler-compass"
-                                                width="20"
-                                                height="20"
-                                                viewBox="0 0 24 24"
-                                                stroke-width="1.5"
-                                                stroke="currentColor"
-                                                fill="none"
-                                                stroke-linecap="round"
-                                                stroke-linejoin="round"
-                                            >
-                                                <path
-                                                    stroke="none"
-                                                    d="M0 0h24v24H0z"
-                                                ></path>
-                                                <polyline
-                                                    points="8 16 10 10 16 8 14 14 8 16"
-                                                ></polyline>
-                                                <circle
-                                                    cx="12"
-                                                    cy="12"
-                                                    r="9"
-                                                ></circle>
-                                            </svg>
-                                            <span class="ml-2 font-bold"
-                                                >Rendimiento</span
-                                            >
                                         </li>
                                         <li
                                             class="border-b border-gray-300 flex xl:hidden cursor-pointer text-gray-600 text-sm leading-3 tracking-normal pt-2 pb-4 hover:text-pink-700 flex items-center focus:text-pink-700 focus:outline-none"
@@ -432,7 +405,7 @@
                         </div>
                         <button
                             class="focus:outline-none rounded-md flex w-full sm:w-auto items-center sm:items-stretch justify-end sm:justify-start"
-                            onclick="window.location.href='../index.html'"
+                            onclick="window.location.href='./index.html'"
                         >
                             <div class="flex items-center">
                                 <img
@@ -548,14 +521,32 @@
                                                     >
                                                 </a>
                                             </li>
+                                            <li
+                                                class="cursor-pointer text-gray-600 text-sm leading-3 tracking-normal py-2 hover:text-pink-700 focus:text-pink-700 focus:outline-none"
+                                            >
+                                                <a
+                                                    href=""
+                                                    class="focus:underline focus:text-pink-700 focus:outline-none flex items-center"
+                                                    onclick="logout()"
+                                                >
+                                                    <i
+                                                        class="fas fa-sign-out-alt"
+                                                    ></i>
+                                                    <span class="ml-2"
+                                                        >Cerrar Sesión</span
+                                                    >
+                                                </a>
+                                            </li>
                                         </ul>
                                         <div
                                             class="cursor-pointer flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-white transition duration-150 ease-in-out"
                                         >
                                             <img
                                                 class="rounded-full h-10 w-10 object-cover"
-                                                src="https://i.imgur.com/gubXaPN.png"
-                                                alt="logo"
+                                                src=""
+                                                alt="foto de perfil"
+                                                id="userPhoto"
+                                                class="user-photo"
                                             />
                                         </div>
                                         <div class="ml-2">
@@ -597,7 +588,7 @@
                         tabindex="0"
                         class="focus:outline-none w-24"
                     >
-                        <a href="../index.html">
+                        <a href="./index.html">
                             <img
                                 class="h-10 w-15"
                                 src="https://i.imgur.com/xQhZRWX.png"
@@ -608,7 +599,7 @@
                     <div class="flex items-center">
                         <div class="relative mr-6">
                             <button
-                                class="focus:ring-2 focus:ring-offset-2 focus:ring-pink-700 focus:outline-none bg-gray-100 border-gray-300 border transition duration-150 ease-in-out hover:bg-gray-300 rounded text-gray-600 px-5 py-2 text-xs text-center"
+                                class="focus:ring-2 focus:ring-offset-2 focus:ring-pink-700 focus:text-pink-700 focus:outline-none bg-gray-100 border-gray-300 border transition duration-150 ease-in-out hover:bg-gray-300 rounded text-gray-600 px-5 py-2 text-xs"
                             >
                                 Usuarios
                             </button>
@@ -646,7 +637,7 @@
                 <!--Mobile responsive sidebar-->
                 <div
                     class="absolute w-full h-full transform -translate-x-full z-40 xl:hidden"
-                    style="transform: translateX(0px); position: fixed"
+                    style="position: fixed"
                     id="mobile-nav"
                 >
                     <div
@@ -668,7 +659,7 @@
                                             class="flex items-center justify-between w-full"
                                         >
                                             <div class="flex items-center">
-                                                <a href="../index.html">
+                                                <a href="./index.html">
                                                     <img
                                                         class="h-10 w-15"
                                                         src="https://i.imgur.com/xQhZRWX.png"
@@ -759,24 +750,7 @@
                                                 </div>
                                             </a>
                                         </li>
-                                        <li>
-                                            <a class="cursor-pointer">
-                                                <div
-                                                    class="text-gray-800 pt-10"
-                                                >
-                                                    <div
-                                                        class="flex items-center"
-                                                    >
-                                                        <p
-                                                            tabindex="0"
-                                                            class="focus:outline-none focus:text-pink-600 text-gray-800 xl:text-base md:text-2xl text-base ml-3"
-                                                        >
-                                                            Rendimiento
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </li>
+
                                         <li>
                                             <a class="cursor-pointer">
                                                 <div
@@ -876,17 +850,17 @@
                                         >
                                             <div class="flex items-center">
                                                 <img
-                                                    alt="profile-pic"
-                                                    src="https://i.imgur.com/gubXaPN.png"
+                                                    alt="foto de perfil"
+                                                    src=""
                                                     tabindex="0"
                                                     class="focus:outline-none w-8 h-8 rounded-md"
+                                                    id="mobileUserPhoto"
                                                 />
                                                 <p
                                                     tabindex="0"
                                                     class="focus:outline-none text-gray-800 text-base leading-4 ml-2"
-                                                >
-                                                    Jesus Cuadro
-                                                </p>
+                                                    id="mobileUserName"
+                                                ></p>
                                             </div>
                                             <ul class="flex">
                                                 <li
@@ -921,6 +895,19 @@
                                                                 d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"
                                                             />
                                                         </svg>
+                                                    </div>
+                                                </li>
+                                                <li
+                                                    class="cursor-pointer text-gray-800 pt-5 pb-3 pl-3"
+                                                >
+                                                    <div
+                                                        tabindex="0"
+                                                        class="focus:outline-none focus:text-pink-600 w-6 h-6 md:w-8 md:h-8"
+                                                        onclick="logout()"
+                                                    >
+                                                        <i
+                                                            class="fas fa-sign-out-alt"
+                                                        ></i>
                                                     </div>
                                                 </li>
                                             </ul>
@@ -1350,7 +1337,7 @@
             </div>
             <div class="pagination">
                 <button class="arrow" id="prevPage" disabled>
-                    ← <span class="nav-text">ANTERIOR</span>
+                    <span class="nav-text">← ANTERIOR</span>
                 </button>
                 <div class="pages">
                     <div class="page-number active">1</div>
@@ -1360,12 +1347,16 @@
                     <div class="page-number">5</div>
                 </div>
                 <button class="arrow" id="nextPage">
-                    <span class="nav-text">SIGUIENTE</span> →
+                    <span class="nav-text">SIGUIENTE →</span>
                 </button>
             </div>
 
             <script src="../js/nav.js"></script>
             <script src="../js/pagination.js"></script>
+            <script
+                src="https://kit.fontawesome.com/a233ca1469.js"
+                crossorigin="anonymous"
+            ></script>
         </div>
     </body>
 </html>
