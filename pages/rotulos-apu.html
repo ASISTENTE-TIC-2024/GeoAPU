@@ -5,6 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>GeoAPU</title>
         <link rel="stylesheet" href="build/main.css" />
+
         <link rel="icon" href="../img/icono geo.ico" type="image/png" />
         <script src="../db/check_auth.js"></script>
         <link
@@ -964,6 +965,14 @@
                     <h1 class="text-4xl text-white">
                         CONFIGURA LOS ROTULOS DE LA APU
                     </h1>
+                    <p class="text-xl text-gray-300">
+                        En esta sección, los ingenieros deben ingresar los
+                        rótulos necesarios para el proyecto. Los rótulos son
+                        etiquetas o descripciones que se utilizan para
+                        identificar y categorizar diferentes elementos del
+                        proyecto. Estos rótulos son fundamentales ya que
+                        alimentan la APU que se va a realizar.
+                    </p>
                 </div>
                 <div
                     class="form-container w-full flex flex-col justify-center items-center"
@@ -971,48 +980,52 @@
                     <form
                         id="formulario-rotulos"
                         action="../pages/apu.html"
-                        class="w-6/12 p-10 border border-gray-300 mt-5 flex flex-col justify-start items-stretch rounded-xl bg-gray-200 mb-6"
+                        class="w-[80%] p-10 border border-gray-300 mt-5 flex flex-col justify-start items-stretch rounded-xl bg-gray-200 mb-6"
                         method="post"
                     >
                         <div class="capitulo-container my-2">
-                            <label for="capitulo">Capitulo:</label>
+                            <label for="capitulo">Actividad a realizar:</label>
                             <select
                                 id="capitulo"
                                 name="capitulo"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                             >
-                                <option value="">Selecciona un capitulo</option>
-                                <option value="preliminares">
+                                <option value="">
+                                    Selecciona una actividad
+                                </option>
+                                <option value="1. Trabajos preliminares">
                                     1. Trabajos preliminares
                                 </option>
-                                <option value="excavacion">
+                                <option
+                                    value="2. Excavación y movimiento de tierras"
+                                >
                                     2. Excavación y movimiento de tierras
                                 </option>
-                                <option value="cimentacion">
+                                <option value="3. Cimentación">
                                     3. Cimentación
                                 </option>
-                                <option value="estructura">
+                                <option value="4. Estructura del reservorio">
                                     4. Estructura del reservorio
                                 </option>
-                                <option value="impermeabilizacion">
+                                <option value="5. Impermeabilización">
                                     5. Impermeabilización
                                 </option>
-                                <option value="tuberias">
+                                <option value="6. Sistema de tuberías">
                                     6. Sistema de tuberías
                                 </option>
-                                <option value="equipos">
+                                <option value="7. Equipos de bombeo y control">
                                     7. Equipos de bombeo y control
                                 </option>
-                                <option value="electricidad">
+                                <option value="8. Instalaciones eléctricas">
                                     8. Instalaciones eléctricas
                                 </option>
-                                <option value="acabados">
+                                <option value="9. Acabados y detalles">
                                     9. Acabados y detalles
                                 </option>
-                                <option value="pruebas">
+                                <option value="10. Pruebas y puesta en marcha">
                                     10. Pruebas y puesta en marcha
                                 </option>
-                                <option value="limpieza">
+                                <option value="11. Limpieza y entrega">
                                     11. Limpieza y entrega
                                 </option>
                             </select>
@@ -1031,122 +1044,140 @@
                             ></textarea>
                         </div>
 
-                        <div class="item-container my-2">
-                            <label for="item-pago">Item de pago:</label>
-                            <input
-                                type="text"
-                                id="item-pago"
-                                name="item-pago"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                                placeholder="Ingrese el item de pago de la actividad"
-                            />
+                        <div
+                            class="w-full my-2 flex items-center justify-center"
+                        >
+                            <div class="item-container text-center w-[33%]">
+                                <label for="item-pago">Item de pago:</label>
+                                <input
+                                    type="text"
+                                    id="item-pago"
+                                    name="item-pago"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                                    placeholder="Ingrese el item de pago de la actividad"
+                                />
+                            </div>
+
+                            <div class="unidad-container text-center w-[33%]">
+                                <label for="unidad">Unidad de medida:</label>
+                                <input
+                                    type="text"
+                                    id="unidad"
+                                    name="unidad"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                                    placeholder="Ingrese la unidad de medida de la actividad"
+                                />
+                            </div>
+
+                            <div
+                                class="rendimiento-container text-center w-[33%]"
+                            >
+                                <label for="rendimiento">Rendimiento:</label>
+                                <input
+                                    type="text"
+                                    id="rendimiento"
+                                    name="rendimiento"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                                    placeholder="Ingrese el rendimiento diario promedio."
+                                />
+                            </div>
                         </div>
 
-                        <div class="unidad-container my-2">
-                            <label for="unidad">Unidad:</label>
-                            <input
-                                type="text"
-                                id="unidad"
-                                name="unidad"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                                placeholder="Ingrese la unidad de medida de la actividad"
-                            />
+                        <div class="w-full my-2 flex flex-row">
+                            <div class="instalar-container w-[50%]">
+                                <label for="cantidad-instalar"
+                                    >¿Tiene cantidad a instalar?</label
+                                >
+                                <select
+                                    id="cantidad-instalar"
+                                    name="cantidad-instalar"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                                >
+                                    <option value="">
+                                        Selecciona una opción
+                                    </option>
+                                    <option value="Si">Si</option>
+                                    <option value="No">No</option>
+                                </select>
+
+                                <input
+                                    placeholder="Ingrese la cantidad a instalar"
+                                    type="text"
+                                    id="cantidad-instalar-otro"
+                                    class="mt-2 hidden bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                                />
+                            </div>
+
+                            <div class="dias-container w-[50%]">
+                                <label for="cantidad-dias"
+                                    >¿Tiene cantidad de dias?</label
+                                >
+                                <select
+                                    id="cantidad-dias"
+                                    name="cantidad-dias"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                                >
+                                    <option value="">
+                                        Selecciona una opción
+                                    </option>
+                                    <option value="Si">Si</option>
+                                    <option value="No">No</option>
+                                </select>
+
+                                <input
+                                    placeholder="Ingrese la cantidad de dias"
+                                    type="text"
+                                    id="cantidad-dias-otro"
+                                    class="mt-2 hidden border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                                />
+                            </div>
                         </div>
 
-                        <div class="rendimiento-container my-2">
-                            <label for="rendimiento"
-                                >Ingrese el rendimiento diario promedio:</label
-                            >
-                            <input
-                                type="text"
-                                id="rendimiento"
-                                name="rendimiento"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                                placeholder="Ingrese el rendimiento diario promedio"
-                            />
-                        </div>
+                        <div class="w-full flex my-2">
+                            <div class="trm-container w-[33%]">
+                                <label for="trm">¿Tiene TRM?</label>
+                                <select
+                                    id="trm"
+                                    name="trm"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                                >
+                                    <option value="">
+                                        Selecciona una opción
+                                    </option>
+                                    <option value="Si">Si</option>
+                                    <option value="No">No</option>
+                                </select>
+                            </div>
 
-                        <div class="instalar-container my-2">
-                            <label for="cantidad-instalar"
-                                >¿Tiene cantidad a instalar?</label
-                            >
-                            <select
-                                id="cantidad-instalar"
-                                name="cantidad-instalar"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                            >
-                                <option value="">Selecciona una opción</option>
-                                <option value="Si">Si</option>
-                                <option value="No">No</option>
-                            </select>
+                            <div class="iva-container w-[33%]">
+                                <label for="iva">¿Tiene IVA?</label>
+                                <select
+                                    id="iva"
+                                    name="iva"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                                >
+                                    <option value="">
+                                        Selecciona una opción
+                                    </option>
+                                    <option value="Si">Si</option>
+                                    <option value="No">No</option>
+                                </select>
+                            </div>
 
-                            <input
-                                placeholder="Ingrese la cantidad a instalar"
-                                type="text"
-                                id="cantidad-instalar-otro"
-                                class="mt-2 hidden bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                            />
-                        </div>
-
-                        <div class="dias-container my-2">
-                            <label for="cantidad-dias"
-                                >¿Tiene cantidad de dias?</label
-                            >
-                            <select
-                                id="cantidad-dias"
-                                name="cantidad-dias"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                            >
-                                <option value="">Selecciona una opción</option>
-                                <option value="Si">Si</option>
-                                <option value="No">No</option>
-                            </select>
-
-                            <input
-                                placeholder="Ingrese la cantidad de dias"
-                                type="text"
-                                id="cantidad-dias-otro"
-                                class="mt-2 hidden border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                            />
-                        </div>
-
-                        <div class="trm-container my-2">
-                            <label for="trm">¿Tiene TRM?</label>
-                            <select
-                                id="trm"
-                                name="trm"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                            >
-                                <option value="">Selecciona una opción</option>
-                                <option value="Si">Si</option>
-                                <option value="No">No</option>
-                            </select>
-                        </div>
-
-                        <div class="iva-container my-2">
-                            <label for="iva">¿Tiene IVA?</label>
-                            <select
-                                id="iva"
-                                name="iva"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                            >
-                                <option value="">Selecciona una opción</option>
-                                <option value="Si">Si</option>
-                                <option value="No">No</option>
-                            </select>
-                        </div>
-
-                        <div class="aiu-container my-2">
-                            <label for="aiu">¿Tiene AIU?</label>
-                            <select
-                                id="aiu"
-                                name="aiu"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                            >
-                                <option value="">Selecciona una opción</option>
-                                <option value="Si">Si</option>
-                                <option value="No">No</option>
-                            </select>
+                            <div class="aiu-container w-[33%]">
+                                <label for="aiu">¿Tiene AIU?</label>
+                                <select
+                                    id="aiu"
+                                    name="aiu"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                                >
+                                    <option value="">
+                                        Selecciona una opción
+                                    </option>
+                                    <option value="Si">Si</option>
+                                    <option value="No">No</option>
+                                </select>
+                            </div>
                         </div>
 
                         <div class="movilizacion-container my-2">
@@ -1172,7 +1203,8 @@
                         </div>
 
                         <button
-                            type="submit"
+                            type="button"
+                            onclick="guardarInformacionRotulos()"
                             class="focus:ring-2 focus:ring-offset-2 focus:ring-pink-700 focus:text-pink-700 focus:outline-none bg-gray-100 border-gray-300 border transition duration-150 ease-in-out hover:bg-gray-300 rounded text-gray-600 px-5 py-2 text-xs mt-10"
                         >
                             CONTINUAR
@@ -1184,6 +1216,7 @@
 
         <script src="../js/input.js"></script>
         <script src="../js/nav.js"></script>
+        <script src="../js/rotulos.js"></script>
         <script
             src="https://kit.fontawesome.com/a233ca1469.js"
             crossorigin="anonymous"

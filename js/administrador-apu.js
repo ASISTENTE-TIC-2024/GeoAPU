@@ -1,3 +1,4 @@
+
 document.addEventListener('DOMContentLoaded', function () {
     const data = [
         {
@@ -37,6 +38,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const tableBody = document.getElementById('data-table')
 
+
     data.forEach((item) => {
         const row = document.createElement('tr')
         row.className = 'border-b'
@@ -66,10 +68,10 @@ function sortTable(column) {
     rows.sort((a, b) => {
         const cellA = a
             .getElementsByTagName('td')
-            [column].innerText.toLowerCase()
+        [column].innerText.toLowerCase()
         const cellB = b
             .getElementsByTagName('td')
-            [column].innerText.toLowerCase()
+        [column].innerText.toLowerCase()
 
         if (cellA < cellB) return isAscending ? -1 : 1
         if (cellA > cellB) return isAscending ? 1 : -1
@@ -90,10 +92,44 @@ function deleteItem(ID) {
     if (
         confirm(
             'Esta seguro de que quiere eliminar el elemento con el ID: ' +
-                ID +
-                '?'
+            ID +
+            '?'
         )
     ) {
         alert('Elemento con el ID: ' + ID + ' eliminado.')
     }
 }
+
+function borrarInformacionProyecto(index) {
+    let informacionProyecto = JSON.parse(localStorage.getItem('informacionProyecto')) || [];
+    informacionProyecto.splice(index, 1);
+    localStorage.setItem('informacionProyecto', JSON.stringify(informacionProyecto));
+    mostrarInformacionProyecto();
+}
+
+
+function mostrarInformacionProyecto() {
+    const informacionProyecto = JSON.parse(localStorage.getItem('informacionProyecto')) || [];
+    const dataContainer = document.getElementById('dataContainer');
+
+    // Limpiar el contenedor antes de agregar nuevos datos
+    dataContainer.innerHTML = '';
+
+    informacionProyecto.forEach((data, index) => {
+        const dataDiv = document.createElement('div');
+        dataDiv.classList.add('data-item');
+        dataDiv.innerHTML = `
+            <p><strong>Fecha:</strong> ${data.fecha}</p>
+            <p><strong>Nombre del Proyecto:</strong> ${data.proyecto}</p>
+            <p><strong>Cliente:</strong> ${data.cliente}</p>
+            <p><strong>Contacto:</strong> ${data.contacto}</p>
+            <p><strong>Correo Electrónico:</strong> ${data.correo}</p>
+            <p><strong>Departamento:</strong> ${data.departamento}</p>
+            <p><strong>Municipio:</strong> ${data.municipio}</p>
+            <button onclick="borrarInformacionProyecto(${index})">Eliminar</button>
+        `;
+        dataContainer.appendChild(dataDiv);
+    });
+}
+
+mostrarInformacionProyecto()

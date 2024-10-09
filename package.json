@@ -7,8 +7,9 @@
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "server": "node db/server.js",
-        "start": "nodemon db/server.js",
-        "build": "postcss pages/build/styles.css -o pages/build/main.css"
+        "nodemon": "nodemon db/server.js",
+        "build": "postcss pages/build/styles.css -o pages/build/main.css",
+        "start": "npm run build && npm run nodemon"
     },
     "author": "Jesus Daniel Cuadro Dita",
     "license": "MIT",

@@ -939,7 +939,7 @@
         </div>
 
         <div
-            class="w-full flex flex-col justify-center items-center relative top-[18em]"
+            class="w-full flex flex-col justify-center items-center relative top-[8em]"
         >
             <div class="title-container text-center">
                 <i
@@ -956,7 +956,6 @@
                     action="../pages/administrador-apu.html"
                     class="w-6/12 p-10 border border-gray-300 mt-5 flex flex-col justify-start items-stretch rounded-xl bg-gray-200 mb-6"
                     method="post"
-                    onsubmit="handleSubmit(event)"
                 >
                     <label for="fecha">Fecha:</label>
                     <div class="relative w-full">
@@ -965,7 +964,20 @@
                             type="date"
                             class="bg-white-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 cursor-pointer"
                             onclick="this.showPicker()"
+                            required
                         />
+                        <!-- <script>
+                            function formatDate(input) {
+                                const date = new Date(input.value)
+                                const formattedDate =
+                                    ('0' + date.getDate()).slice(-2) +
+                                    '/' +
+                                    ('0' + (date.getMonth() + 1)).slice(-2) +
+                                    '/' +
+                                    date.getFullYear()
+                                input.value = formattedDate
+                            }
+                        </script> -->
                     </div>
                     <label for="nombre-proyecto">Nombre del proyecto:</label>
                     <input
@@ -1077,7 +1089,7 @@
                     </select>
                     <button
                         type="button"
-                        onclick="saveFormData()"
+                        onclick="guardarInformacionProyecto()"
                         class="focus:ring-2 focus:ring-offset-2 focus:ring-pink-700 focus:text-pink-700 focus:outline-none bg-gray-100 border-gray-300 border transition duration-150 ease-in-out hover:bg-gray-300 rounded text-gray-600 px-5 py-2 text-xs mt-10"
                     >
                         CONTINUAR
