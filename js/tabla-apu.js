@@ -1,4 +1,3 @@
-let datosEquipos = []
 let datosMateriales = []
 let datosTransporte = []
 let datosManoDeObra = []
@@ -8,6 +7,7 @@ let datosManoDeObra = []
 document
     .getElementById('dataFormEquipos')
     .addEventListener('submit', function (e) {
+
         e.preventDefault()
 
         let descripcion_equipos =
@@ -20,14 +20,14 @@ document
         let tarifa_dia_equipos =
             parseFloat(document.getElementById('TARIFA DIA EQUIPOS').value) || 0
         let rendimiento_equipos =
-            parseFloat(document.getElementById('RENDIMIENTO EQUIPOS').value) ||
-            0
+            parseFloat(document.getElementById('RENDIMIENTO_EQUIPOS').value).toFixed(4) || 0
         let valor_unitario_equipos =
             parseFloat(
                 document.getElementById('VALOR UNITARIO EQUIPOS').value
             ) || 0
-        let incidencia_equipos =
-            document.getElementById('INCIDENCIA EQUIPOS').value || 0
+
+        // Obtener los datos existentes del localStorage
+        let datosEquipos = JSON.parse(localStorage.getItem('datosEquipos')) || []
 
         datosEquipos.push({
             descripcion_equipos,
@@ -36,40 +36,82 @@ document
             tarifa_dia_equipos,
             rendimiento_equipos,
             valor_unitario_equipos,
-            incidencia_equipos,
         })
+
+        localStorage.setItem('datosEquipos', JSON.stringify(datosEquipos))
+
         actualizarTablaEquipos()
-        this.reset()
+
     })
 
 function actualizarTablaEquipos() {
     let tbody = document.querySelector('#dataTableEquipos tbody')
+
     tbody.innerHTML = ''
-    datosEquipos.forEach((item, index) => {
+
+    // Obtener los datos del localStorage
+    let storedDatosEquipos = JSON.parse(localStorage.getItem('datosEquipos')) || []
+
+    console.log(storedDatosEquipos);
+
+    storedDatosEquipos.forEach((item, index) => {
         let tr = document.createElement('tr')
         tr.className =
             index % 2 === 0
                 ? 'even:bg-gray-50 border-b'
                 : 'odd:bg-white even:bg-gray-50 border-b'
-        tr.innerHTML = `<td>${item.descripcion_equipos}</td><td>${
-            item.marca_equipos
-        }</td><td>${item.tipo_equipos}</td><td>${
-            item.tarifa_dia_equipos
-        }</td><td>${item.rendimiento_equipos}</td><td>$ ${
-            item.valor_unitario_equipos
-        }</td><td>${
-            item.incidencia_equipos
-        }</td><td><button class="active:scale-90 transition-transform" onclick="eliminarElementoEquipos(${datosEquipos.indexOf(
-            item
-        )})"><i class="fa-solid fa-trash-can"></i></button></td>`
+        tr.innerHTML = `<td>${item.descripcion_equipos}</td><td>${item.marca_equipos
+            }</td><td>${item.tipo_equipos}</td><td>${item.tarifa_dia_equipos
+            }</td><td>${item.rendimiento_equipos}</td><td>$ ${item.valor_unitario_equipos
+            }</td><td> % </td><td><button class="active:scale-90 transition-transform" onclick="eliminarElementoEquipos(${storedDatosEquipos.indexOf(
+                item
+            )})"><i class="fa-solid fa-trash-can"></i></button></td>`
         tbody.appendChild(tr)
     })
 }
 
 function eliminarElementoEquipos(index) {
+    // Obtener los datos existentes del localStorage
+    let datosEquipos = JSON.parse(localStorage.getItem('datosEquipos')) || []
+
+    // Eliminar el elemento del array
     datosEquipos.splice(index, 1)
+
+    // Guardar el array actualizado en el localStorage
+    localStorage.setItem('datosEquipos', JSON.stringify(datosEquipos))
+
+    // Actualizar la tabla
     actualizarTablaEquipos()
 }
+
+
+function actualizarKeyEnArray(array, key, nuevoValor) {
+    array.forEach(item => {
+        if (item.hasOwnProperty(key)) {
+            item[key] = nuevoValor;
+        }
+    });
+}
+
+function actualizarRendimientoEquipos() {
+    const informacionRotulos = JSON.parse(localStorage.getItem('informacionRotulos')) || [];
+
+    console.log(informacionRotulos);
+
+    let storedDatosEquipos = JSON.parse(localStorage.getItem('datosEquipos')) || [];
+
+    informacionRotulos.forEach((data) => {
+        storedDatosEquipos.forEach((item) => {
+            item.rendimiento_equipos = (1 / data.rendimiento).toFixed(4);
+        });
+    });
+
+    localStorage.setItem('datosEquipos', JSON.stringify(storedDatosEquipos));
+    actualizarTablaEquipos();
+}
+
+actualizarTablaEquipos()
+
 
 /******************************* MATERIALES *******************************/
 
@@ -99,10 +141,7 @@ document
             parseFloat(
                 document.getElementById('VALOR UNITARIO MATERIALES').value
             ) || 0
-        let incidencia_materiales =
-            parseFloat(
-                document.getElementById('INCIDENCIA MATERIALES').value
-            ) || 0
+
 
         datosMateriales.push({
             descripcion_materiales,
@@ -111,11 +150,9 @@ document
             precio_unitario_materiales,
             rendimiento_materiales,
             valor_unitario_materiales,
-            incidencia_materiales,
         })
 
         actualizarTablaMateriales()
-        this.reset()
     })
 
 function actualizarTablaMateriales() {
@@ -127,17 +164,12 @@ function actualizarTablaMateriales() {
             index % 2 === 0
                 ? 'even:bg-gray-50 border-b'
                 : 'odd:bg-white even:bg-gray-50 border-b'
-        tr.innerHTML = `<td>${item.descripcion_materiales}</td><td>${
-            item.tipo_moneda_materiales
-        }</td><td>${item.unidad_materiales}</td><td>${
-            item.precio_unitario_materiales
-        }</td><td>${item.rendimiento_materiales}</td><td>$ ${
-            item.valor_unitario_materiales
-        }</td><td>${
-            item.incidencia_materiales
-        }</td><td><button class="active:scale-90 transition-transform" onclick="eliminarElementoMateriales(${datosMateriales.indexOf(
-            item
-        )})"><i class="fa-solid fa-trash-can"></i></button></td>`
+        tr.innerHTML = `<td>${item.descripcion_materiales}</td><td>${item.tipo_moneda_materiales
+            }</td><td>${item.unidad_materiales}</td><td>${item.precio_unitario_materiales
+            }</td><td>${item.rendimiento_materiales}</td><td>$ ${item.valor_unitario_materiales
+            }</td><td> % </td><td><button class="active:scale-90 transition-transform" onclick="eliminarElementoMateriales(${datosMateriales.indexOf(
+                item
+            )})"><i class="fa-solid fa-trash-can"></i></button></td>`
         tbody.appendChild(tr)
     })
 }
@@ -173,8 +205,6 @@ document
             parseFloat(
                 document.getElementById('VALOR UNITARIO TRANSPORTE').value
             ) || 0
-        let incidencia_transporte =
-            document.getElementById('INCIDENCIA TRANSPORTE').value || 0
 
         datosTransporte.push({
             descripcion_transporte,
@@ -183,10 +213,9 @@ document
             precio_unitario_transporte,
             rendimiento_transporte,
             valor_unitario_transporte,
-            incidencia_transporte,
         })
+
         actualizarTablaTransporte()
-        this.reset()
     })
 
 function actualizarTablaTransporte() {
@@ -198,17 +227,12 @@ function actualizarTablaTransporte() {
             index % 2 === 0
                 ? 'even:bg-gray-50 border-b'
                 : 'odd:bg-white even:bg-gray-50 border-b'
-        tr.innerHTML = `<td>${item.descripcion_transporte}</td><td>${
-            item.unidad_transporte
-        }</td><td>${item.distancia_transporte}</td><td>$ ${
-            item.precio_unitario_transporte
-        }</td><td>${item.rendimiento_transporte}</td><td>$ ${
-            item.valor_unitario_transporte
-        }</td><td>${
-            item.incidencia_transporte
-        }</td><td><button class="active:scale-90 transition-transform" onclick="eliminarElementoTransporte(${datosTransporte.indexOf(
-            item
-        )})"><i class="fa-solid fa-trash-can"></i></button></td>`
+        tr.innerHTML = `<td>${item.descripcion_transporte}</td><td>${item.unidad_transporte
+            }</td><td>${item.distancia_transporte}</td><td>$ ${item.precio_unitario_transporte
+            }</td><td>${item.rendimiento_transporte}</td><td>$ ${item.valor_unitario_transporte
+            }</td><td> % </td><td><button class="active:scale-90 transition-transform" onclick="eliminarElementoTransporte(${datosTransporte.indexOf(
+                item
+            )})"><i class="fa-solid fa-trash-can"></i></button></td>`
         tbody.appendChild(tr)
     })
 }
@@ -245,8 +269,6 @@ document
             parseFloat(
                 document.getElementById('VALOR UNITARIO MANO DE OBRA').value
             ) || 0
-        let incidencia_mano_de_obra =
-            document.getElementById('INCIDENCIA MANO DE OBRA').value || 0
 
         datosManoDeObra.push({
             trabajador_mano_de_obra,
@@ -255,10 +277,8 @@ document
             jornal_total_mano_de_obra,
             rendimiento_mano_de_obra,
             valor_unitario_mano_de_obra,
-            incidencia_mano_de_obra,
         })
         actualizarTablaManoDeObra()
-        this.reset()
     })
 
 function actualizarTablaManoDeObra() {
@@ -270,17 +290,12 @@ function actualizarTablaManoDeObra() {
             index % 2 === 0
                 ? 'even:bg-gray-50 border-b'
                 : 'odd:bg-white even:bg-gray-50 border-b'
-        tr.innerHTML = `<td>${item.trabajador_mano_de_obra}</td><td>$ ${
-            item.jornal_mano_de_obra
-        }</td><td>${item.prestacion_mano_de_obra}</td><td>$ ${
-            item.jornal_total_mano_de_obra
-        }</td><td>${item.rendimiento_mano_de_obra}</td><td>$ ${
-            item.valor_unitario_mano_de_obra
-        }</td><td>${
-            item.incidencia_mano_de_obra
-        }</td><td><button class="active:scale-90 transition-transform" onclick="eliminarElementoManoDeObra(${datosManoDeObra.indexOf(
-            item
-        )})"><i class="fa-solid fa-trash-can"></i></button></td>`
+        tr.innerHTML = `<td>${item.trabajador_mano_de_obra}</td><td>$ ${item.jornal_mano_de_obra
+            }</td><td>${item.prestacion_mano_de_obra}</td><td>$ ${item.jornal_total_mano_de_obra
+            }</td><td>${item.rendimiento_mano_de_obra}</td><td>$ ${item.valor_unitario_mano_de_obra
+            }</td><td> % </td><td><button class="active:scale-90 transition-transform" onclick="eliminarElementoManoDeObra(${datosManoDeObra.indexOf(
+                item
+            )})"><i class="fa-solid fa-trash-can"></i></button></td>`
         tbody.appendChild(tr)
     })
 }
@@ -294,10 +309,11 @@ function eliminarElementoManoDeObra(index) {
 
 function calcularTotalGeneral() {
     // Sumar los valores
-    let totalEquipos = datosEquipos.reduce(
+    let storedDatosEquipos = JSON.parse(localStorage.getItem('datosEquipos')) || [];
+    let totalEquipos = storedDatosEquipos.reduce(
         (sum, item) => sum + item.valor_unitario_equipos,
         0
-    )
+    );
     // Sumar los valores
     let totalMateriales = datosMateriales.reduce(
         (sum, item) => sum + item.valor_unitario_materiales,
@@ -354,10 +370,6 @@ function calcularTotalGeneral() {
     ).textContent = `$ ${totalGlobal.toFixed(2)}`
 }
 
-// Agregar un event listener para calcular el total general cuando sea necesario
-// document
-//     .getElementById('calcularTotalGeneral')
-//     .addEventListener('click', calcularTotalGeneral)
 
 // Configurar el MutationObserver para observar cambios en el contenedor de filas
 const observer = new MutationObserver((mutationsList) => {
@@ -368,8 +380,11 @@ const observer = new MutationObserver((mutationsList) => {
     }
 })
 
+
 // Seleccionar el contenedor donde se agregan las filas
-const filaContenedorEquipos = document.getElementById('filaContenedorEquipos')
+const filaContenedorEquipos = document.getElementById(
+    'filaContenedorEquipos'
+)
 const filaContenedorMateriales = document.getElementById(
     'filaContenedorMateriales'
 )

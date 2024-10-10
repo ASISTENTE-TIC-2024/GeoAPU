@@ -109,8 +109,14 @@
                     </div>
                     <div
                         class="col-start-3 row-start-5 border border-solid border-gray-400 text-center flex items-center justify-center break-all"
-                        id="rendimientoDiario"
-                    ></div>
+                    >
+                        <input
+                            type="text"
+                            id="rendimientoDiario"
+                            class="w-full h-full text-center"
+                            onblur="rendimientoLocalStorage(); actualizarRendimientoEquipos()"
+                        />
+                    </div>
                     <div
                         class="col-start-4 row-start-5 border border-solid border-gray-400 text-center flex items-center justify-center break-all"
                     >
@@ -232,20 +238,15 @@
                             />
                             <input
                                 type="number"
-                                id="RENDIMIENTO EQUIPOS"
+                                id="RENDIMIENTO_EQUIPOS"
                                 placeholder="RENDIMIENTO"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg pl-3 h-10 mx-2"
+                                readonly
                             />
                             <input
                                 type="number"
                                 id="VALOR UNITARIO EQUIPOS"
                                 placeholder="VALOR UNITARIO"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg pl-3 h-10 mx-2"
-                            />
-                            <input
-                                type="text"
-                                id="INCIDENCIA EQUIPOS"
-                                placeholder="INCIDENCIA"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg pl-3 h-10 mx-2"
                             />
                         </form>
@@ -359,12 +360,6 @@
                                 placeholder="VALOR UNITARIO"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg pl-3 h-10 mx-2"
                             />
-                            <input
-                                type="number"
-                                id="INCIDENCIA MATERIALES"
-                                placeholder="INCIDENCIA"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg pl-3 h-10 mx-2"
-                            />
                         </form>
                     </div>
                     <div class="grid grid-cols-8 grid-rows-1">
@@ -476,12 +471,6 @@
                                 placeholder="VALOR UNITARIO"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg pl-3 h-10 mx-2"
                             />
-                            <input
-                                type="text"
-                                id="INCIDENCIA TRANSPORTE"
-                                placeholder="INCIDENCIA"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg pl-3 h-10 mx-2"
-                            />
                         </form>
                     </div>
                     <div class="grid grid-cols-8 grid-rows-1">
@@ -591,12 +580,6 @@
                                 type="number"
                                 id="VALOR UNITARIO MANO DE OBRA"
                                 placeholder="VALOR UNITARIO"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg pl-3 h-10 mx-2"
-                            />
-                            <input
-                                type="text"
-                                id="INCIDENCIA MANO DE OBRA"
-                                placeholder="INCIDENCIA"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg pl-3 h-10 mx-2"
                             />
                         </form>
