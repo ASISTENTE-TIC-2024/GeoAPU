@@ -130,3 +130,24 @@ function rendimientoLocalStorage() {
     console.log(JSON.stringify(informacionRotulos))
 }
 
+function valorUnitarioLocalStorage() {
+    // Obtener el valor del input
+    const TARIFA_DIA_EQUIPOS =
+        document.getElementById('TARIFA_DIA_EQUIPOS').value
+
+    const RENDIMIENTO_EQUIPOS = document.getElementById("RENDIMIENTO_EQUIPOS").value
+
+    const VALOR_UNITARIO_EQUIPOS = document.getElementById("VALOR_UNITARIO_EQUIPOS")
+
+    const valor = RENDIMIENTO_EQUIPOS * TARIFA_DIA_EQUIPOS;
+    VALOR_UNITARIO_EQUIPOS.value = `${valor.toFixed(2)}`;
+
+    // Guardar el objeto actualizado de nuevo en localStorage
+    localStorage.setItem(
+        'informacionRotulos',
+        JSON.stringify(informacionRotulos)
+    )
+
+    console.log(JSON.stringify(informacionRotulos))
+}
+

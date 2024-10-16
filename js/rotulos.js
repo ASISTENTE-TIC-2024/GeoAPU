@@ -1,6 +1,6 @@
 function guardarInformacionRotulos() {
     const capitulo = document.getElementById('capitulo').value || "No se ingreso una actividad";
-    const descripcion_actividad = document.getElementById('descripcion-actividad').value || "No se ingreso una descirpcion de la actividad";
+    const descripcion_actividad = document.getElementById('descripcion-actividad').value || "No se ingreso una descripción de la actividad";
     const item_pago = document.getElementById('item-pago').value || "No se ingreso un item de pago";
     const unidad = document.getElementById('unidad').value || "No se ingreso una unidad de medida";
     const rendimiento = parseFloat(document.getElementById('rendimiento').value).toFixed(2) || "No se ingreso un rendimiento";

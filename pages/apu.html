@@ -114,7 +114,7 @@
                             type="text"
                             id="rendimientoDiario"
                             class="w-full h-full text-center"
-                            onblur="rendimientoLocalStorage(); actualizarRendimientoEquipos()"
+                            onblur="rendimientoLocalStorage(); actualizarRendimientoEquipos(); valorUnitarioLocalStorage(); actualizarValorUnitario()"
                         />
                     </div>
                     <div
@@ -200,56 +200,78 @@
                                     </th>
                                 </tr>
                             </thead>
+
                             <tbody id="filaContenedorEquipos"></tbody>
-                        </table>
-                        <form
-                            id="dataFormEquipos"
-                            class="my-2 flex flex-row justify-center flex-wrap"
-                        >
-                            <button
-                                type="submit"
-                                class="mr-5 text-4xl active:scale-90 transition-transform"
+
+                            <form
+                                id="dataFormEquipos"
+                                class="my-2 flex flex-row justify-center flex-wrap"
                             >
-                                <i class="fa-solid fa-circle-plus text-4xl"></i>
-                            </button>
-                            <input
-                                type="text"
-                                id="DESCRIPCIÓN EQUIPOS"
-                                placeholder="DESCRIPCIÓN"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg pl-3 h-10 mx-2"
-                            />
-                            <input
-                                type="text"
-                                id="MARCA EQUIPOS"
-                                placeholder="MARCA"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg pl-3 h-10 mx-2"
-                            />
-                            <input
-                                type="text"
-                                id="TIPO EQUIPOS"
-                                placeholder="TIPO"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg pl-3 h-10 mx-2"
-                            />
-                            <input
-                                type="number"
-                                id="TARIFA DIA EQUIPOS"
-                                placeholder="TARIFA DIA"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg pl-3 h-10 mx-2"
-                            />
-                            <input
-                                type="number"
-                                id="RENDIMIENTO_EQUIPOS"
-                                placeholder="RENDIMIENTO"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg pl-3 h-10 mx-2"
-                                readonly
-                            />
-                            <input
-                                type="number"
-                                id="VALOR UNITARIO EQUIPOS"
-                                placeholder="VALOR UNITARIO"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg pl-3 h-10 mx-2"
-                            />
-                        </form>
+                                <tr>
+                                    <td class="px-6 py-3">
+                                        <input
+                                            type="text"
+                                            id="DESCRIPCIÓN EQUIPOS"
+                                            placeholder="DESCRIPCIÓN"
+                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg pl-3 h-10 mx-2"
+                                        />
+                                    </td>
+                                    <td class="px-6 py-3">
+                                        <input
+                                            type="text"
+                                            id="MARCA EQUIPOS"
+                                            placeholder="MARCA"
+                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg pl-3 h-10 mx-2"
+                                        />
+                                    </td>
+                                    <td class="px-6 py-3">
+                                        <input
+                                            type="text"
+                                            id="TIPO EQUIPOS"
+                                            placeholder="TIPO"
+                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg pl-3 h-10 mx-2"
+                                        />
+                                    </td>
+                                    <td class="px-6 py-3">
+                                        <input
+                                            type="number"
+                                            id="TARIFA_DIA_EQUIPOS"
+                                            placeholder="TARIFA DIA"
+                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg pl-3 h-10 mx-2"
+                                            onblur="valorUnitarioLocalStorage(); actualizarValorUnitario()"
+                                        />
+                                    </td>
+                                    <td class="px-6 py-3">
+                                        <input
+                                            type="number"
+                                            id="RENDIMIENTO_EQUIPOS"
+                                            placeholder="RENDIMIENTO"
+                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg pl-3 h-10 mx-2"
+                                            readonly
+                                        />
+                                    </td>
+                                    <td class="px-6 py-3">
+                                        <input
+                                            type="number"
+                                            id="VALOR_UNITARIO_EQUIPOS"
+                                            placeholder="VALOR UNITARIO"
+                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg pl-3 h-10 mx-2"
+                                            readonly
+                                        />
+                                    </td>
+                                    <td class="px-6 py-3">
+                                        <button
+                                            type="submit"
+                                            class="mr-5 text-4xl active:scale-90 transition-transform"
+                                        >
+                                            <i
+                                                class="fa-solid fa-circle-plus text-4xl"
+                                            ></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </form>
+                        </table>
                     </div>
                     <div class="grid grid-cols-8 grid-rows-1">
                         <div
@@ -265,7 +287,7 @@
                         <div
                             class="col-start-8 row-start-5 border border-solid border-gray-400 text-center flex items-center justify-center break-all bg-yellow-200"
                         >
-                            { Incidencia }
+                            <p id="porcentajeEquipos"></p>
                         </div>
                     </div>
                 </div>
@@ -312,55 +334,81 @@
                                     </th>
                                 </tr>
                             </thead>
+
                             <tbody id="filaContenedorMateriales"></tbody>
-                        </table>
-                        <form
-                            id="dataFormMateriales"
-                            class="my-2 flex flex-row justify-center flex-wrap"
-                        >
-                            <button
-                                type="submit"
-                                class="mr-5 text-4xl active:scale-90 transition-transform"
+
+                            <form
+                                id="dataFormMateriales"
+                                class="my-2 flex flex-row justify-center flex-wrap"
                             >
-                                <i class="fa-solid fa-circle-plus text-4xl"></i>
-                            </button>
-                            <input
-                                type="text"
-                                id="DESCRIPCION MATERIALES"
-                                placeholder="DESCRIPCION"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg pl-3 h-10 mx-2"
-                            />
-                            <input
-                                type="text"
-                                id="TIPO DE MONEDA MATERIALES"
-                                placeholder="TIPO DE MONEDA"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg pl-3 h-10 mx-2"
-                            />
-                            <input
-                                type="text"
-                                id="UNIDAD MATERIALES"
-                                placeholder="UNIDAD"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg pl-3 h-10 mx-2"
-                            />
-                            <input
-                                type="number"
-                                id="PRECIO UNITARIO MATERIALES"
-                                placeholder="PRECIO UNITARIO"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg pl-3 h-10 mx-2"
-                            />
-                            <input
-                                type="number"
-                                id="RENDIMIENTO MATERIALES"
-                                placeholder="RENDIMIENTO"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg pl-3 h-10 mx-2"
-                            />
-                            <input
-                                type="number"
-                                id="VALOR UNITARIO MATERIALES"
-                                placeholder="VALOR UNITARIO"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg pl-3 h-10 mx-2"
-                            />
-                        </form>
+                                <tr>
+                                    <td class="px-6 py-3">
+                                        <input
+                                            type="text"
+                                            id="DESCRIPCION MATERIALES"
+                                            placeholder="DESCRIPCION"
+                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg pl-3 h-10 mx-2"
+                                        />
+                                    </td>
+
+                                    <td class="px-6 py-3">
+                                        <input
+                                            type="text"
+                                            id="TIPO DE MONEDA MATERIALES"
+                                            placeholder="TIPO DE MONEDA"
+                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg pl-3 h-10 mx-2"
+                                        />
+                                    </td>
+
+                                    <td class="px-6 py-3">
+                                        <input
+                                            type="text"
+                                            id="UNIDAD MATERIALES"
+                                            placeholder="UNIDAD"
+                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg pl-3 h-10 mx-2"
+                                        />
+                                    </td>
+
+                                    <td class="px-6 py-3">
+                                        <input
+                                            type="number"
+                                            id="PRECIO UNITARIO MATERIALES"
+                                            placeholder="PRECIO UNITARIO"
+                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg pl-3 h-10 mx-2"
+                                        />
+                                    </td>
+
+                                    <td class="px-6 py-3">
+                                        <input
+                                            type="number"
+                                            id="RENDIMIENTO MATERIALES"
+                                            placeholder="RENDIMIENTO"
+                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg pl-3 h-10 mx-2"
+                                        />
+                                    </td>
+
+                                    <td class="px-6 py-3">
+                                        <input
+                                            type="number"
+                                            id="VALOR UNITARIO MATERIALES"
+                                            placeholder="VALOR UNITARIO"
+                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg pl-3 h-10 mx-2"
+                                        />
+                                    </td>
+
+                                    <td class="px-6 py-3">
+                                        <button
+                                            type="submit"
+                                            class="mr-5 text-4xl active:scale-90 transition-transform"
+                                        >
+                                            <i
+                                                class="fa-solid fa-circle-plus text-4xl"
+                                            ></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </form>
+                        </table>
                     </div>
                     <div class="grid grid-cols-8 grid-rows-1">
                         <div
@@ -376,7 +424,7 @@
                         <div
                             class="col-start-8 row-start-5 border border-solid border-gray-400 text-center flex items-center justify-center break-all bg-yellow-200"
                         >
-                            { Incidencia }
+                            <p id="porcentajeMateriales"></p>
                         </div>
                     </div>
                 </div>
@@ -423,55 +471,74 @@
                                     </th>
                                 </tr>
                             </thead>
+
                             <tbody id="filaContenedorTransporte"></tbody>
-                        </table>
-                        <form
-                            id="dataFormTransporte"
-                            class="my-2 flex flex-row justify-center flex-wrap"
-                        >
-                            <button
-                                type="submit"
-                                class="mr-5 text-4xl active:scale-90 transition-transform"
+                            <form
+                                id="dataFormTransporte"
+                                class="my-2 flex flex-row justify-center flex-wrap"
                             >
-                                <i class="fa-solid fa-circle-plus text-4xl"></i>
-                            </button>
-                            <input
-                                type="text"
-                                id="DESCRIPCION TRANSPORTE"
-                                placeholder="DESCRIPCIÓN"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg pl-3 h-10 mx-2"
-                            />
-                            <input
-                                type="text"
-                                id="UNIDAD TRANSPORTE"
-                                placeholder="UNIDAD"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg pl-3 h-10 mx-2"
-                            />
-                            <input
-                                type="text"
-                                id="DISTANCIA TRANSPORTE"
-                                placeholder="DISTANCIA"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg pl-3 h-10 mx-2"
-                            />
-                            <input
-                                type="number"
-                                id="PRECIO UNITARIO TRANSPORTE"
-                                placeholder="PRECIO UNITARIO"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg pl-3 h-10 mx-2"
-                            />
-                            <input
-                                type="number"
-                                id="RENDIMIENTO TRANSPORTE"
-                                placeholder="RENDIMIENTO"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg pl-3 h-10 mx-2"
-                            />
-                            <input
-                                type="number"
-                                id="VALOR UNITARIO TRANSPORTE"
-                                placeholder="VALOR UNITARIO"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg pl-3 h-10 mx-2"
-                            />
-                        </form>
+                                <tr>
+                                    <td scope="col" class="px-6 py-3">
+                                        <input
+                                            type="text"
+                                            id="DESCRIPCION TRANSPORTE"
+                                            placeholder="DESCRIPCIÓN"
+                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg pl-3 h-10 mx-2"
+                                        />
+                                    </td>
+                                    <td scope="col" class="px-6 py-3">
+                                        <input
+                                            type="text"
+                                            id="UNIDAD TRANSPORTE"
+                                            placeholder="UNIDAD"
+                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg pl-3 h-10 mx-2"
+                                        />
+                                    </td>
+                                    <td scope="col" class="px-6 py-3">
+                                        <input
+                                            type="text"
+                                            id="DISTANCIA TRANSPORTE"
+                                            placeholder="DISTANCIA"
+                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg pl-3 h-10 mx-2"
+                                        />
+                                    </td>
+                                    <td scope="col" class="px-6 py-3">
+                                        <input
+                                            type="number"
+                                            id="PRECIO UNITARIO TRANSPORTE"
+                                            placeholder="PRECIO UNITARIO"
+                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg pl-3 h-10 mx-2"
+                                        />
+                                    </td>
+                                    <td scope="col" class="px-6 py-3">
+                                        <input
+                                            type="number"
+                                            id="RENDIMIENTO TRANSPORTE"
+                                            placeholder="RENDIMIENTO"
+                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg pl-3 h-10 mx-2"
+                                        />
+                                    </td>
+                                    <td scope="col" class="px-6 py-3">
+                                        <input
+                                            type="number"
+                                            id="VALOR UNITARIO TRANSPORTE"
+                                            placeholder="VALOR UNITARIO"
+                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg pl-3 h-10 mx-2"
+                                        />
+                                    </td>
+                                    <td scope="col" class="px-6 py-3">
+                                        <button
+                                            type="submit"
+                                            class="mr-5 text-4xl active:scale-90 transition-transform"
+                                        >
+                                            <i
+                                                class="fa-solid fa-circle-plus text-4xl"
+                                            ></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </form>
+                        </table>
                     </div>
                     <div class="grid grid-cols-8 grid-rows-1">
                         <div
@@ -487,7 +554,7 @@
                         <div
                             class="col-start-8 row-start-5 border border-solid border-gray-400 text-center flex items-center justify-center break-all bg-yellow-200"
                         >
-                            { Incidencia }
+                            <p id="porcentajeTransporte"></p>
                         </div>
                     </div>
                 </div>
@@ -534,55 +601,75 @@
                                     </th>
                                 </tr>
                             </thead>
+
                             <tbody id="filaContenedorManoDeObra"></tbody>
-                        </table>
-                        <form
-                            id="dataFormManoDeObra"
-                            class="my-2 flex flex-row justify-center flex-wrap"
-                        >
-                            <button
-                                type="submit"
-                                class="mr-5 text-4xl active:scale-90 transition-transform"
+
+                            <form
+                                id="dataFormManoDeObra"
+                                class="my-2 flex flex-row justify-center flex-wrap"
                             >
-                                <i class="fa-solid fa-circle-plus text-4xl"></i>
-                            </button>
-                            <input
-                                type="text"
-                                id="TRABAJADOR MANO DE OBRA"
-                                placeholder="TRABAJADOR"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg pl-3 h-10 mx-2"
-                            />
-                            <input
-                                type="number"
-                                id="JORNAL MANO DE OBRA"
-                                placeholder="JORNAL"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg pl-3 h-10 mx-2"
-                            />
-                            <input
-                                type="text"
-                                id="PRESTACION (%) MANO DE OBRA"
-                                placeholder="PRESTACION (%)"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg pl-3 h-10 mx-2"
-                            />
-                            <input
-                                type="number"
-                                id="JORNAL TOTAL MANO DE OBRA"
-                                placeholder="JORNAL TOTAL"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg pl-3 h-10 mx-2"
-                            />
-                            <input
-                                type="number"
-                                id="RENDIMIENTO MANO DE OBRA"
-                                placeholder="RENDIMIENTO"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg pl-3 h-10 mx-2"
-                            />
-                            <input
-                                type="number"
-                                id="VALOR UNITARIO MANO DE OBRA"
-                                placeholder="VALOR UNITARIO"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg pl-3 h-10 mx-2"
-                            />
-                        </form>
+                                <tr>
+                                    <td scope="col" class="px-6 py-3">
+                                        <input
+                                            type="text"
+                                            id="TRABAJADOR MANO DE OBRA"
+                                            placeholder="TRABAJADOR"
+                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg pl-3 h-10 mx-2"
+                                        />
+                                    </td>
+                                    <td scope="col" class="px-6 py-3">
+                                        <input
+                                            type="number"
+                                            id="JORNAL MANO DE OBRA"
+                                            placeholder="JORNAL"
+                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg pl-3 h-10 mx-2"
+                                        />
+                                    </td>
+                                    <td scope="col" class="px-6 py-3">
+                                        <input
+                                            type="text"
+                                            id="PRESTACION (%) MANO DE OBRA"
+                                            placeholder="PRESTACION (%)"
+                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg pl-3 h-10 mx-2"
+                                        />
+                                    </td>
+                                    <td scope="col" class="px-6 py-3">
+                                        <input
+                                            type="number"
+                                            id="JORNAL TOTAL MANO DE OBRA"
+                                            placeholder="JORNAL TOTAL"
+                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg pl-3 h-10 mx-2"
+                                        />
+                                    </td>
+                                    <td scope="col" class="px-6 py-3">
+                                        <input
+                                            type="number"
+                                            id="RENDIMIENTO MANO DE OBRA"
+                                            placeholder="RENDIMIENTO"
+                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg pl-3 h-10 mx-2"
+                                        />
+                                    </td>
+                                    <td scope="col" class="px-6 py-3">
+                                        <input
+                                            type="number"
+                                            id="VALOR UNITARIO MANO DE OBRA"
+                                            placeholder="VALOR UNITARIO"
+                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg pl-3 h-10 mx-2"
+                                        />
+                                    </td>
+                                    <td scope="col" class="px-6 py-3">
+                                        <button
+                                            type="submit"
+                                            class="mr-5 text-4xl active:scale-90 transition-transform"
+                                        >
+                                            <i
+                                                class="fa-solid fa-circle-plus text-4xl"
+                                            ></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </form>
+                        </table>
                     </div>
                     <div class="grid grid-cols-8 grid-rows-1">
                         <div
@@ -598,7 +685,7 @@
                         <div
                             class="col-start-8 row-start-5 border border-solid border-gray-400 text-center flex items-center justify-center break-all bg-yellow-200"
                         >
-                            { Incidencia }
+                            <p id="porcentajeManoDeObra"></p>
                         </div>
                     </div>
                 </div>

@@ -7,7 +7,6 @@ let datosManoDeObra = []
 document
     .getElementById('dataFormEquipos')
     .addEventListener('submit', function (e) {
-
         e.preventDefault()
 
         let descripcion_equipos =
@@ -18,16 +17,19 @@ document
         let tipo_equipos =
             document.getElementById('TIPO EQUIPOS').value || 'SIN TIPO'
         let tarifa_dia_equipos =
-            parseFloat(document.getElementById('TARIFA DIA EQUIPOS').value) || 0
+            parseFloat(document.getElementById('TARIFA_DIA_EQUIPOS').value) || 0
         let rendimiento_equipos =
-            parseFloat(document.getElementById('RENDIMIENTO_EQUIPOS').value).toFixed(4) || 0
+            parseFloat(
+                document.getElementById('RENDIMIENTO_EQUIPOS').value
+            ).toFixed(4) || 0
+        parseFloat(document.getElementById('RENDIMIENTO_EQUIPOS').value) || 0
         let valor_unitario_equipos =
             parseFloat(
-                document.getElementById('VALOR UNITARIO EQUIPOS').value
+                document.getElementById('VALOR_UNITARIO_EQUIPOS').value
             ) || 0
-
         // Obtener los datos existentes del localStorage
-        let datosEquipos = JSON.parse(localStorage.getItem('datosEquipos')) || []
+        let datosEquipos =
+            JSON.parse(localStorage.getItem('datosEquipos')) || []
 
         datosEquipos.push({
             descripcion_equipos,
@@ -36,12 +38,13 @@ document
             tarifa_dia_equipos,
             rendimiento_equipos,
             valor_unitario_equipos,
+            porcentaje_incidencia: 0,
         })
 
         localStorage.setItem('datosEquipos', JSON.stringify(datosEquipos))
 
+        actualizarValorUnitario()
         actualizarTablaEquipos()
-
     })
 
 function actualizarTablaEquipos() {
@@ -50,22 +53,38 @@ function actualizarTablaEquipos() {
     tbody.innerHTML = ''
 
     // Obtener los datos del localStorage
-    let storedDatosEquipos = JSON.parse(localStorage.getItem('datosEquipos')) || []
+    let storedDatosEquipos =
+        JSON.parse(localStorage.getItem('datosEquipos')) || []
+
+    // Calcular el total de todos los valores
+    let totalEquipos = storedDatosEquipos.reduce(
+        (sum, item) => sum + item.rendimiento_equipos * item.tarifa_dia_equipos,
+        0
+    )
+
+    console.log(totalEquipos);
 
     console.log(storedDatosEquipos);
 
+
     storedDatosEquipos.forEach((item, index) => {
+
         let tr = document.createElement('tr')
+
         tr.className =
             index % 2 === 0
                 ? 'even:bg-gray-50 border-b'
                 : 'odd:bg-white even:bg-gray-50 border-b'
-        tr.innerHTML = `<td>${item.descripcion_equipos}</td><td>${item.marca_equipos
-            }</td><td>${item.tipo_equipos}</td><td>${item.tarifa_dia_equipos
-            }</td><td>${item.rendimiento_equipos}</td><td>$ ${item.valor_unitario_equipos
-            }</td><td> % </td><td><button class="active:scale-90 transition-transform" onclick="eliminarElementoEquipos(${storedDatosEquipos.indexOf(
-                item
-            )})"><i class="fa-solid fa-trash-can"></i></button></td>`
+        tr.innerHTML = `
+        <td>${item.descripcion_equipos}</td>
+        <td>${item.marca_equipos}</td>
+        <td>${item.tipo_equipos}</td>
+        <td>${item.tarifa_dia_equipos}</td>
+        <td>${item.rendimiento_equipos}</td>
+        <td>$ ${isNaN(item.rendimiento_equipos * item.tarifa_dia_equipos) || !isFinite(item.rendimiento_equipos * item.tarifa_dia_equipos) ? 0 : (item.rendimiento_equipos * item.tarifa_dia_equipos).toFixed(2)}</td>
+        <td>${(item.porcentaje_incidencia = ((item.rendimiento_equipos * item.tarifa_dia_equipos) / totalEquipos) * 100 || 0).toFixed(2)}%</td>
+        <td><button class="active:scale-90 transition-transform" onclick="eliminarElementoEquipos(${storedDatosEquipos.indexOf(item)})"><i class="fa-solid fa-trash-can"></i></button></td>`
+
         tbody.appendChild(tr)
     })
 }
@@ -84,34 +103,51 @@ function eliminarElementoEquipos(index) {
     actualizarTablaEquipos()
 }
 
-
 function actualizarKeyEnArray(array, key, nuevoValor) {
-    array.forEach(item => {
+    array.forEach((item) => {
         if (item.hasOwnProperty(key)) {
-            item[key] = nuevoValor;
+            item[key] = nuevoValor
         }
-    });
+    })
 }
 
 function actualizarRendimientoEquipos() {
-    const informacionRotulos = JSON.parse(localStorage.getItem('informacionRotulos')) || [];
+    const informacionRotulos =
+        JSON.parse(localStorage.getItem('informacionRotulos')) || []
 
-    console.log(informacionRotulos);
+    console.log(informacionRotulos)
 
-    let storedDatosEquipos = JSON.parse(localStorage.getItem('datosEquipos')) || [];
+    let storedDatosEquipos =
+        JSON.parse(localStorage.getItem('datosEquipos')) || []
 
     informacionRotulos.forEach((data) => {
         storedDatosEquipos.forEach((item) => {
-            item.rendimiento_equipos = (1 / data.rendimiento).toFixed(4);
-        });
-    });
+            item.rendimiento_equipos = (1 / data.rendimiento).toFixed(4)
+        })
+    })
 
-    localStorage.setItem('datosEquipos', JSON.stringify(storedDatosEquipos));
-    actualizarTablaEquipos();
+    localStorage.setItem('datosEquipos', JSON.stringify(storedDatosEquipos))
+    actualizarTablaEquipos()
+}
+
+function actualizarValorUnitario() {
+    const storedDatosEquipos =
+        JSON.parse(localStorage.getItem('datosEquipos')) || []
+
+    console.log(storedDatosEquipos)
+
+    storedDatosEquipos.forEach((item) => {
+        item.valor_unitario_equipos = (1 / item.tarifa_dia_equipos).toFixed(4)
+    })
+
+    console.log(storedDatosEquipos)
+
+    localStorage.setItem('datosEquipos', JSON.stringify(storedDatosEquipos))
+
+    actualizarTablaEquipos()
 }
 
 actualizarTablaEquipos()
-
 
 /******************************* MATERIALES *******************************/
 
@@ -142,7 +178,6 @@ document
                 document.getElementById('VALOR UNITARIO MATERIALES').value
             ) || 0
 
-
         datosMateriales.push({
             descripcion_materiales,
             tipo_moneda_materiales,
@@ -164,7 +199,7 @@ function actualizarTablaMateriales() {
             index % 2 === 0
                 ? 'even:bg-gray-50 border-b'
                 : 'odd:bg-white even:bg-gray-50 border-b'
-        tr.innerHTML = `<td>${item.descripcion_materiales}</td><td>${item.tipo_moneda_materiales
+        tr.innerHTML = `< td > ${item.descripcion_materiales}</td ><td>${item.tipo_moneda_materiales
             }</td><td>${item.unidad_materiales}</td><td>${item.precio_unitario_materiales
             }</td><td>${item.rendimiento_materiales}</td><td>$ ${item.valor_unitario_materiales
             }</td><td> % </td><td><button class="active:scale-90 transition-transform" onclick="eliminarElementoMateriales(${datosMateriales.indexOf(
@@ -227,7 +262,7 @@ function actualizarTablaTransporte() {
             index % 2 === 0
                 ? 'even:bg-gray-50 border-b'
                 : 'odd:bg-white even:bg-gray-50 border-b'
-        tr.innerHTML = `<td>${item.descripcion_transporte}</td><td>${item.unidad_transporte
+        tr.innerHTML = `< td > ${item.descripcion_transporte}</td ><td>${item.unidad_transporte
             }</td><td>${item.distancia_transporte}</td><td>$ ${item.precio_unitario_transporte
             }</td><td>${item.rendimiento_transporte}</td><td>$ ${item.valor_unitario_transporte
             }</td><td> % </td><td><button class="active:scale-90 transition-transform" onclick="eliminarElementoTransporte(${datosTransporte.indexOf(
@@ -290,7 +325,7 @@ function actualizarTablaManoDeObra() {
             index % 2 === 0
                 ? 'even:bg-gray-50 border-b'
                 : 'odd:bg-white even:bg-gray-50 border-b'
-        tr.innerHTML = `<td>${item.trabajador_mano_de_obra}</td><td>$ ${item.jornal_mano_de_obra
+        tr.innerHTML = `< td > ${item.trabajador_mano_de_obra}</td ><td>$ ${item.jornal_mano_de_obra
             }</td><td>${item.prestacion_mano_de_obra}</td><td>$ ${item.jornal_total_mano_de_obra
             }</td><td>${item.rendimiento_mano_de_obra}</td><td>$ ${item.valor_unitario_mano_de_obra
             }</td><td> % </td><td><button class="active:scale-90 transition-transform" onclick="eliminarElementoManoDeObra(${datosManoDeObra.indexOf(
@@ -309,11 +344,12 @@ function eliminarElementoManoDeObra(index) {
 
 function calcularTotalGeneral() {
     // Sumar los valores
-    let storedDatosEquipos = JSON.parse(localStorage.getItem('datosEquipos')) || [];
+    let storedDatosEquipos =
+        JSON.parse(localStorage.getItem('datosEquipos')) || []
     let totalEquipos = storedDatosEquipos.reduce(
-        (sum, item) => sum + item.valor_unitario_equipos,
+        (sum, item) => sum + item.rendimiento_equipos * item.tarifa_dia_equipos,
         0
-    );
+    )
     // Sumar los valores
     let totalMateriales = datosMateriales.reduce(
         (sum, item) => sum + item.valor_unitario_materiales,
@@ -340,36 +376,57 @@ function calcularTotalGeneral() {
 
     let totalGlobal = totalGeneral + administracion + imprevistos + utilidad
 
+    let porcentajeManoDeObra = (totalManoDeObra / totalGeneral) * 100 || 0
+    let porcentajeEquipos = (totalEquipos / totalGeneral) * 100 || 0
+    let porcentajeMateriales = (totalMateriales / totalGeneral) * 100 || 0
+    let porcentajeTransporte = (totalTransporte / totalGeneral) * 100 || 0
+
     // Mostrar los sub-totales en el DOM con dos decimales
     document.getElementById(
         'resultadoEquipos'
-    ).textContent = `$ ${totalEquipos.toFixed(2)}`
+    ).textContent = `$ ${totalEquipos.toFixed(2)} `
+    document.getElementById(
+        'porcentajeEquipos'
+    ).textContent = `${porcentajeEquipos.toFixed(2)}% `
+
     document.getElementById(
         'resultadoMateriales'
-    ).textContent = `$ ${totalMateriales.toFixed(2)}`
+    ).textContent = `$ ${totalMateriales.toFixed(2)} `
+    document.getElementById(
+        'porcentajeManoDeObra'
+    ).textContent = `${porcentajeManoDeObra.toFixed(2)}% `
+
     document.getElementById(
         'resultadoTransporte'
-    ).textContent = `$ ${totalTransporte.toFixed(2)}`
+    ).textContent = `$ ${totalTransporte.toFixed(2)} `
+    document.getElementById(
+        'porcentajeMateriales'
+    ).textContent = `${porcentajeMateriales.toFixed(2)}% `
+
     document.getElementById(
         'resultadoManoDeObra'
-    ).textContent = `$ ${totalManoDeObra.toFixed(2)}`
+    ).textContent = `$ ${totalManoDeObra.toFixed(2)} `
+    document.getElementById(
+        'porcentajeTransporte'
+    ).textContent = `${porcentajeTransporte.toFixed(2)}% `
 
     // Mostrar el resultado en un elemento del DOM con dos decimales
     document.getElementById(
         'resultadoTotalGeneral'
-    ).textContent = `$ ${totalGeneral.toFixed(2)}`
+    ).textContent = `$ ${totalGeneral.toFixed(2)} `
     document.getElementById(
         'administracion'
-    ).textContent = `$ ${administracion.toFixed(2)}`
+    ).textContent = `$ ${administracion.toFixed(2)} `
     document.getElementById(
         'imprevistos'
-    ).textContent = `$ ${imprevistos.toFixed(2)}`
-    document.getElementById('utilidad').textContent = `$ ${utilidad.toFixed(2)}`
+    ).textContent = `$ ${imprevistos.toFixed(2)} `
+    document.getElementById('utilidad').textContent = `$ ${utilidad.toFixed(
+        2
+    )} `
     document.getElementById(
         'totalGlobal'
-    ).textContent = `$ ${totalGlobal.toFixed(2)}`
+    ).textContent = `$ ${totalGlobal.toFixed(2)} `
 }
-
 
 // Configurar el MutationObserver para observar cambios en el contenedor de filas
 const observer = new MutationObserver((mutationsList) => {
@@ -380,11 +437,8 @@ const observer = new MutationObserver((mutationsList) => {
     }
 })
 
-
 // Seleccionar el contenedor donde se agregan las filas
-const filaContenedorEquipos = document.getElementById(
-    'filaContenedorEquipos'
-)
+const filaContenedorEquipos = document.getElementById('filaContenedorEquipos')
 const filaContenedorMateriales = document.getElementById(
     'filaContenedorMateriales'
 )
