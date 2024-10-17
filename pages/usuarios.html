@@ -13,18 +13,9 @@
         />
     </head>
 
-    <style>
-        .bg-fixed {
-            background-color: rgb(246, 241, 241);
-            background-size: cover; /* Asegura que la imagen cubra toda la pantalla */
-            background-position: center; /* Centra la imagen */
-            background-attachment: fixed; /* Hace que la imagen sea estática */
-        }
-    </style>
-
     <body
         style="font-family: 'Museo Sans Rounded', sans-serif"
-        class="bg-fixed"
+        class="bg-gradient-to-tr from-sky-100 to-sky-50"
     >
         <div class="h-full w-full">
             <nav
@@ -937,9 +928,6 @@
             class="w-full relative top-[110px] block flex flex-col"
         >
             <div id="title-container" class="w-full block text-center">
-                <i
-                    class="fa-solid fa-users-rays text-6xl text-gray-600 mb-10"
-                ></i>
                 <h1 class="text-6xl text-gray-600">PANEL DE USUARIOS</h1>
                 <button
                     class="bg-green-500 text-white px-4 py-2 rounded mt-10 w-80 text-gray-200"
@@ -954,7 +942,10 @@
                 class="table-container mx-10 mb-40 overflow-x-auto relative top-[50px] rounded-lg"
             >
                 <table class="min-w-full bg-gray-100 border rounded-lg">
-                    <thead class="bg-sky-300 rounded-lg">
+                    <thead
+                        class="rounded-lg"
+                        style="background-color: rgb(0, 112, 192)"
+                    >
                         <tr>
                             <th class="py-2 p-2" onclick="sortTable(0)">
                                 <div class="flex items-center text-gray-50">

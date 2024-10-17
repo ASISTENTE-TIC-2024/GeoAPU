@@ -33,6 +33,16 @@ app.use(express.urlencoded({ extended: true }));
 
 const secretKey = process.env.SECRET_KEY;
 
+// Configurar multer
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const storage = multer.diskStorage({
+    destination: path.join(__dirname, "../images"),
+    filename: function (_, file, cb) {
+        cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+    }
+});
 
 // Ruta de login
 app.post('/login', (req, res) => {
@@ -46,8 +56,7 @@ app.post('/login', (req, res) => {
 
             bcrypt.compare(password, user.contrasena_usuario, (err, isMatch) => {
                 if (isMatch) {
-                    const token = jwt.sign({ id: user.id_usuario, email: user.correo_usuario, name: user.nombre_usuario, photoPath: user.foto_usuario, role: user.rol_usuario }, secretKey, { expiresIn: '24h' });
-                    console.log('Token generado: ', JSON.stringify(token));
+                    const token = jwt.sign({ id: user.id_usuario, email: user.correo_usuario, name: user.nombre_usuario, photoPath: user.foto_usuario, role: user.rol_usuario }, secretKey, { expiresIn: '3d' });
                     res.json({ token });
                 } else {
                     res.status(401).json({ message: 'Credenciales incorrectas!' });
@@ -75,7 +84,7 @@ app.post('/verify-token', (req, res) => {
     }
 });
 
-
+// Ruta protegida
 app.get('/protected', (req, res) => {
     const token = req.header('Authorization');
 
@@ -95,6 +104,7 @@ app.get('/protected', (req, res) => {
 // Rutas de OAuth 2.0 y OIDC
 app.get('/auth/oidc', passport.authenticate('openidconnect'));
 
+// Ruta de callback para autenticación OIDC
 app.get('/callback', passport.authenticate('openidconnect', {
     failureRedirect: '/'
 }), (req, res) => {
@@ -119,17 +129,6 @@ app.post('/verify-password', (req, res) => {
 });
 
 
-// Configurar multer
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-const storage = multer.diskStorage({
-    destination: path.join(__dirname, "../images"),
-    filename: function (_, file, cb) {
-        cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
-    }
-});
-
 // useData - Usar la base de datos GeoAPU
 app.get('/useData', (_, res) => {
     let useQuery = `USE geoapu`
@@ -142,8 +141,10 @@ app.get('/useData', (_, res) => {
     })
 })
 
+/* ------------------------------------------------------- APARTADO DE LA TABLA USUARIOS ---------------------------------------------------- */
+
 // selectData - Seleccionar datos de la tabla usuarios
-app.get('/selectData', (_, res) => {
+app.get('/selectUserData', (_, res) => {
     let selectQuery = `SELECT * FROM usuarios`
     db_con.query(selectQuery, (error, results) => {
         if (error) throw error
@@ -152,6 +153,34 @@ app.get('/selectData', (_, res) => {
         return res.json(results) // Devuelve los resultados como JSON
     })
 })
+
+// addData - Agregar datos a la tabla usuarios
+app.post('/addUser', multer({ storage }).single('foto_usuario'), (req, res) => {
+    const { nombre_usuario, correo_usuario, contrasena_usuario, rol_usuario } = req.body;
+    const ruta_foto_usuario = `../images/${req.file.filename}`;
+
+    // Hash the password before storing it in the database
+    bcrypt.hash(contrasena_usuario, 10, (err, hashedPassword) => {
+        if (err) {
+            console.error('Error al encriptar la contraseña:', err);
+            return res.status(500).send('Error al encriptar la contraseña');
+        }
+
+        const query = `INSERT INTO usuarios (foto_usuario, nombre_usuario, correo_usuario, contrasena_usuario, rol_usuario) VALUES (?, ?, ?, ?, ?)`;
+
+        db_con.query(
+            query,
+            [ruta_foto_usuario, nombre_usuario, correo_usuario, hashedPassword, rol_usuario],
+            (err) => {
+                if (err) {
+                    console.error('Error al agregar usuario:', err);
+                    return res.status(500).send('Error al agregar usuario');
+                }
+                res.send({ message: 'Usuario agregado correctamente' });
+            }
+        );
+    });
+});
 
 
 // deleteData - Eliminar datos de la tabla usuarios
@@ -186,33 +215,6 @@ app.delete('/deleteUser/:id_usuario', (req, res) => {
         } else {
             return res.status(404).json({ message: 'Usuario no encontrado' });
         }
-    });
-});
-
-app.post('/addUser', multer({ storage }).single('foto_usuario'), (req, res) => {
-    const { nombre_usuario, correo_usuario, contrasena_usuario, rol_usuario } = req.body;
-    const ruta_foto_usuario = `../images/${req.file.filename}`;
-
-    // Hash the password before storing it in the database
-    bcrypt.hash(contrasena_usuario, 10, (err, hashedPassword) => {
-        if (err) {
-            console.error('Error al encriptar la contraseña:', err);
-            return res.status(500).send('Error al encriptar la contraseña');
-        }
-
-        const query = `INSERT INTO usuarios (foto_usuario, nombre_usuario, correo_usuario, contrasena_usuario, rol_usuario) VALUES (?, ?, ?, ?, ?)`;
-
-        db_con.query(
-            query,
-            [ruta_foto_usuario, nombre_usuario, correo_usuario, hashedPassword, rol_usuario],
-            (err) => {
-                if (err) {
-                    console.error('Error al agregar usuario:', err);
-                    return res.status(500).send('Error al agregar usuario');
-                }
-                res.send({ message: 'Usuario agregado correctamente' });
-            }
-        );
     });
 });
 
@@ -279,6 +281,176 @@ app.put('/updateUser/:id_usuario', multer({ storage }).single('foto_usuario'), (
         } else {
             updateUser(oldPasswordHash);
         }
+    })
+})
+
+/* ------------------------------------------------------- APARTADO DE LA TABLA MATERIALES ---------------------------------------------------- */
+
+
+// selectData - Seleccionar datos de la tabla usuarios
+app.get('/selectMaterialData', (_, res) => {
+    let selectQuery = `SELECT * FROM materiales`
+    db_con.query(selectQuery, (error, results) => {
+        if (error) throw error
+
+        console.log('Datos seleccionados:', results)
+        return res.json(results) // Devuelve los resultados como JSON
+    })
+})
+
+// addData - Agregar datos a la tabla materiales
+app.post('/addMaterial', multer({ storage }).single('foto_material'), (req, res) => {
+
+    const { descripcion_material, tipo_moneda_material, unidad_medida_material, valor_unitario_material, fabricacion_material, margen_material, costo_unitario_material, dimension_material, unidad_material, precio_producto_material, proveedor_material } = req.body;
+
+    console.log('Datos del material:', req.body);
+
+    const ruta_foto_material = req.file ? `../images/${req.file.filename}` : null;
+
+    console.log('Ruta de la foto del material:', ruta_foto_material);
+
+    const query = `INSERT INTO materiales (
+        foto_materiales,
+        descripcion_materiales,
+        tipo_moneda_materiales,
+        unidad_medida_materiales,
+        valor_unitario_materiales,
+        fabricacion_materiales,
+        margen_materiales,
+        porcentaje_margen_materiales,
+        costo_unitario_materiales,
+        dimension_materiales,
+        unidad_materiales,
+        precio_producto_materiales,
+        proveedor_materiales
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+
+    db_con.query(
+        query,
+        [ruta_foto_material, descripcion_material, tipo_moneda_material, unidad_medida_material, valor_unitario_material, fabricacion_material, margen_material, 0, costo_unitario_material, dimension_material, unidad_material, precio_producto_material, proveedor_material],
+        (err) => {
+            if (err) {
+                console.error('Error al agregar material:', err);
+                return res.status(500).send('Error al agregar material');
+            }
+            res.send({ message: 'Material agregado correctamente' });
+        }
+    );
+});
+
+
+// deleteData - Eliminar datos de la tabla usuarios
+app.delete('/deleteMaterial/:id_materiales', (req, res) => {
+    const { id_materiales } = req.params;
+
+    // Primero, obtener la ruta de la foto del usuario
+    const getPhotoQuery = `SELECT foto_materiales FROM materiales WHERE id_materiales = ?`;
+    db_con.query(getPhotoQuery, [id_materiales], (error, results) => {
+        if (error) throw error;
+
+        if (results.length > 0) {
+            const photoPath = results[0].foto_materiales;
+
+            // Luego, eliminar el usuario de la base de datos
+            let deleteQuery = `DELETE FROM materiales WHERE id_materiales = ?`;
+            db_con.query(deleteQuery, [id_materiales], (error, results) => {
+                if (error) throw error;
+
+                console.log('Material eliminado eliminado:', results);
+
+                // Eliminar la foto del usuario de la carpeta images
+                if (photoPath) {
+                    fs.unlink(path.join(__dirname, photoPath), (err) => {
+                        if (err) console.error('Error al eliminar la foto del material:', err);
+                        else console.log('Foto del material eliminada:', photoPath);
+                    });
+                }
+
+                return res.json({ message: 'Material eliminado correctamente' });
+            });
+        } else {
+            return res.status(404).json({ message: 'Material no encontrado' });
+        }
+    });
+});
+
+// updateData - Actualizar datos de la tabla usuarios
+app.put('/updateMaterial/:id_materiales', multer({ storage }).single('foto_material'), (req, res) => {
+
+    const { id_materiales } = req.params
+    const { descripcion_material, tipo_moneda_material, unidad_medida_material, valor_unitario_material, fabricacion_material, margen_material, costo_unitario_material, dimension_material, unidad_material, precio_producto_material, proveedor_material } = req.body
+
+    const newImagePath = req.file ? `../images/${req.file.filename}` : null;
+
+    console.log('Nueva ruta de la imagen:', newImagePath);
+
+    const getOldImageQuery = "SELECT foto_materiales FROM materiales WHERE id_materiales = ?";
+
+    db_con.query(getOldImageQuery, [id_materiales], (err, results) => {
+        if (err) {
+            return res.status(500).send(err);
+        }
+
+        const oldImagePath = results[0].foto_materiales;
+
+        console.log('Ruta de la imagen antigua:', oldImagePath);
+
+        let updateQuery;
+        let queryParams;
+
+        const updateUser = () => {
+            if (newImagePath) {
+                updateQuery = `UPDATE materiales SET
+                                    foto_materiales = ?,
+                                    descripcion_materiales = ?,
+                                    tipo_moneda_materiales = ?,
+                                    unidad_medida_materiales = ?,
+                                    valor_unitario_materiales = ?,
+                                    fabricacion_materiales = ?,
+                                    margen_materiales = ?,
+                                    costo_unitario_materiales = ?,
+                                    dimension_materiales = ?,
+                                    unidad_materiales = ?,
+                                    precio_producto_materiales = ?,
+                                    proveedor_materiales = ?
+                                WHERE
+                                    id_materiales = ?;`;
+                queryParams = [newImagePath, descripcion_material, tipo_moneda_material, unidad_medida_material, valor_unitario_material, fabricacion_material, margen_material, costo_unitario_material, dimension_material, unidad_material, precio_producto_material, proveedor_material, id_materiales];
+            } else {
+                updateQuery = `UPDATE materiales SET
+                                    descripcion_materiales = ?,
+                                    tipo_moneda_materiales = ?,
+                                    unidad_medida_materiales = ?,
+                                    valor_unitario_materiales = ?,
+                                    fabricacion_materiales = ?,
+                                    margen_materiales = ?,
+                                    costo_unitario_materiales = ?,
+                                    dimension_materiales = ?,
+                                    unidad_materiales = ?,
+                                    precio_producto_materiales = ?,
+                                    proveedor_materiales = ?
+                                WHERE
+                                    id_materiales = ?;`;
+                queryParams = [newImagePath, descripcion_material, tipo_moneda_material, unidad_medida_material, valor_unitario_material, fabricacion_material, margen_material, costo_unitario_material, dimension_material, unidad_material, precio_producto_material, proveedor_material, id_materiales];
+            }
+
+            db_con.query(
+                updateQuery,
+                queryParams,
+                (error, results) => {
+                    if (error) throw error
+                    // Delete the old image file if a new one was uploaded
+                    if (newImagePath && oldImagePath) {
+                        fs.unlink(path.join(__dirname, oldImagePath), (err) => {
+                            if (err) console.error(err);
+                        });
+                    }
+
+                    console.log('Material actualizado:', results)
+                    res.json({ message: 'Usuario actualizado correctamente' });
+                }
+            )
+        };
     })
 })
 
