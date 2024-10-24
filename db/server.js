@@ -282,12 +282,171 @@ app.put('/updateUser/:id_usuario', multer({ storage }).single('foto_usuario'), (
             updateUser(oldPasswordHash);
         }
     })
+});
+
+
+/* ------------------------------------------------------- APARTADO DE LA TABLA EQUIPOS ---------------------------------------------------- */
+
+// selectData - Seleccionar datos de la tabla equipos
+app.get('/selectEquipoData', (_, res) => {
+    let selectQuery = `SELECT * FROM equipos`
+    db_con.query(selectQuery, (error, results) => {
+        if (error) throw error
+
+        console.log('Datos seleccionados:', results)
+        return res.json(results) // Devuelve los resultados como JSON
+    })
 })
+
+// addData - Agregar datos a la tabla equipos
+app.post('/addEquipo', multer({ storage }).single('foto_equipo'), (req, res) => {
+
+    const { descripcion_equipo, marca_equipo, tipo_equipo, tarifa_dia_equipo } = req.body;
+
+    console.log('Datos del equipo:', req.body);
+
+    const ruta_foto_equipo = req.file ? `../images/${req.file.filename}` : null;
+
+    console.log('Ruta de la foto del equipo:', ruta_foto_equipo);
+
+    const query = `
+            INSERT INTO equipos (
+                foto_equipos,
+                descripcion_equipos,
+                marca_equipos,
+                tipo_equipos,
+                tarifa_dia_equipos
+            ) VALUES (
+                ?,
+                ?,
+                ?,
+                ?,
+                ?
+            );
+        `;
+
+    db_con.query(
+        query,
+        [ruta_foto_equipo, descripcion_equipo, marca_equipo, tipo_equipo, tarifa_dia_equipo],
+        (err) => {
+            if (err) {
+                console.error('Error al agregar equipo:', err);
+                return res.status(500).send('Error al agregar equipo');
+            }
+            res.send({ message: 'Equipo agregado correctamente' });
+        }
+    );
+});
+
+
+// deleteData - Eliminar datos de la tabla equipos
+app.delete('/deleteEquipo/:id_equipos', (req, res) => {
+
+    const { id_equipos } = req.params;
+
+    // Primero, obtener la ruta de la foto del usuario
+    const getPhotoQuery = `SELECT foto_equipos FROM equipos WHERE id_equipos = ?`;
+    db_con.query(getPhotoQuery, [id_equipos], (error, results) => {
+
+        if (error) throw error;
+
+        if (results.length > 0) {
+            const photoPath = results[0].foto_equipos;
+
+            // Luego, eliminar el usuario de la base de datos
+            let deleteQuery = `DELETE FROM equipos WHERE id_equipos = ?`;
+            db_con.query(deleteQuery, [id_equipos], (error, results) => {
+                if (error) throw error;
+
+                console.log('Equipo eliminado:', results);
+
+                // Eliminar la foto del usuario de la carpeta images
+                if (photoPath) {
+                    fs.unlink(path.join(__dirname, photoPath), (err) => {
+                        if (err) console.error('Error al eliminar la foto del equipo:', err);
+                        else console.log('Foto del equipo eliminada:', photoPath);
+                    });
+                }
+
+                return res.json({ message: 'Equipo eliminado correctamente' });
+            });
+        } else {
+            return res.status(404).json({ message: 'Equipo no encontrado' });
+        }
+    });
+});
+
+// updateData - Actualizar datos de la tabla equipos
+app.put('/updateEquipo/:id_equipos', multer({ storage }).single('foto_equipo'), (req, res) => {
+
+    const { id_equipos } = req.params;
+    const { descripcion_equipos, marca_equipos, tipo_equipos, tarifa_dia_equipos } = req.body;
+
+    const newImagePath = req.file ? `../images/${req.file.filename}` : null;
+
+    console.log('Nueva ruta de la imagen:', newImagePath);
+
+    const getOldImageQuery = "SELECT foto_equipos FROM equipos WHERE id_equipos = ?";
+
+    db_con.query(getOldImageQuery, [id_equipos], (err, results) => {
+        if (err) {
+            return res.status(500).json({ error: err.message });
+        }
+
+        const oldImagePath = results[0].foto_equipos;
+
+        console.log('Ruta de la imagen antigua:', oldImagePath);
+
+        let updateQuery;
+        let queryParams;
+
+        if (newImagePath) {
+            updateQuery = `UPDATE equipos SET
+                                    foto_equipos = ?,
+                                    descripcion_equipos = ?,
+                                    marca_equipos = ?,
+                                    tipo_equipos = ?,
+                                    tarifa_dia_equipos = ?
+                                WHERE
+                                    id_equipos = ?`;
+            queryParams = [newImagePath, descripcion_equipos, marca_equipos, tipo_equipos, tarifa_dia_equipos, id_equipos];
+        } else {
+            updateQuery = `UPDATE equipos SET
+                                    descripcion_equipos = ?,
+                                    marca_equipos = ?,
+                                    tipo_equipos = ?,
+                                    tarifa_dia_equipos = ?
+                                WHERE
+                                    id_equipos = ?`;
+            queryParams = [descripcion_equipos, marca_equipos, tipo_equipos, tarifa_dia_equipos, id_equipos];
+        }
+
+        db_con.query(
+            updateQuery,
+            queryParams,
+            (error, results) => {
+
+                if (error) {
+                    return res.status(500).json({ error: error.message });
+                }
+
+                if (newImagePath && oldImagePath) {
+                    fs.unlink(path.join(__dirname, oldImagePath), (err) => {
+                        if (err) console.error(err);
+                    });
+                }
+
+                console.log('Equipo actualizado:', results);
+                res.status(200).json({ message: 'Equipo actualizado correctamente' });
+            }
+        );
+    });
+});
 
 /* ------------------------------------------------------- APARTADO DE LA TABLA MATERIALES ---------------------------------------------------- */
 
 
-// selectData - Seleccionar datos de la tabla usuarios
+// selectData - Seleccionar datos de la tabla materiales
 app.get('/selectMaterialData', (_, res) => {
     let selectQuery = `SELECT * FROM materiales`
     db_con.query(selectQuery, (error, results) => {
@@ -296,7 +455,7 @@ app.get('/selectMaterialData', (_, res) => {
         console.log('Datos seleccionados:', results)
         return res.json(results) // Devuelve los resultados como JSON
     })
-})
+});
 
 // addData - Agregar datos a la tabla materiales
 app.post('/addMaterial', multer({ storage }).single('foto_material'), (req, res) => {
@@ -339,7 +498,7 @@ app.post('/addMaterial', multer({ storage }).single('foto_material'), (req, res)
 });
 
 
-// deleteData - Eliminar datos de la tabla usuarios
+// deleteData - Eliminar datos de la tabla materiales
 app.delete('/deleteMaterial/:id_materiales', (req, res) => {
     const { id_materiales } = req.params;
 
@@ -374,11 +533,11 @@ app.delete('/deleteMaterial/:id_materiales', (req, res) => {
     });
 });
 
-// updateData - Actualizar datos de la tabla usuarios
+// updateData - Actualizar datos de la tabla materiales
 app.put('/updateMaterial/:id_materiales', multer({ storage }).single('foto_material'), (req, res) => {
 
-    const { id_materiales } = req.params
-    const { descripcion_material, tipo_moneda_material, unidad_medida_material, valor_unitario_material, fabricacion_material, margen_material, costo_unitario_material, dimension_material, unidad_material, precio_producto_material, proveedor_material } = req.body
+    const { id_materiales } = req.params;
+    const { descripcion_materiales, tipo_moneda_materiales, unidad_medida_materiales, valor_unitario_materiales, fabricacion_materiales, margen_materiales, costo_unitario_materiales, dimension_materiales, unidad_materiales, precio_producto_materiales, proveedor_materiales } = req.body;
 
     const newImagePath = req.file ? `../images/${req.file.filename}` : null;
 
@@ -388,7 +547,7 @@ app.put('/updateMaterial/:id_materiales', multer({ storage }).single('foto_mater
 
     db_con.query(getOldImageQuery, [id_materiales], (err, results) => {
         if (err) {
-            return res.status(500).send(err);
+            return res.status(500).json({ error: err.message });
         }
 
         const oldImagePath = results[0].foto_materiales;
@@ -398,9 +557,8 @@ app.put('/updateMaterial/:id_materiales', multer({ storage }).single('foto_mater
         let updateQuery;
         let queryParams;
 
-        const updateUser = () => {
-            if (newImagePath) {
-                updateQuery = `UPDATE materiales SET
+        if (newImagePath) {
+            updateQuery = `UPDATE materiales SET
                                     foto_materiales = ?,
                                     descripcion_materiales = ?,
                                     tipo_moneda_materiales = ?,
@@ -414,10 +572,10 @@ app.put('/updateMaterial/:id_materiales', multer({ storage }).single('foto_mater
                                     precio_producto_materiales = ?,
                                     proveedor_materiales = ?
                                 WHERE
-                                    id_materiales = ?;`;
-                queryParams = [newImagePath, descripcion_material, tipo_moneda_material, unidad_medida_material, valor_unitario_material, fabricacion_material, margen_material, costo_unitario_material, dimension_material, unidad_material, precio_producto_material, proveedor_material, id_materiales];
-            } else {
-                updateQuery = `UPDATE materiales SET
+                                    id_materiales = ?`;
+            queryParams = [newImagePath, descripcion_materiales, tipo_moneda_materiales, unidad_medida_materiales, valor_unitario_materiales, fabricacion_materiales, margen_materiales, costo_unitario_materiales, dimension_materiales, unidad_materiales, precio_producto_materiales, proveedor_materiales, id_materiales];
+        } else {
+            updateQuery = `UPDATE materiales SET
                                     descripcion_materiales = ?,
                                     tipo_moneda_materiales = ?,
                                     unidad_medida_materiales = ?,
@@ -430,29 +588,32 @@ app.put('/updateMaterial/:id_materiales', multer({ storage }).single('foto_mater
                                     precio_producto_materiales = ?,
                                     proveedor_materiales = ?
                                 WHERE
-                                    id_materiales = ?;`;
-                queryParams = [newImagePath, descripcion_material, tipo_moneda_material, unidad_medida_material, valor_unitario_material, fabricacion_material, margen_material, costo_unitario_material, dimension_material, unidad_material, precio_producto_material, proveedor_material, id_materiales];
-            }
+                                    id_materiales = ?`;
+            queryParams = [descripcion_materiales, tipo_moneda_materiales, unidad_medida_materiales, valor_unitario_materiales, fabricacion_materiales, margen_materiales, costo_unitario_materiales, dimension_materiales, unidad_materiales, precio_producto_materiales, proveedor_materiales, id_materiales];
+        }
 
-            db_con.query(
-                updateQuery,
-                queryParams,
-                (error, results) => {
-                    if (error) throw error
-                    // Delete the old image file if a new one was uploaded
-                    if (newImagePath && oldImagePath) {
-                        fs.unlink(path.join(__dirname, oldImagePath), (err) => {
-                            if (err) console.error(err);
-                        });
-                    }
-
-                    console.log('Material actualizado:', results)
-                    res.json({ message: 'Usuario actualizado correctamente' });
+        db_con.query(
+            updateQuery,
+            queryParams,
+            (error, results) => {
+                if (error) {
+                    return res.status(500).json({ error: error.message });
                 }
-            )
-        };
-    })
-})
+                // Delete the old image file if a new one was uploaded
+                if (newImagePath && oldImagePath) {
+                    fs.unlink(path.join(__dirname, oldImagePath), (err) => {
+                        if (err) console.error(err);
+                    });
+                }
+
+                console.log('Material actualizado:', results);
+                res.status(200).json({ message: 'Material actualizado correctamente' });
+            }
+        );
+    });
+});
+
+
 
 app.listen(5000, () => {
     console.log(`El servidor está corriendo en el puerto 5000 ...`)

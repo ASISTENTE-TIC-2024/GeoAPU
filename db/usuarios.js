@@ -26,11 +26,11 @@ async function fetchData() {
                 <td>${user.rol_usuario}</td>
                 <td>
                     <button class="bg-yellow-500 text-white px-2 py-1 rounded" onclick="editUser(${user.id_usuario
-                }, '${user.foto_usuario}', '${user.nombre_usuario}', '${user.correo_usuario
-                }', '${user.contrasena_usuario}', ${user.rol_usuario
+                }, '${encodeURIComponent(user.foto_usuario)}', '${encodeURIComponent(user.nombre_usuario)}', '${encodeURIComponent(user.correo_usuario)
+                }', '${encodeURIComponent(user.contrasena_usuario)}', ${user.rol_usuario
                 })"><i class="fa-solid fa-user-pen" style="color: #ffffff;"></i> Editar</button>
                     <button class="bg-red-500 text-white px-2 py-1 rounded" onclick="openDeleteModal(${user.id_usuario
-                }, '${user.nombre_usuario
+                }, '${encodeURIComponent(user.nombre_usuario)
                 }')"><i class="fa-solid fa-user-minus" style="color: #ffffff;"></i> Eliminar</button>
                 </td>
             `
@@ -134,7 +134,7 @@ function openDeleteModal(id_usuario, nombre_usuario) {
     userIdToDelete = id_usuario
     document.getElementById(
         'deleteMessage'
-    ).textContent = `¿Está seguro de que desea eliminar el usuario ${nombre_usuario} de la base de datos?`
+    ).textContent = `¿Está seguro de que desea eliminar el usuario ${decodeURIComponent(nombre_usuario)} de la base de datos?`
     document.getElementById('deleteModal').classList.remove('hidden')
 }
 
@@ -253,7 +253,7 @@ async function editUser(
                 'Content-Type': 'application/json',
                 'Authorization': localStorage.getItem('token') // Enviar el token JWT si es necesario
             },
-            body: JSON.stringify({ plainTextPassword, hashedPassword: contrasena_usuario })
+            body: JSON.stringify({ plainTextPassword, hashedPassword: decodeURIComponent(contrasena_usuario) })
         });
 
         if (!response.ok) {
@@ -264,9 +264,9 @@ async function editUser(
         document.getElementById('editUserId').value = id_usuario;
         document.getElementById('editUserPhoto').value = ''; // Clear the file input
         document.getElementById('newPhotoPreview').src = ''; // Clear the new image preview
-        document.getElementById('currentPhoto').src = foto_usuario;
-        document.getElementById('editUserName').value = nombre_usuario;
-        document.getElementById('editUserEmail').value = correo_usuario;
+        document.getElementById('currentPhoto').src = decodeURIComponent(foto_usuario);
+        document.getElementById('editUserName').value = decodeURIComponent(nombre_usuario);
+        document.getElementById('editUserEmail').value = decodeURIComponent(correo_usuario);
         document.getElementById('editUserPwd').value = plainTextPassword; // Use the plain text password
         document.getElementById('editUserRol').value = rol_usuario;
         document.getElementById('editModal').classList.remove('hidden');

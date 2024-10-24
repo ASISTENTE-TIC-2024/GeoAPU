@@ -28,9 +28,9 @@ async function fetchData() {
                 <td>${material.unidad_materiales}</td>
                 <td>${material.precio_producto_materiales}</td>
                 <td>${material.proveedor_materiales}</td>
-                <td>
-                    <button class="bg-yellow-500 text-white px-2 py-1 rounded h-20 w-full mb-5" onclick="editMaterial(${material.id_materiales}, '${material.foto_materiales}', '${material.descripcion_materiales}', '${material.tipo_moneda_materiales}', '${material.unidad_medida_materiales}', '${material.valor_unitario_materiales}', '${material.fabricacion_materiales}', '${material.margen_materiales}', '${material.costo_unitario_materiales}', '${material.dimension_materiales}', '${material.unidad_materiales}', '${material.precio_producto_materiales}', '${material.proveedor_materiales}')"><i class="fa-solid fa-pencil" style="color: #ffffff;"></i> Editar</button>
-                    <button class="bg-red-500 text-white px-2 py-1 rounded h-20 w-full" onclick="openDeleteModal(${material.id_materiales}, '${material.descripcion_materiales}')"><i class="fa-solid fa-user-minus" style="color: #ffffff;"></i> Eliminar</button>
+                <td class="flex align-center justify-center h-full w-full mb-2s">
+                    <button class="bg-yellow-500 text-white px-2 py-1 rounded h-[4em] w-1/2 m-1" onclick="editMaterial(${material.id_materiales}, '${material.foto_materiales}', '${encodeURIComponent(material.descripcion_materiales)}', '${encodeURIComponent(material.tipo_moneda_materiales)}', '${encodeURIComponent(material.unidad_medida_materiales)}', ${material.valor_unitario_materiales}, '${encodeURIComponent(material.fabricacion_materiales)}', ${material.margen_materiales}, ${material.costo_unitario_materiales}, ${material.dimension_materiales}, '${encodeURIComponent(material.unidad_materiales)}', ${material.precio_producto_materiales}, '${encodeURIComponent(material.proveedor_materiales)}')"><i class="fa-solid fa-pencil" style="color: #ffffff;"></i></button>
+                    <button class="bg-red-500 text-white px-2 py-1 rounded h-[4em] w-1/2 m-1" onclick="openDeleteModal(${material.id_materiales}, '${encodeURIComponent(material.descripcion_materiales)}')"><i class="fa-solid fa-user-minus" style="color: #ffffff;"></i></button>
                 </td>
             `;
             dataTable.appendChild(row)
@@ -47,7 +47,7 @@ function enlargeImage(img) {
 
         <div class="relative">
             <img src="${img.src}" class="w-[40em] h-[40em]">
-            <button class="absolute top-0 right-0 m-2 rounded-full h-10 w-10 text-white text-6xl" onclick="closeImageModal(this)">×</button>
+            <button class="absolute top-0 right-0 m-2 rounded-full h-10 w-10 text-gray-500 text-6xl" onclick="closeImageModal(this)">×</button>
         </div>
 
         `;
@@ -141,7 +141,7 @@ document
     })
 
 
-/* ---------------------------------------------------------------- ELIMINAR USUARIO ----------------------------------------------------------------------------- */
+/* ---------------------------------------------------------------- ELIMINAR MATERIAL ----------------------------------------------------------------------------- */
 
 
 let materialIdToDelete = null
@@ -150,7 +150,7 @@ function openDeleteModal(id_materiales, descripcion_materiales) {
     materialIdToDelete = id_materiales
     document.getElementById(
         'deleteMessage'
-    ).textContent = `¿Está seguro de que desea eliminar al material ${descripcion_materiales} de la base de datos?`
+    ).textContent = `¿Está seguro de que desea eliminar al material ${decodeURIComponent(descripcion_materiales)} de la base de datos?`
     document.getElementById('deleteModal').classList.remove('hidden')
 }
 
@@ -189,7 +189,7 @@ async function confirmDelete() {
     }
 }
 
-/* ---------------------------------------------------------------- EDITAR USUARIO ----------------------------------------------------------------------------- */
+/* ---------------------------------------------------------------- EDITAR MATERIAL ----------------------------------------------------------------------------- */
 
 document
     .getElementById('editMaterialForm')
@@ -199,40 +199,42 @@ document
 
         const formData = new FormData(this);
 
-        const id_material = document.getElementById('editMaterialId').value.trim();
-        const foto_material = document.getElementById('editMaterialPhoto').value.trim();
-        const descripcion_material = document.getElementById('editMaterialDescripcion').value.trim();
-        const tipo_moneda_material = document.getElementById('editMaterialMoneda').value.trim();
-        const unidad_medida_material = document.getElementById('editMaterialMedida').value.trim();
-        const valor_unitario_material = document.getElementById('editMaterialValor').value.trim();
-        const fabricacion_material = document.getElementById('editMaterialFabricacion').value.trim();
-        const margen_material = document.getElementById('editMaterialMargen').value.trim();
-        const costo_unitario_material = document.getElementById('editMaterialCosto').value.trim();
-        const dimension_material = document.getElementById('editMaterialDimension').value.trim();
-        const unidad_material = document.getElementById('editMaterialUnidad').value.trim();
-        const precio_producto_material = document.getElementById('editMaterialPrecio').value.trim();
-        const proveedor_material = document.getElementById('editMaterialProveedor').value.trim();
+        const id_materiales = document.getElementById('editMaterialId').value.trim();
 
-        formData.append('descripcion_material', descripcion_material);
-        formData.append('tipo_moneda_material', tipo_moneda_material);
-        formData.append('unidad_medida_material', unidad_medida_material);
-        formData.append('valor_unitario_material', valor_unitario_material);
-        formData.append('fabricacion_material', fabricacion_material);
-        formData.append('margen_material', margen_material);
-        formData.append('costo_unitario_material', costo_unitario_material);
-        formData.append('dimension_material', dimension_material);
-        formData.append('unidad_material', unidad_material);
-        formData.append('precio_producto_material', precio_producto_material);
-        formData.append('proveedor_material', proveedor_material);
+        const foto_materiales = document.getElementById('editMaterialPhoto').value.trim();
+        const descripcion_materiales = document.getElementById('editMaterialDescripcion').value.trim();
+        const tipo_moneda_materiales = document.getElementById('editMaterialMoneda').value.trim();
 
-        if (foto_material) {
-            formData.append('foto_material', foto_material); // Append the file object directly
+        const unidad_medida_materiales = document.getElementById('editMaterialMedida').value.trim();
+        const valor_unitario_materiales = document.getElementById('editMaterialValor').value.trim();
+        const fabricacion_materiales = document.getElementById('editMaterialFabricacion').value.trim();
+        const margen_materiales = document.getElementById('editMaterialMargen').value.trim();
+        const costo_unitario_materiales = document.getElementById('editMaterialCosto').value.trim();
+        const dimension_materiales = document.getElementById('editMaterialDimension').value.trim();
+        const unidad_materiales = document.getElementById('editMaterialUnidad').value.trim();
+        const precio_producto_materiales = document.getElementById('editMaterialPrecio').value.trim();
+        const proveedor_materiales = document.getElementById('editMaterialProveedor').value.trim();
+
+        formData.append('id_materiales', id_materiales);
+        formData.append('descripcion_materiales', descripcion_materiales);
+        formData.append('tipo_moneda_materiales', tipo_moneda_materiales);
+        formData.append('unidad_medida_materiales', unidad_medida_materiales);
+        formData.append('valor_unitario_materiales', valor_unitario_materiales);
+        formData.append('fabricacion_materiales', fabricacion_materiales);
+        formData.append('margen_materiales', margen_materiales);
+        formData.append('costo_unitario_materiales', costo_unitario_materiales);
+        formData.append('dimension_materiales', dimension_materiales);
+        formData.append('unidad_materiales', unidad_materiales);
+        formData.append('precio_producto_materiales', precio_producto_materiales);
+        formData.append('proveedor_materiales', proveedor_materiales);
+
+        if (foto_materiales) {
+            formData.append('foto_materiales', foto_materiales); // Append the file object directly
         }
-
 
         try {
             const response = await fetch(
-                `http://localhost:5000/updateMaterial/${id_material}`,
+                `http://localhost:5000/updateMaterial/${id_materiales}`,
                 {
                     method: 'PUT',
                     body: formData,
@@ -241,10 +243,10 @@ document
 
             const data = await response.json()
 
-            console.log('Usuario actualizado:', data);
+            console.log('Material actualizado:', data);
 
             closeModal()
-            fetchData() // Actualizar la tabla después de editar
+            fetchData()
 
         } catch (error) {
             console.error('Error al actualizar al usuario:', error)
@@ -252,50 +254,41 @@ document
 
     })
 
-// Función para mostrar el modal de confirmación y actualizar la página
-function showConfirmationModal() {
-    const modal = document.getElementById('confirmationModal');
-    modal.classList.remove('hidden');
-
-    // Actualizar la página cuando se cierra el modal
-    document.getElementById('refreshPageButton').addEventListener('click', function () {
-        location.reload();
-    });
-}
-
 
 async function editMaterial(
-    id_material,
-    foto_material,
-    descripcion_material,
-    tipo_moneda_material,
-    unidad_medida_material,
-    valor_unitario_material,
-    fabricacion_material,
-    margen_material,
-    costo_unitario_material,
-    dimension_material,
-    unidad_material,
-    precio_producto_material,
-    proveedor_material
+    id_materiales,
+    foto_materiales,
+    descripcion_materiales,
+    tipo_moneda_materiales,
+    unidad_medida_materiales,
+    valor_unitario_materiales,
+    fabricacion_materiales,
+    margen_materiales,
+    costo_unitario_materiales,
+    dimension_materiales,
+    unidad_materiales,
+    precio_producto_materiales,
+    proveedor_materiales
 ) {
 
-    document.getElementById('editMaterialId').value = id_material;
+    document.getElementById('editMaterialId').value = id_materiales;
+
     document.getElementById('editMaterialPhoto').value = ''; // Clear the file input
     document.getElementById('newPhotoPreview').src = ''; // Clear the new image preview
-    document.getElementById('currentPhoto').src = foto_material;
+    document.getElementById('currentPhoto').src = foto_materiales;
 
-    document.getElementById('editMaterialDescripcion').value = descripcion_material;
-    document.getElementById('editMaterialMoneda').value = tipo_moneda_material;
-    document.getElementById('editMaterialMedida').value = unidad_medida_material;
-    document.getElementById('editMaterialValor').value = valor_unitario_material;
-    document.getElementById('editMaterialFabricacion').value = fabricacion_material;
-    document.getElementById('editMaterialMargen').value = margen_material;
-    document.getElementById('editMaterialCosto').value = costo_unitario_material;
-    document.getElementById('editMaterialDimension').value = dimension_material;
-    document.getElementById('editMaterialUnidad').value = unidad_material;
-    document.getElementById('editMaterialPrecio').value = precio_producto_material;
-    document.getElementById('editMaterialProveedor').value = proveedor_material;
+    document.getElementById('editMaterialDescripcion').value = decodeURIComponent(descripcion_materiales);
+    document.getElementById('editMaterialMoneda').value = decodeURIComponent(tipo_moneda_materiales);
+
+    document.getElementById('editMaterialMedida').value = decodeURIComponent(unidad_medida_materiales);
+    document.getElementById('editMaterialValor').value = valor_unitario_materiales;
+    document.getElementById('editMaterialFabricacion').value = decodeURIComponent(fabricacion_materiales);
+    document.getElementById('editMaterialMargen').value = margen_materiales;
+    document.getElementById('editMaterialCosto').value = costo_unitario_materiales;
+    document.getElementById('editMaterialDimension').value = dimension_materiales;
+    document.getElementById('editMaterialUnidad').value = decodeURIComponent(unidad_materiales);
+    document.getElementById('editMaterialPrecio').value = precio_producto_materiales;
+    document.getElementById('editMaterialProveedor').value = decodeURIComponent(proveedor_materiales);
 
     document.getElementById('editModal').classList.remove('hidden');
 
@@ -313,6 +306,17 @@ document
             reader.readAsDataURL(file)
         }
     })
+
+// Función para mostrar el modal de confirmación y actualizar la página
+function showConfirmationModal() {
+    const modal = document.getElementById('confirmationModal');
+    modal.classList.remove('hidden');
+
+    // Actualizar la página cuando se cierra el modal
+    document.getElementById('refreshPageButton').addEventListener('click', function () {
+        location.reload();
+    });
+}
 
 /* ---------------------------------------------------------------- ORDENAR TABLA ----------------------------------------------------------------------------- */
 

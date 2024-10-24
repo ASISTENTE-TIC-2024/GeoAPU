@@ -80,7 +80,7 @@ function actualizarTablaEquipos() {
         <td>${item.marca_equipos}</td>
         <td>${item.tipo_equipos}</td>
         <td>${item.tarifa_dia_equipos}</td>
-        <td>${item.rendimiento_equipos}</td>
+        <td>${isNaN(item.rendimiento_equipos) ? 0 : item.rendimiento_equipos}</td>
         <td>$ ${isNaN(item.rendimiento_equipos * item.tarifa_dia_equipos) || !isFinite(item.rendimiento_equipos * item.tarifa_dia_equipos) ? 0 : (item.rendimiento_equipos * item.tarifa_dia_equipos).toFixed(2)}</td>
         <td>${(item.porcentaje_incidencia = ((item.rendimiento_equipos * item.tarifa_dia_equipos) / totalEquipos) * 100 || 0).toFixed(2)}%</td>
         <td><button class="active:scale-90 transition-transform" onclick="eliminarElementoEquipos(${storedDatosEquipos.indexOf(item)})"><i class="fa-solid fa-trash-can"></i></button></td>`
@@ -384,7 +384,7 @@ function calcularTotalGeneral() {
     // Mostrar los sub-totales en el DOM con dos decimales
     document.getElementById(
         'resultadoEquipos'
-    ).textContent = `$ ${totalEquipos.toFixed(2)} `
+    ).textContent = `$ ${isNaN(totalEquipos.toFixed(2)) ? 0 : totalEquipos.toFixed(2)} `
     document.getElementById(
         'porcentajeEquipos'
     ).textContent = `${porcentajeEquipos.toFixed(2)}% `

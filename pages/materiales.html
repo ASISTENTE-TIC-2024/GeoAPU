@@ -1317,6 +1317,8 @@
                             type="number"
                             id="addMaterialValor"
                             class="w-full px-3 py-2 border rounded"
+                            step="0.01"
+                            min="0"
                             required
                         />
                     </div>
@@ -1330,7 +1332,6 @@
                             type="date"
                             id="addMaterialFabricacion"
                             class="w-full px-3 py-2 border rounded"
-                            required
                         />
                     </div>
                     <div class="mb-4">
@@ -1343,6 +1344,8 @@
                             type="number"
                             id="addMaterialCosto"
                             class="w-full px-3 py-2 border rounded"
+                            step="0.01"
+                            min="0"
                             required
                         />
                     </div>
@@ -1356,7 +1359,8 @@
                             type="number"
                             id="addMaterialDimension"
                             class="w-full px-3 py-2 border rounded"
-                            required
+                            step="0.01"
+                            min="0"
                         />
                     </div>
 
@@ -1367,7 +1371,7 @@
                             >Unidad:</label
                         >
                         <input
-                            type="number"
+                            type="text"
                             id="addMaterialUnidad"
                             class="w-full px-3 py-2 border rounded"
                             required
@@ -1377,13 +1381,14 @@
                         <label
                             for="addMaterialMargen"
                             class="block text-gray-700"
-                            >Margén:</label
+                            >Márgen:</label
                         >
                         <input
                             type="number"
                             id="addMaterialMargen"
                             class="w-full px-3 py-2 border rounded"
-                            required
+                            step="0.01"
+                            min="0"
                         />
                     </div>
                     <div class="mb-4">
@@ -1396,6 +1401,8 @@
                             type="number"
                             id="addMaterialPrecio"
                             class="w-full px-3 py-2 border rounded"
+                            step="0.01"
+                            min="0"
                             required
                         />
                     </div>
@@ -1406,10 +1413,9 @@
                             >Proveedor:
                         </label>
                         <input
-                            type="number"
+                            type="text"
                             id="addMaterialProveedor"
                             class="w-full px-3 py-2 border rounded"
-                            required
                         />
                     </div>
 
