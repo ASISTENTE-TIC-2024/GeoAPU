@@ -10,23 +10,23 @@ document
         e.preventDefault()
 
         let descripcion_equipos =
-            document.getElementById('DESCRIPCIÓN EQUIPOS').value ||
-            'SIN DESCRIPCIÓN'
+            document.getElementById('DESCRIPCIÓN EQUIPOS').value || 'SIN DESCRIPCIÓN'
+
         let marca_equipos =
             document.getElementById('MARCA EQUIPOS').value || 'SIN MARCA'
+
         let tipo_equipos =
             document.getElementById('TIPO EQUIPOS').value || 'SIN TIPO'
+
         let tarifa_dia_equipos =
             parseFloat(document.getElementById('TARIFA_DIA_EQUIPOS').value) || 0
+
         let rendimiento_equipos =
-            parseFloat(
-                document.getElementById('RENDIMIENTO_EQUIPOS').value
-            ).toFixed(4) || 0
-        parseFloat(document.getElementById('RENDIMIENTO_EQUIPOS').value) || 0
+            parseFloat(document.getElementById('RENDIMIENTO_EQUIPOS').value).toFixed(4) || 0
+
         let valor_unitario_equipos =
-            parseFloat(
-                document.getElementById('VALOR_UNITARIO_EQUIPOS').value
-            ) || 0
+            parseFloat(document.getElementById('VALOR_UNITARIO_EQUIPOS').value) || 0
+
         // Obtener los datos existentes del localStorage
         let datosEquipos =
             JSON.parse(localStorage.getItem('datosEquipos')) || []
@@ -43,29 +43,23 @@ document
 
         localStorage.setItem('datosEquipos', JSON.stringify(datosEquipos))
 
-        actualizarValorUnitario()
+        actualizarValorUnitarioEquipos()
         actualizarTablaEquipos()
     })
 
 function actualizarTablaEquipos() {
-    let tbody = document.querySelector('#dataTableEquipos tbody')
 
-    tbody.innerHTML = ''
+    let tbody = document.querySelector('#dataTableEquipos tbody')
 
     // Obtener los datos del localStorage
     let storedDatosEquipos =
         JSON.parse(localStorage.getItem('datosEquipos')) || []
 
-    // Calcular el total de todos los valores
     let totalEquipos = storedDatosEquipos.reduce(
-        (sum, item) => sum + item.rendimiento_equipos * item.tarifa_dia_equipos,
-        0
+        (sum, item) => sum + parseFloat(item.valor_unitario_equipos), 0
     )
 
-    console.log(totalEquipos);
-
-    console.log(storedDatosEquipos);
-
+    tbody.innerHTML = ''
 
     storedDatosEquipos.forEach((item, index) => {
 
@@ -75,15 +69,15 @@ function actualizarTablaEquipos() {
             index % 2 === 0
                 ? 'even:bg-gray-50 border-b'
                 : 'odd:bg-white even:bg-gray-50 border-b'
-        tr.innerHTML = `
-        <td>${item.descripcion_equipos}</td>
-        <td>${item.marca_equipos}</td>
-        <td>${item.tipo_equipos}</td>
-        <td>${item.tarifa_dia_equipos}</td>
-        <td>${isNaN(item.rendimiento_equipos) ? 0 : item.rendimiento_equipos}</td>
-        <td>$ ${isNaN(item.rendimiento_equipos * item.tarifa_dia_equipos) || !isFinite(item.rendimiento_equipos * item.tarifa_dia_equipos) ? 0 : (item.rendimiento_equipos * item.tarifa_dia_equipos).toFixed(2)}</td>
-        <td>${(item.porcentaje_incidencia = ((item.rendimiento_equipos * item.tarifa_dia_equipos) / totalEquipos) * 100 || 0).toFixed(2)}%</td>
-        <td><button class="active:scale-90 transition-transform" onclick="eliminarElementoEquipos(${storedDatosEquipos.indexOf(item)})"><i class="fa-solid fa-trash-can"></i></button></td>`
+        tr.innerHTML =
+            `<td>${item.descripcion_equipos}</td>
+            <td>${item.marca_equipos}</td>
+            <td>${item.tipo_equipos}</td>
+            <td>${item.tarifa_dia_equipos}</td>
+            <td>${isNaN(item.rendimiento_equipos) ? 0 : item.rendimiento_equipos}</td>
+            <td>${isNaN(item.valor_unitario_equipos) || !isFinite(item.valor_unitario_equipos) ? 0 : item.valor_unitario_equipos}</td>
+            <td>${(item.porcentaje_incidencia = ((item.rendimiento_equipos * item.tarifa_dia_equipos) / totalEquipos) * 100 || 0).toFixed(2)}%</td>
+            <td><button class="active:scale-90 transition-transform" onclick="eliminarElementoEquipos(${storedDatosEquipos.indexOf(item)})"><i class="fa-solid fa-trash-can"></i></button></td>`
 
         tbody.appendChild(tr)
     })
@@ -101,14 +95,6 @@ function eliminarElementoEquipos(index) {
 
     // Actualizar la tabla
     actualizarTablaEquipos()
-}
-
-function actualizarKeyEnArray(array, key, nuevoValor) {
-    array.forEach((item) => {
-        if (item.hasOwnProperty(key)) {
-            item[key] = nuevoValor
-        }
-    })
 }
 
 function actualizarRendimientoEquipos() {
@@ -130,7 +116,8 @@ function actualizarRendimientoEquipos() {
     actualizarTablaEquipos()
 }
 
-function actualizarValorUnitario() {
+function actualizarValorUnitarioEquipos() {
+
     const storedDatosEquipos =
         JSON.parse(localStorage.getItem('datosEquipos')) || []
 
@@ -147,7 +134,7 @@ function actualizarValorUnitario() {
     actualizarTablaEquipos()
 }
 
-actualizarTablaEquipos()
+actualizarTablaEquipos();
 
 /******************************* MATERIALES *******************************/
 
@@ -159,60 +146,155 @@ document
         let descripcion_materiales =
             document.getElementById('DESCRIPCION MATERIALES').value ||
             'SIN DESCRIPCIÓN'
+
         let tipo_moneda_materiales =
             document.getElementById('TIPO DE MONEDA MATERIALES').value ||
             'SIN TIPO DE MONEDA'
+
         let unidad_materiales =
             document.getElementById('UNIDAD MATERIALES').value ||
             'SIN UNIDAD DE MEDIDA'
+
         let precio_unitario_materiales =
             parseFloat(
-                document.getElementById('PRECIO UNITARIO MATERIALES').value
+                document.getElementById('PRECIO_UNITARIO_MATERIALES').value
             ) || 0
-        let rendimiento_materiales =
+
+        let cantidad_materiales =
             parseFloat(
-                document.getElementById('RENDIMIENTO MATERIALES').value
-            ) || 0
+                document.getElementById('CANTIDAD_MATERIALES').value
+            ).toFixed(4) || 0
+
         let valor_unitario_materiales =
             parseFloat(
-                document.getElementById('VALOR UNITARIO MATERIALES').value
+                document.getElementById('VALOR_UNITARIO_MATERIALES').value
             ) || 0
+
+        let datosMateriales =
+            JSON.parse(localStorage.getItem('datosMateriales')) || []
 
         datosMateriales.push({
             descripcion_materiales,
             tipo_moneda_materiales,
             unidad_materiales,
             precio_unitario_materiales,
-            rendimiento_materiales,
+            cantidad_materiales,
             valor_unitario_materiales,
         })
 
+        console.log("Que es lo que se va a hacer push " + datosMateriales);
+
+        localStorage.setItem('datosMateriales', JSON.stringify(datosMateriales))
+
+        actualizarValorUnitarioMateriales()
         actualizarTablaMateriales()
     })
 
 function actualizarTablaMateriales() {
+
     let tbody = document.querySelector('#dataTableMateriales tbody')
+
+    // Obtener los datos del localStorage
+    let storedDatosMateriales =
+        JSON.parse(localStorage.getItem('datosMateriales')) || []
+
+    console.log("POR ESTO: " + JSON.stringify(storedDatosMateriales));
+
+    // Calcular el total de todos los valores
+    let totalMateriales = storedDatosMateriales.reduce(
+        (sum, item) => sum + parseFloat(item.valor_unitario_materiales), 0
+    )
+
+    console.log(totalMateriales);
+
+
     tbody.innerHTML = ''
-    datosMateriales.forEach((item, index) => {
+
+    storedDatosMateriales.forEach((item, index) => {
         let tr = document.createElement('tr')
         tr.className =
             index % 2 === 0
                 ? 'even:bg-gray-50 border-b'
                 : 'odd:bg-white even:bg-gray-50 border-b'
-        tr.innerHTML = `< td > ${item.descripcion_materiales}</td ><td>${item.tipo_moneda_materiales
-            }</td><td>${item.unidad_materiales}</td><td>${item.precio_unitario_materiales
-            }</td><td>${item.rendimiento_materiales}</td><td>$ ${item.valor_unitario_materiales
-            }</td><td> % </td><td><button class="active:scale-90 transition-transform" onclick="eliminarElementoMateriales(${datosMateriales.indexOf(
-                item
-            )})"><i class="fa-solid fa-trash-can"></i></button></td>`
+        item.porcentaje_incidencia = (item.valor_unitario_materiales / totalMateriales) * 100 || 0;
+        tr.innerHTML = `<td> ${item.descripcion_materiales}</td>
+                        <td>${item.tipo_moneda_materiales}</td>
+                        <td>${item.unidad_materiales}</td>
+                        <td>${item.precio_unitario_materiales}</td>
+                        <td>${isNaN(item.cantidad_materiales) || !isFinite(item.cantidad_materiales) ? 0 : item.cantidad_materiales}</td>
+                        <td>${isNaN(item.valor_unitario_materiales) || !isFinite(item.valor_unitario_materiales) ? 0 : item.tipo_moneda_materiales === 'USD' ? 'COP: ' + item.valor_unitario_materiales : item.valor_unitario_materiales}</td>
+                        <td>${item.porcentaje_incidencia.toFixed(2)}%</td>
+                        <td><button class="active:scale-90 transition-transform" onclick="eliminarElementoMateriales(${storedDatosMateriales.indexOf(item)})"><i class="fa-solid fa-trash-can"></i></button></td>`
+
         tbody.appendChild(tr)
     })
 }
 
 function eliminarElementoMateriales(index) {
+
+    // Obtener los datos existentes del localStorage
+    let datosMateriales = JSON.parse(localStorage.getItem('datosMateriales')) || []
+
+    // Eliminar el elemento del array
     datosMateriales.splice(index, 1)
+
+    // Guardar el array actualizado en el localStorage
+    localStorage.setItem('datosMateriales', JSON.stringify(datosMateriales))
+
+    // Actualizar la tabla
     actualizarTablaMateriales()
 }
+
+function actualizarCantidadMateriales() {
+
+    const informacionRotulos =
+        JSON.parse(localStorage.getItem('informacionRotulos')) || []
+
+    let storedDatosMateriales =
+        JSON.parse(localStorage.getItem('datosMateriales')) || []
+
+    informacionRotulos.forEach((data) => {
+        storedDatosMateriales.forEach((item) => {
+            item.cantidad_materiales = (3 / data.rendimiento).toFixed(4)
+        })
+    })
+
+    localStorage.setItem('datosMateriales', JSON.stringify(storedDatosMateriales))
+
+    actualizarTablaMateriales()
+}
+
+function actualizarValorUnitarioMateriales() {
+
+    const storedDatosMateriales =
+        JSON.parse(localStorage.getItem('datosMateriales')) || []
+
+    console.log(
+        storedDatosMateriales
+    );
+
+    const trmValue = parseFloat(localStorage.getItem('trmValue')) || 0;
+
+    console.log(trmValue);
+
+    storedDatosMateriales.forEach((item) => {
+        if (item.tipo_moneda_materiales === 'USD' && !item.trm_applied) {
+            item.valor_unitario_materiales = (item.valor_unitario_materiales * trmValue).toFixed(2);
+            item.trm_applied = true; // Marcar que la TRM ya ha sido aplicada
+        } else if (item.tipo_moneda_materiales !== 'USD') {
+            item.valor_unitario_materiales = (item.precio_unitario_materiales * item.cantidad_materiales).toFixed(2);
+        }
+    });
+
+    console.log(storedDatosMateriales)
+
+    localStorage.setItem('datosMateriales', JSON.stringify(storedDatosMateriales))
+
+    actualizarTablaMateriales()
+
+}
+
+actualizarTablaMateriales();
 
 /******************************* TRANSPORTE *******************************/
 
@@ -343,18 +425,23 @@ function eliminarElementoManoDeObra(index) {
 /******************************* TOTAL *******************************/
 
 function calcularTotalGeneral() {
+    
     // Sumar los valores
     let storedDatosEquipos =
         JSON.parse(localStorage.getItem('datosEquipos')) || []
+
     let totalEquipos = storedDatosEquipos.reduce(
-        (sum, item) => sum + item.rendimiento_equipos * item.tarifa_dia_equipos,
-        0
+        (sum, item) => sum + parseFloat(item.valor_unitario_equipos), 0
     )
+
+    let storedDatosMateriales =
+        JSON.parse(localStorage.getItem('datosMateriales')) || []
+
     // Sumar los valores
-    let totalMateriales = datosMateriales.reduce(
-        (sum, item) => sum + item.valor_unitario_materiales,
-        0
+    let totalMateriales = storedDatosMateriales.reduce(
+        (sum, item) => sum + parseFloat(item.valor_unitario_materiales), 0
     )
+
     // Sumar los valores
     let totalTransporte = datosTransporte.reduce(
         (sum, item) => sum + item.valor_unitario_transporte,
@@ -384,31 +471,31 @@ function calcularTotalGeneral() {
     // Mostrar los sub-totales en el DOM con dos decimales
     document.getElementById(
         'resultadoEquipos'
-    ).textContent = `$ ${isNaN(totalEquipos.toFixed(2)) ? 0 : totalEquipos.toFixed(2)} `
+    ).textContent = `$ ${isNaN(totalEquipos.toFixed(2)) || !isFinite(totalEquipos) ? 0 : totalEquipos.toFixed(2)} `
     document.getElementById(
         'porcentajeEquipos'
-    ).textContent = `${porcentajeEquipos.toFixed(2)}% `
+    ).textContent = `${isNaN(porcentajeEquipos.toFixed(2)) || !isFinite(porcentajeEquipos) ? 0 : porcentajeEquipos.toFixed(2)}% `
 
     document.getElementById(
         'resultadoMateriales'
-    ).textContent = `$ ${totalMateriales.toFixed(2)} `
+    ).textContent = `$ ${isNaN(totalMateriales.toFixed(2)) || !isFinite(totalMateriales) ? 0 : totalMateriales.toFixed(2)} `
     document.getElementById(
-        'porcentajeManoDeObra'
-    ).textContent = `${porcentajeManoDeObra.toFixed(2)}% `
+        'porcentajeMateriales'
+    ).textContent = `${isNaN(porcentajeMateriales.toFixed(2)) || !isFinite(porcentajeMateriales) ? 0 : porcentajeMateriales.toFixed(2)}% `
 
     document.getElementById(
         'resultadoTransporte'
     ).textContent = `$ ${totalTransporte.toFixed(2)} `
     document.getElementById(
-        'porcentajeMateriales'
-    ).textContent = `${porcentajeMateriales.toFixed(2)}% `
+        'porcentajeTransporte'
+    ).textContent = `${porcentajeTransporte.toFixed(2)}% `
 
     document.getElementById(
         'resultadoManoDeObra'
     ).textContent = `$ ${totalManoDeObra.toFixed(2)} `
     document.getElementById(
-        'porcentajeTransporte'
-    ).textContent = `${porcentajeTransporte.toFixed(2)}% `
+        'porcentajeManoDeObra'
+    ).textContent = `${porcentajeManoDeObra.toFixed(2)}% `
 
     // Mostrar el resultado en un elemento del DOM con dos decimales
     document.getElementById(
@@ -439,6 +526,7 @@ const observer = new MutationObserver((mutationsList) => {
 
 // Seleccionar el contenedor donde se agregan las filas
 const filaContenedorEquipos = document.getElementById('filaContenedorEquipos')
+
 const filaContenedorMateriales = document.getElementById(
     'filaContenedorMateriales'
 )

@@ -8,14 +8,13 @@ function guardarInformacionRotulos() {
     const cantidad_dias = document.getElementById('cantidad-dias').value === "Si" ? document.getElementById('cantidad-dias-otro').value : document.getElementById('cantidad-dias').value || "No se ingresaron dias de trabajo";
     const trm = document.getElementById('trm').value;
     const iva = document.getElementById('iva').value;
-    const aiu = document.getElementById('aiu').value;
     const distancia_movilizacion = document.getElementById('distancia-movilizacion').value === "Si" ? document.getElementById('distancia-movilizacion-otro').value : document.getElementById('distancia-movilizacion').value || "No se ingreso un rendimiento";
 
     // Obtener los datos existentes del Local Storage
     let informacionRotulos = JSON.parse(localStorage.getItem('informacionRotulos')) || [];
 
     // Verificar si ya existe una entrada con el mismo nombre de proyecto
-    const existingIndex = informacionRotulos.findIndex(data => data.capitulo === capitulo || data.descripcion_actividad === descripcion_actividad || data.item_pago === item_pago || data.unidad === unidad || data.rendimiento === rendimiento || data.cantidad_instalar === cantidad_instalar || data.cantidad_dias === cantidad_dias || data.trm === trm || data.iva === iva || data.aiu === aiu || data.distancia_movilizacion === distancia_movilizacion);
+    const existingIndex = informacionRotulos.findIndex(data => data.capitulo === capitulo || data.descripcion_actividad === descripcion_actividad || data.item_pago === item_pago || data.unidad === unidad || data.rendimiento === rendimiento || data.cantidad_instalar === cantidad_instalar || data.cantidad_dias === cantidad_dias || data.trm === trm || data.iva === iva || data.distancia_movilizacion === distancia_movilizacion);
 
     if (existingIndex !== -1) {
         // Actualizar la entrada existente
@@ -29,7 +28,6 @@ function guardarInformacionRotulos() {
             cantidad_dias,
             trm,
             iva,
-            aiu,
             distancia_movilizacion
         };
     } else {
@@ -44,7 +42,6 @@ function guardarInformacionRotulos() {
             cantidad_dias,
             trm,
             iva,
-            aiu,
             distancia_movilizacion
         });
     }

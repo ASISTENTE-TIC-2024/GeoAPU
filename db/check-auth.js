@@ -23,7 +23,6 @@ function checkAuth() {
             return response.json();
         })
         .then(data => {
-            console.log('El token es valido:', data);
             // Almacenar los datos del usuario en el almacenamiento local
             localStorage.setItem('user', JSON.stringify(data.user));
             // Actualizar el DOM con la foto del usuario
@@ -49,9 +48,6 @@ function logout() {
 }
 
 function navUserPhoto(user) {
-
-    console.log(user);
-
     const userPhotoElement = document.getElementById('userPhoto');
     if (userPhotoElement) {
         userPhotoElement.src = user.photoPath;
@@ -59,8 +55,6 @@ function navUserPhoto(user) {
 }
 
 function mobileNavUserPhoto(user) {
-
-    console.log(user);
 
     const userPhotoElement = document.getElementById('mobileUserPhoto');
     if (userPhotoElement) {

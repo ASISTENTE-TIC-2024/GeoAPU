@@ -4,7 +4,6 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-// Validación de variables de entorno
 const requiredEnvVars = ['DOMAIN', 'AUTH_URL', 'TOKEN_URL', 'USER_INFO_URL', 'CLIENT_ID', 'CLIENT_SECRET', 'CALLBACK_URL'];
 requiredEnvVars.forEach((varName) => {
     if (!process.env[varName]) {

@@ -1,11 +1,18 @@
 function cancelAPU() {
+
     if (confirm('¿Estás seguro de cancelar el APU?')) {
+
         let informacionRotulos = JSON.parse(localStorage.getItem('informacionRotulos')) || [];
+
         informacionRotulos.splice(0, 1);
+
         localStorage.setItem('informacionRotulos', JSON.stringify(informacionRotulos));
+
         window.location.href =
             '../pages/administrador-apu.html'
+
     }
+
 }
 
 function fetchTRMValue() {
@@ -16,10 +23,8 @@ function fetchTRMValue() {
 
         const trmStoredValue = data.trm;
 
-        console.log(trmStoredValue);
-
-
         if (trmStoredValue === 'Si') {
+
             const hoy = new Date();
             const año = hoy.getFullYear();
             const mes = String(hoy.getMonth() + 1).padStart(2, '0'); // Los meses empiezan desde 0
@@ -28,32 +33,39 @@ function fetchTRMValue() {
 
             const apiUrl = `https://www.datos.gov.co/resource/ceyp-9c7c.json?$where='${fechaFormateada}' between vigenciadesde and vigenciahasta`;
 
-            console.log('Fetching TRM value from:', JSON.stringify(apiUrl));
-
             fetch(apiUrl)
                 .then(response => response.json())
                 .then(data => {
+
                     if (data.length > 0) {
+
                         const trmValue = data[0].valor;
-                        console.log('TRM Value:', trmValue);
                         const trm = document.getElementById('trm');
                         trm.innerHTML = `$ ${trmValue}`;
-                        // You can now use the TRM value as needed
+
+                        // Almacenar el valor de TRM en local storage
+                        localStorage.setItem('trmValue', trmValue);
+
                     } else {
                         console.log('No TRM data available for the given date.');
                     }
                 })
                 .catch(error => {
-                    console.error('Error fetching TRM value:', error);
+                    console.error('Error al mostrar el valor del TRM:', error);
                 });
         } else {
+
             const trm = document.getElementById('trm');
             trm.innerHTML = 'No aplica';
+
         }
+
     })
 }
 
+
 function displayDataAPU() {
+
     const informacionProyecto = JSON.parse(localStorage.getItem('informacionProyecto')) || [];
     const informacionRotulos = JSON.parse(localStorage.getItem('informacionRotulos')) || [];
 
@@ -74,6 +86,7 @@ function displayDataAPU() {
     const cantidad_dias = document.getElementById("cantidadDias")
 
     const rendimiento_equipos = document.getElementById("RENDIMIENTO_EQUIPOS")
+    const cantidad_materiales = document.getElementById("CANTIDAD_MATERIALES")
 
     informacionProyecto.forEach((data, index) => {
         fecha.innerHTML = `${data.fecha}`;
@@ -89,7 +102,10 @@ function displayDataAPU() {
         unidadDia.innerHTML = `${data.unidad}`;
         actividad.innerHTML = `${data.descripcion_actividad}`;
         rendimiento_diario.value = isNaN(data.rendimiento) ? "No aplica" : `${data.rendimiento}`;
+
         rendimiento_equipos.value = `${(1 / data.rendimiento).toFixed(4)}`;
+        cantidad_materiales.value = `${(3 / data.rendimiento).toFixed(4)}`;
+
         cantidad_instalar.innerHTML = `${data.cantidad_instalar}`;
         distancia_movilizacion.innerHTML = `${data.distancia_movilizacion}`;
         cantidad_dias.innerHTML = `${data.cantidad_dias}`;
@@ -102,7 +118,9 @@ function displayDataAPU() {
 
 displayDataAPU()
 
-function rendimientoLocalStorage() {
+
+function rendimientoEquiposLocalStorage() {
+
     // Obtener el valor del input
     const rendimientoDiario =
         document.getElementById('rendimientoDiario').value
@@ -130,17 +148,25 @@ function rendimientoLocalStorage() {
     console.log(JSON.stringify(informacionRotulos))
 }
 
-function valorUnitarioLocalStorage() {
+function cantidadMaterialesLocalStorage() {
+
     // Obtener el valor del input
-    const TARIFA_DIA_EQUIPOS =
-        document.getElementById('TARIFA_DIA_EQUIPOS').value
+    const rendimientoDiario =
+        document.getElementById('rendimientoDiario').value
 
-    const RENDIMIENTO_EQUIPOS = document.getElementById("RENDIMIENTO_EQUIPOS").value
+    console.log(rendimientoDiario)
 
-    const VALOR_UNITARIO_EQUIPOS = document.getElementById("VALOR_UNITARIO_EQUIPOS")
+    // Obtener el objeto informacionRotulos desde localStorage
+    const informacionRotulos =
+        JSON.parse(localStorage.getItem('informacionRotulos')) || []
 
-    const valor = RENDIMIENTO_EQUIPOS * TARIFA_DIA_EQUIPOS;
-    VALOR_UNITARIO_EQUIPOS.value = `${valor.toFixed(2)}`;
+    informacionRotulos.forEach((data, index) => {
+        data.rendimiento = rendimientoDiario
+    })
+
+    const CANTIDAD_MATERIALES = document.getElementById("CANTIDAD_MATERIALES")
+
+    CANTIDAD_MATERIALES.value = `${(3 / rendimientoDiario).toFixed(4)}`
 
     // Guardar el objeto actualizado de nuevo en localStorage
     localStorage.setItem(
@@ -150,4 +176,38 @@ function valorUnitarioLocalStorage() {
 
     console.log(JSON.stringify(informacionRotulos))
 }
+
+function valorUnitarioEquiposLocalStorage() {
+
+    // Obtener el valor del input
+    const TARIFA_DIA_EQUIPOS = document.getElementById('TARIFA_DIA_EQUIPOS').value
+
+    const RENDIMIENTO_EQUIPOS = document.getElementById("RENDIMIENTO_EQUIPOS").value
+
+    const VALOR_UNITARIO_EQUIPOS = document.getElementById("VALOR_UNITARIO_EQUIPOS")
+
+    const valor = RENDIMIENTO_EQUIPOS * TARIFA_DIA_EQUIPOS;
+
+    VALOR_UNITARIO_EQUIPOS.value = `${valor.toFixed(2)}`;
+
+
+
+}
+
+function valorUnitarioMaterialesLocalStorage() {
+
+    // Obtener el valor del input
+    const PRECIO_UNITARIO_MATERIALES =
+        document.getElementById('PRECIO_UNITARIO_MATERIALES').value
+
+    const CANTIDAD_MATERIALES = document.getElementById("CANTIDAD_MATERIALES").value
+
+    const VALOR_UNITARIO_MATERIALES = document.getElementById("VALOR_UNITARIO_MATERIALES")
+
+    const valor = CANTIDAD_MATERIALES * PRECIO_UNITARIO_MATERIALES;
+
+    VALOR_UNITARIO_MATERIALES.value = `${valor.toFixed(2)}`;
+
+}
+
 
