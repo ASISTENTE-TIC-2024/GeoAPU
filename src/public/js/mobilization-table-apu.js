@@ -453,12 +453,12 @@ function eliminarElementoManoDeObra(index) {
 
 function calcularTotalGeneral() {
 
-    // Sumar los valores
-    let datosEquiposMov =
+    let storedDatosEquipos =
         JSON.parse(localStorage.getItem('datosEquiposMov')) || []
 
-    let totalEquiposMov = datosEquiposMov.reduce(
-        (sum, item) => sum + parseFloat(item.valor_unitario_equipos), 0
+    let totalEquiposMov = storedDatosEquipos.reduce(
+        (sum, item) => sum + item.rendimiento_equipos * item.tarifa_dia_equipos,
+        0
     )
 
     let storedDatosMaterialesMov =
@@ -470,13 +470,14 @@ function calcularTotalGeneral() {
     )
 
     let storedDatosTransporteMov =
-        JSON.parse(localStorage.getItem('datosMaterialesMov')) || []
+        JSON.parse(localStorage.getItem('datosTransporteMov')) || []
 
     // Sumar los valores
     let totalTransporteMov = storedDatosTransporteMov.reduce(
         (sum, item) => sum + item.valor_unitario_transporte,
         0
     )
+
     // Sumar los valores
     let totalManoDeObra = datosManoDeObra.reduce(
         (sum, item) => sum + item.valor_unitario_mano_de_obra,
@@ -486,6 +487,8 @@ function calcularTotalGeneral() {
     // Sumar todos los totales
     let totalGeneralMov =
         totalManoDeObra + totalEquiposMov + totalMaterialesMov + totalTransporteMov
+
+
 
     let administracionMov = totalGeneralMov * 0.13
     let imprevistosMov = totalGeneralMov * 0.07
@@ -499,6 +502,8 @@ function calcularTotalGeneral() {
     let porcentajeTransporteMov = (totalTransporteMov / totalGeneralMov) * 100 || 0
 
     // Mostrar los sub-totales en el DOM con dos decimales
+
+    console.log(totalEquiposMov.toFixed(2));
 
     document.getElementById(
         'resultadoEquipos'
