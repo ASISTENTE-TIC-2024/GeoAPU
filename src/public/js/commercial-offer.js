@@ -5,6 +5,9 @@ document.addEventListener('DOMContentLoaded', function () {
             CAPITULO: '1. Trabajos preliminares',
             DESCRIPCION: 'Limpieza del area de trabajo',
             UNIDAD: 'dias',
+            CANTIDAD_INSTALAR: 1000,
+            VALOR_UNITARIO: 1000,
+            TOTAL: 1000000,
         },
 
         {
@@ -12,12 +15,18 @@ document.addEventListener('DOMContentLoaded', function () {
             CAPITULO: '2. Excavación y movimiento de tierras',
             DESCRIPCION: 'Excavación en zanjas para cimentación',
             UNIDAD: 'm3',
+            CANTIDAD_INSTALAR: 1000,
+            VALOR_UNITARIO: 1000,
+            TOTAL: 1000000,
         },
         {
             ID: 3,
             CAPITULO: '3. Cimentación',
             DESCRIPCION: 'Cimentación corrida de concreto fc=150',
             UNIDAD: 'm3',
+            CANTIDAD_INSTALAR: 1000,
+            VALOR_UNITARIO: 1000,
+            TOTAL: 1000000,
         },
 
         {
@@ -25,6 +34,9 @@ document.addEventListener('DOMContentLoaded', function () {
             CAPITULO: '4. Estructura del reservorio',
             DESCRIPCION: 'Escalera de acceso a la cisterna',
             UNIDAD: 'und',
+            CANTIDAD_INSTALAR: 1000,
+            VALOR_UNITARIO: 1000,
+            TOTAL: 1000000,
         },
         {
             ID: 5,
@@ -32,6 +44,67 @@ document.addEventListener('DOMContentLoaded', function () {
             DESCRIPCION:
                 'Impermeabilización de cisterna con membrana asfáltica',
             UNIDAD: 'm2',
+            CANTIDAD_INSTALAR: 1000,
+            VALOR_UNITARIO: 1000,
+            TOTAL: 1000000,
+        },
+        {
+            ID: 3,
+            CAPITULO: '3. Cimentación',
+            DESCRIPCION: 'Cimentación corrida de concreto fc=150',
+            UNIDAD: 'm3',
+            CANTIDAD_INSTALAR: 1000,
+            VALOR_UNITARIO: 1000,
+            TOTAL: 1000000,
+        },
+
+        {
+            ID: 4,
+            CAPITULO: '4. Estructura del reservorio',
+            DESCRIPCION: 'Escalera de acceso a la cisterna',
+            UNIDAD: 'und',
+            CANTIDAD_INSTALAR: 1000,
+            VALOR_UNITARIO: 1000,
+            TOTAL: 1000000,
+        },
+        {
+            ID: 5,
+            CAPITULO: '5. Impermeabilización',
+            DESCRIPCION:
+                'Impermeabilización de cisterna con membrana asfáltica',
+            UNIDAD: 'm2',
+            CANTIDAD_INSTALAR: 1000,
+            VALOR_UNITARIO: 1000,
+            TOTAL: 1000000,
+        },
+        {
+            ID: 3,
+            CAPITULO: '3. Cimentación',
+            DESCRIPCION: 'Cimentación corrida de concreto fc=150',
+            UNIDAD: 'm3',
+            CANTIDAD_INSTALAR: 1000,
+            VALOR_UNITARIO: 1000,
+            TOTAL: 1000000,
+        },
+
+        {
+            ID: 4,
+            CAPITULO: '4. Estructura del reservorio',
+            DESCRIPCION: 'Escalera de acceso a la cisterna',
+            UNIDAD: 'und',
+            CANTIDAD_INSTALAR: 1000,
+            VALOR_UNITARIO: 1000,
+            TOTAL: 1000000,
+        },
+        {
+            ID: 5,
+            CAPITULO: '5. Impermeabilización',
+            DESCRIPCION:
+                'Impermeabilización de cisterna con membrana asfáltica',
+            UNIDAD: 'm2',
+            CANTIDAD_INSTALAR: 1000,
+            VALOR_UNITARIO: 1000,
+            TOTAL: 1000000,
         },
     ]
 
@@ -47,10 +120,12 @@ document.addEventListener('DOMContentLoaded', function () {
             <td class="py-2">${item.CAPITULO}</td>
             <td class="py-2">${item.DESCRIPCION}</td>
             <td class="py-2">${item.UNIDAD}</td>
+            <td class="py-2">${item.CANTIDAD_INSTALAR}</td>
+            <td class="py-2">${item.VALOR_UNITARIO}</td>
+            <td class="py-2">${item.TOTAL}</td>
             <td class="py-2">
-                <button class="bg-blue-500 text-white px-2 py-1 rounded" onclick="viewItem(${item.ID})">Ver</button>
-                <button class="bg-yellow-500 text-white px-2 py-1 rounded" onclick="editItem(${item.ID})">Editar</button>
-                <button class="bg-red-500 text-white px-2 py-1 rounded" onclick="deleteItem(${item.ID})">Eliminar</button>
+                <button class="bg-yellow-500 text-white px-2 py-1 rounded" onclick="editItem(${item.ID})"><i class="fa-regular fa-pen-to-square" style="color: #ffffff;"></i></button>
+                <button class="bg-red-500 text-white px-2 py-1 rounded" onclick="deleteItem(${item.ID})"><i class="fa-regular fa-trash-can" style="color: #ffffff;"></i></button>
             </td>
         `
 

@@ -33,4 +33,4 @@ node_modules/
 
 .prettierrc
 
-images/
+views/images/

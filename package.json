@@ -9,12 +9,14 @@
         "server": "node src/server.js",
         "nodemon": "nodemon src/server.js",
         "build": "postcss ./src/views/pages/build/styles.css -o ./src/views/pages/build/main.css",
-        "start": "npm run build && npm run nodemon"
+        "watch:css": "nodemon -e css -x \"npm run build\"",
+        "start": "concurrently \"npm run watch:css\" \"npm run nodemon\""
     },
     "author": "Jesus Daniel Cuadro Dita",
     "license": "MIT",
     "devDependencies": {
         "autoprefixer": "^10.4.20",
+        "concurrently": "^9.1.0",
         "postcss": "^8.4.49",
         "postcss-cli": "^11.0.0",
         "tailwindcss": "^3.4.16"

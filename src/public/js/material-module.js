@@ -347,13 +347,6 @@ function closeModal() {
     document.getElementById('addModal').classList.add('hidden')
 }
 
-function logoutEdit() {
-    // Eliminar el token JWT del almacenamiento local
-    localStorage.removeItem('token');
-    // Redirigir al usuario a la página de inicio de sesión
-    window.location.href = '../../views/login.html';
-}
-
 // Llamar a la función fetchData cuando el DOM esté completamente cargado
 
 document.addEventListener('DOMContentLoaded', fetchData)

@@ -83,13 +83,16 @@ function displayDataAPU() {
     const cantidad_materiales = document.getElementById("CANTIDAD_MATERIALES")
 
     informacionProyecto.forEach((data, index) => {
+
         fecha.innerHTML = `${data.fecha}`;
         proyecto.innerHTML = `${data.proyecto}`;
         departamento.innerHTML = `${data.departamento}`;
         municipio.innerHTML = `${data.municipio}`;
+
     })
 
     informacionRotulos.forEach((data, index) => {
+
         item_pago.innerHTML = `${data.item_pago}`;
         actividad.innerHTML = `${data.descripcion_actividad}`;
         rendimiento_diario.value = isNaN(data.rendimiento) ? "No aplica" : `${data.rendimiento}`;
@@ -99,10 +102,10 @@ function displayDataAPU() {
 
         cantidad_instalar.innerHTML = `${data.cantidad_instalar}`;
         cantidad_dias.innerHTML = `${data.cantidad_dias}`;
+
     })
 
     fetchTRMValue()
-
 
 }
 
@@ -113,8 +116,6 @@ function rendimientoEquiposLocalStorage() {
     // Obtener el valor del input
     const rendimientoDiario =
         document.getElementById('rendimientoDiario').value
-
-    console.log(rendimientoDiario)
 
     // Obtener el objeto informacionRotulos desde localStorage
     const informacionRotulos =
@@ -133,6 +134,9 @@ function rendimientoEquiposLocalStorage() {
         'informacionRotulos',
         JSON.stringify(informacionRotulos)
     )
+
+    console.log(JSON.stringify(informacionRotulos))
+
 }
 
 function cantidadMaterialesLocalStorage() {
@@ -146,6 +150,8 @@ function cantidadMaterialesLocalStorage() {
     // Obtener el objeto informacionRotulos desde localStorage
     const informacionRotulos =
         JSON.parse(localStorage.getItem('informacionRotulos')) || []
+
+    console.log(informacionRotulos);
 
     informacionRotulos.forEach((data, index) => {
         data.rendimiento = rendimientoDiario
@@ -162,7 +168,10 @@ function cantidadMaterialesLocalStorage() {
     )
 
     console.log(JSON.stringify(informacionRotulos))
+
 }
+
+cantidadMaterialesLocalStorage()
 
 function valorUnitarioEquipos() {
 

@@ -23,11 +23,14 @@ document
         let rendimiento_equipos =
             parseFloat(document.getElementById('RENDIMIENTO_EQUIPOS').value).toFixed(4) || 0
 
+        parseFloat(document.getElementById('RENDIMIENTO_EQUIPOS').value) || 0
+
         let valor_unitario_equipos =
             parseFloat(document.getElementById('VALOR_UNITARIO_EQUIPOS').value) || 0
 
         // Obtener los datos existentes del localStorage
-        let datosEquiposMov = JSON.parse(localStorage.getItem('datosEquiposMov')) || []
+        let datosEquiposMov =
+            JSON.parse(localStorage.getItem('datosEquiposMov')) || []
 
         datosEquiposMov.push({
             descripcion_equipos,
@@ -35,28 +38,31 @@ document
             tipo_equipos,
             tarifa_dia_equipos,
             rendimiento_equipos,
-            valor_unitario_equipos
+            valor_unitario_equipos,
+            porcentaje_incidencia: 0,
         })
 
         localStorage.setItem('datosEquiposMov', JSON.stringify(datosEquiposMov))
 
-        actualizarValorUnitarioEquipos()
+        actualizarValorUnitario()
         actualizarTablaEquipos()
+
     })
 
 function actualizarTablaEquipos() {
-
     let tbody = document.querySelector('#dataTableEquipos tbody')
+
+    tbody.innerHTML = ''
 
     // Obtener los datos del localStorage
     let storedDatosEquiposMov =
         JSON.parse(localStorage.getItem('datosEquiposMov')) || []
 
-    let totalEquiposMov = storedDatosEquiposMov.reduce(
-        (sum, item) => sum + parseFloat(item.valor_unitario_equipos), 0
+    // Calcular el total de todos los valores
+    let totalEquipos = storedDatosEquiposMov.reduce(
+        (sum, item) => sum + item.rendimiento_equipos * item.tarifa_dia_equipos,
+        0
     )
-
-    tbody.innerHTML = ''
 
     storedDatosEquiposMov.forEach((item, index) => {
 
@@ -66,32 +72,29 @@ function actualizarTablaEquipos() {
             index % 2 === 0
                 ? 'even:bg-gray-50 border-b'
                 : 'odd:bg-white even:bg-gray-50 border-b'
-        tr.innerHTML =
-            `<td>${item.descripcion_equipos}</td>
-            <td>${item.marca_equipos}</td>
-            <td>${item.tipo_equipos}</td>
-            <td>${item.tarifa_dia_equipos}</td>
-            <td>${isNaN(item.rendimiento_equipos) ? 0 : item.rendimiento_equipos}</td>
-
-            <td>${isNaN(item.valor_unitario_equipos) || !isFinite(item.valor_unitario_equipos) ? 0 : item.valor_unitario_equipos}</td>
-
-            <td>${isNaN(item.porcentaje_incidencia = ((item.rendimiento_equipos * item.tarifa_dia_equipos) / totalEquiposMov) * 100) || !isFinite(item.porcentaje_incidencia) ? 0 : item.porcentaje_incidencia.toFixed(2)}%</td>
-            <td><button class="active:scale-90 transition-transform" onclick="eliminarElementoEquipos(${storedDatosEquiposMov.indexOf(item)})"><i class="fa-solid fa-trash-can"></i></button></td>`
+        tr.innerHTML = `
+        <td>${item.descripcion_equipos}</td>
+        <td>${item.marca_equipos}</td>
+        <td>${item.tipo_equipos}</td>
+        <td>${item.tarifa_dia_equipos}</td>
+        <td>${isNaN(item.rendimiento_equipos) || !isFinite(item.rendimiento_equipos) ? 0 : item.rendimiento_equipos}</td>
+        <td>$ ${isNaN(item.rendimiento_equipos * item.tarifa_dia_equipos) || !isFinite(item.rendimiento_equipos * item.tarifa_dia_equipos) ? 0 : (item.rendimiento_equipos * item.tarifa_dia_equipos).toFixed(2)}</td>
+        <td>${(item.porcentaje_incidencia = ((item.rendimiento_equipos * item.tarifa_dia_equipos) / totalEquipos) * 100 || 0).toFixed(2)}%</td>
+        <td><button class="active:scale-90 transition-transform" onclick="eliminarElementoEquipos(${storedDatosEquiposMov.indexOf(item)})"><i class="fa-solid fa-trash-can"></i></button></td>`
 
         tbody.appendChild(tr)
     })
 }
 
 function eliminarElementoEquipos(index) {
-
     // Obtener los datos existentes del localStorage
-    let datosEquiposMov = JSON.parse(localStorage.getItem('datosEquiposMov')) || []
+    let storedDatosEquiposMov = JSON.parse(localStorage.getItem('datosEquiposMov')) || []
 
     // Eliminar el elemento del array
-    datosEquiposMov.splice(index, 1)
+    storedDatosEquiposMov.splice(index, 1)
 
     // Guardar el array actualizado en el localStorage
-    localStorage.setItem('datosEquiposMov', JSON.stringify(datosEquiposMov))
+    localStorage.setItem('datosEquiposMov', JSON.stringify(storedDatosEquiposMov))
 
     // Actualizar la tabla
     actualizarTablaEquipos()
@@ -99,7 +102,8 @@ function eliminarElementoEquipos(index) {
 
 function actualizarRendimientoEquipos() {
 
-    const informacionRotulos = JSON.parse(localStorage.getItem('informacionRotulos')) || []
+    const informacionRotulos =
+        JSON.parse(localStorage.getItem('informacionRotulos')) || []
 
     console.log(informacionRotulos)
 
@@ -113,13 +117,13 @@ function actualizarRendimientoEquipos() {
     })
 
     localStorage.setItem('datosEquiposMov', JSON.stringify(storedDatosEquiposMov))
-
     actualizarTablaEquipos()
 }
 
-function actualizarValorUnitarioEquipos() {
+function actualizarValorUnitario() {
 
-    const storedDatosEquiposMov = JSON.parse(localStorage.getItem('datosEquiposMov')) || []
+    const storedDatosEquiposMov =
+        JSON.parse(localStorage.getItem('datosEquiposMov')) || []
 
     console.log(storedDatosEquiposMov)
 
@@ -134,7 +138,7 @@ function actualizarValorUnitarioEquipos() {
     actualizarTablaEquipos()
 }
 
-actualizarTablaEquipos();
+actualizarTablaEquipos()
 
 /******************************* MATERIALES *******************************/
 
@@ -183,8 +187,6 @@ document
             valor_unitario_materiales,
         })
 
-        console.log("Que es lo que se va a hacer push en mat " + JSON.stringify(datosMaterialesMov));
-
         localStorage.setItem('datosMaterialesMov', JSON.stringify(datosMaterialesMov))
 
         actualizarValorUnitarioMateriales()
@@ -209,7 +211,9 @@ function actualizarTablaMateriales() {
     tbody.innerHTML = ''
 
     storedDatosMaterialesMov.forEach((item, index) => {
+
         let tr = document.createElement('tr')
+
         tr.className =
             index % 2 === 0
                 ? 'even:bg-gray-50 border-b'
@@ -221,10 +225,11 @@ function actualizarTablaMateriales() {
                         <td>${item.precio_unitario_materiales}</td>
                         <td>${isNaN(item.cantidad_materiales) || !isFinite(item.cantidad_materiales) ? 0 : item.cantidad_materiales}</td>
                         <td>${isNaN(item.valor_unitario_materiales) || !isFinite(item.valor_unitario_materiales) ? 0 : item.tipo_moneda_materiales === 'USD' ? 'COP: ' + item.valor_unitario_materiales : item.valor_unitario_materiales}</td>
-                        <td>${item.porcentaje_incidencia.toFixed(2)}%</td>
+                        <td>${isNaN(item.porcentaje_incidencia) || !isFinite(item.porcentaje_incidencia) ? 0 : item.porcentaje_incidencia.toFixed(2)}%</td>
                         <td><button class="active:scale-90 transition-transform" onclick="eliminarElementoMateriales(${storedDatosMaterialesMov.indexOf(item)})"><i class="fa-solid fa-trash-can"></i></button></td>`
 
         tbody.appendChild(tr)
+
     })
 }
 
@@ -267,20 +272,23 @@ function actualizarValorUnitarioMateriales() {
     const storedDatosMaterialesMov =
         JSON.parse(localStorage.getItem('datosMaterialesMov')) || []
 
-    console.log(
-        storedDatosMaterialesMov
-    );
+    console.log(storedDatosMaterialesMov);
 
     const trmValue = parseFloat(localStorage.getItem('trmValue')) || 0;
 
     console.log(trmValue);
 
     storedDatosMaterialesMov.forEach((item) => {
+
         if (item.tipo_moneda_materiales === 'USD' && !item.trm_applied) {
+
             item.valor_unitario_materiales = (item.valor_unitario_materiales * trmValue).toFixed(2);
             item.trm_applied = true; // Marcar que la TRM ya ha sido aplicada
+
         } else if (item.tipo_moneda_materiales !== 'USD') {
+
             item.valor_unitario_materiales = (item.precio_unitario_materiales * item.cantidad_materiales).toFixed(2);
+
         }
     });
 
@@ -446,10 +454,10 @@ function eliminarElementoManoDeObra(index) {
 function calcularTotalGeneral() {
 
     // Sumar los valores
-    let storedDatosEquiposMov =
+    let datosEquiposMov =
         JSON.parse(localStorage.getItem('datosEquiposMov')) || []
 
-    let totalEquiposMov = storedDatosEquiposMov.reduce(
+    let totalEquiposMov = datosEquiposMov.reduce(
         (sum, item) => sum + parseFloat(item.valor_unitario_equipos), 0
     )
 

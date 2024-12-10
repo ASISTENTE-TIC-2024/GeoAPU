@@ -38,8 +38,9 @@ document
             tarifa_dia_equipos,
             rendimiento_equipos,
             valor_unitario_equipos,
-            porcentaje_incidencia: 0,
         })
+
+        console.log("Que es lo que se va a hacer push " + JSON.stringify(datosEquipos));
 
         localStorage.setItem('datosEquipos', JSON.stringify(datosEquipos))
 
@@ -98,6 +99,7 @@ function eliminarElementoEquipos(index) {
 }
 
 function actualizarRendimientoEquipos() {
+
     const informacionRotulos =
         JSON.parse(localStorage.getItem('informacionRotulos')) || []
 
@@ -113,6 +115,7 @@ function actualizarRendimientoEquipos() {
     })
 
     localStorage.setItem('datosEquipos', JSON.stringify(storedDatosEquipos))
+
     actualizarTablaEquipos()
 }
 
@@ -333,21 +336,30 @@ document
         })
 
         actualizarTablaTransporte()
+
     })
 
 function actualizarTablaTransporte() {
+
     let tbody = document.querySelector('#dataTableTransporte tbody')
+
     tbody.innerHTML = ''
+
     datosTransporte.forEach((item, index) => {
         let tr = document.createElement('tr')
         tr.className =
             index % 2 === 0
                 ? 'even:bg-gray-50 border-b'
                 : 'odd:bg-white even:bg-gray-50 border-b'
-        tr.innerHTML = `< td > ${item.descripcion_transporte}</td ><td>${item.unidad_transporte
-            }</td><td>${item.distancia_transporte}</td><td>$ ${item.precio_unitario_transporte
-            }</td><td>${item.rendimiento_transporte}</td><td>$ ${item.valor_unitario_transporte
-            }</td><td> % </td><td><button class="active:scale-90 transition-transform" onclick="eliminarElementoTransporte(${datosTransporte.indexOf(
+        tr.innerHTML = `
+        <td> ${item.descripcion_transporte}</td>
+        <td>${item.unidad_transporte}</td>
+        <td>${item.distancia_transporte}</td>
+        <td>$ ${item.precio_unitario_transporte}</td>
+        <td>${item.rendimiento_transporte}</td>
+        <td>$ ${item.valor_unitario_transporte}</td>
+        <td> % </td>
+        <td><button class="active:scale-90 transition-transform" onclick="eliminarElementoTransporte(${datosTransporte.indexOf(
                 item
             )})"><i class="fa-solid fa-trash-can"></i></button></td>`
         tbody.appendChild(tr)
