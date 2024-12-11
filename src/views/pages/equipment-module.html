@@ -14,9 +14,20 @@
         />
     </head>
 
+    <style>
+        .bg-fixed {
+            background-image: url('../images/equipos.jpeg'); /* Ruta a tu imagen de fondo */
+            background-color: rgba(0, 0, 0, 0.5); /* Oscurece la imagen */
+            background-blend-mode: darken; /* Mezcla el color de fondo con la imagen */
+            background-size: cover; /* Asegura que la imagen cubra toda la pantalla */
+            background-position: center; /* Centra la imagen */
+            background-attachment: fixed; /* Hace que la imagen sea estática */
+        }
+    </style>
+
     <body
         style="font-family: 'Museo Sans Rounded', sans-serif"
-        class="bg-gradient-to-tr from-sky-100 to-sky-50"
+        class="bg-fixed"
     >
         <div class="h-full w-full">
             <nav
@@ -580,6 +591,7 @@
                     </div>
                 </div>
             </nav>
+
             <nav>
                 <div
                     class="py-4 px-6 w-full flex xl:hidden justify-between items-center bg-white fixed top-0 z-40"
@@ -927,7 +939,14 @@
             class="w-full relative top-[110px] block flex flex-col"
         >
             <div id="title-container" class="w-full block text-center">
-                <h1 class="text-6xl text-gray-600">EQUIPOS</h1>
+
+                <h1 class="text-6xl text-gray-200">EQUIPOS</h1>
+
+                <p class="text-center text-gray-300 mt-4 mx-20">
+                    Este módulo permite gestionar los equipos disponibles, incluyendo la adición, edición y eliminación de equipos. 
+                    También se puede visualizar la información detallada de cada equipo, como su descripción, marca, tipo y tarifa por día.
+                </p>
+
                 <button
                     class="bg-green-500 text-white px-4 py-2 rounded mt-10 w-80 text-gray-200"
                     onclick="openAddModal()"
@@ -938,20 +957,20 @@
             </div>
 
             <div
-                class="table-container mx-10 mb-40 overflow-x-auto relative top-[50px] rounded-lg"
+                class="table-container mx-10 overflow-x-auto relative top-[50px]"
             >
                 <table class="min-w-full bg-gray-100 border rounded-lg">
+
                     <thead
-                        class="rounded-lg"
-                        style="background-color: rgb(0, 112, 192)"
+                        style="background-color: rgb(34, 34, 34)"
                     >
                         <tr class="text-center">
                             <th class="py-2 p-2" onclick="sortTable(0)">
-                                <div class="flex items-center text-gray-50">
+                                <div class="flex items-center justify-center text-gray-50">
                                     ID
                                     <a href="#"
                                         ><svg
-                                            class="w-3 h-3 ms-1.5"
+                                            class="w-3 h-3 ms-1.5"  
                                             aria-hidden="true"
                                             xmlns="http://www.w3.org/2000/svg"
                                             fill="currentColor"
@@ -967,7 +986,7 @@
                             </th>
 
                             <th class="py-2 p-2" onclick="sortTable(1)">
-                                <div class="flex items-center text-gray-50">
+                                <div class="flex items-center justify-center text-gray-50">
                                     FOTO
                                     <a href="#"
                                         ><svg
@@ -987,7 +1006,7 @@
                             </th>
 
                             <th class="py-2 p-2" onclick="sortTable(2)">
-                                <div class="flex items-center text-gray-50">
+                                <div class="flex items-center justify-center text-gray-50">
                                     DESCRIPCIÓN
                                     <a href="#"
                                         ><svg
@@ -1006,7 +1025,7 @@
                                 </div>
                             </th>
                             <th class="py-2 p-2" onclick="sortTable(3)">
-                                <div class="flex items-center text-gray-50">
+                                <div class="flex items-center justify-center text-gray-50">
                                     MARCA
                                     <a href="#"
                                         ><svg
@@ -1025,7 +1044,7 @@
                                 </div>
                             </th>
                             <th class="py-2 p-2" onclick="sortTable(4)">
-                                <div class="flex items-center text-gray-50">
+                                <div class="flex items-center justify-center text-gray-50">
                                     TIPO
                                     <a href="#"
                                         ><svg
@@ -1045,7 +1064,7 @@
                             </th>
 
                             <th class="py-2 p-2" onclick="sortTable(5)">
-                                <div class="flex items-center text-gray-50">
+                                <div class="flex items-center justify-center text-gray-50">
                                     TARIFA POR DIA
                                     <a href="#"
                                         ><svg
@@ -1064,13 +1083,13 @@
                                 </div>
                             </th>
                             <th class="py-2 p-2" onclick="sortTable(6)">
-                                <div class="flex items-center text-gray-50">
+                                <div class="flex items-center justify-center text-gray-50">
                                     ACCIONES
                                 </div>
                             </th>
                         </tr>
                     </thead>
-                    <tbody id="data-table"></tbody>
+                    <tbody id="data-table" class="text-center"></tbody>
                 </table>
             </div>
         </div>

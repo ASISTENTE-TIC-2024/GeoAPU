@@ -1,50 +1,65 @@
-document.addEventListener('DOMContentLoaded', fetchData)
+document.addEventListener('DOMContentLoaded', fetchData);
 
 async function fetchData() {
     try {
-        const response = await fetch('http://localhost:5000/selectEquipoData')
+        const response = await fetch('http://localhost:5000/selectEquipoData');
 
-        const data = await response.json()
+        const data = await response.json();
         // Aquí puedes actualizar tu tabla con los datos recibidos
-        const dataTable = document.getElementById('data-table')
+        const dataTable = document.getElementById('data-table');
 
-        dataTable.innerHTML = '' // Limpiar la tabla antes de agregar nuevos datos
+        dataTable.innerHTML = ''; // Limpiar la tabla antes de agregar nuevos datos
         data.forEach((material) => {
-            const row = document.createElement('tr')
+            const row = document.createElement('tr');
             row.innerHTML = `
                 <td>${material.id_equipos}</td>
-                <td>
-                    <img class="rounded-full h-10 w-10 cursor-pointer transition-transform duration-300" src="${material.foto_equipos
-                }" alt="Foto de perfil" onclick="enlargeImage(this)">
+                
+                <td class="text-center">
+                    <img class="rounded-full h-10 w-10 cursor-pointer transition-transform duration-300 mx-auto" src="${
+                        material.foto_equipos
+                    }" alt="Foto de perfil" onclick="enlargeImage(this)">
                 </td>
+
                 <td>${material.descripcion_equipos}</td >
                 <td>${material.marca_equipos}</td>
                 <td>${material.tipo_equipos}</td>
                 <td>${material.tarifa_dia_equipos}</td>
                 <td class="flex align-center justify-center h-full w-full mb-2s">
-                    <button class="bg-yellow-500 text-white px-2 py-1 rounded h-[4em] w-1/2 m-1" onclick="editEquipo(${material.id_equipos
-                }, '${material.foto_equipos}', '${encodeURIComponent(
-                    material.descripcion_equipos
-                )}', '${encodeURIComponent(
-                    material.marca_equipos
-                )}', '${encodeURIComponent(material.tipo_equipos)}', ${material.tarifa_dia_equipos
-                })"><i class="fa-solid fa-pencil" style="color: #ffffff;"></i></button>
-                    <button class="bg-red-500 text-white px-2 py-1 rounded h-[4em] w-1/2 m-1" onclick="openDeleteModal(${material.id_equipos
-                }, '${encodeURIComponent(
-                    material.descripcion_equipos
-                )}')"><i class="fa-solid fa-user-minus" style="color: #ffffff;"></i></button>
+                    <button class="bg-yellow-500 text-white px-2 py-1 rounded h-[4em] m-1" onclick="editEquipo(${
+                        material.id_equipos
+                    }, '${material.foto_equipos}', '${encodeURIComponent(
+                material.descripcion_equipos,
+            )}', '${encodeURIComponent(
+                material.marca_equipos,
+            )}', '${encodeURIComponent(material.tipo_equipos)}', ${
+                material.tarifa_dia_equipos
+            })"><i class="fa-solid fa-pencil" style="color: #ffffff;"></i></button>
+                    <button class="bg-red-500 text-white px-2 py-1 rounded h-[4em]  m-1" onclick="openDeleteModal(${
+                        material.id_equipos
+                    }, '${encodeURIComponent(
+                material.descripcion_equipos,
+            )}')"><i class="fa-solid fa-user-minus" style="color: #ffffff;"></i></button>
                 </td>
-            `
-            dataTable.appendChild(row)
-        })
+            `;
+            dataTable.appendChild(row);
+        });
     } catch (error) {
-        console.error('Error buscando los datos:', error)
+        console.error('Error buscando los datos:', error);
     }
 }
 
 function enlargeImage(img) {
     const modal = document.createElement('div');
-    modal.classList.add('fixed', 'inset-0', 'flex', 'items-center', 'justify-center', 'bg-black', 'bg-opacity-75', 'z-50');
+    modal.classList.add(
+        'fixed',
+        'inset-0',
+        'flex',
+        'items-center',
+        'justify-center',
+        'bg-black',
+        'bg-opacity-75',
+        'z-50',
+    );
     modal.innerHTML = `
 
         <div class="relative">
@@ -57,8 +72,8 @@ function enlargeImage(img) {
     document.body.appendChild(modal);
 }
 function closeImageModal(button) {
-    const modal = button.closest('div.fixed')
-    modal.remove()
+    const modal = button.closest('div.fixed');
+    modal.remove();
 }
 
 /* ---------------------------------------------------------------- AGREGAR EQUIPOS ----------------------------------------------------------------------------- */
@@ -66,132 +81,133 @@ function closeImageModal(button) {
 document
     .getElementById('addEquipoForm')
     .addEventListener('submit', async function (event) {
-        event.preventDefault()
+        event.preventDefault();
 
-        const formData = new FormData(this)
+        const formData = new FormData(this);
 
         const foto_equipo = document
             .getElementById('addEquipoPhoto')
-            .value.trim()
+            .value.trim();
         const descripcion_equipo = document
             .getElementById('addEquipoDescripcion')
-            .value.trim()
+            .value.trim();
         const marca_equipo = document
             .getElementById('addEquipoMarca')
-            .value.trim()
+            .value.trim();
         const tipo_equipo = document
             .getElementById('addEquipoTipo')
-            .value.trim()
+            .value.trim();
         const tarifa_dia_equipo = document
             .getElementById('addEquipoTarifa')
-            .value.trim()
+            .value.trim();
 
         console.log(
             foto_equipo,
             descripcion_equipo,
             marca_equipo,
             tipo_equipo,
-            tarifa_dia_equipo
-        )
+            tarifa_dia_equipo,
+        );
 
-        formData.append('descripcion_equipo', descripcion_equipo)
-        formData.append('marca_equipo', marca_equipo)
-        formData.append('tipo_equipo', tipo_equipo)
-        formData.append('tarifa_dia_equipo', tarifa_dia_equipo)
+        formData.append('descripcion_equipo', descripcion_equipo);
+        formData.append('marca_equipo', marca_equipo);
+        formData.append('tipo_equipo', tipo_equipo);
+        formData.append('tarifa_dia_equipo', tarifa_dia_equipo);
 
         if (foto_equipo) {
-            formData.append('foto_equipo', foto_equipo) // Append the file object directly
+            formData.append('foto_equipo', foto_equipo); // Append the file object directly
         }
 
         try {
             const response = await fetch(`http://localhost:5000/addEquipo`, {
                 method: 'POST',
                 body: formData,
-            })
+            });
 
             if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`)
+                throw new Error(`HTTP error! status: ${response.status}`);
             }
 
-            const data = await response.json()
+            const data = await response.json();
 
-            console.log('equipo agregado:', JSON.stringify(data))
+            console.log('equipo agregado:', JSON.stringify(data));
 
-            closeModal()
-            fetchData()
+            closeModal();
+            fetchData();
         } catch (error) {
-            console.error('Error al agregar al equipo:', error)
+            console.error('Error al agregar al equipo:', error);
         }
-    })
+    });
 
 function openAddModal() {
-    document.getElementById('addModal').classList.remove('hidden')
+    document.getElementById('addModal').classList.remove('hidden');
 }
 
 document
     .getElementById('addEquipoPhoto')
     .addEventListener('change', function (event) {
-        const file = event.target.files[0]
+        const file = event.target.files[0];
         if (file) {
-            const reader = new FileReader()
+            const reader = new FileReader();
             reader.onload = function (e) {
-                document.getElementById('addPhotoPreview').src = e.target.result
-            }
-            reader.readAsDataURL(file)
+                document.getElementById('addPhotoPreview').src =
+                    e.target.result;
+            };
+            reader.readAsDataURL(file);
         }
-    })
+    });
 
 /* ---------------------------------------------------------------- ELIMINAR EQUIPOS ----------------------------------------------------------------------------- */
 
-let equipoIdToDelete = null
+let equipoIdToDelete = null;
 
 function openDeleteModal(id_equipos, descripcion_equipos) {
-    equipoIdToDelete = id_equipos
+    equipoIdToDelete = id_equipos;
     document.getElementById(
-        'deleteMessage'
+        'deleteMessage',
     ).textContent = `¿Está seguro de que desea eliminar al equipo ${decodeURIComponent(
-        descripcion_equipos
-    )} de la base de datos?`
-    document.getElementById('deleteModal').classList.remove('hidden')
+        descripcion_equipos,
+    )} de la base de datos?`;
+    document.getElementById('deleteModal').classList.remove('hidden');
 }
 
 function closeDeleteModal() {
-    document.getElementById('deleteModal').classList.add('hidden')
+    document.getElementById('deleteModal').classList.add('hidden');
 }
 
 async function confirmDelete() {
     if (equipoIdToDelete === null) {
         console.error(
-            'No se especifico un ID para proceder con la eliminación.'
-        )
-        return
+            'No se especifico un ID para proceder con la eliminación.',
+        );
+        return;
     }
 
     try {
-        console.log('equipo a eliminar: ' + equipoIdToDelete)
+        console.log('equipo a eliminar: ' + equipoIdToDelete);
 
         const response = await fetch(
             `http://localhost:5000/deleteEquipo/${equipoIdToDelete}`,
             {
                 method: 'DELETE',
-            }
-        )
+            },
+        );
 
         if (!response.ok) {
             const errorMessage =
                 response.status === 404
                     ? `equipo with ID ${equipoIdToDelete} not found.`
-                    : `HTTP error! status: ${response.status}`
-            throw new Error(errorMessage)
+                    : `HTTP error! status: ${response.status}`;
+            throw new Error(errorMessage);
         }
 
-        const data = await response.json()
-        console.log('equipo eliminado:', JSON.stringify(data))
+        const data = await response.json();
+        console.log('equipo eliminado:', JSON.stringify(data));
 
-        closeDeleteModal()
-        fetchData()
+        closeDeleteModal();
+        fetchData();
     } catch (error) {
-        console.error('Error eliminando al material: ', error)
+        console.error('Error eliminando al material: ', error);
     }
 }
 
@@ -200,35 +216,35 @@ async function confirmDelete() {
 document
     .getElementById('editEquipoForm')
     .addEventListener('submit', async function (event) {
-        event.preventDefault()
+        event.preventDefault();
 
-        const formData = new FormData(this)
+        const formData = new FormData(this);
 
-        const id_equipos = document.getElementById('editEquipoId').value.trim()
+        const id_equipos = document.getElementById('editEquipoId').value.trim();
         const foto_equipos = document
             .getElementById('editEquipoPhoto')
-            .value.trim()
+            .value.trim();
         const descripcion_equipos = document
             .getElementById('editEquipoDescripcion')
-            .value.trim()
+            .value.trim();
         const marca_equipos = document
             .getElementById('editEquipoMarca')
-            .value.trim()
+            .value.trim();
         const tipo_equipos = document
             .getElementById('editEquipoTipo')
-            .value.trim()
+            .value.trim();
         const tarifa_dia_equipos = document
             .getElementById('editEquipoTarifa')
-            .value.trim()
+            .value.trim();
 
-        formData.append('id_equipos', id_equipos)
-        formData.append('descripcion_equipos', descripcion_equipos)
-        formData.append('marca_equipos', marca_equipos)
-        formData.append('tipo_equipos', tipo_equipos)
-        formData.append('tarifa_dia_equipos', tarifa_dia_equipos)
+        formData.append('id_equipos', id_equipos);
+        formData.append('descripcion_equipos', descripcion_equipos);
+        formData.append('marca_equipos', marca_equipos);
+        formData.append('tipo_equipos', tipo_equipos);
+        formData.append('tarifa_dia_equipos', tarifa_dia_equipos);
 
         if (foto_equipos) {
-            formData.append('foto_equipos', foto_equipos) // Append the file object directly
+            formData.append('foto_equipos', foto_equipos); // Append the file object directly
         }
 
         try {
@@ -237,19 +253,19 @@ document
                 {
                     method: 'PUT',
                     body: formData,
-                }
-            )
+                },
+            );
 
-            const data = await response.json()
+            const data = await response.json();
 
-            console.log('Equipo actualizado:', data)
+            console.log('Equipo actualizado:', data);
 
-            closeModal()
-            fetchData()
+            closeModal();
+            fetchData();
         } catch (error) {
-            console.error('Error al actualizar equipo:', error)
+            console.error('Error al actualizar equipo:', error);
         }
-    })
+    });
 
 async function editEquipo(
     id_equipos,
@@ -257,80 +273,81 @@ async function editEquipo(
     descripcion_equipos,
     marca_equipos,
     tipo_equipos,
-    tarifa_dia_equipos
+    tarifa_dia_equipos,
 ) {
-    document.getElementById('editEquipoId').value = id_equipos
+    document.getElementById('editEquipoId').value = id_equipos;
 
-    document.getElementById('editEquipoPhoto').value = ''
-    document.getElementById('newPhotoPreview').src = ''
-    document.getElementById('currentPhoto').src = foto_equipos
+    document.getElementById('editEquipoPhoto').value = '';
+    document.getElementById('newPhotoPreview').src = '';
+    document.getElementById('currentPhoto').src = foto_equipos;
 
     document.getElementById('editEquipoDescripcion').value =
-        decodeURIComponent(descripcion_equipos)
+        decodeURIComponent(descripcion_equipos);
     document.getElementById('editEquipoMarca').value =
-        decodeURIComponent(marca_equipos)
+        decodeURIComponent(marca_equipos);
     document.getElementById('editEquipoTipo').value =
-        decodeURIComponent(tipo_equipos)
-    document.getElementById('editEquipoTarifa').value = tarifa_dia_equipos
+        decodeURIComponent(tipo_equipos);
+    document.getElementById('editEquipoTarifa').value = tarifa_dia_equipos;
 
-    document.getElementById('editModal').classList.remove('hidden')
+    document.getElementById('editModal').classList.remove('hidden');
 }
 
 document
     .getElementById('editEquipoPhoto')
     .addEventListener('change', function (event) {
-        const file = event.target.files[0]
+        const file = event.target.files[0];
         if (file) {
-            const reader = new FileReader()
+            const reader = new FileReader();
             reader.onload = function (e) {
-                document.getElementById('newPhotoPreview').src = e.target.result
-            }
-            reader.readAsDataURL(file)
+                document.getElementById('newPhotoPreview').src =
+                    e.target.result;
+            };
+            reader.readAsDataURL(file);
         }
-    })
+    });
 
 // Función para mostrar el modal de confirmación y actualizar la página
 function showConfirmationModal() {
-    const modal = document.getElementById('confirmationModal')
-    modal.classList.remove('hidden')
+    const modal = document.getElementById('confirmationModal');
+    modal.classList.remove('hidden');
 
     // Actualizar la página cuando se cierra el modal
     document
         .getElementById('refreshPageButton')
         .addEventListener('click', function () {
-            location.reload()
-        })
+            location.reload();
+        });
 }
 
 /* ---------------------------------------------------------------- ORDENAR TABLA ----------------------------------------------------------------------------- */
 
 function sortTable(column) {
-    const table = document.querySelector('tbody')
-    const rows = Array.from(table.getElementsByTagName('tr'))
-    const isAscending = table.getAttribute('data-sort-order') === 'asc'
-    table.setAttribute('data-sort-order', isAscending ? 'desc' : 'asc')
+    const table = document.querySelector('tbody');
+    const rows = Array.from(table.getElementsByTagName('tr'));
+    const isAscending = table.getAttribute('data-sort-order') === 'asc';
+    table.setAttribute('data-sort-order', isAscending ? 'desc' : 'asc');
 
     rows.sort((a, b) => {
         const cellA = a
             .getElementsByTagName('td')
-        [column].innerText.toLowerCase()
+            [column].innerText.toLowerCase();
         const cellB = b
             .getElementsByTagName('td')
-        [column].innerText.toLowerCase()
+            [column].innerText.toLowerCase();
 
-        if (cellA < cellB) return isAscending ? -1 : 1
-        if (cellA > cellB) return isAscending ? 1 : -1
-        return 0
-    })
+        if (cellA < cellB) return isAscending ? -1 : 1;
+        if (cellA > cellB) return isAscending ? 1 : -1;
+        return 0;
+    });
 
-    rows.forEach((row) => table.appendChild(row))
+    rows.forEach((row) => table.appendChild(row));
 }
 
 function closeModal() {
-    document.getElementById('editModal').classList.add('hidden')
-    document.getElementById('addModal').classList.add('hidden')
+    document.getElementById('editModal').classList.add('hidden');
+    document.getElementById('addModal').classList.add('hidden');
 }
 
 // Llamar a la función fetchData cuando el DOM esté completamente cargado
 
-document.addEventListener('DOMContentLoaded', fetchData)
+document.addEventListener('DOMContentLoaded', fetchData);
