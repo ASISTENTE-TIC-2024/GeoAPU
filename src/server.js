@@ -709,6 +709,7 @@ app.put(
             'SELECT foto_materiales FROM materiales WHERE id_materiales = ?';
 
         db_con.query(getOldImageQuery, [id_materiales], (err, results) => {
+
             if (err) {
                 return res.status(500).json({ error: err.message });
             }
@@ -808,12 +809,15 @@ app.put(
 
 // selectData - Seleccionar datos de la tabla transportes
 app.get('/selectTransporteData', (_, res) => {
+
     let selectQuery = `SELECT * FROM transportes`;
+
     db_con.query(selectQuery, (error, results) => {
         if (error) throw error;
         console.log('Datos seleccionados:', results);
         return res.json(results); // Devuelve los resultados como JSON
     });
+
 });
 
 app.post(
@@ -886,45 +890,40 @@ app.delete('/deleteTransporte/:id_transportes', (req, res) => {
 // updateData - Actualizar datos de la tabla transportes
 app.put('/updateTransporte/:id_transportes', (req, res) => {
     const { id_transportes } = req.params;
-
     const {
         descripcion_transportes,
-        unidad_transporte,
-        distancia_transporte,
-        precio_unitario_transporte,
+        unidad_transportes,
+        distancia_transportes,
+        precio_unitario_transportes,
     } = req.body;
 
-    db_con.query([id_transportes], (err, results) => {
+    const updateQuery = `
+        UPDATE transportes SET
+            descripcion_transportes = ?,
+            unidad_transportes = ?,
+            distancia_transportes = ?,
+            precio_unitario_transportes = ?
+        WHERE id_transportes = ?`;
+
+    const queryParams = [
+        descripcion_transportes,
+        unidad_transportes,
+        distancia_transportes,
+        precio_unitario_transportes,
+        id_transportes,
+    ];
+
+    db_con.query(updateQuery, queryParams, (err, results) => {
         if (err) {
-            return res.status(500).json({ error: err.message });
+            console.error('Error al actualizar transporte:', err);
+            return res.status(500).json({ error: 'Error al actualizar transporte' });
         }
 
-        let updateQuery;
-        let queryParams;
+        if (results.affectedRows === 0) {
+            return res.status(404).json({ message: 'Transporte no encontrado' });
+        }
 
-        updateQuery = `UPDATE transportes SET
-                                    descripcion_transportes = ?,
-                                    unidad_transportes = ?,
-                                    distancia_transportes = ?,
-                                    precio_unitario_transportes = ?,
-                                WHERE
-                                    id_transportes = ?`;
-        queryParams = [
-            descripcion_transportes,
-            unidad_transporte,
-            distancia_transporte,
-            precio_unitario_transporte,
-        ];
-
-        db_con.query(updateQuery, queryParams, (error, results) => {
-            if (error) {
-                return res.status(500).json({ error: error.message });
-            }
-
-            res.status(200).json({
-                message: 'Transporte actualizado correctamente',
-            });
-        });
+        res.json({ message: 'Transporte actualizado correctamente' });
     });
 });
 

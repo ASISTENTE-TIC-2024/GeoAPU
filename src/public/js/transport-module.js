@@ -22,54 +22,16 @@ async function fetchData() {
                 <td>${transporte.precio_unitario_transportes}</td>
 
                 <td class="flex align-center justify-center h-full w-full mb-2s">
-                    <button class="bg-yellow-500 text-white px-2 py-1 rounded h-[4em] m-1 flex justify-center items-center" onclick="editTransporte(${
-                        transporte.id_transportes
-                    }, '${encodeURIComponent(
-                transporte.descripcion_transportes,
-            )}', '${encodeURIComponent(
-                transporte.unidad_transportes,
-            )}', ${encodeURIComponent(
-                transporte.distancia_transportes,
-            )}, ${encodeURIComponent(transporte.precio_unitario_transportes)})">
+
+                    <button class="bg-gray-700 text-white px-2 py-1 rounded h-[4em] w-1/2 m-1" onclick="editTransporte(${transporte.id_transportes}, '${encodeURIComponent(transporte.descripcion_transportes)}', '${encodeURIComponent(transporte.unidad_transportes)}', ${encodeURIComponent(transporte.distancia_transportes)}, ${encodeURIComponent(transporte.precio_unitario_transportes)})">
                     
-                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24">
-                            <g fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-                                <path stroke-dasharray="20" stroke-dashoffset="20" d="M3 21h18">
-                                    <animate fill="freeze" attributeName="stroke-dashoffset" dur="0.2s" values="20;0" />
-                                </path>
-                                <path stroke-dasharray="48" stroke-dashoffset="48" d="M7 17v-4l10 -10l4 4l-10 10h-4">
-                                    <animate fill="freeze" attributeName="stroke-dashoffset" begin="0.2s" dur="0.6s" values="48;0" />
-                                </path>
-                                <path stroke-dasharray="8" stroke-dashoffset="8" d="M14 6l4 4">
-                                    <animate fill="freeze" attributeName="stroke-dashoffset" begin="0.8s" dur="0.2s" values="8;0" />
-                                </path>
-                            </g>
-                        </svg>
+                        <i class="fa-solid fa-pencil" style="color:rgb(255, 255, 255);"></i>
 
                     </button>
 
-                    <button class="bg-red-500 text-white px-2 py-1 rounded h-[4em] m-1 flex justify-center items-center" onclick="openDeleteModal(${
-                        transporte.id_transportes
-                    }, '${encodeURIComponent(
-                transporte.descripcion_transportes,
-            )}')">
+                    <button class="bg-gray-700 text-white px-2 py-1 rounded h-[4em] w-1/2 m-1" onclick="openDeleteModal(${transporte.id_transportes}, '${encodeURIComponent(transporte.descripcion_transportes,)}')">
                     
-                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24">
-                        <g fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-                            <path stroke-dasharray="64" stroke-dashoffset="64" d="M13 3l6 6v12h-14v-18h8">
-                                <animate fill="freeze" attributeName="stroke-dashoffset" dur="0.6s" values="64;0" />
-                            </path>
-                            <path stroke-dasharray="14" stroke-dashoffset="14" stroke-width="1" d="M12.5 3v5.5h6.5">
-                                <animate fill="freeze" attributeName="stroke-dashoffset" begin="0.7s" dur="0.2s" values="14;0" />
-                            </path>
-                            <path stroke-dasharray="10" stroke-dashoffset="10" d="M9 11l6 6">
-                                <animate fill="freeze" attributeName="stroke-dashoffset" begin="0.9s" dur="0.2s" values="10;0" />
-                            </path>
-                            <path stroke-dasharray="10" stroke-dashoffset="10" d="M15 11l-6 6">
-                                <animate fill="freeze" attributeName="stroke-dashoffset" begin="1.1s" dur="0.2s" values="10;0" />
-                            </path>
-                        </g>
-                    </svg>
+                        <i class="fa-solid fa-user-minus" style="color:rgb(255, 255, 255);"></i>
                     
                     </button>
                 </td>
@@ -172,10 +134,13 @@ function closeDeleteModal() {
 }
 
 async function confirmDelete() {
+
     if (transporteIdToDelete === null) {
+
         console.error(
             'No se especifico un ID para proceder con la eliminación.',
         );
+
         return;
     }
 
@@ -207,58 +172,51 @@ async function confirmDelete() {
 
 /* ---------------------------------------------------------------- EDITAR transporte ----------------------------------------------------------------------------- */
 
-document
-    .getElementById('editTransporteForm')
-    .addEventListener('submit', async function (event) {
-        event.preventDefault();
+document.getElementById('editTransporteForm').addEventListener('submit', async function (event) {
 
-        const formData = new FormData(this);
+    event.preventDefault();
 
-        const id_transportes = document
-            .getElementById('editTransporteId')
-            .value.trim();
+    const id_transportes = document.querySelector('#editTransporteId').value.trim();
+    const descripcion_transportes = document.querySelector('#editTransporteDescripcion').value.trim();
+    const unidad_transportes = document.querySelector('#editTransporteUnidad').value.trim();
+    const distancia_transportes = document.querySelector('#editTransporteDistancia').value.trim();
+    const precio_unitario_transportes = document.querySelector('#editTransportePrecio').value.trim();
 
-        const descripcion_transportes = document
-            .getElementById('editTransporteDescripcion')
-            .value.trim();
-        const unidad_transportes = document
-            .getElementById('editTransporteUnidad')
-            .value.trim();
-        const distancia_transportes = document
-            .getElementById('editTransporteDistancia')
-            .value.trim();
-        const precio_unitario_transportes = document
-            .getElementById('editTransportePrecio')
-            .value.trim();
+    const updatedTransporte = {
+        descripcion_transportes,
+        unidad_transportes,
+        distancia_transportes,
+        precio_unitario_transportes,
+    };
 
-        formData.append('id_transportes', id_transportes);
-        formData.append('descripcion_transportes', descripcion_transportes);
-        formData.append('unidad_transportes', unidad_transportes);
-        formData.append('distancia_transportes', distancia_transportes);
-        formData.append(
-            'precio_unitario_transportes',
-            precio_unitario_transportes,
-        );
+    console.log(id_transportes, updatedTransporte);
 
-        try {
-            const response = await fetch(
-                `http://localhost:5000/updateTransporte/${id_transportes}`,
-                {
-                    method: 'PUT',
-                    body: formData,
-                },
-            );
+    try {
+        const response = await fetch(`http://localhost:5000/updateTransporte/${id_transportes}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(updatedTransporte),
+        });
 
-            const data = await response.json();
+        console.log(response);
 
-            console.log('Actualizado:', data);
-
-            closeModal();
-            fetchData();
-        } catch (error) {
-            console.error('Error al actualizar:', error);
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
         }
-    });
+
+        const data = await response.json();
+
+        console.log('Transporte actualizado:', data);
+
+        closeModal();
+        fetchData();
+
+    } catch (error) {
+        console.error('Error al actualizar el transporte:', error);
+    }
+});
 
 async function editTransporte(
     id_transportes,
@@ -267,14 +225,20 @@ async function editTransporte(
     distancia_transportes,
     precio_unitario_transportes,
 ) {
+
+    console.log(id_transportes, descripcion_transportes, unidad_transportes, distancia_transportes, precio_unitario_transportes);
+
     document.getElementById('editTransporteId').value = id_transportes;
 
     document.getElementById('editTransporteDescripcion').value =
         decodeURIComponent(descripcion_transportes);
+
     document.getElementById('editTransporteUnidad').value =
         decodeURIComponent(unidad_transportes);
+
     document.getElementById('editTransporteDistancia').value =
         decodeURIComponent(distancia_transportes);
+
     document.getElementById('editTransportePrecio').value = decodeURIComponent(
         precio_unitario_transportes,
     );
@@ -284,6 +248,7 @@ async function editTransporte(
 
 // Función para mostrar el modal de confirmación y actualizar la página
 function showConfirmationModal() {
+
     const modal = document.getElementById('confirmationModal');
     modal.classList.remove('hidden');
 
@@ -306,10 +271,10 @@ function sortTable(column) {
     rows.sort((a, b) => {
         const cellA = a
             .getElementsByTagName('td')
-            [column].innerText.toLowerCase();
+        [column].innerText.toLowerCase();
         const cellB = b
             .getElementsByTagName('td')
-            [column].innerText.toLowerCase();
+        [column].innerText.toLowerCase();
 
         if (cellA < cellB) return isAscending ? -1 : 1;
         if (cellA > cellB) return isAscending ? 1 : -1;

@@ -304,23 +304,29 @@ actualizarTablaMateriales();
 document
     .getElementById('dataFormTransporte')
     .addEventListener('submit', function (e) {
+
         e.preventDefault()
 
         let descripcion_transporte =
             document.getElementById('DESCRIPCION TRANSPORTE').value ||
             'SIN DESCRIPCIÓN'
+
         let unidad_transporte =
             document.getElementById('UNIDAD TRANSPORTE').value || 'SIN UNIDAD'
+
         let distancia_transporte =
             document.getElementById('DISTANCIA TRANSPORTE').value || 0
+
         let precio_unitario_transporte =
             parseFloat(
                 document.getElementById('PRECIO UNITARIO TRANSPORTE').value
             ) || 0
+
         let rendimiento_transporte =
             parseFloat(
                 document.getElementById('RENDIMIENTO TRANSPORTE').value
             ) || 0
+
         let valor_unitario_transporte =
             parseFloat(
                 document.getElementById('VALOR UNITARIO TRANSPORTE').value
@@ -360,8 +366,8 @@ function actualizarTablaTransporte() {
         <td>$ ${item.valor_unitario_transporte}</td>
         <td> % </td>
         <td><button class="active:scale-90 transition-transform" onclick="eliminarElementoTransporte(${datosTransporte.indexOf(
-                item
-            )})"><i class="fa-solid fa-trash-can"></i></button></td>`
+            item
+        )})"><i class="fa-solid fa-trash-can"></i></button></td>`
         tbody.appendChild(tr)
     })
 }
@@ -437,7 +443,7 @@ function eliminarElementoManoDeObra(index) {
 /******************************* TOTAL *******************************/
 
 function calcularTotalGeneral() {
-    
+
     // Sumar los valores
     let storedDatosEquipos =
         JSON.parse(localStorage.getItem('datosEquipos')) || []

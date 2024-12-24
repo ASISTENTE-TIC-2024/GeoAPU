@@ -203,4 +203,14 @@ function valorUnitarioMateriales() {
 
 }
 
+function valorUnitarioTransportes() {
+    // Obtener el valor del input
+    const PRECIO_UNITARIO_TRANSPORTES = document.getElementById('PRECIO UNITARIO TRANSPORTE').value;
+    const RENDIMIENTO_TRANSPORTES = document.getElementById('RENDIMIENTO TRANSPORTE').value;
+    const VALOR_UNITARIO_TRANSPORTES = document.getElementById('VALOR UNITARIO TRANSPORTE');
+
+    const valor = RENDIMIENTO_TRANSPORTES * PRECIO_UNITARIO_TRANSPORTES;
+    VALOR_UNITARIO_TRANSPORTES.value = `${valor.toFixed(2)}`;
+}
+
 

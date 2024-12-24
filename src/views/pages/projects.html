@@ -1,1365 +1,830 @@
 <!DOCTYPE html>
 <html lang="en">
-    
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>GeoAPU</title>
-        <link rel="stylesheet" href="build/main.css" />
-        <link rel="stylesheet" href="../../public/css/pagination.css" />
-        <link rel="icon" href="../images/icono geo.ico" type="image/png" />
-        <link
-            href="https://fonts.cdnfonts.com/css/museo-sans-rounded"
-            rel="stylesheet"
-        />
-        <script src="../../middleware/check-auth.js"></script>
-    </head>
 
-    <body style="font-family: 'Museo Sans Rounded', sans-serif">
-        <div class="h-full w-full">
-            <!-- Code block starts -->
-            <!--- more free and premium Tailwind CSS components at https://tailwinduikit.com/ --->
-            <nav
-                role="navigation"
-                class="bg-white shadow xl:block hidden fixed w-full z-50"
-                id="navegador-principal"
-            >
-                <div class="mx-auto container px-6 py-2 xl:py-0">
-                    <div class="flex items-center justify-between">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GeoAPU</title>
+    <link rel="stylesheet" href="build/main.css" />
+    <link rel="stylesheet" href="../../public/css/pagination.css" />
+    <link rel="icon" href="../images/icono geo.ico" type="image/png" />
+    <link href="https://fonts.cdnfonts.com/css/museo-sans-rounded" rel="stylesheet" />
+    <script src="../../middleware/check-auth.js"></script>
+</head>
+
+<body style="font-family: 'Museo Sans Rounded', sans-serif">
+    <div class="h-full w-full">
+        <!-- Code block starts -->
+        <!--- more free and premium Tailwind CSS components at https://tailwinduikit.com/ --->
+        <nav role="navigation" class="bg-white shadow xl:block hidden fixed w-full z-50" id="navegador-principal">
+            <div class="mx-auto container px-6 py-2 xl:py-0">
+                <div class="flex items-center justify-between">
+                    <div class="inset-y-0 left-0 flex items-center xl:hidden">
                         <div
-                            class="inset-y-0 left-0 flex items-center xl:hidden"
-                        >
-                            <div
-                                class="inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-gray-100 focus:outline-none transition duration-150 ease-in-out"
-                            >
-                                <div class="visible xl:hidden">
-                                    <ul
-                                        class="p-2 border-r bg-white absolute rounded left-0 right-0 shadow mt-8 md:mt-8 hidden"
-                                    >
-                                        <li
-                                            class="flex xl:hidden cursor-pointer text-gray-600 text-sm leading-3 tracking-normal mt-2 py-2 hover:text-pink-700 focus:text-pink-700 focus:outline-none"
-                                        >
-                                            <div class="flex items-center">
-                                                <svg
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    class="icon icon-tabler icon-tabler-grid"
-                                                    width="20"
-                                                    height="20"
-                                                    viewBox="0 0 24 24"
-                                                    stroke-width="1.5"
-                                                    stroke="currentColor"
-                                                    fill="none"
-                                                    stroke-linecap="round"
-                                                    stroke-linejoin="round"
-                                                >
-                                                    <path
-                                                        stroke="none"
-                                                        d="M0 0h24v24H0z"
-                                                    ></path>
-                                                    <rect
-                                                        x="4"
-                                                        y="4"
-                                                        width="6"
-                                                        height="6"
-                                                        rx="1"
-                                                    ></rect>
-                                                    <rect
-                                                        x="14"
-                                                        y="4"
-                                                        width="6"
-                                                        height="6"
-                                                        rx="1"
-                                                    ></rect>
-                                                    <rect
-                                                        x="4"
-                                                        y="14"
-                                                        width="6"
-                                                        height="6"
-                                                        rx="1"
-                                                    ></rect>
-                                                    <rect
-                                                        x="14"
-                                                        y="14"
-                                                        width="6"
-                                                        height="6"
-                                                        rx="1"
-                                                    ></rect>
+                            class="inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-gray-100 focus:outline-none transition duration-150 ease-in-out">
+                            <div class="visible xl:hidden">
+                                <ul
+                                    class="p-2 border-r bg-white absolute rounded left-0 right-0 shadow mt-8 md:mt-8 hidden">
+                                    <li
+                                        class="flex xl:hidden cursor-pointer text-gray-600 text-sm leading-3 tracking-normal mt-2 py-2 hover:text-pink-700 focus:text-pink-700 focus:outline-none">
+                                        <div class="flex items-center">
+                                            <svg xmlns="http://www.w3.org/2000/svg"
+                                                class="icon icon-tabler icon-tabler-grid" width="20" height="20"
+                                                viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none"
+                                                stroke-linecap="round" stroke-linejoin="round">
+                                                <path stroke="none" d="M0 0h24v24H0z"></path>
+                                                <rect x="4" y="4" width="6" height="6" rx="1"></rect>
+                                                <rect x="14" y="4" width="6" height="6" rx="1"></rect>
+                                                <rect x="4" y="14" width="6" height="6" rx="1"></rect>
+                                                <rect x="14" y="14" width="6" height="6" rx="1"></rect>
+                                            </svg>
+                                            <span class="ml-2 font-bold">Ofertas Comerciales</span>
+                                        </div>
+                                    </li>
+                                    <li class="flex xl:hidden flex-col cursor-pointer text-gray-600 text-sm leading-3 tracking-normal py-2 hover:text-pink-700 focus:text-pink-700 focus:outline-none flex justify-center"
+                                        onclick="dropdownHandler(this)">
+                                        <div class="flex items-center">
+                                            <svg xmlns="http://www.w3.org/2000/svg"
+                                                class="icon icon-tabler icon-tabler-puzzle" width="20" height="20"
+                                                viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none"
+                                                stroke-linecap="round" stroke-linejoin="round">
+                                                <path stroke="none" d="M0 0h24v24H0z"></path>
+                                                <path
+                                                    d="M4 7h3a1 1 0 0 0 1 -1v-1a2 2 0 0 1 4 0v1a1 1 0 0 0 1 1h3a1 1 0 0 1 1 1v3a1 1 0 0 0 1 1h1a2 2 0 0 1 0 4h-1a1 1 0 0 0 -1 1v3a1 1 0 0 1 -1 1h-3a1 1 0 0 1 -1 -1v-1a2 2 0 0 0 -4 0v1a1 1 0 0 1 -1 1h-3a1 1 0 0 1 -1 -1v-3a1 1 0 0 1 1 -1h1a2 2 0 0 0 0 -4h-1a1 1 0 0 1 -1 -1v-3a1 1 0 0 1 1 -1">
+                                                </path>
+                                            </svg>
+                                            <span class="ml-2 font-bold">Proyectos</span>
+                                        </div>
+                                    </li>
+                                    <li
+                                        class="border-b border-gray-300 flex xl:hidden cursor-pointer text-gray-600 text-sm leading-3 tracking-normal pt-2 pb-4 hover:text-pink-700 flex items-center focus:text-pink-700 focus:outline-none">
+                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                            class="icon icon-tabler icon-tabler-code" width="20" height="20"
+                                            viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none"
+                                            stroke-linecap="round" stroke-linejoin="round">
+                                            <path stroke="none" d="M0 0h24v24H0z"></path>
+                                            <polyline points="7 8 3 12 7 16"></polyline>
+                                            <polyline points="17 8 21 12 17 16"></polyline>
+                                            <line x1="14" y1="4" x2="10" y2="20"></line>
+                                        </svg>
+                                        <span class="ml-2 font-bold">Equipos</span>
+                                    </li>
+                                    <li
+                                        class="border-b border-gray-300 flex xl:hidden cursor-pointer text-gray-600 text-sm leading-3 tracking-normal pt-2 pb-4 hover:text-pink-700 flex items-center focus:text-pink-700 focus:outline-none">
+                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                            class="icon icon-tabler icon-tabler-code" width="20" height="20"
+                                            viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none"
+                                            stroke-linecap="round" stroke-linejoin="round">
+                                            <path stroke="none" d="M0 0h24v24H0z"></path>
+                                            <polyline points="7 8 3 12 7 16"></polyline>
+                                            <polyline points="17 8 21 12 17 16"></polyline>
+                                            <line x1="14" y1="4" x2="10" y2="20"></line>
+                                        </svg>
+                                        <span class="ml-2 font-bold">Materiales</span>
+                                    </li>
+                                    <li
+                                        class="border-b border-gray-300 flex xl:hidden cursor-pointer text-gray-600 text-sm leading-3 tracking-normal pt-2 pb-4 hover:text-pink-700 flex items-center focus:text-pink-700 focus:outline-none">
+                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                            class="icon icon-tabler icon-tabler-code" width="20" height="20"
+                                            viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none"
+                                            stroke-linecap="round" stroke-linejoin="round">
+                                            <path stroke="none" d="M0 0h24v24H0z"></path>
+                                            <polyline points="7 8 3 12 7 16"></polyline>
+                                            <polyline points="17 8 21 12 17 16"></polyline>
+                                            <line x1="14" y1="4" x2="10" y2="20"></line>
+                                        </svg>
+                                        <span class="ml-2 font-bold">Mano de Obra</span>
+                                    </li>
+                                    <li
+                                        class="border-b border-gray-300 flex xl:hidden cursor-pointer text-gray-600 text-sm leading-3 tracking-normal pt-2 pb-4 hover:text-pink-700 flex items-center focus:text-pink-700 focus:outline-none">
+                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                            class="icon icon-tabler icon-tabler-code" width="20" height="20"
+                                            viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none"
+                                            stroke-linecap="round" stroke-linejoin="round">
+                                            <path stroke="none" d="M0 0h24v24H0z"></path>
+                                            <polyline points="7 8 3 12 7 16"></polyline>
+                                            <polyline points="17 8 21 12 17 16"></polyline>
+                                            <line x1="14" y1="4" x2="10" y2="20"></line>
+                                        </svg>
+                                        <span class="ml-2 font-bold">AIU y IVA</span>
+                                    </li>
+                                    <li
+                                        class="border-b border-gray-300 flex xl:hidden cursor-pointer text-gray-600 text-sm leading-3 tracking-normal pt-2 pb-4 hover:text-pink-700 flex items-center focus:text-pink-700 focus:outline-none">
+                                        <span class="ml-2 font-bold">Transporte</span>
+                                    </li>
+                                    <li
+                                        class="cursor-pointer text-gray-600 text-sm leading-3 tracking-normal mt-2 py-2 hover:text-pink-700 flex items-center focus:text-pink-700 focus:outline-none">
+                                        <div class="flex items-center">
+                                            <div
+                                                class="w-12 cursor-pointer flex text-sm border-2 border-transparent rounded focus:outline-none focus:border-white transition duration-150 ease-in-out">
+                                                <img class="rounded h-10 w-10 object-cover"
+                                                    src="https://tuk-cdn.s3.amazonaws.com/assets/components/horizontal_navigation/hn_1.png"
+                                                    alt="logo" />
+                                            </div>
+                                            <p class="text-sm ml-2 cursor-pointer">
+                                                Jesus Cuadro
+                                            </p>
+                                            <div class="sm:ml-2 text-white relative">
+                                                <svg xmlns="http://www.w3.org/2000/svg"
+                                                    class="icon icon-tabler icon-tabler-chevron-down cursor-pointer"
+                                                    width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5"
+                                                    stroke="currentColor" fill="none" stroke-linecap="round"
+                                                    stroke-linejoin="round">
+                                                    <path stroke="none" d="M0 0h24v24H0z"></path>
+                                                    <polyline points="6 9 12 15 18 9"></polyline>
                                                 </svg>
-                                                <span class="ml-2 font-bold"
-                                                    >Ofertas Comerciales</span
-                                                >
                                             </div>
-                                        </li>
-                                        <li
-                                            class="flex xl:hidden flex-col cursor-pointer text-gray-600 text-sm leading-3 tracking-normal py-2 hover:text-pink-700 focus:text-pink-700 focus:outline-none flex justify-center"
-                                            onclick="dropdownHandler(this)"
-                                        >
-                                            <div class="flex items-center">
-                                                <svg
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    class="icon icon-tabler icon-tabler-puzzle"
-                                                    width="20"
-                                                    height="20"
-                                                    viewBox="0 0 24 24"
-                                                    stroke-width="1.5"
-                                                    stroke="currentColor"
-                                                    fill="none"
-                                                    stroke-linecap="round"
-                                                    stroke-linejoin="round"
-                                                >
-                                                    <path
-                                                        stroke="none"
-                                                        d="M0 0h24v24H0z"
-                                                    ></path>
-                                                    <path
-                                                        d="M4 7h3a1 1 0 0 0 1 -1v-1a2 2 0 0 1 4 0v1a1 1 0 0 0 1 1h3a1 1 0 0 1 1 1v3a1 1 0 0 0 1 1h1a2 2 0 0 1 0 4h-1a1 1 0 0 0 -1 1v3a1 1 0 0 1 -1 1h-3a1 1 0 0 1 -1 -1v-1a2 2 0 0 0 -4 0v1a1 1 0 0 1 -1 1h-3a1 1 0 0 1 -1 -1v-3a1 1 0 0 1 1 -1h1a2 2 0 0 0 0 -4h-1a1 1 0 0 1 -1 -1v-3a1 1 0 0 1 1 -1"
-                                                    ></path>
-                                                </svg>
-                                                <span class="ml-2 font-bold"
-                                                    >Proyectos</span
-                                                >
-                                            </div>
-                                        </li>
-                                        <li
-                                            class="border-b border-gray-300 flex xl:hidden cursor-pointer text-gray-600 text-sm leading-3 tracking-normal pt-2 pb-4 hover:text-pink-700 flex items-center focus:text-pink-700 focus:outline-none"
-                                        >
-                                            <svg
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                class="icon icon-tabler icon-tabler-code"
-                                                width="20"
-                                                height="20"
-                                                viewBox="0 0 24 24"
-                                                stroke-width="1.5"
-                                                stroke="currentColor"
-                                                fill="none"
-                                                stroke-linecap="round"
-                                                stroke-linejoin="round"
-                                            >
-                                                <path
-                                                    stroke="none"
-                                                    d="M0 0h24v24H0z"
-                                                ></path>
-                                                <polyline
-                                                    points="7 8 3 12 7 16"
-                                                ></polyline>
-                                                <polyline
-                                                    points="17 8 21 12 17 16"
-                                                ></polyline>
-                                                <line
-                                                    x1="14"
-                                                    y1="4"
-                                                    x2="10"
-                                                    y2="20"
-                                                ></line>
+                                        </div>
+                                    </li>
+                                    <li
+                                        class="cursor-pointer text-gray-600 text-sm leading-3 tracking-normal py-2 hover:text-pink-700 focus:text-pink-700 focus:outline-none">
+                                        <div class="flex items-center">
+                                            <svg xmlns="http://www.w3.org/2000/svg"
+                                                class="icon icon-tabler icon-tabler-user" width="20" height="20"
+                                                viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none"
+                                                stroke-linecap="round" stroke-linejoin="round">
+                                                <path stroke="none" d="M0 0h24v24H0z" />
+                                                <circle cx="12" cy="7" r="4" />
+                                                <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
                                             </svg>
-                                            <span class="ml-2 font-bold"
-                                                >Equipos</span
-                                            >
-                                        </li>
-                                        <li
-                                            class="border-b border-gray-300 flex xl:hidden cursor-pointer text-gray-600 text-sm leading-3 tracking-normal pt-2 pb-4 hover:text-pink-700 flex items-center focus:text-pink-700 focus:outline-none"
-                                        >
-                                            <svg
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                class="icon icon-tabler icon-tabler-code"
-                                                width="20"
-                                                height="20"
-                                                viewBox="0 0 24 24"
-                                                stroke-width="1.5"
-                                                stroke="currentColor"
-                                                fill="none"
-                                                stroke-linecap="round"
-                                                stroke-linejoin="round"
-                                            >
-                                                <path
-                                                    stroke="none"
-                                                    d="M0 0h24v24H0z"
-                                                ></path>
-                                                <polyline
-                                                    points="7 8 3 12 7 16"
-                                                ></polyline>
-                                                <polyline
-                                                    points="17 8 21 12 17 16"
-                                                ></polyline>
-                                                <line
-                                                    x1="14"
-                                                    y1="4"
-                                                    x2="10"
-                                                    y2="20"
-                                                ></line>
-                                            </svg>
-                                            <span class="ml-2 font-bold"
-                                                >Materiales</span
-                                            >
-                                        </li>
-                                        <li
-                                            class="border-b border-gray-300 flex xl:hidden cursor-pointer text-gray-600 text-sm leading-3 tracking-normal pt-2 pb-4 hover:text-pink-700 flex items-center focus:text-pink-700 focus:outline-none"
-                                        >
-                                            <svg
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                class="icon icon-tabler icon-tabler-code"
-                                                width="20"
-                                                height="20"
-                                                viewBox="0 0 24 24"
-                                                stroke-width="1.5"
-                                                stroke="currentColor"
-                                                fill="none"
-                                                stroke-linecap="round"
-                                                stroke-linejoin="round"
-                                            >
-                                                <path
-                                                    stroke="none"
-                                                    d="M0 0h24v24H0z"
-                                                ></path>
-                                                <polyline
-                                                    points="7 8 3 12 7 16"
-                                                ></polyline>
-                                                <polyline
-                                                    points="17 8 21 12 17 16"
-                                                ></polyline>
-                                                <line
-                                                    x1="14"
-                                                    y1="4"
-                                                    x2="10"
-                                                    y2="20"
-                                                ></line>
-                                            </svg>
-                                            <span class="ml-2 font-bold"
-                                                >Mano de Obra</span
-                                            >
-                                        </li>
-                                        <li
-                                            class="border-b border-gray-300 flex xl:hidden cursor-pointer text-gray-600 text-sm leading-3 tracking-normal pt-2 pb-4 hover:text-pink-700 flex items-center focus:text-pink-700 focus:outline-none"
-                                        >
-                                            <svg
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                class="icon icon-tabler icon-tabler-code"
-                                                width="20"
-                                                height="20"
-                                                viewBox="0 0 24 24"
-                                                stroke-width="1.5"
-                                                stroke="currentColor"
-                                                fill="none"
-                                                stroke-linecap="round"
-                                                stroke-linejoin="round"
-                                            >
-                                                <path
-                                                    stroke="none"
-                                                    d="M0 0h24v24H0z"
-                                                ></path>
-                                                <polyline
-                                                    points="7 8 3 12 7 16"
-                                                ></polyline>
-                                                <polyline
-                                                    points="17 8 21 12 17 16"
-                                                ></polyline>
-                                                <line
-                                                    x1="14"
-                                                    y1="4"
-                                                    x2="10"
-                                                    y2="20"
-                                                ></line>
-                                            </svg>
-                                            <span class="ml-2 font-bold"
-                                                >AIU y IVA</span
-                                            >
-                                        </li>
-                                        <li
-                                            class="border-b border-gray-300 flex xl:hidden cursor-pointer text-gray-600 text-sm leading-3 tracking-normal pt-2 pb-4 hover:text-pink-700 flex items-center focus:text-pink-700 focus:outline-none"
-                                        >
-                                            <span class="ml-2 font-bold"
-                                                >Transporte</span
-                                            >
-                                        </li>
-                                        <li
-                                            class="cursor-pointer text-gray-600 text-sm leading-3 tracking-normal mt-2 py-2 hover:text-pink-700 flex items-center focus:text-pink-700 focus:outline-none"
-                                        >
-                                            <div class="flex items-center">
-                                                <div
-                                                    class="w-12 cursor-pointer flex text-sm border-2 border-transparent rounded focus:outline-none focus:border-white transition duration-150 ease-in-out"
-                                                >
-                                                    <img
-                                                        class="rounded h-10 w-10 object-cover"
-                                                        src="https://tuk-cdn.s3.amazonaws.com/assets/components/horizontal_navigation/hn_1.png"
-                                                        alt="logo"
-                                                    />
-                                                </div>
-                                                <p
-                                                    class="text-sm ml-2 cursor-pointer"
-                                                >
-                                                    Jesus Cuadro
-                                                </p>
-                                                <div
-                                                    class="sm:ml-2 text-white relative"
-                                                >
-                                                    <svg
-                                                        xmlns="http://www.w3.org/2000/svg"
-                                                        class="icon icon-tabler icon-tabler-chevron-down cursor-pointer"
-                                                        width="20"
-                                                        height="20"
-                                                        viewBox="0 0 24 24"
-                                                        stroke-width="1.5"
-                                                        stroke="currentColor"
-                                                        fill="none"
-                                                        stroke-linecap="round"
-                                                        stroke-linejoin="round"
-                                                    >
-                                                        <path
-                                                            stroke="none"
-                                                            d="M0 0h24v24H0z"
-                                                        ></path>
-                                                        <polyline
-                                                            points="6 9 12 15 18 9"
-                                                        ></polyline>
-                                                    </svg>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li
-                                            class="cursor-pointer text-gray-600 text-sm leading-3 tracking-normal py-2 hover:text-pink-700 focus:text-pink-700 focus:outline-none"
-                                        >
-                                            <div class="flex items-center">
-                                                <svg
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    class="icon icon-tabler icon-tabler-user"
-                                                    width="20"
-                                                    height="20"
-                                                    viewBox="0 0 24 24"
-                                                    stroke-width="1.5"
-                                                    stroke="currentColor"
-                                                    fill="none"
-                                                    stroke-linecap="round"
-                                                    stroke-linejoin="round"
-                                                >
-                                                    <path
-                                                        stroke="none"
-                                                        d="M0 0h24v24H0z"
-                                                    />
-                                                    <circle
-                                                        cx="12"
-                                                        cy="7"
-                                                        r="4"
-                                                    />
-                                                    <path
-                                                        d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"
-                                                    />
-                                                </svg>
-                                                <span class="ml-2">Perfil</span>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                    <svg
-                                        onclick="MenuHandler(this,true)"
-                                        aria-haspopup="true"
-                                        aria-label="Main Menu"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        class="show-m-menu icon icon-tabler icon-tabler-menu"
-                                        width="28"
-                                        height="28"
-                                        viewBox="0 0 24 24"
-                                        stroke-width="1.5"
-                                        stroke="currentColor"
-                                        fill="none"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                    >
-                                        <path
-                                            stroke="none"
-                                            d="M0 0h24v24H0z"
-                                        ></path>
-                                        <line
-                                            x1="4"
-                                            y1="8"
-                                            x2="20"
-                                            y2="8"
-                                        ></line>
-                                        <line
-                                            x1="4"
-                                            y1="16"
-                                            x2="20"
-                                            y2="16"
-                                        ></line>
-                                    </svg>
-                                </div>
-                                <div
-                                    class="hidden close-m-menu text-gray-700"
-                                    onclick="MenuHandler(this,false)"
-                                >
-                                    <svg
-                                        aria-label="Close"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        width="24"
-                                        height="24"
-                                        viewBox="0 0 24 24"
-                                        stroke-width="1.5"
-                                        stroke="currentColor"
-                                        fill="none"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                    >
-                                        <path stroke="none" d="M0 0h24v24H0z" />
-                                        <line x1="18" y1="6" x2="6" y2="18" />
-                                        <line x1="6" y1="6" x2="18" y2="18" />
-                                    </svg>
-                                </div>
+                                            <span class="ml-2">Perfil</span>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <svg onclick="MenuHandler(this,true)" aria-haspopup="true" aria-label="Main Menu"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    class="show-m-menu icon icon-tabler icon-tabler-menu" width="28" height="28"
+                                    viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <path stroke="none" d="M0 0h24v24H0z"></path>
+                                    <line x1="4" y1="8" x2="20" y2="8"></line>
+                                    <line x1="4" y1="16" x2="20" y2="16"></line>
+                                </svg>
+                            </div>
+                            <div class="hidden close-m-menu text-gray-700" onclick="MenuHandler(this,false)">
+                                <svg aria-label="Close" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                    viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <path stroke="none" d="M0 0h24v24H0z" />
+                                    <line x1="18" y1="6" x2="6" y2="18" />
+                                    <line x1="6" y1="6" x2="18" y2="18" />
+                                </svg>
                             </div>
                         </div>
-                        <button
-                            class="focus:outline-none rounded-md flex w-full sm:w-auto items-center sm:items-stretch justify-end sm:justify-start"
-                            onclick="window.location.href='./index.html'"
-                        >
-                            <div class="flex items-center">
-                                <img
-                                    class="h-15 w-20"
-                                    src="https://i.imgur.com/xQhZRWX.png"
-                                    alt="logo"
-                                />
-                            </div>
-                        </button>
-                        <div class="flex">
-                            <div class="hidden xl:flex md:mr-6 xl:mr-16">
-                                <a
-                                    href="javascript: void(0)"
-                                    class="focus:text-pink-700 border-b-2 border-transparent focus:border-pink-700 flex px-5 items-center py-6 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none transition duration-150 ease-in-out"
-                                    style="text-align: center"
-                                >
-                                    Ofertas Comerciales
-                                </a>
-                                <a
-                                    href="javascript: void(0)"
-                                    class="focus:text-pink-700 border-b-2 border-transparent focus:border-pink-700 flex px-5 items-center py-6 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none transition duration-150 ease-in-out"
-                                    style="text-align: center"
-                                >
-                                    Proyectos
-                                </a>
-                                <a
-                                    href="javascript: void(0)"
-                                    class="focus:text-pink-700 border-b-2 border-transparent focus:border-pink-700 flex px-5 items-center py-6 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none transition duration-150 ease-in-out"
-                                    style="text-align: center"
-                                >
-                                    Equipos
-                                </a>
-                                <a
-                                    href="javascript: void(0)"
-                                    class="focus:text-pink-700 border-b-2 border-transparent focus:border-pink-700 flex px-5 items-center py-6 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none transition duration-150 ease-in-out"
-                                    style="text-align: center"
-                                >
-                                    Materiales
-                                </a>
-                                <a
-                                    href="javascript: void(0)"
-                                    class="focus:text-pink-700 border-b-2 border-transparent focus:border-pink-700 flex px-5 items-center py-6 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none transition duration-150 ease-in-out"
-                                    style="text-align: center"
-                                >
-                                    Mano de Obra
-                                </a>
-                                <a
-                                    href="javascript: void(0)"
-                                    class="focus:text-pink-700 border-b-2 border-transparent focus:border-pink-700 flex px-5 items-center py-6 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none transition duration-150 ease-in-out"
-                                    style="text-align: center"
-                                >
-                                    AIU y IVA
-                                </a>
-                                <a
-                                    href="javascript: void(0)"
-                                    class="focus:text-pink-700 border-b-2 border-transparent focus:border-pink-700 flex px-5 items-center py-6 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none transition duration-150 ease-in-out"
-                                    style="text-align: center"
-                                >
-                                    Transporte
-                                </a>
-                            </div>
-                            <div class="hidden xl:flex items-center">
-                                <div class="relative md:mr-6 my-2">
+                    </div>
+                    <button
+                        class="focus:outline-none rounded-md flex w-full sm:w-auto items-center sm:items-stretch justify-end sm:justify-start"
+                        onclick="window.location.href='./index.html'">
+                        <div class="flex items-center">
+                            <img class="h-15 w-20" src="https://i.imgur.com/xQhZRWX.png" alt="logo" />
+                        </div>
+                    </button>
+                    <div class="flex">
+                        <div class="hidden xl:flex md:mr-6 xl:mr-16">
+                            <a href="javascript: void(0)"
+                                class="focus:text-pink-700 border-b-2 border-transparent focus:border-pink-700 flex px-5 items-center py-6 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none transition duration-150 ease-in-out"
+                                style="text-align: center">
+                                Ofertas Comerciales
+                            </a>
+                            <a href="javascript: void(0)"
+                                class="focus:text-pink-700 border-b-2 border-transparent focus:border-pink-700 flex px-5 items-center py-6 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none transition duration-150 ease-in-out"
+                                style="text-align: center">
+                                Proyectos
+                            </a>
+                            <a href="javascript: void(0)"
+                                class="focus:text-pink-700 border-b-2 border-transparent focus:border-pink-700 flex px-5 items-center py-6 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none transition duration-150 ease-in-out"
+                                style="text-align: center">
+                                Equipos
+                            </a>
+                            <a href="javascript: void(0)"
+                                class="focus:text-pink-700 border-b-2 border-transparent focus:border-pink-700 flex px-5 items-center py-6 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none transition duration-150 ease-in-out"
+                                style="text-align: center">
+                                Materiales
+                            </a>
+                            <a href="javascript: void(0)"
+                                class="focus:text-pink-700 border-b-2 border-transparent focus:border-pink-700 flex px-5 items-center py-6 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none transition duration-150 ease-in-out"
+                                style="text-align: center">
+                                Mano de Obra
+                            </a>
+                            <a href="javascript: void(0)"
+                                class="focus:text-pink-700 border-b-2 border-transparent focus:border-pink-700 flex px-5 items-center py-6 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none transition duration-150 ease-in-out"
+                                style="text-align: center">
+                                AIU y IVA
+                            </a>
+                            <a href="javascript: void(0)"
+                                class="focus:text-pink-700 border-b-2 border-transparent focus:border-pink-700 flex px-5 items-center py-6 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none transition duration-150 ease-in-out"
+                                style="text-align: center">
+                                Transporte
+                            </a>
+                        </div>
+                        <div class="hidden xl:flex items-center">
+                            <div class="relative md:mr-6 my-2">
+                                <a href="./users-module.html">
                                     <button
-                                        class="focus:ring-2 focus:ring-offset-2 focus:ring-pink-700 focus:text-pink-700 focus:outline-none bg-gray-100 border-gray-300 border transition duration-150 ease-in-out hover:bg-gray-300 rounded text-gray-600 px-5 py-2 text-xs"
-                                    >
+                                        class="focus:ring-2 focus:ring-offset-2 focus:ring-pink-700 focus:text-pink-700 focus:outline-none bg-gray-100 border-gray-300 border transition duration-150 ease-in-out hover:bg-gray-300 rounded text-gray-600 px-5 py-2 text-xs">
                                         Usuarios
                                     </button>
-                                </div>
-                                <div class="ml-6 relative">
-                                    <button
-                                        aria-label="dropdown"
-                                        class="focus:outline-none border-b-2 border-transparent focus:border-pink-700 py-3 focus:text-pink-700 text-gray-600 hover:text-pink-700 flex items-center relative"
-                                        onclick="dropdownHandler(this)"
-                                    >
-                                        <ul
-                                            class="p-2 w-40 border-r bg-white absolute rounded right-0 shadow top-0 mt-16 hidden"
-                                        >
-                                            <li
-                                                class="cursor-pointer text-gray-600 text-sm leading-3 tracking-normal py-2 hover:text-pink-700 focus:text-pink-700 focus:outline-none"
-                                            >
-                                                <a
-                                                    href=""
-                                                    class="focus:underline focus:text-pink-700 focus:outline-none flex items-center"
-                                                >
-                                                    <svg
-                                                        xmlns="http://www.w3.org/2000/svg"
-                                                        class="icon icon-tabler icon-tabler-user"
-                                                        width="20"
-                                                        height="20"
-                                                        viewBox="0 0 24 24"
-                                                        stroke-width="1.5"
-                                                        stroke="currentColor"
-                                                        fill="none"
-                                                        stroke-linecap="round"
-                                                        stroke-linejoin="round"
-                                                    >
-                                                        <path
-                                                            stroke="none"
-                                                            d="M0 0h24v24H0z"
-                                                        />
-                                                        <circle
-                                                            cx="12"
-                                                            cy="7"
-                                                            r="4"
-                                                        />
-                                                        <path
-                                                            d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"
-                                                        />
-                                                    </svg>
-                                                    <span class="ml-2"
-                                                        >Mi Perfil</span
-                                                    >
-                                                </a>
-                                            </li>
-                                            <li
-                                                class="cursor-pointer text-gray-600 text-sm leading-3 tracking-normal py-2 hover:text-pink-700 focus:text-pink-700 focus:outline-none"
-                                            >
-                                                <a
-                                                    href=""
-                                                    class="focus:underline focus:text-pink-700 focus:outline-none flex items-center"
-                                                    onclick="logout()"
-                                                >
-                                                    <i
-                                                        class="fas fa-sign-out-alt"
-                                                    ></i>
-                                                    <span class="ml-2"
-                                                        >Cerrar Sesión</span
-                                                    >
-                                                </a>
-                                            </li>
-                                        </ul>
-                                        <div
-                                            class="cursor-pointer flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-white transition duration-150 ease-in-out"
-                                        >
-                                            <img
-                                                class="rounded-full h-10 w-10 object-cover"
-                                                src=""
-                                                alt="foto de perfil"
-                                                id="userPhoto"
-                                                class="user-photo"
-                                            />
-                                        </div>
-                                        <div class="ml-2">
-                                            <svg
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                class="icon icon-tabler icon-tabler-chevron-down cursor-pointer"
-                                                width="20"
-                                                height="20"
-                                                viewBox="0 0 24 24"
-                                                stroke-width="1.5"
-                                                stroke="currentColor"
-                                                fill="none"
-                                                stroke-linecap="round"
-                                                stroke-linejoin="round"
-                                            >
-                                                <path
-                                                    stroke="none"
-                                                    d="M0 0h24v24H0z"
-                                                ></path>
-                                                <polyline
-                                                    points="6 9 12 15 18 9"
-                                                ></polyline>
-                                            </svg>
-                                        </div>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </nav>
-            <nav>
-                <div
-                    class="py-4 px-6 w-full flex xl:hidden justify-between items-center bg-white fixed top-0 z-40"
-                >
-                    <div
-                        aria-label="logo"
-                        role="img"
-                        tabindex="0"
-                        class="focus:outline-none w-24"
-                    >
-                        <a href="./index.html">
-                            <img
-                                class="h-10 w-15"
-                                src="https://i.imgur.com/xQhZRWX.png"
-                                alt="logo"
-                            />
-                        </a>
-                    </div>
-                    <div class="flex items-center">
-                        <div class="relative mr-6">
-                            <button
-                                class="focus:ring-2 focus:ring-offset-2 focus:ring-pink-700 focus:text-pink-700 focus:outline-none bg-gray-100 border-gray-300 border transition duration-150 ease-in-out hover:bg-gray-300 rounded text-gray-600 px-5 py-2 text-xs"
-                            >
-                                Usuarios
-                            </button>
-                        </div>
-                        <button
-                            id="menu"
-                            aria-label="open menu"
-                            class="focus:outline-none focus:ring-2 focus:ring-gray-600 rounded-md text-gray-800"
-                            onclick="sidebarHandler(true)"
-                        >
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                class="icon icon-tabler icon-tabler-menu-2"
-                                width="24"
-                                height="24"
-                                viewBox="0 0 24 24"
-                                stroke-width="1.5"
-                                stroke="currentColor"
-                                fill="none"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                            >
-                                <path
-                                    stroke="none"
-                                    d="M0 0h24v24H0z"
-                                    fill="none"
-                                />
-                                <line x1="4" y1="6" x2="20" y2="6" />
-                                <line x1="4" y1="12" x2="20" y2="12" />
-                                <line x1="4" y1="18" x2="20" y2="18" />
-                            </svg>
-                        </button>
-                    </div>
-                </div>
-                <!--Mobile responsive sidebar-->
-                <div
-                    class="absolute w-full h-full transform -translate-x-full z-40 xl:hidden"
-                    style="position: fixed"
-                    id="mobile-nav"
-                >
-                    <div
-                        class="bg-gray-800 opacity-50 w-full h-full"
-                        onclick="sidebarHandler(false)"
-                    ></div>
-                    <div
-                        class="w-64 z-40 fixed overflow-y-auto z-40 top-0 bg-white shadow h-full flex-col justify-between xl:hidden pb-4 transition duration-150 ease-in-out"
-                    >
-                        <div class="px-6 h-full">
-                            <div
-                                class="flex flex-col justify-between h-full w-full"
-                            >
-                                <div>
-                                    <div
-                                        class="mt-6 flex w-full items-center justify-between"
-                                    >
-                                        <div
-                                            class="flex items-center justify-between w-full"
-                                        >
-                                            <div class="flex items-center">
-                                                <a href="./index.html">
-                                                    <img
-                                                        class="h-10 w-15"
-                                                        src="https://i.imgur.com/xQhZRWX.png"
-                                                        alt="logo"
-                                                    />
-                                                </a>
-                                                <p
-                                                    tabindex="0"
-                                                    class="focus:outline-none text-base md:text-2xl text-gray-800 ml-3"
-                                                >
-                                                    GeoAPU
-                                                </p>
-                                            </div>
-                                            <button
-                                                id="cross"
-                                                aria-label="close menu"
-                                                class="focus:outline-none focus:ring-2 rounded-md text-gray-800"
-                                                onclick="sidebarHandler(false)"
-                                            >
-                                                <svg
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    class="icon icon-tabler icon-tabler-x"
-                                                    width="24"
-                                                    height="24"
-                                                    viewBox="0 0 24 24"
-                                                    stroke-width="1.5"
-                                                    stroke="currentColor"
-                                                    fill="none"
-                                                    stroke-linecap="round"
-                                                    stroke-linejoin="round"
-                                                >
-                                                    <path
-                                                        stroke="none"
-                                                        d="M0 0h24v24H0z"
-                                                    ></path>
-                                                    <line
-                                                        x1="18"
-                                                        y1="6"
-                                                        x2="6"
-                                                        y2="18"
-                                                    ></line>
-                                                    <line
-                                                        x1="6"
-                                                        y1="6"
-                                                        x2="18"
-                                                        y2="18"
-                                                    ></line>
-                                                </svg>
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <ul class="f-m-m">
-                                        <li>
-                                            <a class="cursor-pointer">
-                                                <div
-                                                    class="text-gray-800 pt-10"
-                                                >
-                                                    <div
-                                                        class="flex items-center"
-                                                    >
-                                                        <p
-                                                            tabindex="0"
-                                                            class="focus:outline-none focus:text-pink-600 text-gray-800 xl:text-base md:text-2xl text-base ml-3"
-                                                        >
-                                                            Ofertas Comerciales
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="cursor-pointer">
-                                                <div class="text-gray-800 pt-8">
-                                                    <div
-                                                        class="flex items-center justify-between"
-                                                    >
-                                                        <div
-                                                            class="flex items-center"
-                                                        >
-                                                            <p
-                                                                tabindex="0"
-                                                                class="focus:outline-none focus:text-pink-600 text-gray-800 xl:text-base md:text-2xl text-base ml-3"
-                                                            >
-                                                                Proyectos
-                                                            </p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </li>
+                                </a>
 
-                                        <li>
-                                            <a class="cursor-pointer">
-                                                <div
-                                                    class="text-gray-800 pt-10"
-                                                >
-                                                    <div
-                                                        class="flex items-center"
-                                                    >
-                                                        <p
-                                                            tabindex="0"
-                                                            class="focus:outline-none focus:text-pink-600 text-gray-800 xl:text-base md:text-2xl text-base ml-3"
-                                                        >
-                                                            Equipos
-                                                        </p>
-                                                    </div>
-                                                </div>
+                            </div>
+                            <div class="ml-6 relative">
+                                <button aria-label="dropdown"
+                                    class="focus:outline-none border-b-2 border-transparent focus:border-pink-700 py-3 focus:text-pink-700 text-gray-600 hover:text-pink-700 flex items-center relative"
+                                    onclick="dropdownHandler(this)">
+                                    <ul
+                                        class="p-2 w-40 border-r bg-white absolute rounded right-0 shadow top-0 mt-16 hidden">
+                                        <li
+                                            class="cursor-pointer text-gray-600 text-sm leading-3 tracking-normal py-2 hover:text-pink-700 focus:text-pink-700 focus:outline-none">
+                                            <a href=""
+                                                class="focus:underline focus:text-pink-700 focus:outline-none flex items-center">
+                                                <svg xmlns="http://www.w3.org/2000/svg"
+                                                    class="icon icon-tabler icon-tabler-user" width="20" height="20"
+                                                    viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                                                    fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                    <path stroke="none" d="M0 0h24v24H0z" />
+                                                    <circle cx="12" cy="7" r="4" />
+                                                    <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+                                                </svg>
+                                                <span class="ml-2">Mi Perfil</span>
                                             </a>
                                         </li>
-                                        <li>
-                                            <a class="cursor-pointer">
-                                                <div
-                                                    class="text-gray-800 pt-10"
-                                                >
-                                                    <div
-                                                        class="flex items-center"
-                                                    >
-                                                        <p
-                                                            tabindex="0"
-                                                            class="focus:outline-none focus:text-pink-600 text-gray-800 xl:text-base md:text-2xl text-base ml-3"
-                                                        >
-                                                            Materiales
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="cursor-pointer">
-                                                <div
-                                                    class="text-gray-800 pt-10"
-                                                >
-                                                    <div
-                                                        class="flex items-center"
-                                                    >
-                                                        <p
-                                                            tabindex="0"
-                                                            class="focus:outline-none focus:text-pink-600 text-gray-800 xl:text-base md:text-2xl text-base ml-3"
-                                                        >
-                                                            Mano de Obra
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="cursor-pointer">
-                                                <div
-                                                    class="text-gray-800 pt-10"
-                                                >
-                                                    <div
-                                                        class="flex items-center"
-                                                    >
-                                                        <p
-                                                            tabindex="0"
-                                                            class="focus:outline-none focus:text-pink-600 text-gray-800 xl:text-base md:text-2xl text-base ml-3"
-                                                        >
-                                                            AIU y IVA
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="cursor-pointer">
-                                                <div
-                                                    class="text-gray-800 pt-10"
-                                                >
-                                                    <div
-                                                        class="flex items-center"
-                                                    >
-                                                        <p
-                                                            tabindex="0"
-                                                            class="focus:outline-none focus:text-pink-600 text-gray-800 xl:text-base md:text-2xl text-base ml-3"
-                                                        >
-                                                            Transporte
-                                                        </p>
-                                                    </div>
-                                                </div>
+                                        <li
+                                            class="cursor-pointer text-gray-600 text-sm leading-3 tracking-normal py-2 hover:text-pink-700 focus:text-pink-700 focus:outline-none">
+                                            <a href=""
+                                                class="focus:underline focus:text-pink-700 focus:outline-none flex items-center"
+                                                onclick="logout()">
+                                                <i class="fas fa-sign-out-alt"></i>
+                                                <span class="ml-2">Cerrar Sesión</span>
                                             </a>
                                         </li>
                                     </ul>
-                                </div>
-                                <div class="w-full pt-4">
-                                    <div class="border-t border-gray-300">
-                                        <div
-                                            class="w-full flex items-center justify-between pt-1"
-                                        >
-                                            <div class="flex items-center">
-                                                <img
-                                                    alt="foto de perfil"
-                                                    src=""
-                                                    tabindex="0"
-                                                    class="focus:outline-none w-8 h-8 rounded-md"
-                                                    id="mobileUserPhoto"
-                                                />
-                                                <p
-                                                    tabindex="0"
-                                                    class="focus:outline-none text-gray-800 text-base leading-4 ml-2"
-                                                    id="mobileUserName"
-                                                ></p>
-                                            </div>
-                                            <ul class="flex">
-                                                <li
-                                                    class="cursor-pointer text-gray-800 pt-5 pb-3 pl-3"
-                                                >
-                                                    <div
-                                                        tabindex="0"
-                                                        class="focus:outline-none focus:text-pink-600 w-6 h-6 md:w-8 md:h-8"
-                                                    >
-                                                        <svg
-                                                            xmlns="http://www.w3.org/2000/svg"
-                                                            class="icon icon-tabler icon-tabler-user"
-                                                            width="20"
-                                                            height="20"
-                                                            viewBox="0 0 24 24"
-                                                            stroke-width="1.5"
-                                                            stroke="currentColor"
-                                                            fill="none"
-                                                            stroke-linecap="round"
-                                                            stroke-linejoin="round"
-                                                        >
-                                                            <path
-                                                                stroke="none"
-                                                                d="M0 0h24v24H0z"
-                                                            />
-                                                            <circle
-                                                                cx="12"
-                                                                cy="7"
-                                                                r="4"
-                                                            />
-                                                            <path
-                                                                d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"
-                                                            />
-                                                        </svg>
-                                                    </div>
-                                                </li>
-                                                <li
-                                                    class="cursor-pointer text-gray-800 pt-5 pb-3 pl-3"
-                                                >
-                                                    <div
-                                                        tabindex="0"
-                                                        class="focus:outline-none focus:text-pink-600 w-6 h-6 md:w-8 md:h-8"
-                                                        onclick="logout()"
-                                                    >
-                                                        <i
-                                                            class="fas fa-sign-out-alt"
-                                                        ></i>
-                                                    </div>
-                                                </li>
-                                            </ul>
+                                    <div
+                                        class="cursor-pointer flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-white transition duration-150 ease-in-out">
+                                        <img class="rounded-full h-10 w-10 object-cover" src="" alt="foto de perfil"
+                                            id="userPhoto" class="user-photo" />
+                                    </div>
+                                    <div class="ml-2">
+                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                            class="icon icon-tabler icon-tabler-chevron-down cursor-pointer" width="20"
+                                            height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                                            fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                            <path stroke="none" d="M0 0h24v24H0z"></path>
+                                            <polyline points="6 9 12 15 18 9"></polyline>
+                                        </svg>
+                                    </div>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <nav>
+            <div class="py-4 px-6 w-full flex xl:hidden justify-between items-center bg-white fixed top-0 z-40">
+                <div aria-label="logo" role="img" tabindex="0" class="focus:outline-none w-24">
+                    <a href="./index.html">
+                        <img class="h-10 w-15" src="https://i.imgur.com/xQhZRWX.png" alt="logo" />
+                    </a>
+                </div>
+                <div class="flex items-center">
+                    <div class="relative mr-6">
+                        <a href="./users-module.html">
+                            <button
+                                class="focus:ring-2 focus:ring-offset-2 focus:ring-pink-700 focus:text-pink-700 focus:outline-none bg-gray-100 border-gray-300 border transition duration-150 ease-in-out hover:bg-gray-300 rounded text-gray-600 px-5 py-2 text-xs">
+                                Usuarios
+                            </button>
+                        </a>
+
+                    </div>
+                    <button id="menu" aria-label="open menu"
+                        class="focus:outline-none focus:ring-2 focus:ring-gray-600 rounded-md text-gray-800"
+                        onclick="sidebarHandler(true)">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-menu-2" width="24"
+                            height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <line x1="4" y1="6" x2="20" y2="6" />
+                            <line x1="4" y1="12" x2="20" y2="12" />
+                            <line x1="4" y1="18" x2="20" y2="18" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            <!--Mobile responsive sidebar-->
+            <div class="absolute w-full h-full transform -translate-x-full z-40 xl:hidden" style="position: fixed"
+                id="mobile-nav">
+                <div class="bg-gray-800 opacity-50 w-full h-full" onclick="sidebarHandler(false)"></div>
+                <div
+                    class="w-64 z-40 fixed overflow-y-auto z-40 top-0 bg-white shadow h-full flex-col justify-between xl:hidden pb-4 transition duration-150 ease-in-out">
+                    <div class="px-6 h-full">
+                        <div class="flex flex-col justify-between h-full w-full">
+                            <div>
+                                <div class="mt-6 flex w-full items-center justify-between">
+                                    <div class="flex items-center justify-between w-full">
+                                        <div class="flex items-center">
+                                            <a href="./index.html">
+                                                <img class="h-10 w-15" src="https://i.imgur.com/xQhZRWX.png"
+                                                    alt="logo" />
+                                            </a>
+                                            <p tabindex="0"
+                                                class="focus:outline-none text-base md:text-2xl text-gray-800 ml-3">
+                                                GeoAPU
+                                            </p>
                                         </div>
+                                        <button id="cross" aria-label="close menu"
+                                            class="focus:outline-none focus:ring-2 rounded-md text-gray-800"
+                                            onclick="sidebarHandler(false)">
+                                            <svg xmlns="http://www.w3.org/2000/svg"
+                                                class="icon icon-tabler icon-tabler-x" width="24" height="24"
+                                                viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none"
+                                                stroke-linecap="round" stroke-linejoin="round">
+                                                <path stroke="none" d="M0 0h24v24H0z"></path>
+                                                <line x1="18" y1="6" x2="6" y2="18"></line>
+                                                <line x1="6" y1="6" x2="18" y2="18"></line>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
+                                <ul class="f-m-m">
+                                    <li>
+                                        <a class="cursor-pointer">
+                                            <div class="text-gray-800 pt-10">
+                                                <div class="flex items-center">
+                                                    <p tabindex="0"
+                                                        class="focus:outline-none focus:text-pink-600 text-gray-800 xl:text-base md:text-2xl text-base ml-3">
+                                                        Ofertas Comerciales
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="cursor-pointer">
+                                            <div class="text-gray-800 pt-8">
+                                                <div class="flex items-center justify-between">
+                                                    <div class="flex items-center">
+                                                        <p tabindex="0"
+                                                            class="focus:outline-none focus:text-pink-600 text-gray-800 xl:text-base md:text-2xl text-base ml-3">
+                                                            Proyectos
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a class="cursor-pointer">
+                                            <div class="text-gray-800 pt-10">
+                                                <div class="flex items-center">
+                                                    <p tabindex="0"
+                                                        class="focus:outline-none focus:text-pink-600 text-gray-800 xl:text-base md:text-2xl text-base ml-3">
+                                                        Equipos
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="cursor-pointer">
+                                            <div class="text-gray-800 pt-10">
+                                                <div class="flex items-center">
+                                                    <p tabindex="0"
+                                                        class="focus:outline-none focus:text-pink-600 text-gray-800 xl:text-base md:text-2xl text-base ml-3">
+                                                        Materiales
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="cursor-pointer">
+                                            <div class="text-gray-800 pt-10">
+                                                <div class="flex items-center">
+                                                    <p tabindex="0"
+                                                        class="focus:outline-none focus:text-pink-600 text-gray-800 xl:text-base md:text-2xl text-base ml-3">
+                                                        Mano de Obra
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="cursor-pointer">
+                                            <div class="text-gray-800 pt-10">
+                                                <div class="flex items-center">
+                                                    <p tabindex="0"
+                                                        class="focus:outline-none focus:text-pink-600 text-gray-800 xl:text-base md:text-2xl text-base ml-3">
+                                                        AIU y IVA
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="cursor-pointer">
+                                            <div class="text-gray-800 pt-10">
+                                                <div class="flex items-center">
+                                                    <p tabindex="0"
+                                                        class="focus:outline-none focus:text-pink-600 text-gray-800 xl:text-base md:text-2xl text-base ml-3">
+                                                        Transporte
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="w-full pt-4">
+                                <div class="border-t border-gray-300">
+                                    <div class="w-full flex items-center justify-between pt-1">
+                                        <div class="flex items-center">
+                                            <img alt="foto de perfil" src="" tabindex="0"
+                                                class="focus:outline-none w-8 h-8 rounded-md" id="mobileUserPhoto" />
+                                            <p tabindex="0"
+                                                class="focus:outline-none text-gray-800 text-base leading-4 ml-2"
+                                                id="mobileUserName"></p>
+                                        </div>
+                                        <ul class="flex">
+                                            <li class="cursor-pointer text-gray-800 pt-5 pb-3 pl-3">
+                                                <div tabindex="0"
+                                                    class="focus:outline-none focus:text-pink-600 w-6 h-6 md:w-8 md:h-8">
+                                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                                        class="icon icon-tabler icon-tabler-user" width="20" height="20"
+                                                        viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                                                        fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                        <path stroke="none" d="M0 0h24v24H0z" />
+                                                        <circle cx="12" cy="7" r="4" />
+                                                        <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+                                                    </svg>
+                                                </div>
+                                            </li>
+                                            <li class="cursor-pointer text-gray-800 pt-5 pb-3 pl-3">
+                                                <div tabindex="0"
+                                                    class="focus:outline-none focus:text-pink-600 w-6 h-6 md:w-8 md:h-8"
+                                                    onclick="logout()">
+                                                    <i class="fas fa-sign-out-alt"></i>
+                                                </div>
+                                            </li>
+                                        </ul>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </nav>
+            </div>
+        </nav>
 
-            <!-- Code block ends -->
+        <!-- Code block ends -->
+    </div>
+
+    <div id="content-container">
+        <section>
+            <div class="p-10">
+                <h1 class="text-4xl font-bold text-gray-800">
+                    GENERADOR DE ANALISIS DE PRECIOS UNITARIOS
+                </h1>
+                <p class="text-gray-600 mt-4">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Accusamus deserunt quas aspernatur consequuntur. Aut eos
+                    ipsa est cumque recusandae, voluptatem id dolorem iusto
+                    repellat eaque ducimus praesentium! Quasi, fuga omnis!
+                </p>
+            </div>
+        </section>
+
+        <div class="projects">
+            <ul class="page">
+                <li class="rounded-lg">
+                    <div class="image-container">
+                        <img class="object-cover h-full w-full" src="https://i.imgur.com/LPdpeGn.jpg" alt="" />
+                    </div>
+                    <div class="text-container">
+                        <h1 id="title" class="text-2xl">Reservorios</h1>
+                        <p id="description" class="text-sm text-gray-400">
+                            Lorem ipsum dolor sit amet consectetur
+                            adipisicing elit. Accusamus deserunt quas
+                            aspernatur consequuntur. Aut eos ipsa est cumque
+                            recusandae, voluptatem id dolorem iusto repellat
+                            eaque ducimus praesentium! Quasi, fuga omnis!
+                        </p>
+                        <button id="generar apu"
+                            class="focus:ring-2 focus:ring-offset-2 focus:ring-pink-700 focus:text-black-700 focus:outline-none bg-gray-100 border-gray-300 border transition duration-150 ease-in-out hover:bg-gray-300 rounded text-gray-600 px-5 py-2 text-xs"
+                            onclick="window.location.href='./information.html'">
+                            CONTINUAR
+                        </button>
+                    </div>
+                </li>
+                <li class="rounded-lg">
+                    <div class="image-container">
+                        <img class="object-cover h-full w-full"
+                            src="https://geopolimerossas.com/wp-content/uploads/2022/02/geo5-2048x962.jpg" alt="" />
+                    </div>
+                    <div class="text-container">
+                        <h1 id="title" class="text-2xl">Acuicultivos</h1>
+                        <p id="description" class="text-sm text-gray-400">
+                            Lorem ipsum dolor sit amet consectetur
+                            adipisicing elit. Accusamus deserunt quas
+                            aspernatur consequuntur. Aut eos ipsa est cumque
+                            recusandae, voluptatem id dolorem iusto repellat
+                            eaque ducimus praesentium! Quasi, fuga omnis!
+                        </p>
+                        <button id="generar apu"
+                            class="focus:ring-2 focus:ring-offset-2 focus:ring-pink-700 focus:text-black-700 focus:outline-none bg-gray-100 border-gray-300 border transition duration-150 ease-in-out hover:bg-gray-300 rounded text-gray-600 px-5 py-2 text-xs">
+                            CONTINUAR
+                        </button>
+                    </div>
+                </li>
+                <li class="rounded-lg">
+                    <div class="image-container">
+                        <img class="object-cover h-full w-full"
+                            src="https://geopolimerossas.com/wp-content/uploads/2023/03/pis1.jpg" alt="" />
+                    </div>
+                    <div class="text-container">
+                        <h1 id="title" class="text-2xl">Piscinas</h1>
+                        <p id="description" class="text-sm text-gray-400">
+                            Lorem ipsum dolor sit amet consectetur
+                            adipisicing elit. Accusamus deserunt quas
+                            aspernatur consequuntur. Aut eos ipsa est cumque
+                            recusandae, voluptatem id dolorem iusto repellat
+                            eaque ducimus praesentium! Quasi, fuga omnis!
+                        </p>
+                        <button id="generar apu"
+                            class="focus:ring-2 focus:ring-offset-2 focus:ring-pink-700 focus:text-black-700 focus:outline-none bg-gray-100 border-gray-300 border transition duration-150 ease-in-out hover:bg-gray-300 rounded text-gray-600 px-5 py-2 text-xs">
+                            CONTINUAR
+                        </button>
+                    </div>
+                </li>
+            </ul>
+            <!-- Page 1 -->
+
+            <ul class="page">
+                <li class="rounded-lg">
+                    <div class="image-container">
+                        <img class="object-cover h-full w-full" src="https://i.imgur.com/LPdpeGn.jpg" alt="" />
+                    </div>
+                    <div class="text-container">
+                        <h1 id="title" class="text-2xl">Reservorios</h1>
+                        <p id="description" class="text-sm text-gray-400">
+                            Lorem ipsum dolor sit amet consectetur
+                            adipisicing elit. Accusamus deserunt quas
+                            aspernatur consequuntur. Aut eos ipsa est cumque
+                            recusandae, voluptatem id dolorem iusto repellat
+                            eaque ducimus praesentium! Quasi, fuga omnis!
+                        </p>
+                        <button id="generar apu"
+                            class="focus:ring-2 focus:ring-offset-2 focus:ring-pink-700 focus:text-black-700 focus:outline-none bg-gray-100 border-gray-300 border transition duration-150 ease-in-out hover:bg-gray-300 rounded text-gray-600 px-5 py-2 text-xs">
+                            CONTINUAR
+                        </button>
+                    </div>
+                </li>
+                <li class="rounded-lg">
+                    <div class="image-container">
+                        <img class="object-cover h-full w-full" src="https://i.imgur.com/LPdpeGn.jpg" alt="" />
+                    </div>
+                    <div class="text-container">
+                        <h1 id="title" class="text-2xl">Reservorios</h1>
+                        <p id="description" class="text-sm text-gray-400">
+                            Lorem ipsum dolor sit amet consectetur
+                            adipisicing elit. Accusamus deserunt quas
+                            aspernatur consequuntur. Aut eos ipsa est cumque
+                            recusandae, voluptatem id dolorem iusto repellat
+                            eaque ducimus praesentium! Quasi, fuga omnis!
+                        </p>
+                        <button id="generar apu"
+                            class="focus:ring-2 focus:ring-offset-2 focus:ring-pink-700 focus:text-black-700 focus:outline-none bg-gray-100 border-gray-300 border transition duration-150 ease-in-out hover:bg-gray-300 rounded text-gray-600 px-5 py-2 text-xs">
+                            CONTINUAR
+                        </button>
+                    </div>
+                </li>
+                <li class="rounded-lg">
+                    <div class="image-container">
+                        <img class="object-cover h-full w-full" src="https://i.imgur.com/LPdpeGn.jpg" alt="" />
+                    </div>
+                    <div class="text-container">
+                        <h1 id="title" class="text-2xl">Reservorios</h1>
+                        <p id="description" class="text-sm text-gray-400">
+                            Lorem ipsum dolor sit amet consectetur
+                            adipisicing elit. Accusamus deserunt quas
+                            aspernatur consequuntur. Aut eos ipsa est cumque
+                            recusandae, voluptatem id dolorem iusto repellat
+                            eaque ducimus praesentium! Quasi, fuga omnis!
+                        </p>
+                        <button id="generar apu"
+                            class="focus:ring-2 focus:ring-offset-2 focus:ring-pink-700 focus:text-black-700 focus:outline-none bg-gray-100 border-gray-300 border transition duration-150 ease-in-out hover:bg-gray-300 rounded text-gray-600 px-5 py-2 text-xs">
+                            CONTINUAR
+                        </button>
+                    </div>
+                </li>
+            </ul>
+            <!-- Page 2 -->
+
+            <ul class="page">
+                <li class="rounded-lg">
+                    <div class="image-container">
+                        <img class="object-cover h-full w-full" src="https://i.imgur.com/LPdpeGn.jpg" alt="" />
+                    </div>
+                    <div class="text-container">
+                        <h1 id="title" class="text-2xl">Reservorios</h1>
+                        <p id="description" class="text-sm text-gray-400">
+                            Lorem ipsum dolor sit amet consectetur
+                            adipisicing elit. Accusamus deserunt quas
+                            aspernatur consequuntur. Aut eos ipsa est cumque
+                            recusandae, voluptatem id dolorem iusto repellat
+                            eaque ducimus praesentium! Quasi, fuga omnis!
+                        </p>
+                        <button id="generar apu"
+                            class="focus:ring-2 focus:ring-offset-2 focus:ring-pink-700 focus:text-black-700 focus:outline-none bg-gray-100 border-gray-300 border transition duration-150 ease-in-out hover:bg-gray-300 rounded text-gray-600 px-5 py-2 text-xs">
+                            CONTINUAR
+                        </button>
+                    </div>
+                </li>
+                <li class="rounded-lg">
+                    <div class="image-container">
+                        <img class="object-cover h-full w-full" src="https://i.imgur.com/LPdpeGn.jpg" alt="" />
+                    </div>
+                    <div class="text-container">
+                        <h1 id="title" class="text-2xl">Reservorios</h1>
+                        <p id="description" class="text-sm text-gray-400">
+                            Lorem ipsum dolor sit amet consectetur
+                            adipisicing elit. Accusamus deserunt quas
+                            aspernatur consequuntur. Aut eos ipsa est cumque
+                            recusandae, voluptatem id dolorem iusto repellat
+                            eaque ducimus praesentium! Quasi, fuga omnis!
+                        </p>
+                        <button id="generar apu"
+                            class="focus:ring-2 focus:ring-offset-2 focus:ring-pink-700 focus:text-black-700 focus:outline-none bg-gray-100 border-gray-300 border transition duration-150 ease-in-out hover:bg-gray-300 rounded text-gray-600 px-5 py-2 text-xs">
+                            CONTINUAR
+                        </button>
+                    </div>
+                </li>
+                <li class="rounded-lg">
+                    <div class="image-container">
+                        <img class="object-cover h-full w-full" src="https://i.imgur.com/LPdpeGn.jpg" alt="" />
+                    </div>
+                    <div class="text-container">
+                        <h1 id="title" class="text-2xl">Reservorios</h1>
+                        <p id="description" class="text-sm text-gray-400">
+                            Lorem ipsum dolor sit amet consectetur
+                            adipisicing elit. Accusamus deserunt quas
+                            aspernatur consequuntur. Aut eos ipsa est cumque
+                            recusandae, voluptatem id dolorem iusto repellat
+                            eaque ducimus praesentium! Quasi, fuga omnis!
+                        </p>
+                        <button id="generar apu"
+                            class="focus:ring-2 focus:ring-offset-2 focus:ring-pink-700 focus:text-black-700 focus:outline-none bg-gray-100 border-gray-300 border transition duration-150 ease-in-out hover:bg-gray-300 rounded text-gray-600 px-5 py-2 text-xs">
+                            CONTINUAR
+                        </button>
+                    </div>
+                </li>
+            </ul>
+            <!-- Page 3 -->
+
+            <ul class="page">
+                <li class="rounded-lg">
+                    <div class="image-container">
+                        <img class="object-cover h-full w-full" src="https://i.imgur.com/LPdpeGn.jpg" alt="" />
+                    </div>
+                    <div class="text-container">
+                        <h1 id="title" class="text-2xl">Reservorios</h1>
+                        <p id="description" class="text-sm text-gray-400">
+                            Lorem ipsum dolor sit amet consectetur
+                            adipisicing elit. Accusamus deserunt quas
+                            aspernatur consequuntur. Aut eos ipsa est cumque
+                            recusandae, voluptatem id dolorem iusto repellat
+                            eaque ducimus praesentium! Quasi, fuga omnis!
+                        </p>
+                        <button id="generar apu"
+                            class="focus:ring-2 focus:ring-offset-2 focus:ring-pink-700 focus:text-black-700 focus:outline-none bg-gray-100 border-gray-300 border transition duration-150 ease-in-out hover:bg-gray-300 rounded text-gray-600 px-5 py-2 text-xs">
+                            CONTINUAR
+                        </button>
+                    </div>
+                </li>
+                <li class="rounded-lg">
+                    <div class="image-container">
+                        <img class="object-cover h-full w-full" src="https://i.imgur.com/LPdpeGn.jpg" alt="" />
+                    </div>
+                    <div class="text-container">
+                        <h1 id="title" class="text-2xl">Reservorios</h1>
+                        <p id="description" class="text-sm text-gray-400">
+                            Lorem ipsum dolor sit amet consectetur
+                            adipisicing elit. Accusamus deserunt quas
+                            aspernatur consequuntur. Aut eos ipsa est cumque
+                            recusandae, voluptatem id dolorem iusto repellat
+                            eaque ducimus praesentium! Quasi, fuga omnis!
+                        </p>
+                        <button id="generar apu"
+                            class="focus:ring-2 focus:ring-offset-2 focus:ring-pink-700 focus:text-black-700 focus:outline-none bg-gray-100 border-gray-300 border transition duration-150 ease-in-out hover:bg-gray-300 rounded text-gray-600 px-5 py-2 text-xs">
+                            CONTINUAR
+                        </button>
+                    </div>
+                </li>
+                <li class="rounded-lg">
+                    <div class="image-container">
+                        <img class="object-cover h-full w-full" src="https://i.imgur.com/LPdpeGn.jpg" alt="" />
+                    </div>
+                    <div class="text-container">
+                        <h1 id="title" class="text-2xl">Reservorios</h1>
+                        <p id="description" class="text-sm text-gray-400">
+                            Lorem ipsum dolor sit amet consectetur
+                            adipisicing elit. Accusamus deserunt quas
+                            aspernatur consequuntur. Aut eos ipsa est cumque
+                            recusandae, voluptatem id dolorem iusto repellat
+                            eaque ducimus praesentium! Quasi, fuga omnis!
+                        </p>
+                        <button id="generar apu"
+                            class="focus:ring-2 focus:ring-offset-2 focus:ring-pink-700 focus:text-black-700 focus:outline-none bg-gray-100 border-gray-300 border transition duration-150 ease-in-out hover:bg-gray-300 rounded text-gray-600 px-5 py-2 text-xs">
+                            CONTINUAR
+                        </button>
+                    </div>
+                </li>
+            </ul>
+            <!-- Page 4 -->
+
+            <ul class="page">
+                <li class="rounded-lg">
+                    <div class="image-container">
+                        <img class="object-cover h-full w-full" src="https://i.imgur.com/LPdpeGn.jpg" alt="" />
+                    </div>
+                    <div class="text-container">
+                        <h1 id="title" class="text-2xl">Reservorios</h1>
+                        <p id="description" class="text-sm text-gray-400">
+                            Lorem ipsum dolor sit amet consectetur
+                            adipisicing elit. Accusamus deserunt quas
+                            aspernatur consequuntur. Aut eos ipsa est cumque
+                            recusandae, voluptatem id dolorem iusto repellat
+                            eaque ducimus praesentium! Quasi, fuga omnis!
+                        </p>
+                        <button id="generar apu"
+                            class="focus:ring-2 focus:ring-offset-2 focus:ring-pink-700 focus:text-black-700 focus:outline-none bg-gray-100 border-gray-300 border transition duration-150 ease-in-out hover:bg-gray-300 rounded text-gray-600 px-5 py-2 text-xs">
+                            CONTINUAR
+                        </button>
+                    </div>
+                </li>
+                <li class="rounded-lg">
+                    <div class="image-container">
+                        <img class="object-cover h-full w-full" src="https://i.imgur.com/LPdpeGn.jpg" alt="" />
+                    </div>
+                    <div class="text-container">
+                        <h1 id="title" class="text-2xl">Reservorios</h1>
+                        <p id="description" class="text-sm text-gray-400">
+                            Lorem ipsum dolor sit amet consectetur
+                            adipisicing elit. Accusamus deserunt quas
+                            aspernatur consequuntur. Aut eos ipsa est cumque
+                            recusandae, voluptatem id dolorem iusto repellat
+                            eaque ducimus praesentium! Quasi, fuga omnis!
+                        </p>
+                        <button id="generar apu"
+                            class="focus:ring-2 focus:ring-offset-2 focus:ring-pink-700 focus:text-black-700 focus:outline-none bg-gray-100 border-gray-300 border transition duration-150 ease-in-out hover:bg-gray-300 rounded text-gray-600 px-5 py-2 text-xs">
+                            CONTINUAR
+                        </button>
+                    </div>
+                </li>
+                <li class="rounded-lg">
+                    <div class="image-container">
+                        <img class="object-cover h-full w-full" src="https://i.imgur.com/LPdpeGn.jpg" alt="" />
+                    </div>
+                    <div class="text-container">
+                        <h1 id="title" class="text-2xl">Reservorios</h1>
+                        <p id="description" class="text-sm text-gray-400">
+                            Lorem ipsum dolor sit amet consectetur
+                            adipisicing elit. Accusamus deserunt quas
+                            aspernatur consequuntur. Aut eos ipsa est cumque
+                            recusandae, voluptatem id dolorem iusto repellat
+                            eaque ducimus praesentium! Quasi, fuga omnis!
+                        </p>
+                        <button id="generar apu"
+                            class="focus:ring-2 focus:ring-offset-2 focus:ring-pink-700 focus:text-black-700 focus:outline-none bg-gray-100 border-gray-300 border transition duration-150 ease-in-out hover:bg-gray-300 rounded text-gray-600 px-5 py-2 text-xs">
+                            CONTINUAR
+                        </button>
+                    </div>
+                </li>
+            </ul>
+            <!-- Page 5 -->
+        </div>
+        <div class="pagination">
+            <button class="arrow" id="prevPage" disabled>
+                <span class="nav-text">← ANTERIOR</span>
+            </button>
+            <div class="pages">
+                <div class="page-number active">1</div>
+                <div class="page-number">2</div>
+                <div class="page-number">3</div>
+                <div class="page-number">4</div>
+                <div class="page-number">5</div>
+            </div>
+            <button class="arrow" id="nextPage">
+                <span class="nav-text">SIGUIENTE →</span>
+            </button>
         </div>
 
-        <div id="content-container">
-            <section>
-                <div class="p-10">
-                    <h1 class="text-4xl font-bold text-gray-800">
-                        GENERADOR DE ANALISIS DE PRECIOS UNITARIOS
-                    </h1>
-                    <p class="text-gray-600 mt-4">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        Accusamus deserunt quas aspernatur consequuntur. Aut eos
-                        ipsa est cumque recusandae, voluptatem id dolorem iusto
-                        repellat eaque ducimus praesentium! Quasi, fuga omnis!
-                    </p>
-                </div>
-            </section>
+        <script src="../../public/js/nav.js"></script>
+        <script src="../../public/js/pagination.js"></script>
 
-            <div class="projects">
-                <ul class="page">
-                    <li class="rounded-lg">
-                        <div class="image-container">
-                            <img
-                                class="object-cover h-full w-full"
-                                src="https://i.imgur.com/LPdpeGn.jpg"
-                                alt=""
-                            />
-                        </div>
-                        <div class="text-container">
-                            <h1 id="title" class="text-2xl">Reservorios</h1>
-                            <p id="description" class="text-sm text-gray-400">
-                                Lorem ipsum dolor sit amet consectetur
-                                adipisicing elit. Accusamus deserunt quas
-                                aspernatur consequuntur. Aut eos ipsa est cumque
-                                recusandae, voluptatem id dolorem iusto repellat
-                                eaque ducimus praesentium! Quasi, fuga omnis!
-                            </p>
-                            <button
-                                id="generar apu"
-                                class="focus:ring-2 focus:ring-offset-2 focus:ring-pink-700 focus:text-black-700 focus:outline-none bg-gray-100 border-gray-300 border transition duration-150 ease-in-out hover:bg-gray-300 rounded text-gray-600 px-5 py-2 text-xs"
-                                onclick="window.location.href='./information.html'"
-                            >
-                                CONTINUAR
-                            </button>
-                        </div>
-                    </li>
-                    <li class="rounded-lg">
-                        <div class="image-container">
-                            <img
-                                class="object-cover h-full w-full"
-                                src="https://geopolimerossas.com/wp-content/uploads/2022/02/geo5-2048x962.jpg"
-                                alt=""
-                            />
-                        </div>
-                        <div class="text-container">
-                            <h1 id="title" class="text-2xl">Acuicultivos</h1>
-                            <p id="description" class="text-sm text-gray-400">
-                                Lorem ipsum dolor sit amet consectetur
-                                adipisicing elit. Accusamus deserunt quas
-                                aspernatur consequuntur. Aut eos ipsa est cumque
-                                recusandae, voluptatem id dolorem iusto repellat
-                                eaque ducimus praesentium! Quasi, fuga omnis!
-                            </p>
-                            <button
-                                id="generar apu"
-                                class="focus:ring-2 focus:ring-offset-2 focus:ring-pink-700 focus:text-black-700 focus:outline-none bg-gray-100 border-gray-300 border transition duration-150 ease-in-out hover:bg-gray-300 rounded text-gray-600 px-5 py-2 text-xs"
-                            >
-                                CONTINUAR
-                            </button>
-                        </div>
-                    </li>
-                    <li class="rounded-lg">
-                        <div class="image-container">
-                            <img
-                                class="object-cover h-full w-full"
-                                src="https://geopolimerossas.com/wp-content/uploads/2023/03/pis1.jpg"
-                                alt=""
-                            />
-                        </div>
-                        <div class="text-container">
-                            <h1 id="title" class="text-2xl">Piscinas</h1>
-                            <p id="description" class="text-sm text-gray-400">
-                                Lorem ipsum dolor sit amet consectetur
-                                adipisicing elit. Accusamus deserunt quas
-                                aspernatur consequuntur. Aut eos ipsa est cumque
-                                recusandae, voluptatem id dolorem iusto repellat
-                                eaque ducimus praesentium! Quasi, fuga omnis!
-                            </p>
-                            <button
-                                id="generar apu"
-                                class="focus:ring-2 focus:ring-offset-2 focus:ring-pink-700 focus:text-black-700 focus:outline-none bg-gray-100 border-gray-300 border transition duration-150 ease-in-out hover:bg-gray-300 rounded text-gray-600 px-5 py-2 text-xs"
-                            >
-                                CONTINUAR
-                            </button>
-                        </div>
-                    </li>
-                </ul>
-                <!-- Page 1 -->
+        <script src="https://kit.fontawesome.com/a233ca1469.js" crossorigin="anonymous"></script>
 
-                <ul class="page">
-                    <li class="rounded-lg">
-                        <div class="image-container">
-                            <img
-                                class="object-cover h-full w-full"
-                                src="https://i.imgur.com/LPdpeGn.jpg"
-                                alt=""
-                            />
-                        </div>
-                        <div class="text-container">
-                            <h1 id="title" class="text-2xl">Reservorios</h1>
-                            <p id="description" class="text-sm text-gray-400">
-                                Lorem ipsum dolor sit amet consectetur
-                                adipisicing elit. Accusamus deserunt quas
-                                aspernatur consequuntur. Aut eos ipsa est cumque
-                                recusandae, voluptatem id dolorem iusto repellat
-                                eaque ducimus praesentium! Quasi, fuga omnis!
-                            </p>
-                            <button
-                                id="generar apu"
-                                class="focus:ring-2 focus:ring-offset-2 focus:ring-pink-700 focus:text-black-700 focus:outline-none bg-gray-100 border-gray-300 border transition duration-150 ease-in-out hover:bg-gray-300 rounded text-gray-600 px-5 py-2 text-xs"
-                            >
-                                CONTINUAR
-                            </button>
-                        </div>
-                    </li>
-                    <li class="rounded-lg">
-                        <div class="image-container">
-                            <img
-                                class="object-cover h-full w-full"
-                                src="https://i.imgur.com/LPdpeGn.jpg"
-                                alt=""
-                            />
-                        </div>
-                        <div class="text-container">
-                            <h1 id="title" class="text-2xl">Reservorios</h1>
-                            <p id="description" class="text-sm text-gray-400">
-                                Lorem ipsum dolor sit amet consectetur
-                                adipisicing elit. Accusamus deserunt quas
-                                aspernatur consequuntur. Aut eos ipsa est cumque
-                                recusandae, voluptatem id dolorem iusto repellat
-                                eaque ducimus praesentium! Quasi, fuga omnis!
-                            </p>
-                            <button
-                                id="generar apu"
-                                class="focus:ring-2 focus:ring-offset-2 focus:ring-pink-700 focus:text-black-700 focus:outline-none bg-gray-100 border-gray-300 border transition duration-150 ease-in-out hover:bg-gray-300 rounded text-gray-600 px-5 py-2 text-xs"
-                            >
-                                CONTINUAR
-                            </button>
-                        </div>
-                    </li>
-                    <li class="rounded-lg">
-                        <div class="image-container">
-                            <img
-                                class="object-cover h-full w-full"
-                                src="https://i.imgur.com/LPdpeGn.jpg"
-                                alt=""
-                            />
-                        </div>
-                        <div class="text-container">
-                            <h1 id="title" class="text-2xl">Reservorios</h1>
-                            <p id="description" class="text-sm text-gray-400">
-                                Lorem ipsum dolor sit amet consectetur
-                                adipisicing elit. Accusamus deserunt quas
-                                aspernatur consequuntur. Aut eos ipsa est cumque
-                                recusandae, voluptatem id dolorem iusto repellat
-                                eaque ducimus praesentium! Quasi, fuga omnis!
-                            </p>
-                            <button
-                                id="generar apu"
-                                class="focus:ring-2 focus:ring-offset-2 focus:ring-pink-700 focus:text-black-700 focus:outline-none bg-gray-100 border-gray-300 border transition duration-150 ease-in-out hover:bg-gray-300 rounded text-gray-600 px-5 py-2 text-xs"
-                            >
-                                CONTINUAR
-                            </button>
-                        </div>
-                    </li>
-                </ul>
-                <!-- Page 2 -->
+    </div>
+</body>
 
-                <ul class="page">
-                    <li class="rounded-lg">
-                        <div class="image-container">
-                            <img
-                                class="object-cover h-full w-full"
-                                src="https://i.imgur.com/LPdpeGn.jpg"
-                                alt=""
-                            />
-                        </div>
-                        <div class="text-container">
-                            <h1 id="title" class="text-2xl">Reservorios</h1>
-                            <p id="description" class="text-sm text-gray-400">
-                                Lorem ipsum dolor sit amet consectetur
-                                adipisicing elit. Accusamus deserunt quas
-                                aspernatur consequuntur. Aut eos ipsa est cumque
-                                recusandae, voluptatem id dolorem iusto repellat
-                                eaque ducimus praesentium! Quasi, fuga omnis!
-                            </p>
-                            <button
-                                id="generar apu"
-                                class="focus:ring-2 focus:ring-offset-2 focus:ring-pink-700 focus:text-black-700 focus:outline-none bg-gray-100 border-gray-300 border transition duration-150 ease-in-out hover:bg-gray-300 rounded text-gray-600 px-5 py-2 text-xs"
-                            >
-                                CONTINUAR
-                            </button>
-                        </div>
-                    </li>
-                    <li class="rounded-lg">
-                        <div class="image-container">
-                            <img
-                                class="object-cover h-full w-full"
-                                src="https://i.imgur.com/LPdpeGn.jpg"
-                                alt=""
-                            />
-                        </div>
-                        <div class="text-container">
-                            <h1 id="title" class="text-2xl">Reservorios</h1>
-                            <p id="description" class="text-sm text-gray-400">
-                                Lorem ipsum dolor sit amet consectetur
-                                adipisicing elit. Accusamus deserunt quas
-                                aspernatur consequuntur. Aut eos ipsa est cumque
-                                recusandae, voluptatem id dolorem iusto repellat
-                                eaque ducimus praesentium! Quasi, fuga omnis!
-                            </p>
-                            <button
-                                id="generar apu"
-                                class="focus:ring-2 focus:ring-offset-2 focus:ring-pink-700 focus:text-black-700 focus:outline-none bg-gray-100 border-gray-300 border transition duration-150 ease-in-out hover:bg-gray-300 rounded text-gray-600 px-5 py-2 text-xs"
-                            >
-                                CONTINUAR
-                            </button>
-                        </div>
-                    </li>
-                    <li class="rounded-lg">
-                        <div class="image-container">
-                            <img
-                                class="object-cover h-full w-full"
-                                src="https://i.imgur.com/LPdpeGn.jpg"
-                                alt=""
-                            />
-                        </div>
-                        <div class="text-container">
-                            <h1 id="title" class="text-2xl">Reservorios</h1>
-                            <p id="description" class="text-sm text-gray-400">
-                                Lorem ipsum dolor sit amet consectetur
-                                adipisicing elit. Accusamus deserunt quas
-                                aspernatur consequuntur. Aut eos ipsa est cumque
-                                recusandae, voluptatem id dolorem iusto repellat
-                                eaque ducimus praesentium! Quasi, fuga omnis!
-                            </p>
-                            <button
-                                id="generar apu"
-                                class="focus:ring-2 focus:ring-offset-2 focus:ring-pink-700 focus:text-black-700 focus:outline-none bg-gray-100 border-gray-300 border transition duration-150 ease-in-out hover:bg-gray-300 rounded text-gray-600 px-5 py-2 text-xs"
-                            >
-                                CONTINUAR
-                            </button>
-                        </div>
-                    </li>
-                </ul>
-                <!-- Page 3 -->
-
-                <ul class="page">
-                    <li class="rounded-lg">
-                        <div class="image-container">
-                            <img
-                                class="object-cover h-full w-full"
-                                src="https://i.imgur.com/LPdpeGn.jpg"
-                                alt=""
-                            />
-                        </div>
-                        <div class="text-container">
-                            <h1 id="title" class="text-2xl">Reservorios</h1>
-                            <p id="description" class="text-sm text-gray-400">
-                                Lorem ipsum dolor sit amet consectetur
-                                adipisicing elit. Accusamus deserunt quas
-                                aspernatur consequuntur. Aut eos ipsa est cumque
-                                recusandae, voluptatem id dolorem iusto repellat
-                                eaque ducimus praesentium! Quasi, fuga omnis!
-                            </p>
-                            <button
-                                id="generar apu"
-                                class="focus:ring-2 focus:ring-offset-2 focus:ring-pink-700 focus:text-black-700 focus:outline-none bg-gray-100 border-gray-300 border transition duration-150 ease-in-out hover:bg-gray-300 rounded text-gray-600 px-5 py-2 text-xs"
-                            >
-                                CONTINUAR
-                            </button>
-                        </div>
-                    </li>
-                    <li class="rounded-lg">
-                        <div class="image-container">
-                            <img
-                                class="object-cover h-full w-full"
-                                src="https://i.imgur.com/LPdpeGn.jpg"
-                                alt=""
-                            />
-                        </div>
-                        <div class="text-container">
-                            <h1 id="title" class="text-2xl">Reservorios</h1>
-                            <p id="description" class="text-sm text-gray-400">
-                                Lorem ipsum dolor sit amet consectetur
-                                adipisicing elit. Accusamus deserunt quas
-                                aspernatur consequuntur. Aut eos ipsa est cumque
-                                recusandae, voluptatem id dolorem iusto repellat
-                                eaque ducimus praesentium! Quasi, fuga omnis!
-                            </p>
-                            <button
-                                id="generar apu"
-                                class="focus:ring-2 focus:ring-offset-2 focus:ring-pink-700 focus:text-black-700 focus:outline-none bg-gray-100 border-gray-300 border transition duration-150 ease-in-out hover:bg-gray-300 rounded text-gray-600 px-5 py-2 text-xs"
-                            >
-                                CONTINUAR
-                            </button>
-                        </div>
-                    </li>
-                    <li class="rounded-lg">
-                        <div class="image-container">
-                            <img
-                                class="object-cover h-full w-full"
-                                src="https://i.imgur.com/LPdpeGn.jpg"
-                                alt=""
-                            />
-                        </div>
-                        <div class="text-container">
-                            <h1 id="title" class="text-2xl">Reservorios</h1>
-                            <p id="description" class="text-sm text-gray-400">
-                                Lorem ipsum dolor sit amet consectetur
-                                adipisicing elit. Accusamus deserunt quas
-                                aspernatur consequuntur. Aut eos ipsa est cumque
-                                recusandae, voluptatem id dolorem iusto repellat
-                                eaque ducimus praesentium! Quasi, fuga omnis!
-                            </p>
-                            <button
-                                id="generar apu"
-                                class="focus:ring-2 focus:ring-offset-2 focus:ring-pink-700 focus:text-black-700 focus:outline-none bg-gray-100 border-gray-300 border transition duration-150 ease-in-out hover:bg-gray-300 rounded text-gray-600 px-5 py-2 text-xs"
-                            >
-                                CONTINUAR
-                            </button>
-                        </div>
-                    </li>
-                </ul>
-                <!-- Page 4 -->
-
-                <ul class="page">
-                    <li class="rounded-lg">
-                        <div class="image-container">
-                            <img
-                                class="object-cover h-full w-full"
-                                src="https://i.imgur.com/LPdpeGn.jpg"
-                                alt=""
-                            />
-                        </div>
-                        <div class="text-container">
-                            <h1 id="title" class="text-2xl">Reservorios</h1>
-                            <p id="description" class="text-sm text-gray-400">
-                                Lorem ipsum dolor sit amet consectetur
-                                adipisicing elit. Accusamus deserunt quas
-                                aspernatur consequuntur. Aut eos ipsa est cumque
-                                recusandae, voluptatem id dolorem iusto repellat
-                                eaque ducimus praesentium! Quasi, fuga omnis!
-                            </p>
-                            <button
-                                id="generar apu"
-                                class="focus:ring-2 focus:ring-offset-2 focus:ring-pink-700 focus:text-black-700 focus:outline-none bg-gray-100 border-gray-300 border transition duration-150 ease-in-out hover:bg-gray-300 rounded text-gray-600 px-5 py-2 text-xs"
-                            >
-                                CONTINUAR
-                            </button>
-                        </div>
-                    </li>
-                    <li class="rounded-lg">
-                        <div class="image-container">
-                            <img
-                                class="object-cover h-full w-full"
-                                src="https://i.imgur.com/LPdpeGn.jpg"
-                                alt=""
-                            />
-                        </div>
-                        <div class="text-container">
-                            <h1 id="title" class="text-2xl">Reservorios</h1>
-                            <p id="description" class="text-sm text-gray-400">
-                                Lorem ipsum dolor sit amet consectetur
-                                adipisicing elit. Accusamus deserunt quas
-                                aspernatur consequuntur. Aut eos ipsa est cumque
-                                recusandae, voluptatem id dolorem iusto repellat
-                                eaque ducimus praesentium! Quasi, fuga omnis!
-                            </p>
-                            <button
-                                id="generar apu"
-                                class="focus:ring-2 focus:ring-offset-2 focus:ring-pink-700 focus:text-black-700 focus:outline-none bg-gray-100 border-gray-300 border transition duration-150 ease-in-out hover:bg-gray-300 rounded text-gray-600 px-5 py-2 text-xs"
-                            >
-                                CONTINUAR
-                            </button>
-                        </div>
-                    </li>
-                    <li class="rounded-lg">
-                        <div class="image-container">
-                            <img
-                                class="object-cover h-full w-full"
-                                src="https://i.imgur.com/LPdpeGn.jpg"
-                                alt=""
-                            />
-                        </div>
-                        <div class="text-container">
-                            <h1 id="title" class="text-2xl">Reservorios</h1>
-                            <p id="description" class="text-sm text-gray-400">
-                                Lorem ipsum dolor sit amet consectetur
-                                adipisicing elit. Accusamus deserunt quas
-                                aspernatur consequuntur. Aut eos ipsa est cumque
-                                recusandae, voluptatem id dolorem iusto repellat
-                                eaque ducimus praesentium! Quasi, fuga omnis!
-                            </p>
-                            <button
-                                id="generar apu"
-                                class="focus:ring-2 focus:ring-offset-2 focus:ring-pink-700 focus:text-black-700 focus:outline-none bg-gray-100 border-gray-300 border transition duration-150 ease-in-out hover:bg-gray-300 rounded text-gray-600 px-5 py-2 text-xs"
-                            >
-                                CONTINUAR
-                            </button>
-                        </div>
-                    </li>
-                </ul>
-                <!-- Page 5 -->
-            </div>
-            <div class="pagination">
-                <button class="arrow" id="prevPage" disabled>
-                    <span class="nav-text">← ANTERIOR</span>
-                </button>
-                <div class="pages">
-                    <div class="page-number active">1</div>
-                    <div class="page-number">2</div>
-                    <div class="page-number">3</div>
-                    <div class="page-number">4</div>
-                    <div class="page-number">5</div>
-                </div>
-                <button class="arrow" id="nextPage">
-                    <span class="nav-text">SIGUIENTE →</span>
-                </button>
-            </div>
-
-            <script src="../../public/js/nav.js"></script>
-            <script src="../../public/js/pagination.js"></script>
-
-            <script
-                src="https://kit.fontawesome.com/a233ca1469.js"
-                crossorigin="anonymous"
-            ></script>
-            
-        </div>
-    </body>
 </html>

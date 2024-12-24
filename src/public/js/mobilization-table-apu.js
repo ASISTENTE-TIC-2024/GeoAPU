@@ -310,55 +310,71 @@ document
 
         e.preventDefault()
 
-        let descripcion_transporte =
+        let descripcion_transportes =
             document.getElementById('DESCRIPCION TRANSPORTE').value ||
             'SIN DESCRIPCIÓN'
 
-        let unidad_transporte =
-            document.getElementById('UNIDAD TRANSPORTE').value || 'SIN UNIDAD'
+        let unidad_transportes =
+            document.getElementById('UNIDAD TRANSPORTE').value ||
+            'SIN UNIDAD DE TRANSPORTE'
 
-        let distancia_transporte =
-            document.getElementById('DISTANCIA TRANSPORTE').value || 0
+        let distancia_transportes =
+            document.getElementById('DISTANCIA TRANSPORTE').value ||
+            'SIN DISTANCIA DE TRANSPORTE'
 
-        let precio_unitario_transporte =
+        let precio_unitario_transportes =
             parseFloat(
                 document.getElementById('PRECIO UNITARIO TRANSPORTE').value
             ) || 0
 
-        let rendimiento_transporte =
+        let rendimiento_transportes =
             parseFloat(
                 document.getElementById('RENDIMIENTO TRANSPORTE').value
-            ) || 0
+            ).toFixed(4) || 0
 
-        let valor_unitario_transporte =
+        let valor_unitario_transportes =
             parseFloat(
                 document.getElementById('VALOR UNITARIO TRANSPORTE').value
             ) || 0
 
-        let datosTransporteMov =
-            JSON.parse(localStorage.getItem('datosTransporteMov')) || []
+        console.log(valor_unitario_transportes);
 
-        datosTransporteMov.push({
-            descripcion_transporte,
-            unidad_transporte,
-            distancia_transporte,
-            precio_unitario_transporte,
-            rendimiento_transporte,
-            valor_unitario_transporte,
+        let datosTransportesMov =
+            JSON.parse(localStorage.getItem('datosTransportesMov')) || []
+
+        datosTransportesMov.push({
+            descripcion_transportes,
+            unidad_transportes,
+            distancia_transportes,
+            precio_unitario_transportes,
+            rendimiento_transportes,
+            valor_unitario_transportes,
         })
 
-        localStorage.setItem('datosTransporteMov', JSON.stringify(datosTransporteMov))
+        localStorage.setItem('datosTransportesMov', JSON.stringify(datosTransportesMov))
 
-        actualizarTablaTransporte()
+        actualizarValorUnitarioTransportes()
+        actualizarTablaTransportes()
     })
 
-function actualizarTablaTransporte() {
+function actualizarTablaTransportes() {
 
-    let tbody = document.querySelector('#dataTableTransporte tbody')
+    let tbody = document.querySelector('#dataTableTransporteMov tbody')
+
+    // Obtener los datos del localStorage
+    let storedDatosTransportesMov =
+        JSON.parse(localStorage.getItem('datosTransportesMov')) || []
+
+    // Calcular el total de todos los valores
+    let totalTransportesMov = storedDatosTransportesMov.reduce(
+        (sum, item) => sum + parseFloat(item.valor_unitario_transportes), 0
+    )
+
+    console.log(totalTransportesMov);
 
     tbody.innerHTML = ''
 
-    datosTransporteMov.forEach((item, index) => {
+    storedDatosTransportesMov.forEach((item, index) => {
 
         let tr = document.createElement('tr')
 
@@ -366,14 +382,15 @@ function actualizarTablaTransporte() {
             index % 2 === 0
                 ? 'even:bg-gray-50 border-b'
                 : 'odd:bg-white even:bg-gray-50 border-b'
-        tr.innerHTML = `<td> ${item.descripcion_transporte}</td>
-        <td>${item.unidad_transporte}</td>
-        <td>${item.distancia_transporte}</td>
-        <td>$ ${item.precio_unitario_transporte}</td>
-        <td>${item.rendimiento_transporte}</td>
-        <td>$ ${item.valor_unitario_transporte}</td>
-        <td> % </td>
-        <td><button class="active:scale-90 transition-transform" onclick="eliminarElementoTransporte(${datosTransporteMov.indexOf(item)})"><i class="fa-solid fa-trash-can"></i></button></td>`
+        item.porcentaje_incidencia = (item.valor_unitario_transportes / totalTransportesMov) * 100 || 0;
+        tr.innerHTML = `<td> ${item.descripcion_transportes}</td>
+                        <td>${item.unidad_transportes}</td>
+                        <td>${item.distancia_transportes}</td>
+                        <td>${item.precio_unitario_transportes}</td>
+                        <td>${isNaN(item.rendimiento_transportes) || !isFinite(item.rendimiento_transportes) ? 0 : item.rendimiento_transportes}</td>
+                        <td>${isNaN(item.valor_unitario_transportes) || !isFinite(item.valor_unitario_transportes) ? 0 : item.valor_unitario_transportes}</td>
+                        <td>${isNaN(item.porcentaje_incidencia) || !isFinite(item.porcentaje_incidencia) ? 0 : item.porcentaje_incidencia.toFixed(2)}%</td>
+                        <td><button class="active:scale-90 transition-transform" onclick="eliminarElementoTransportes(${storedDatosTransportesMov.indexOf(item)})"><i class="fa-solid fa-trash-can"></i></button></td>`
 
         tbody.appendChild(tr)
 
@@ -381,11 +398,46 @@ function actualizarTablaTransporte() {
 
 }
 
-function eliminarElementoTransporte(index) {
-    datosTransporteMov.splice(index, 1)
-    actualizarTablaTransporte()
+function eliminarElementoTransportes(index) {
+
+    // Obtener los datos existentes del localStorage
+    let datosTransportesMov = JSON.parse(localStorage.getItem('datosTransportesMov')) || []
+
+    // Eliminar el elemento del array
+    datosTransportesMov.splice(index, 1)
+
+    // Guardar el array actualizado en el localStorage
+    localStorage.setItem('datosTransportesMov', JSON.stringify(datosTransportesMov))
+
+    // Actualizar la tabla
+    actualizarTablaTransportes()
 }
 
+function actualizarValorUnitarioTransportes() {
+
+    const storedDatosTransportesMov =
+        JSON.parse(localStorage.getItem('datosTransportesMov')) || []
+
+    console.log(storedDatosTransportesMov);
+
+    const trmValue = parseFloat(localStorage.getItem('trmValue')) || 0;
+
+    console.log(trmValue);
+
+    storedDatosTransportesMov.forEach((item) => {
+
+        item.valor_unitario_transportes = (item.precio_unitario_transportes * item.rendimiento_transportes).toFixed(2);
+
+    });
+
+    console.log(storedDatosTransportesMov)
+
+    localStorage.setItem('datosTransportesMov', JSON.stringify(storedDatosTransportesMov))
+
+    actualizarTablaTransportes()
+}
+
+actualizarTablaTransportes()
 /******************************* MANO DE OBRA *******************************/
 
 document

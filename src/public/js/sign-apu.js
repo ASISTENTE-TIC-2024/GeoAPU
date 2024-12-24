@@ -1,4 +1,5 @@
 function guardarInformacionRotulos() {
+
     const capitulo = document.getElementById('capitulo').value || "No se ingreso una actividad";
     const descripcion_actividad = document.getElementById('descripcion-actividad').value || "No se ingreso una descripción de la actividad";
     const item_pago = document.getElementById('item-pago').value || "No se ingreso un item de pago";
@@ -51,5 +52,5 @@ function guardarInformacionRotulos() {
 
     alert('Datos guardados exitosamente!');
 
-    window.location.href = '../../views/pages/general-apu.html';
+    window.location.href = '../../views/pages/mobilization-apu.html';
 }
