@@ -927,6 +927,126 @@ app.put('/updateTransporte/:id_transportes', (req, res) => {
     });
 });
 
+/* ------------------------------------------------------- APARTADO DE LA TABLA MANO DE OBRA ---------------------------------------------------- */
+
+// selectData - Seleccionar datos de la tabla transportes
+app.get('/selectEmpleadoData', (_, res) => {
+
+    let selectQuery = `SELECT * FROM empleados`;
+
+    db_con.query(selectQuery, (error, results) => {
+        if (error) throw error;
+        console.log('Datos seleccionados:', results);
+        return res.json(results); // Devuelve los resultados como JSON
+    });
+
+});
+
+app.post(
+    '/addEmpleado',
+    multer({ storage }).single('foto_empleado'),
+    (req, res) => {
+
+        const {
+            cargo_empleados,
+            salario_base_empleados,
+        } = req.body;
+
+        console.log('Datos del empleado:', req.body);
+
+        const query = `
+        INSERT INTO empleados (
+            cargo_empleados,
+            salario_base_empleados
+        ) VALUES (?, ?)`;
+
+        db_con.query(
+            query,
+            [
+                cargo_empleados,
+                salario_base_empleados
+            ],
+            (err) => {
+                if (err) {
+                    console.error('Error al agregar empleado:', err);
+                    return res.status(500).send('Error al agregar empleado');
+                }
+                res.send({ message: 'Empleado agregado correctamente' });
+            },
+        );
+    },
+);
+
+// deleteData - Eliminar datos de la tabla transportes
+app.delete('/deleteEmpleado/:id_empleados', (req, res) => {
+
+    const { id_empleados } = req.params;
+
+    const getQuery = `SELECT * FROM empleados WHERE id_empleados = ?`;
+
+    db_con.query(getQuery, [id_empleados], (error, results) => {
+
+        if (error) throw error;
+
+        if (results.length > 0) {
+
+            let deleteQuery = `DELETE FROM empleados WHERE id_empleados = ?`;
+
+            db_con.query(deleteQuery, [id_empleados], (error, results) => {
+
+                if (error) throw error;
+
+                console.log('Empleado eliminado correctamente:', results);
+
+                return res.json({
+                    message: 'Empleado eliminado correctamente',
+                });
+            });
+        } else {
+            return res
+                .status(404)
+                .json({ message: 'Empleado no encontrado' });
+        }
+    });
+});
+
+// updateData - Actualizar datos de la tabla empleados
+app.put('/updateEmpleado/:id_empleados', (req, res) => {
+
+    const { id_empleados } = req.params;
+
+    const {
+        cargo_empleados,
+        salario_base_empleados
+    } = req.body;
+
+    const updateQuery = `
+        UPDATE empleados SET
+            cargo_empleados = ?,
+            salario_base_empleados = ?
+        WHERE id_empleados = ?`;
+
+    const queryParams = [
+        cargo_empleados,
+        salario_base_empleados,
+        id_empleados
+    ];
+
+    db_con.query(updateQuery, queryParams, (err, results) => {
+
+        if (err) {
+            console.error('Error al actualizar empleados:', err);
+            return res.status(500).json({ error: 'Error al actualizar empleado' });
+        }
+
+        if (results.affectedRows === 0) {
+            return res.status(404).json({ message: 'Empleado no encontrado' });
+        }
+
+        res.json({ message: 'Empleado actualizado correctamente' });
+    });
+});
+
 app.listen(5000, () => {
     console.log(`El servidor está corriendo en el puerto 5000 ...`);
 });

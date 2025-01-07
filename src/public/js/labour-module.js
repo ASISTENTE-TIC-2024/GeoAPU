@@ -1,0 +1,349 @@
+document.addEventListener('DOMContentLoaded', fetchData);
+
+async function fetchData() {
+    try {
+        const response = await fetch('http://localhost:5000/selectEmpleadoData');
+        const data = await response.json();
+
+        // Aquí puedes actualizar tu tabla con los datos recibidos
+        const dataTable = document.getElementById('data-table');
+        dataTable.innerHTML = ''; // Limpiar la tabla antes de agregar nuevos datos
+        data.forEach((empleado) => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${empleado.id_empleados}</td>
+                <td>${empleado.cargo_empleados}</td>
+                <td>${empleado.salario_base_empleados}</td>
+                <td class="flex align-center justify-center h-full w-full mb-2s">
+                    <button class="bg-gray-700 text-white px-2 py-1 rounded h-[4em] w-1/2 m-1" onclick="editEmpleado(${empleado.id_empleados}, '${encodeURIComponent(empleado.cargo_empleados)}', '${encodeURIComponent(empleado.salario_base_empleados)}')">
+                        <i class="fa-solid fa-pencil" style="color:rgb(255, 255, 255);"></i>
+                    </button>
+                    <button class="bg-gray-700 text-white px-2 py-1 rounded h-[4em] w-1/2 m-1" onclick="openDeleteModal(${empleado.id_empleados}, '${encodeURIComponent(empleado.cargo_empleados)}')">
+                        <i class="fa-solid fa-user-minus" style="color:rgb(255, 255, 255);"></i>
+                    </button>
+                </td>
+            `;
+            dataTable.appendChild(row);
+        });
+
+        // Integrar la paginación
+        currentPage = 1;
+        displayTablePage(currentPage);
+
+    } catch (error) {
+        console.error('Error buscando los datos:', error);
+    }
+}
+
+let currentPage = 1;
+const rowsPerPage = 5;
+
+function displayTablePage(page) {
+
+    const table = document.getElementById("data-table");
+    const rows = table.querySelectorAll("tr");
+    const totalRows = rows.length;
+    const totalPages = Math.ceil(totalRows / rowsPerPage);
+
+
+    if (page < 1) {
+        page = 1;
+    }
+
+    if (page > totalPages) {
+        page = totalPages;
+    }
+
+    for (let i = 0; i < totalRows; i++) {
+        rows[i].style.display = "none";
+    }
+
+    console.log("page:", page, "totalPages:", totalPages);
+    console.log("rowsPerPage:", rowsPerPage, "totalRows:", totalRows);
+
+
+    for (let i = (page - 1) * rowsPerPage; i < (page * rowsPerPage) && i < totalRows; i++) {
+        rows[i].style.display = '';
+    }
+
+    document.getElementById("page").innerText = page;
+    document.getElementById("totalPages").innerText = totalPages;
+    document.getElementById("btn_prev").style.visibility = page === 1 ? "hidden" : "visible";
+    document.getElementById("btn_next").style.visibility = page === totalPages ? "hidden" : "visible";
+
+
+}
+
+function prevPage() {
+    if (currentPage > 1) {
+        currentPage--;
+        displayTablePage(currentPage);
+    }
+}
+
+function nextPage() {
+    const table = document.getElementById("data-table");
+    const rows = table.querySelectorAll("tr");
+    const totalRows = rows.length;
+    const totalPages = Math.ceil(totalRows / rowsPerPage);
+
+    if (currentPage < totalPages) {
+        currentPage++;
+        displayTablePage(currentPage);
+    }
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+    displayTablePage(currentPage);
+});
+
+/* ---------------------------------------------------------------- AGREGAR EMPLEADO ----------------------------------------------------------------------------- */
+
+document
+    .getElementById('addEmpleadoForm')
+    .addEventListener('submit', async function (event) {
+
+        event.preventDefault();
+
+        const formData = new FormData(this);
+
+        const cargo_empleados = document
+            .getElementById('addEmpleadoCargo')
+            .value.trim();
+
+        const salario_base_empleados = document
+            .getElementById('addEmpleadoSalario')
+            .value.trim();
+
+        console.log(
+            'cargo_empleado:', cargo_empleados, 'salario_base_empleado:', salario_base_empleados,
+        );
+
+        formData.append('cargo_empleados', cargo_empleados);
+        formData.append('salario_base_empleados', salario_base_empleados);
+
+        try {
+            const response = await fetch(
+                `http://localhost:5000/addEmpleado`,
+                {
+                    method: 'POST',
+                    body: formData,
+                },
+            );
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            const data = await response.json();
+
+            console.log('empleado agregado:', JSON.stringify(data));
+
+            closeModal();
+            fetchData();
+
+        } catch (error) {
+            console.error('Error al agregar al empleado:', error);
+        }
+    });
+
+function openAddModal() {
+    document.getElementById('addModalEmpleados').classList.remove('hidden');
+}
+
+/* ---------------------------------------------------------------- ELIMINAR EMPLEADO ----------------------------------------------------------------------------- */
+
+let empleadoIdToDelete = null;
+
+function openDeleteModal(id_empleados, cargo_empleados) {
+
+    empleadoIdToDelete = id_empleados;
+
+    document.getElementById(
+        'deleteMessage',
+    ).textContent = `¿Está seguro de que desea eliminar al cargo ${decodeURIComponent(
+        cargo_empleados,
+    )} de la base de datos?`;
+
+    document.getElementById('deleteModalEmpleados').classList.remove('hidden');
+}
+
+function closeDeleteModal() {
+    document.getElementById('deleteModalEmpleados').classList.add('hidden');
+}
+
+async function confirmDeleteEmpleados() {
+
+    if (empleadoIdToDelete === null) {
+
+        console.error(
+            'No se especifico un ID para proceder con la eliminación.',
+        );
+
+        return;
+    }
+
+    try {
+        const response = await fetch(
+            `http://localhost:5000/deleteEmpleado/${empleadoIdToDelete}`,
+            {
+                method: 'DELETE',
+            },
+        );
+
+        if (!response.ok) {
+            const errorMessage =
+                response.status === 404
+                    ? `Transporte with ID ${empleadoIdToDelete} not found.`
+                    : `HTTP error! status: ${response.status}`;
+            throw new Error(errorMessage);
+        }
+
+        const data = await response.json();
+
+        console.log('Empleado eliminado:', JSON.stringify(data));
+
+        closeDeleteModal();
+        fetchData();
+
+    } catch (error) {
+        console.error('Error eliminando al transporte: ', error);
+    }
+}
+
+/* ---------------------------------------------------------------- EDITAR EMPLEADOS ----------------------------------------------------------------------------- */
+
+
+document.getElementById('editEmpleadoForm').addEventListener('submit', async function (event) {
+
+    event.preventDefault();
+
+    const id_empleados = document.querySelector('#editEmpleadoId').value.trim();
+    const cargo_empleados = document.querySelector('#editEmpleadoCargo').value.trim();
+    const salario_base_empleados = document.querySelector('#editEmpleadoSalario').value.trim();
+
+    const updatedEmpleado = {
+        cargo_empleados,
+        salario_base_empleados,
+    };
+
+    console.log(id_empleados, updatedEmpleado);
+
+    try {
+        const response = await fetch(`http://localhost:5000/updateEmpleado/${id_empleados}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+
+            body: JSON.stringify(updatedEmpleado),
+        });
+
+        console.log(response);
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+
+        console.log('Empleado actualizado:', data);
+
+        closeModal();
+        fetchData();
+
+    } catch (error) {
+        console.error('Error al actualizar el empleado:', error);
+    }
+});
+
+async function editEmpleado(
+    id_empleados,
+    cargo_empleados,
+    salario_base_empleados,
+) {
+
+    console.log(id_empleados, cargo_empleados, salario_base_empleados);
+
+    document.getElementById('editEmpleadoId').value = id_empleados;
+
+    document.getElementById('editEmpleadoCargo').value =
+        decodeURIComponent(cargo_empleados);
+
+    document.getElementById('editEmpleadoSalario').value =
+        decodeURIComponent(salario_base_empleados);
+
+    document.getElementById('editModalEmpleados').classList.remove('hidden');
+}
+
+// Función para mostrar el modal de confirmación y actualizar la página
+function showConfirmationModal() {
+
+    const modal = document.getElementById('confirmationModal');
+    modal.classList.remove('hidden');
+
+    // Actualizar la página cuando se cierra el modal
+    document
+        .getElementById('refreshPageButton')
+        .addEventListener('click', function () {
+            location.reload();
+        });
+}
+
+
+/* ---------------------------------------------------------------- ORDENAR TABLA ----------------------------------------------------------------------------- */
+
+function sortTable(column) {
+    const table = document.querySelector('tbody');
+    const rows = Array.from(table.getElementsByTagName('tr'));
+    const isAscending = table.getAttribute('data-sort-order') === 'asc';
+    table.setAttribute('data-sort-order', isAscending ? 'desc' : 'asc');
+
+    rows.sort((a, b) => {
+        const cellA = a
+            .getElementsByTagName('td')
+        [column].innerText.toLowerCase();
+        const cellB = b
+            .getElementsByTagName('td')
+        [column].innerText.toLowerCase();
+
+        if (cellA < cellB) return isAscending ? -1 : 1;
+        if (cellA > cellB) return isAscending ? 1 : -1;
+        return 0;
+    });
+
+    rows.forEach((row) => table.appendChild(row));
+}
+
+function searchTable() {
+
+    let input, filter, table, tr, td, i, j, txtValue;
+    input = document.getElementById("searchInput");
+    filter = input.value.toUpperCase();
+    table = document.querySelector("table");
+    tr = table.getElementsByTagName("tr");
+
+    for (i = 1; i < tr.length; i++) {
+        tr[i].style.display = "none";
+        td = tr[i].getElementsByTagName("td");
+        for (j = 0; j < td.length; j++) {
+            if (td[j]) {
+                txtValue = td[j].textContent || td[j].innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                    break;
+                }
+            }
+        }
+    }
+
+}
+
+function closeModal() {
+    document.getElementById('editModalEmpleados').classList.add('hidden');
+    document.getElementById('addModalEmpleados').classList.add('hidden');
+}
+
+// Llamar a la función fetchData cuando el DOM esté completamente cargado
+
+document.addEventListener('DOMContentLoaded', fetchData);
