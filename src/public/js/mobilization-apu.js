@@ -111,6 +111,8 @@ function displayDataAPU() {
 
 displayDataAPU()
 
+/*------------------ MODULO DE LA TABLA EQUIPOS ----------------------*/
+
 function rendimientoEquiposLocalStorage() {
 
     // Obtener el valor del input
@@ -139,19 +141,32 @@ function rendimientoEquiposLocalStorage() {
 
 }
 
+function valorUnitarioEquipos() {
+
+    // Obtener el valor del input
+    const TARIFA_DIA_EQUIPOS = document.getElementById('TARIFA_DIA_EQUIPOS').value
+
+    const RENDIMIENTO_EQUIPOS = document.getElementById("RENDIMIENTO_EQUIPOS").value
+
+    const VALOR_UNITARIO_EQUIPOS = document.getElementById("VALOR_UNITARIO_EQUIPOS")
+
+    const valor = RENDIMIENTO_EQUIPOS * TARIFA_DIA_EQUIPOS;
+
+    VALOR_UNITARIO_EQUIPOS.value = `${valor.toFixed(2)}`;
+
+}
+
+/*------------------ MODULO DE LA TABLA MATERIALES ----------------------*/
+
 function cantidadMaterialesLocalStorage() {
 
     // Obtener el valor del input
     const rendimientoDiario =
         document.getElementById('rendimientoDiario').value
 
-    console.log(rendimientoDiario)
-
     // Obtener el objeto informacionRotulos desde localStorage
     const informacionRotulos =
         JSON.parse(localStorage.getItem('informacionRotulos')) || []
-
-    console.log(informacionRotulos);
 
     informacionRotulos.forEach((data, index) => {
         data.rendimiento = rendimientoDiario
@@ -167,26 +182,9 @@ function cantidadMaterialesLocalStorage() {
         JSON.stringify(informacionRotulos)
     )
 
-    console.log(JSON.stringify(informacionRotulos))
-
 }
 
 cantidadMaterialesLocalStorage()
-
-function valorUnitarioEquipos() {
-
-    // Obtener el valor del input
-    const TARIFA_DIA_EQUIPOS = document.getElementById('TARIFA_DIA_EQUIPOS').value
-
-    const RENDIMIENTO_EQUIPOS = document.getElementById("RENDIMIENTO_EQUIPOS").value
-
-    const VALOR_UNITARIO_EQUIPOS = document.getElementById("VALOR_UNITARIO_EQUIPOS")
-
-    const valor = RENDIMIENTO_EQUIPOS * TARIFA_DIA_EQUIPOS;
-
-    VALOR_UNITARIO_EQUIPOS.value = `${valor.toFixed(2)}`;
-
-}
 
 function valorUnitarioMateriales() {
 
@@ -203,6 +201,8 @@ function valorUnitarioMateriales() {
 
 }
 
+/*------------------ MODULO DE LA TABLA TRANSPORTES ----------------------*/
+
 function valorUnitarioTransportes() {
     // Obtener el valor del input
     const PRECIO_UNITARIO_TRANSPORTES = document.getElementById('PRECIO UNITARIO TRANSPORTE').value;
@@ -213,4 +213,28 @@ function valorUnitarioTransportes() {
     VALOR_UNITARIO_TRANSPORTES.value = `${valor.toFixed(2)}`;
 }
 
+/*------------------ MODULO DE LA TABLA MANO DE OBRA ----------------------*/
+
+function valorUnitarioManoDeObra() {
+
+    // Obtener el valor del input
+    JORNAL_MANO_DE_OBRA = parseFloat(document.getElementById('JORNAL MANO DE OBRA').value.replace(/[\$,]/g, ''))
+
+    console.log(JORNAL_MANO_DE_OBRA);
+
+    JORNAL_TOTAL_MANO_DE_OBRA = document.getElementById('JORNAL TOTAL MANO DE OBRA').value;
+
+    console.log(JORNAL_TOTAL_MANO_DE_OBRA);
+
+    RENDIMIENTO_MANO_DE_OBRA = document.getElementById('RENDIMIENTO MANO DE OBRA').value;
+
+    console.log(RENDIMIENTO_MANO_DE_OBRA);
+
+    const VALOR_UNITARIO_MANO_DE_OBRA = document.getElementById('VALOR UNITARIO MANO DE OBRA');
+
+    const valor = JORNAL_MANO_DE_OBRA * JORNAL_TOTAL_MANO_DE_OBRA * RENDIMIENTO_MANO_DE_OBRA;
+
+    VALOR_UNITARIO_MANO_DE_OBRA.value = valor.toFixed(2);
+
+}
 

@@ -2,7 +2,7 @@
 module.exports = {
     content: [
         "./src/views/**/*.html",
-        "./src/views/login.html",
+        "src/index.html",
         "./src/public/js/**/*.js",
         "./src/middleware/**/*.js",
         "./src/config/**/*.js"

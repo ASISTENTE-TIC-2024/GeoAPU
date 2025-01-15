@@ -1,4 +1,3 @@
-let datosManoDeObra = []
 
 /******************************* EQUIPOS *******************************/
 
@@ -206,8 +205,6 @@ function actualizarTablaMateriales() {
         (sum, item) => sum + parseFloat(item.valor_unitario_materiales), 0
     )
 
-    console.log(totalMaterialesMov);
-
     tbody.innerHTML = ''
 
     storedDatosMaterialesMov.forEach((item, index) => {
@@ -370,8 +367,6 @@ function actualizarTablaTransportes() {
         (sum, item) => sum + parseFloat(item.valor_unitario_transportes), 0
     )
 
-    console.log(totalTransportesMov);
-
     tbody.innerHTML = ''
 
     storedDatosTransportesMov.forEach((item, index) => {
@@ -438,35 +433,39 @@ function actualizarValorUnitarioTransportes() {
 }
 
 actualizarTablaTransportes()
+
 /******************************* MANO DE OBRA *******************************/
 
 document
     .getElementById('dataFormManoDeObra')
     .addEventListener('submit', function (e) {
+
         e.preventDefault()
 
         let trabajador_mano_de_obra =
-            document.getElementById('TRABAJADOR MANO DE OBRA').value ||
-            'SIN TRABAJADOR'
+            document.getElementById('TRABAJADOR MANO DE OBRA').value || 'SIN TRABAJADOR'
+
         let jornal_mano_de_obra =
-            parseFloat(document.getElementById('JORNAL MANO DE OBRA').value) ||
-            0
+            parseFloat(document.getElementById('JORNAL MANO DE OBRA').value.replace(/[^0-9.-]+/g, "")) || 0
+
         let prestacion_mano_de_obra =
             document.getElementById('PRESTACION (%) MANO DE OBRA').value || 0
-        let jornal_total_mano_de_obra =
-            parseFloat(
-                document.getElementById('JORNAL TOTAL MANO DE OBRA').value
-            ) || 0
-        let rendimiento_mano_de_obra =
-            parseFloat(
-                document.getElementById('RENDIMIENTO MANO DE OBRA').value
-            ) || 0
-        let valor_unitario_mano_de_obra =
-            parseFloat(
-                document.getElementById('VALOR UNITARIO MANO DE OBRA').value
-            ) || 0
 
-        datosManoDeObra.push({
+        let jornal_total_mano_de_obra =
+            parseFloat(document.getElementById('JORNAL TOTAL MANO DE OBRA').value) || 0
+
+        let rendimiento_mano_de_obra =
+            parseFloat(document.getElementById('RENDIMIENTO MANO DE OBRA').value) || 0
+
+        let valor_unitario_mano_de_obra = parseFloat(jornal_mano_de_obra * rendimiento_mano_de_obra * jornal_total_mano_de_obra) || 0
+
+        console.log(valor_unitario_mano_de_obra);
+
+        let datosManoDeObraMov = JSON.parse(localStorage.getItem('datosManoDeObraMov')) || []
+
+        console.log(datosManoDeObraMov);
+
+        datosManoDeObraMov.push({
             trabajador_mano_de_obra,
             jornal_mano_de_obra,
             prestacion_mano_de_obra,
@@ -474,72 +473,104 @@ document
             rendimiento_mano_de_obra,
             valor_unitario_mano_de_obra,
         })
+
+        console.log(datosManoDeObraMov);
+
+        localStorage.setItem('datosManoDeObraMov', JSON.stringify(datosManoDeObraMov))
+
         actualizarTablaManoDeObra()
+
     })
 
 function actualizarTablaManoDeObra() {
-    let tbody = document.querySelector('#dataTableManoDeObra tbody')
+
+    let tbody = document.querySelector('#dataTableManoDeObraMov tbody')
+
+    let storedDatosManoDeObraMov =
+        JSON.parse(localStorage.getItem('datosManoDeObraMov')) || []
+
+    // Calcular el total de todos los valores
+    let totalManoDeObraMov = storedDatosManoDeObraMov.reduce(
+        (sum, item) => sum + parseFloat(item.valor_unitario_mano_de_obra), 0
+    )
+
     tbody.innerHTML = ''
-    datosManoDeObra.forEach((item, index) => {
+
+    storedDatosManoDeObraMov.forEach((item, index) => {
         let tr = document.createElement('tr')
         tr.className =
             index % 2 === 0
                 ? 'even:bg-gray-50 border-b'
                 : 'odd:bg-white even:bg-gray-50 border-b'
-        tr.innerHTML = `< td > ${item.trabajador_mano_de_obra}</td ><td>$ ${item.jornal_mano_de_obra
-            }</td><td>${item.prestacion_mano_de_obra}</td><td>$ ${item.jornal_total_mano_de_obra
-            }</td><td>${item.rendimiento_mano_de_obra}</td><td>$ ${item.valor_unitario_mano_de_obra
-            }</td><td> % </td><td><button class="active:scale-90 transition-transform" onclick="eliminarElementoManoDeObra(${datosManoDeObra.indexOf(
-                item
-            )})"><i class="fa-solid fa-trash-can"></i></button></td>`
+
+        item.porcentaje_incidencia = (item.valor_unitario_mano_de_obra / totalManoDeObraMov) * 100 || 0;
+
+        tr.innerHTML = `
+        
+        <td> ${item.trabajador_mano_de_obra}</td>
+        <td>$ ${item.jornal_mano_de_obra}</td>
+        <td>${item.prestacion_mano_de_obra}</td>
+        <td>${item.jornal_total_mano_de_obra}</td>
+
+        <td>${item.rendimiento_mano_de_obra}</td>
+
+        <td>$ ${item.valor_unitario_mano_de_obra}</td>
+        <td>${isNaN(item.porcentaje_incidencia) || !isFinite(item.porcentaje_incidencia) ? 0 : item.porcentaje_incidencia.toFixed(2)}%</td>
+        <td><button class="active:scale-90 transition-transform" onclick="eliminarElementoManoDeObra(${storedDatosManoDeObraMov.indexOf(item)})"><i class="fa-solid fa-trash-can"></i></button></td>`
         tbody.appendChild(tr)
     })
 }
 
 function eliminarElementoManoDeObra(index) {
-    datosManoDeObra.splice(index, 1)
+
+    // Obtener los datos existentes del localStorage
+    let storedDatosManoDeObraMov = JSON.parse(localStorage.getItem('datosManoDeObraMov')) || []
+
+    storedDatosManoDeObraMov.splice(index, 1)
+
+    // Guardar el array actualizado en el localStorage
+    localStorage.setItem('datosManoDeObraMov', JSON.stringify(storedDatosManoDeObraMov))
+
     actualizarTablaManoDeObra()
 }
+
+actualizarTablaManoDeObra();
 
 /******************************* TOTAL *******************************/
 
 function calcularTotalGeneral() {
 
-    let storedDatosEquipos =
-        JSON.parse(localStorage.getItem('datosEquiposMov')) || []
+    let storedDatosEquipos = JSON.parse(localStorage.getItem('datosEquiposMov')) || []
 
     let totalEquiposMov = storedDatosEquipos.reduce(
         (sum, item) => sum + item.rendimiento_equipos * item.tarifa_dia_equipos,
         0
     )
 
-    let storedDatosMaterialesMov =
-        JSON.parse(localStorage.getItem('datosMaterialesMov')) || []
+    let storedDatosMaterialesMov = JSON.parse(localStorage.getItem('datosMaterialesMov')) || []
 
     // Sumar los valores
     let totalMaterialesMov = storedDatosMaterialesMov.reduce(
         (sum, item) => sum + parseFloat(item.valor_unitario_materiales), 0
     )
 
-    let storedDatosTransporteMov =
-        JSON.parse(localStorage.getItem('datosTransporteMov')) || []
+    let storedDatosTransportesMov = JSON.parse(localStorage.getItem('datosTransportesMov')) || []
 
     // Sumar los valores
-    let totalTransporteMov = storedDatosTransporteMov.reduce(
-        (sum, item) => sum + item.valor_unitario_transporte,
-        0
+    let totalTransporteMov = storedDatosTransportesMov.reduce(
+        (sum, item) => sum + parseFloat(item.valor_unitario_transportes), 0
     )
 
+    let storedDatosManoDeObraMov = JSON.parse(localStorage.getItem('datosManoDeObraMov')) || []
+
     // Sumar los valores
-    let totalManoDeObra = datosManoDeObra.reduce(
-        (sum, item) => sum + item.valor_unitario_mano_de_obra,
-        0
+    let totalManoDeObraMov = storedDatosManoDeObraMov.reduce(
+        (sum, item) => sum + parseFloat(item.valor_unitario_mano_de_obra), 0
     )
 
     // Sumar todos los totales
     let totalGeneralMov =
-        totalManoDeObra + totalEquiposMov + totalMaterialesMov + totalTransporteMov
-
+        totalManoDeObraMov + totalEquiposMov + totalMaterialesMov + totalTransporteMov
 
 
     let administracionMov = totalGeneralMov * 0.13
@@ -548,18 +579,15 @@ function calcularTotalGeneral() {
 
     let totalGlobalMov = totalGeneralMov + administracionMov + imprevistosMov + utilidadMov
 
-    let porcentajeManoDeObra = (totalManoDeObra / totalGeneralMov) * 100 || 0
+    let porcentajeManoDeObraMov = (totalManoDeObraMov / totalGeneralMov) * 100 || 0
     let porcentajeEquiposMov = (totalEquiposMov / totalGeneralMov) * 100 || 0
     let porcentajeMaterialesMov = (totalMaterialesMov / totalGeneralMov) * 100 || 0
     let porcentajeTransporteMov = (totalTransporteMov / totalGeneralMov) * 100 || 0
 
     // Mostrar los sub-totales en el DOM con dos decimales
-
-    console.log(totalEquiposMov.toFixed(2));
-
     document.getElementById(
         'resultadoEquipos'
-    ).textContent = `$ ${isNaN(totalEquiposMov.toFixed(2)) || !isFinite(totalEquiposMov) ? 0 : totalEquiposMov.toFixed(2)} `
+    ).textContent = `$ ${isNaN(totalEquiposMov.toFixed(2)) || !isFinite(totalEquiposMov) ? 0 : totalEquiposMov.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")} `
 
     document.getElementById(
         'porcentajeEquipos'
@@ -567,7 +595,7 @@ function calcularTotalGeneral() {
 
     document.getElementById(
         'resultadoMateriales'
-    ).textContent = `$ ${isNaN(totalMaterialesMov.toFixed(2)) || !isFinite(totalMaterialesMov) ? 0 : totalMaterialesMov.toFixed(2)} `
+    ).textContent = `$ ${isNaN(totalMaterialesMov.toFixed(2)) || !isFinite(totalMaterialesMov) ? 0 : totalMaterialesMov.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")} `
 
     document.getElementById(
         'porcentajeMateriales'
@@ -575,7 +603,7 @@ function calcularTotalGeneral() {
 
     document.getElementById(
         'resultadoTransporte'
-    ).textContent = `$ ${totalTransporteMov.toFixed(2)} `
+    ).textContent = `$ ${isNaN(totalTransporteMov.toFixed(2)) || !isFinite(totalTransporteMov) ? 0 : totalTransporteMov.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")} `
 
     document.getElementById(
         'porcentajeTransporte'
@@ -583,32 +611,29 @@ function calcularTotalGeneral() {
 
     document.getElementById(
         'resultadoManoDeObra'
-    ).textContent = `$ ${totalManoDeObra.toFixed(2)} `
+    ).textContent = `$ ${isNaN(totalManoDeObraMov.toFixed(2)) || !isFinite(totalManoDeObraMov) ? 0 : totalManoDeObraMov.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")} `
 
     document.getElementById(
         'porcentajeManoDeObra'
-    ).textContent = `${porcentajeManoDeObra.toFixed(2)}% `
-
+    ).textContent = `${porcentajeManoDeObraMov.toFixed(2)}% `
     // Mostrar el resultado en un elemento del DOM con dos decimales
     document.getElementById(
         'resultadoTotalGeneral'
-    ).textContent = `$ ${totalGeneralMov.toFixed(2)} `
+    ).textContent = `$ ${isNaN(totalGeneralMov.toFixed(2)) || !isFinite(totalGeneralMov) ? 0 : totalGeneralMov.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")} `
 
     document.getElementById(
         'administracion'
-    ).textContent = `$ ${administracionMov.toFixed(2)} `
+    ).textContent = `$ ${isNaN(administracionMov.toFixed(2)) || !isFinite(administracionMov) ? 0 : administracionMov.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")} `
 
     document.getElementById(
         'imprevistos'
+    ).textContent = `$ ${isNaN(imprevistosMov.toFixed(2)) || !isFinite(imprevistosMov) ? 0 : imprevistosMov.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")} `
 
-    ).textContent = `$ ${imprevistosMov.toFixed(2)} `
-    document.getElementById('utilidad').textContent = `$ ${utilidadMov.toFixed(
-        2
-    )} `
+    document.getElementById('utilidad').textContent = `$ ${isNaN(utilidadMov.toFixed(2)) || !isFinite(utilidadMov) ? 0 : utilidadMov.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")} `
 
     document.getElementById(
         'totalGlobal'
-    ).textContent = `$ ${totalGlobalMov.toFixed(2)} `
+    ).textContent = `$ ${isNaN(totalGlobalMov.toFixed(2)) || !isFinite(totalGlobalMov) ? 0 : totalGlobalMov.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")} `
 }
 
 // Configurar el MutationObserver para observar cambios en el contenedor de filas

@@ -387,6 +387,7 @@ document
         let trabajador_mano_de_obra =
             document.getElementById('TRABAJADOR MANO DE OBRA').value ||
             'SIN TRABAJADOR'
+
         let jornal_mano_de_obra =
             parseFloat(document.getElementById('JORNAL MANO DE OBRA').value) ||
             0

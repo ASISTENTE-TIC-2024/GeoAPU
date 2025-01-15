@@ -333,7 +333,7 @@ function logoutEdit() {
     // Eliminar el token JWT del almacenamiento local
     localStorage.removeItem('token');
     // Redirigir al usuario a la página de inicio de sesión
-    window.location.href = '../login.html';
+    window.location.href = '../../index.html';
 }
 
 

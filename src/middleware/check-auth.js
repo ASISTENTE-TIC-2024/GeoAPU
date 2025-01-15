@@ -3,10 +3,10 @@ function checkAuth() {
     const token = localStorage.getItem('token');
 
     if (!token) {
-        window.location.href = '../login.html';
+        window.location.href = '../../index.html';
         return;
     }
-    
+
     // Opcional: Verificar la validez del token con el servidor
     fetch('http://localhost:5000/verify-token', {
         method: 'POST',
@@ -32,7 +32,7 @@ function checkAuth() {
         .catch(error => {
             console.error('Error verificando el Token: ', error);
             alert('Necesitas iniciar sesión');
-            window.location.href = '../login.html';
+            window.location.href = '../../index.html';
         });
 }
 
@@ -44,7 +44,7 @@ function logout() {
         // Eliminar el token JWT del almacenamiento local
         localStorage.removeItem('token');
         // Redirigir al usuario a la página de inicio de sesión
-        window.location.href = '../login.html';
+        window.location.href = '../../index.html';
     }
 }
 

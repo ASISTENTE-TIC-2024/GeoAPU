@@ -434,7 +434,7 @@
             <div class="grid grid-cols-1 grid-rows-1">
                 <div
                     class="col-span-8 border border-solid border-gray-400 text-center flex flex-col justify-center relative overflow-x-auto">
-                    <table id="dataTableManoDeObra" class="w-full text-sm text-center text-gray-500">
+                    <table id="dataTableManoDeObraMov" class="w-full text-sm text-center text-gray-500">
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                             <tr>
                                 <th scope="col" class="px-6 py-3">
@@ -468,38 +468,76 @@
 
                         <form id="dataFormManoDeObra" class="my-2 flex flex-row justify-center flex-wrap">
                             <tr>
+
                                 <td scope="col" class="px-6 py-3">
                                     <input type="text" id="TRABAJADOR MANO DE OBRA" placeholder="TRABAJADOR"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg pl-3 h-10 mx-2" />
                                 </td>
+
                                 <td scope="col" class="px-6 py-3">
-                                    <input type="number" id="JORNAL MANO DE OBRA" placeholder="JORNAL"
-                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg pl-3 h-10 mx-2" />
+                                    <input type="text" id="JORNAL MANO DE OBRA" placeholder="JORNAL" step="0.01"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg pl-3 h-10 mx-2"
+                                        oninput="formatCurrency(this)" />
                                 </td>
+
+                                <script>
+
+                                    function formatCurrency(input) {
+                                        let value = input.value.replace(/\D/g, '');
+                                        if (value) {
+                                            value = (value / 100).toFixed(2);
+                                            value = value.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+                                            input.value = '$ ' + value;
+                                        }
+                                    }
+
+                                    const jornalManoDeObra = document.getElementById('JORNAL MANO DE OBRA');
+
+                                    setInterval(() => formatCurrency(jornalManoDeObra), 50);
+
+                                </script>
+
                                 <td scope="col" class="px-6 py-3">
                                     <input type="text" id="PRESTACION (%) MANO DE OBRA" placeholder="PRESTACION (%)"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg pl-3 h-10 mx-2" />
                                 </td>
+
                                 <td scope="col" class="px-6 py-3">
                                     <input type="number" id="JORNAL TOTAL MANO DE OBRA" placeholder="JORNAL TOTAL"
-                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg pl-3 h-10 mx-2" />
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg pl-3 h-10 mx-2"
+                                        oninput="valorUnitarioManoDeObra()" />
                                 </td>
                                 <td scope="col" class="px-6 py-3">
                                     <input type="number" id="RENDIMIENTO MANO DE OBRA" placeholder="RENDIMIENTO"
-                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg pl-3 h-10 mx-2" />
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg pl-3 h-10 mx-2"
+                                        oninput="valorUnitarioManoDeObra()" />
                                 </td>
                                 <td scope="col" class="px-6 py-3">
                                     <input type="number" id="VALOR UNITARIO MANO DE OBRA" placeholder="VALOR UNITARIO"
-                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg pl-3 h-10 mx-2" />
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg pl-3 h-10 mx-2"
+                                        readonly />
                                 </td>
                                 <td scope="col" class="px-6 py-3">
                                     <button type="submit" class="mr-5 text-4xl active:scale-90 transition-transform">
                                         <i class="fa-solid fa-circle-plus text-4xl"></i>
                                     </button>
                                 </td>
+
                             </tr>
                         </form>
                     </table>
+                    <div style="
+                    position: sticky;
+                    left: 0;
+                    background-color: white;
+                ">
+                        <select
+                            class="w-full h-10 m-5 bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded pl-3 pr-8 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-400 shadow-sm focus:shadow-md appearance-none cursor-pointer"
+                            id="selectManoDeObra" style="max-width: -webkit-fill-available"
+                            onclick="valorUnitarioManoDeObra(); actualizarTablaManoDeObra();">
+                            <option value="">Seleccione un item de mano de obra</option>
+                        </select>
+                    </div>
                 </div>
                 <div class="grid grid-cols-8 grid-rows-1">
                     <div

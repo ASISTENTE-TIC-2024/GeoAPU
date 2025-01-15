@@ -188,7 +188,7 @@
                     </div>
                     <button
                         class="focus:outline-none rounded-md flex w-full sm:w-auto items-center sm:items-stretch justify-end sm:justify-start"
-                        onclick="window.location.href='./index.html'">
+                        onclick="window.location.href='./main.html'">
                         <div class="flex items-center">
                             <img class="h-15 w-20" src="https://i.imgur.com/xQhZRWX.png" alt="logo" />
                         </div>
@@ -296,7 +296,7 @@
         <nav>
             <div class="py-4 px-6 w-full flex xl:hidden justify-between items-center bg-white fixed top-0 z-40">
                 <div aria-label="logo" role="img" tabindex="0" class="focus:outline-none w-24">
-                    <a href="./index.html">
+                    <a href="./main.html">
                         <img class="h-10 w-15" src="https://i.imgur.com/xQhZRWX.png" alt="logo" />
                     </a>
                 </div>
@@ -335,7 +335,7 @@
                                 <div class="mt-6 flex w-full items-center justify-between">
                                     <div class="flex items-center justify-between w-full">
                                         <div class="flex items-center">
-                                            <a href="./index.html">
+                                            <a href="./main.html">
                                                 <img class="h-10 w-15" src="https://i.imgur.com/xQhZRWX.png"
                                                     alt="logo" />
                                             </a>
@@ -504,7 +504,7 @@
 
             <button class="bg-green-500 text-white px-4 py-2 rounded mt-10 w-80 text-gray-200" onclick="openAddModal()">
                 <i class="fa-solid fa-plus text-gray-200"></i>
-                AGREGAR M.O
+                AGREGAR CARGO DE EMPLEADO
             </button>
         </div>
 
@@ -583,6 +583,7 @@
         </div>
 
         <!-- Modal para agrega empleados -->
+
         <div id="addModalEmpleados"
             class="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 hidden z-50 overflow-auto">
             <div class="bg-white p-6 rounded-lg w-[40em] m-auto relative">
@@ -615,6 +616,7 @@
         </div>
 
         <!-- Modal para confirmar eliminación -->
+
         <div id="deleteModalEmpleados"
             class="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 hidden">
             <div class="bg-white p-6 rounded-lg">
@@ -633,11 +635,12 @@
             </div>
         </div>
 
-        <!-- Modal para editar equipos -->
+        <!-- Modal para editar empleados -->
+
         <div id="editModalEmpleados"
             class="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 hidden z-50 overflow-auto">
             <div class="bg-white p-6 rounded-lg w-[40em] m-auto relative">
-                <h2 class="text-xl mb-4">Editar Equipos</h2>
+                <h2 class="text-xl mb-4">Editar Empleados</h2>
                 <form id="editEmpleadoForm" enctype="multipart/form-data">
 
                     <input type="hidden" id="editEmpleadoId" />
@@ -665,11 +668,479 @@
         </div>
 
         <!-- Modal de confirmación de la actualización -->
+
         <div id="confirmationModal"
             class="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 hidden z-50">
             <div class="bg-white rounded-lg shadow-lg p-6">
                 <h2 class="text-xl font-semibold mb-4">Confirmación</h2>
                 <p>Empleado actualizado exitosamente.</p>
+                <div class="mt-4 flex align-center justify-center">
+                    <button id="refreshPageButton" class="bg-blue-500 text-white px-4 py-2 rounded">
+                        Aceptar
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!--------------------------------------------- MODULO DE GASTOS DIARIOS ---------------------------------------------------->
+
+        <div class="flex justify-center mt-20">
+            <button class="bg-green-500 text-white px-4 py-2 rounded w-80 text-gray-200" onclick="openAddModalGastos()">
+                <i class="fa-solid fa-plus text-gray-200"></i>
+                AGREGAR GASTO DIARIO
+            </button>
+        </div>
+
+        <div class="flex justify-center mb-4 w-4/5 mx-auto mt-10">
+            <input type="text" id="searchInputGastos" onkeyup="searchTableGastos()"
+                placeholder="Buscar en la tabla gastos diarios..." class="px-4 py-2 border rounded w-full">
+        </div>
+
+        <div class="table-container mx-10 overflow-x-auto relative top-[30px]">
+
+            <table id="listingTableGastos" class="min-w-full bg-gray-100 border rounded-lg">
+
+                <caption class="text-lg text-gray-100 font-semibold my-2">Tabla Gastos Diarios</caption>
+
+                <thead style="background-color: rgb(34, 34, 34)">
+                    <tr class="text-center">
+                        <th class="py-2 p-2" onclick="sortTable(0)">
+                            <div class="flex items-center justify-center text-gray-50">
+                                ID
+                                <a href="#"><svg class="w-3 h-3 ms-1.5" aria-hidden="true"
+                                        xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"
+                                        color="white">
+                                        <path
+                                            d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z">
+                                        </path>
+                                    </svg>
+                                </a>
+                            </div>
+                        </th>
+
+                        <th class="py-2 p-2" onclick="sortTable(1)">
+                            <div class="flex items-center justify-center text-gray-50">
+                                CARGO
+                                <a href="#"><svg class="w-3 h-3 ms-1.5" aria-hidden="true"
+                                        xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"
+                                        color="white">
+                                        <path
+                                            d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z">
+                                        </path>
+                                    </svg>
+                                </a>
+                            </div>
+                        </th>
+
+                        <th class="py-2 p-2" onclick="sortTable(2)">
+                            <div class="flex items-center justify-center text-gray-50">
+                                LUGAR
+                                <a href="#"><svg class="w-3 h-3 ms-1.5" aria-hidden="true"
+                                        xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"
+                                        color="white">
+                                        <path
+                                            d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z">
+                                        </path>
+                                    </svg>
+                                </a>
+                            </div>
+                        </th>
+
+                        <th class="py-2 p-2" onclick="sortTable(3)">
+                            <div class="flex items-center justify-center text-gray-50">
+                                HOTEL
+                                <a href="#"><svg class="w-3 h-3 ms-1.5" aria-hidden="true"
+                                        xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"
+                                        color="white">
+                                        <path
+                                            d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z">
+                                        </path>
+                                    </svg>
+                                </a>
+                            </div>
+                        </th>
+
+                        <th class="py-2 p-2" onclick="sortTable(4)">
+                            <div class="flex items-center justify-center text-gray-50">
+                                DESAYUNO
+                                <a href="#"><svg class="w-3 h-3 ms-1.5" aria-hidden="true"
+                                        xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"
+                                        color="white">
+                                        <path
+                                            d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z">
+                                        </path>
+                                    </svg>
+                                </a>
+                            </div>
+                        </th>
+
+                        <th class="py-2 p-2" onclick="sortTable(5)">
+                            <div class="flex items-center justify-center text-gray-50">
+                                ALMUERZO
+                                <a href="#"><svg class="w-3 h-3 ms-1.5" aria-hidden="true"
+                                        xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"
+                                        color="white">
+                                        <path
+                                            d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z">
+                                        </path>
+                                    </svg>
+                                </a>
+                            </div>
+                        </th>
+
+                        <th class="py-2 p-2" onclick="sortTable(6)">
+                            <div class="flex items-center justify-center text-gray-50">
+                                CENA
+                                <a href="#"><svg class="w-3 h-3 ms-1.5" aria-hidden="true"
+                                        xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"
+                                        color="white">
+                                        <path
+                                            d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z">
+                                        </path>
+                                    </svg>
+                                </a>
+                            </div>
+                        </th>
+
+                        <th class="py-2 p-2" onclick="sortTable(7)">
+                            <div class="flex items-center justify-center text-gray-50">
+                                LAVANDERIA
+                                <a href="#"><svg class="w-3 h-3 ms-1.5" aria-hidden="true"
+                                        xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"
+                                        color="white">
+                                        <path
+                                            d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z">
+                                        </path>
+                                    </svg>
+                                </a>
+                            </div>
+                        </th>
+
+                        <th class="py-2 p-2" onclick="sortTable(8)">
+                            <div class="flex items-center justify-center text-gray-50">
+                                HIDRATACIÓN
+                                <a href="#"><svg class="w-3 h-3 ms-1.5" aria-hidden="true"
+                                        xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"
+                                        color="white">
+                                        <path
+                                            d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z">
+                                        </path>
+                                    </svg>
+                                </a>
+                            </div>
+                        </th>
+
+                        <th class="py-2 p-2" onclick="sortTable(9)">
+                            <div class="flex items-center justify-center text-gray-50">
+                                HIELO
+                                <a href="#"><svg class="w-3 h-3 ms-1.5" aria-hidden="true"
+                                        xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"
+                                        color="white">
+                                        <path
+                                            d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z">
+                                        </path>
+                                    </svg>
+                                </a>
+                            </div>
+                        </th>
+
+                        <th class="py-2 p-2" onclick="sortTable(10)">
+                            <div class="flex items-center justify-center text-gray-50">
+                                REFRIGERIO
+                                <a href="#"><svg class="w-3 h-3 ms-1.5" aria-hidden="true"
+                                        xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"
+                                        color="white">
+                                        <path
+                                            d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z">
+                                        </path>
+                                    </svg>
+                                </a>
+                            </div>
+                        </th>
+
+                        <th class="py-2 p-2" onclick="sortTable(11)">
+                            <div class="flex items-center justify-center text-gray-50">
+                                SALARIO
+                                <a href="#"><svg class="w-3 h-3 ms-1.5" aria-hidden="true"
+                                        xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"
+                                        color="white">
+                                        <path
+                                            d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z">
+                                        </path>
+                                    </svg>
+                                </a>
+                            </div>
+                        </th>
+
+                        <th class="py-2 p-2" onclick="sortTable(12)">
+                            <div class="flex items-center justify-center text-gray-50">
+                                CARGA PRESTACIONAL
+                                <a href="#"><svg class="w-3 h-3 ms-1.5" aria-hidden="true"
+                                        xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"
+                                        color="white">
+                                        <path
+                                            d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z">
+                                        </path>
+                                    </svg>
+                                </a>
+                            </div>
+                        </th>
+
+                        <th class="py-2 p-2" onclick="sortTable(13)">
+                            <div class="flex items-center justify-center text-gray-50">
+                                EPP
+                                <a href="#"><svg class="w-3 h-3 ms-1.5" aria-hidden="true"
+                                        xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"
+                                        color="white">
+                                        <path
+                                            d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z">
+                                        </path>
+                                    </svg>
+                                </a>
+                            </div>
+                        </th>
+
+                        <th class="py-2 p-2" onclick="sortTable(14)">
+                            <div class="flex items-center justify-center text-gray-50">
+                                ACCIONES
+                            </div>
+                        </th>
+
+                    </tr>
+                </thead>
+                <tbody id="data-table-gastos" class="text-center"></tbody>
+            </table>
+        </div>
+
+        <div class="flex justify-center items-center gap-4 mb-4 mt-20">
+
+            <button onclick="prevPageGastos()" id="btn_prev_gastos"
+                class="bg-gray-500 hover:bg-gray-600 text-white font-medium py-2 px-4 rounded transition duration-200 mr-2">
+                Anterior</button>
+
+            <div class="text-gray-100">
+                Página <span id="pageGastos" class="font-semibold"></span> de <span id="totalPagesGastos"
+                    class="font-semibold"></span>
+            </div>
+
+            <button onclick="nextPageGastos()" id="btn_next_gastos"
+                class="bg-gray-500 hover:bg-gray-600 text-white font-medium py-2 px-4 rounded transition duration-200 ml-2">Siguiente</button>
+        </div>
+
+        <!-- Modal para agrega gastos -->
+
+        <div id="addModalGastos"
+            class="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 hidden z-50 overflow-auto">
+
+            <div class="bg-white p-6 rounded-lg w-[40em] m-auto relative">
+
+                <h2 class="text-xl mb-4">Agregar Gastos Diarios</h2>
+
+                <form id="addGastoForm" action="/addGasto" method="post" enctype="multipart/form-data">
+
+                    <div class="mb-4">
+                        <label for="addGastoCargo" class="block text-gray-700">Cargo: </label>
+                        <select id="addGastoCargo" class="w-full px-3 py-2 border rounded"></select>
+                    </div>
+
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function () {
+
+                            fetch('http://localhost:5000/selectEmpleadoData')
+                                .then(response => response.json())
+                                .then(data => {
+                                    const select = document.getElementById('addGastoCargo');
+                                    data.forEach(empleado => {
+                                        const option = document.createElement('option');
+                                        option.value = empleado.id_empleados;
+                                        option.textContent = empleado.cargo_empleados;
+                                        select.appendChild(option);
+                                    });
+                                })
+                                .catch(error => console.error('Error fetching empleados:', error));
+                        });
+                    </script>
+
+                    <div class="mb-4">
+                        <label for="addGastoLugar" class="block text-gray-700">Lugar: </label>
+                        <input type="text" id="addGastoLugar" class="w-full px-3 py-2 border rounded" />
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="addGastoHotel" class="block text-gray-700">Hotel: </label>
+                        <input type="text" id="addGastoHotel" class="w-full px-3 py-2 border rounded"
+                            oninput="formatCurrency(this)" />
+
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="addGastoDesayuno" class="block text-gray-700">Desayuno: </label>
+                        <input type="text" id="addGastoDesayuno" class="w-full px-3 py-2 border rounded"
+                            oninput="formatCurrency(this)" />
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="addGastoAlmuerzo" class="block text-gray-700">Almuerzo: </label>
+                        <input type="text" id="addGastoAlmuerzo" class="w-full px-3 py-2 border rounded"
+                            oninput="formatCurrency(this)" />
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="addGastoCena" class="block text-gray-700">Cena: </label>
+                        <input type="text" id="addGastoCena" class="w-full px-3 py-2 border rounded"
+                            oninput="formatCurrency(this)" />
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="addGastoLavanderia" class="block text-gray-700">Lavanderia: </label>
+                        <input type="text" id="addGastoLavanderia" class="w-full px-3 py-2 border rounded"
+                            oninput="formatCurrency(this)" />
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="addGastoHidratacion" class="block text-gray-700">Hidratación: </label>
+                        <input type="text" id="addGastoHidratacion" class="w-full px-3 py-2 border rounded"
+                            oninput="formatCurrency(this)" />
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="addGastoHielo" class="block text-gray-700">Hielo: </label>
+                        <input type="text" id="addGastoHielo" class="w-full px-3 py-2 border rounded"
+                            oninput="formatCurrency(this)" />
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="addGastoRefrigerio" class="block text-gray-700">Refrigerio: </label>
+                        <input type="text" id="addGastoRefrigerio" class="w-full px-3 py-2 border rounded"
+                            oninput="formatCurrency(this)" />
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="addGastoSalario" class="block text-gray-700">Salario: </label>
+                        <input type="text" id="addGastoSalario" class="w-full px-3 py-2 border rounded"
+                            oninput="formatCurrency(this)" />
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="addGastoCarga" class="block text-gray-700">Carga Prestacional: </label>
+                        <input type="text" id="addGastoCarga" class="w-full px-3 py-2 border rounded"
+                            oninput="formatCurrency(this)" />
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="addGastoEPP" class="block text-gray-700">EPP: </label>
+                        <input type="text" id="addGastoEPP" class="w-full px-3 py-2 border rounded"
+                            oninput="formatCurrency(this)" />
+                    </div>
+
+                    <div class="flex justify-end">
+                        <button type="button" class="bg-gray-500 text-white px-4 py-2 rounded mr-2"
+                            onclick="closeModal('addModalGastos')">
+                            Cancelar
+                        </button>
+                        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">
+                            Aceptar
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Modal para confirmar eliminación -->
+
+        <div id="deleteModalGastos"
+            class="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 hidden">
+            <div class="bg-white p-6 rounded-lg">
+                <h2 class="text-xl mb-4">Confirmar Eliminación</h2>
+                <p id="deleteMessageGastos" class="mb-4"></p>
+                <div class="flex justify-end">
+                    <button type="button" class="bg-gray-500 text-white px-4 py-2 rounded mr-2"
+                        onclick="closeDeleteModalGastos('deleteModalGastos')">
+                        Cancelar
+                    </button>
+                    <button type="button" class="bg-red-500 text-white px-4 py-2 rounded"
+                        onclick="confirmDeleteGastos()">
+                        Eliminar
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal para editar gastos -->
+
+        <div id="editModalGastos"
+            class="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 hidden z-50 overflow-auto">
+            <div class="bg-white p-6 rounded-lg w-[40em] m-auto relative">
+                <h2 class="text-xl mb-4">Editar Gastos</h2>
+                <form id="editGastoForm" enctype="multipart/form-data">
+
+                    <input type="hidden" id="editGastoId" />
+
+                    <div class="mb-4">
+
+                        <!-- CONFIGURACIÓN DEL INPUT PARA QUE VAYA A LA TABLA DE EMPLEADOS Y COLOQUE EL NOMBRE QUE CORRESPONDE -->
+
+                        <label for="editGastoCargo" class="block text-gray-700">Cargo: </label>
+                        <input type="text" id="editGastoCargo" class="w-full px-3 py-2 border rounded">
+
+                        <label for="editGastoLugar" class="block text-gray-700">Lugar:</label>
+                        <input type="text" id="editGastoLugar" class="w-full px-3 py-2 border rounded" />
+
+                        <label for="editGastoHotel" class="block text-gray-700">Hotel:</label>
+                        <input type="number" id="editGastoHotel" class="w-full px-3 py-2 border rounded" />
+
+                        <label for="editGastoDesayuno" class="block text-gray-700">Desayuno:</label>
+                        <input type="number" id="editGastoDesayuno" class="w-full px-3 py-2 border rounded" />
+
+                        <label for="editGastoAlmuerzo" class="block text-gray-700">Almuerzo:</label>
+                        <input type="number" id="editGastoAlmuerzo" class="w-full px-3 py-2 border rounded" />
+
+                        <label for="editGastoCena" class="block text-gray-700">Cena:</label>
+                        <input type="number" id="editGastoCena" class="w-full px-3 py-2 border rounded" />
+
+                        <label for="editGastoLavanderia" class="block text-gray-700">Lavanderia:</label>
+                        <input type="number" id="editGastoLavanderia" class="w-full px-3 py-2 border rounded" />
+
+                        <label for="editGastoHidratacion" class="block text-gray-700">Hidratación:</label>
+                        <input type="number" id="editGastoHidratacion" class="w-full px-3 py-2 border rounded" />
+
+                        <label for="editGastoHielo" class="block text-gray-700">Hielo:</label>
+                        <input type="number" id="editGastoHielo" class="w-full px-3 py-2 border rounded" />
+
+                        <label for="editGastoRefrigerio" class="block text-gray-700">Refrigerio:</label>
+                        <input type="number" id="editGastoRefrigerio" class="w-full px-3 py-2 border rounded" />
+
+                        <label for="editGastoSalario" class="block text-gray-700">Salario:</label>
+                        <input type="number" id="editGastoSalario" class="w-full px-3 py-2 border rounded" />
+
+                        <label for="editGastoCarga" class="block text-gray-700">Carga Prestacional:</label>
+                        <input type="number" id="editGastoCarga" class="w-full px-3 py-2 border rounded" />
+
+                        <label for="editGastoEPP" class="block text-gray-700">EPP:</label>
+                        <input type="number" id="editGastoEPP" class="w-full px-3 py-2 border rounded" />
+
+                    </div>
+                    <div class="flex justify-end">
+                        <button type="button" class="bg-gray-500 text-white px-4 py-2 rounded mr-2"
+                            onclick="closeModal('editModalGastos')">
+                            Cancelar
+                        </button>
+                        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded"
+                            onclick="showConfirmationModalGastos()">
+                            Aceptar
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Modal de confirmación de la actualización -->
+
+        <div id="confirmationModalGasto"
+            class="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 hidden z-50">
+            <div class="bg-white rounded-lg shadow-lg p-6">
+                <h2 class="text-xl font-semibold mb-4">Confirmación</h2>
+                <p>Gastos actualizados exitosamente.</p>
                 <div class="mt-4 flex align-center justify-center">
                     <button id="refreshPageButton" class="bg-blue-500 text-white px-4 py-2 rounded">
                         Aceptar

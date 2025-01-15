@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="./views/images/icono geo.ico" type="image/png" />
+    <link rel="stylesheet" href="views/pages/build/main.css" />
+    <link href="https://fonts.cdnfonts.com/css/museo-sans-rounded" rel="stylesheet" />
+    <title>GeoAPU</title>
+</head>
+
+<body style="font-family: 'Museo Sans Rounded', sans-serif">
+    <section class="flex flex-col lg:flex-row h-screen items-center">
+        <div class="bg-blue-600 hidden xl:block w-full lg:w-1/2 2xl:w-2/3 h-screen">
+            <img src="https://geopolimerossas.com/wp-content/uploads/2023/03/reser3.jpg" alt=""
+                class="w-full h-full object-cover" />
+        </div>
+
+        <div
+            class="bg-white w-full lg:max-w-md xl:max-w-full lg:mx-auto lg:mx-0 lg:w-1/2 2xl:w-1/3 h-screen px-6 xl:px-16 2xl:px-12 flex items-center justify-center">
+            <div class="w-full h-100">
+                <h1 class="text-xl font-bold relative top-[40px]">
+                    <img src="https://geopolimerossas.com/wp-content/uploads/2021/11/logo-geopolimeros-1.png"
+                        class="w-40 h-30" alt="" srcset="" />
+                </h1>
+
+                <h1 class="text-xl lg:text-5xl font-bold leading-tight mt-12 text-blue-500">
+                    Bienvenido a GeoAPU
+                </h1>
+
+                <p class="text-gray-500">
+                    Por favor, ingresa tus credenciales para acceder a la
+                    plataforma.
+                </p>
+
+                <form class="mt-6" id="loginForm" method="POST">
+                    <div>
+                        <label class="block text-gray-700">Correo</label>
+                        <input type="email" name="email" id="email"
+                            placeholder="Ingresa tu dirección de correo electronico."
+                            class="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500 focus:bg-white focus:outline-none"
+                            autofocus autocomplete required />
+                    </div>
+
+                    <div class="mt-4">
+                        <label class="block text-gray-700">Contraseña</label>
+                        <input type="password" name="password" id="password" placeholder="Ingresa tu contraseña."
+                            class="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500 focus:bg-white focus:outline-none"
+                            required />
+                    </div>
+
+                    <button type="submit"
+                        class="w-full block bg-blue-500 hover:bg-blue-400 focus:bg-blue-400 text-white font-semibold rounded-lg px-4 py-3 mt-6">
+                        Iniciar Sesión
+                    </button>
+                </form>
+
+                <hr class="my-6 border-gray-300 w-full" />
+                <div id="message" class="text-center text-red-500"></div>
+            </div>
+        </div>
+    </section>
+
+    <script src="./public/js/login.js"></script>
+</body>
+
+</html>

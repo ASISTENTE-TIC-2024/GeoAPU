@@ -21,6 +21,7 @@ app.use((req, res, next) => {
 });
 
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(passport.initialize()); // Inicializar passport
 
 dotenv.config();
@@ -116,7 +117,7 @@ app.get('/protected', (req, res) => {
     try {
         const decoded = jwt.verify(token, secretKey);
         req.user = decoded;
-        res.redirect(`../login.html?token=${token}`);
+        res.redirect(`../../index.html?token=${token}`);
     } catch (err) {
         res.status(400).json({ message: 'Invalid token.' });
     }
@@ -132,7 +133,7 @@ app.get(
         failureRedirect: '/',
     }),
     (req, res) => {
-        res.redirect(`../login.html?token=${token}`);
+        res.redirect(`../../index.html?token=${token}`);
     },
 );
 
@@ -184,6 +185,7 @@ app.get('/selectUserData', (_, res) => {
 
 // addData - Agregar datos a la tabla usuarios
 app.post('/addUser', multer({ storage }).single('foto_usuario'), (req, res) => {
+
     const { nombre_usuario, correo_usuario, contrasena_usuario, rol_usuario } =
         req.body;
     const ruta_foto_usuario = `../../table-images/${req.file.filename}`;
@@ -709,7 +711,6 @@ app.put(
             'SELECT foto_materiales FROM materiales WHERE id_materiales = ?';
 
         db_con.query(getOldImageQuery, [id_materiales], (err, results) => {
-
             if (err) {
                 return res.status(500).json({ error: err.message });
             }
@@ -809,7 +810,6 @@ app.put(
 
 // selectData - Seleccionar datos de la tabla transportes
 app.get('/selectTransporteData', (_, res) => {
-
     let selectQuery = `SELECT * FROM transportes`;
 
     db_con.query(selectQuery, (error, results) => {
@@ -817,7 +817,6 @@ app.get('/selectTransporteData', (_, res) => {
         console.log('Datos seleccionados:', results);
         return res.json(results); // Devuelve los resultados como JSON
     });
-
 });
 
 app.post(
@@ -927,11 +926,10 @@ app.put('/updateTransporte/:id_transportes', (req, res) => {
     });
 });
 
-/* ------------------------------------------------------- APARTADO DE LA TABLA MANO DE OBRA ---------------------------------------------------- */
+/* ------------------------------------------------------- APARTADO DE LA TABLA EMPLEADOS ---------------------------------------------------- */
 
 // selectData - Seleccionar datos de la tabla transportes
 app.get('/selectEmpleadoData', (_, res) => {
-
     let selectQuery = `SELECT * FROM empleados`;
 
     db_con.query(selectQuery, (error, results) => {
@@ -939,7 +937,6 @@ app.get('/selectEmpleadoData', (_, res) => {
         console.log('Datos seleccionados:', results);
         return res.json(results); // Devuelve los resultados como JSON
     });
-
 });
 
 app.post(
@@ -979,21 +976,17 @@ app.post(
 
 // deleteData - Eliminar datos de la tabla transportes
 app.delete('/deleteEmpleado/:id_empleados', (req, res) => {
-
     const { id_empleados } = req.params;
 
     const getQuery = `SELECT * FROM empleados WHERE id_empleados = ?`;
 
     db_con.query(getQuery, [id_empleados], (error, results) => {
-
         if (error) throw error;
 
         if (results.length > 0) {
-
             let deleteQuery = `DELETE FROM empleados WHERE id_empleados = ?`;
 
             db_con.query(deleteQuery, [id_empleados], (error, results) => {
-
                 if (error) throw error;
 
                 console.log('Empleado eliminado correctamente:', results);
@@ -1012,9 +1005,7 @@ app.delete('/deleteEmpleado/:id_empleados', (req, res) => {
 
 // updateData - Actualizar datos de la tabla empleados
 app.put('/updateEmpleado/:id_empleados', (req, res) => {
-
     const { id_empleados } = req.params;
-
     const {
         cargo_empleados,
         salario_base_empleados
@@ -1033,7 +1024,6 @@ app.put('/updateEmpleado/:id_empleados', (req, res) => {
     ];
 
     db_con.query(updateQuery, queryParams, (err, results) => {
-
         if (err) {
             console.error('Error al actualizar empleados:', err);
             return res.status(500).json({ error: 'Error al actualizar empleado' });
@@ -1047,6 +1037,218 @@ app.put('/updateEmpleado/:id_empleados', (req, res) => {
     });
 });
 
-app.listen(5000, () => {
-    console.log(`El servidor está corriendo en el puerto 5000 ...`);
+/* ------------------------------------------------------- APARTADO DE LA TABLA GASTOS DIARIOS ---------------------------------------------------- */
+
+// selectData - Seleccionar datos de la tabla transportes
+app.get('/selectGastoData', (_, res) => {
+    let selectQuery = `SELECT * FROM gastos_diarios`;
+
+    db_con.query(selectQuery, (error, results) => {
+        if (error) throw error;
+        console.log('Datos seleccionados:', results);
+        return res.json(results); // Devuelve los resultados como JSON
+    });
 });
+
+
+// addData - Agregar datos a la tabla gastos_diarios
+app.post('/addGasto', multer({ storage }).single('foto_gasto'), (req, res) => {
+
+    const {
+        id_empleados,
+        lugar_diario,
+        hotel_diario,
+        desayuno_diario,
+        almuerzo_diario,
+        cena_diario,
+        lavanderia_diario,
+        hidratacion_diario,
+        hielo_diario,
+        refrigerio_diario,
+        salario_diario,
+        carga_prestacional_diario,
+        eepp_diario,
+    } = req.body;
+
+    console.log(req.body);
+
+    const query = `INSERT INTO gastos_diarios (
+            id_empleados,
+            lugar_diario,
+            hotel_diario,
+            desayuno_diario,
+            almuerzo_diario,
+            cena_diario,
+            lavanderia_diario,
+            hidratacion_diario,
+            hielo_diario,
+            refrigerio_diario,
+            salario_diario,
+            carga_prestacional_diario,
+            eepp_diario
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    `;
+
+    db_con.query(
+        query,
+        [
+            id_empleados,
+            lugar_diario,
+            hotel_diario,
+            desayuno_diario,
+            almuerzo_diario,
+            cena_diario,
+            lavanderia_diario,
+            hidratacion_diario,
+            hielo_diario,
+            refrigerio_diario,
+            salario_diario,
+            carga_prestacional_diario,
+            eepp_diario,
+        ],
+        (err) => {
+            if (err) {
+                console.error('Error al agregar gasto:', err);
+                return res.status(500).send('Error al agregar gasto');
+            }
+            res.send({ message: 'Gasto agregado correctamente' });
+        },
+    );
+});
+
+// deleteData - Eliminar datos de la tabla gastos_diarios
+app.delete('/deleteGasto/:id_gastos', (req, res) => {
+    const { id_gastos } = req.params;
+
+    const deleteQuery = `DELETE FROM gastos_diarios WHERE id_gastos = ?`;
+
+    db_con.query(deleteQuery, [id_gastos], (error, results) => {
+        if (error) throw error;
+
+        if (results.affectedRows === 0) {
+            return res.status(404).json({ message: 'Gasto diario no encontrado' });
+        }
+
+        console.log('Gasto diario eliminado:', results);
+        return res.json({ message: 'Gasto diario eliminado correctamente' });
+    });
+});
+
+// updateData - Actualizar datos de la tabla gastos_diarios
+app.put('/updateGasto/:id_gastos', (req, res) => {
+    const { id_gastos } = req.params;
+    const {
+        id_empleados,
+        lugar_diario,
+        hotel_diario,
+        desayuno_diario,
+        almuerzo_diario,
+        cena_diario,
+        lavanderia_diario,
+        hidratacion_diario,
+        hielo_diario,
+        refrigerio_diario,
+        salario_diario,
+        carga_prestacional_diario,
+        eepp_diario,
+    } = req.body;
+
+    const updateQuery = `
+        UPDATE gastos_diarios SET
+            id_empleados = ?,
+            lugar_diario = ?,
+            hotel_diario = ?,
+            desayuno_diario = ?,
+            almuerzo_diario = ?,
+            cena_diario = ?,
+            lavanderia_diario = ?,
+            hidratacion_diario = ?,
+            hielo_diario = ?,
+            refrigerio_diario = ?,
+            salario_diario = ?,
+            carga_prestacional_diario = ?,
+            eepp_diario = ?
+        WHERE id_gastos = ?
+    `;
+
+    const queryParams = [
+        id_empleados,
+        lugar_diario,
+        hotel_diario,
+        desayuno_diario,
+        almuerzo_diario,
+        cena_diario,
+        lavanderia_diario,
+        hidratacion_diario,
+        hielo_diario,
+        refrigerio_diario,
+        salario_diario,
+        carga_prestacional_diario,
+        eepp_diario,
+        id_gastos,
+    ];
+
+    db_con.query(updateQuery, queryParams, (err, results) => {
+        if (err) {
+            console.error('Error al actualizar gasto diario:', err);
+            return res.status(500).json({ error: 'Error al actualizar gasto diario' });
+        }
+
+        if (results.affectedRows === 0) {
+            return res.status(404).json({ message: 'Gasto diario no encontrado' });
+        }
+
+        res.json({ message: 'Gasto diario actualizado correctamente' });
+    });
+});
+
+/* -------------------------- APARTADO DE MANO DE OBRA EN LAS APU ---------------------------------- */
+
+app.get('/totalGastos/:id_gastos', (req, res) => {
+
+    const { id_gastos } = req.params;
+
+    const query = `
+        SELECT 
+            (hotel_diario + desayuno_diario + almuerzo_diario + cena_diario + lavanderia_diario + hidratacion_diario + hielo_diario + refrigerio_diario + salario_diario + carga_prestacional_diario + eepp_diario) AS total_gastos
+        FROM 
+            gastos_diarios
+        WHERE 
+            id_empleados = ?;  
+    `;
+
+    console.log(query);
+
+    db_con.query(query, [id_gastos], (err, results) => {
+
+        if (err) {
+            console.error('Error al obtener el total de gastos:', err);
+            return res.status(500).send('Error al obtener el total de gastos');
+        }
+
+        if (results.length === 0) {
+            return res.status(404).send('Gasto no encontrado');
+        }
+
+        res.json({ total_gastos: results[0].total_gastos });
+
+    });
+});
+
+const startServer = (port) => {
+    const server = app.listen(port, () => {
+        console.log(`El servidor está corriendo en el puerto ${port} ...`);
+    });
+
+    server.on('error', (err) => {
+        if (err.code === 'EADDRINUSE') {
+            console.error(`El puerto ${port} está en uso, intentando con el puerto ${port + 1}...`);
+            port += 1;
+            startServer(port);
+        } else {
+            console.error('Error al iniciar el servidor:', err);
+        }
+    });
+};
+
+startServer(5000);
