@@ -63,7 +63,6 @@ function fetchTRMValue() {
     })
 }
 
-
 function displayDataAPU() {
 
     const informacionProyecto = JSON.parse(localStorage.getItem('informacionProyecto')) || [];
@@ -117,7 +116,6 @@ function displayDataAPU() {
 }
 
 displayDataAPU()
-
 
 function rendimientoEquiposLocalStorage() {
 
@@ -181,16 +179,17 @@ function valorUnitarioEquiposLocalStorage() {
 
     // Obtener el valor del input
     const TARIFA_DIA_EQUIPOS = document.getElementById('TARIFA_DIA_EQUIPOS').value
-
     const RENDIMIENTO_EQUIPOS = document.getElementById("RENDIMIENTO_EQUIPOS").value
 
     const VALOR_UNITARIO_EQUIPOS = document.getElementById("VALOR_UNITARIO_EQUIPOS")
 
-    const valor = RENDIMIENTO_EQUIPOS * TARIFA_DIA_EQUIPOS;
+    console.log(TARIFA_DIA_EQUIPOS, RENDIMIENTO_EQUIPOS);
+
+    const valor = TARIFA_DIA_EQUIPOS * RENDIMIENTO_EQUIPOS;
+
+    console.log(valor);
 
     VALOR_UNITARIO_EQUIPOS.value = `${valor.toFixed(2)}`;
-
-
 
 }
 

@@ -1,6 +1,7 @@
 function guardarInformacionRotulos() {
 
     const capitulo = document.getElementById('capitulo').value || "No se ingreso una actividad";
+
     const descripcion_actividad = document.getElementById('descripcion-actividad').value || "No se ingreso una descripción de la actividad";
     const item_pago = document.getElementById('item-pago').value || "No se ingreso un item de pago";
     const unidad = document.getElementById('unidad').value || "No se ingreso una unidad de medida";
@@ -52,5 +53,13 @@ function guardarInformacionRotulos() {
 
     alert('Datos guardados exitosamente!');
 
-    window.location.href = '../../views/pages/mobilization-apu.html';
+    console.log(capitulo);
+
+    // Redirigir según el valor de capitulo
+    if (capitulo == "Movilización") {
+        window.location.href = '../../views/pages/mobilization-apu.html';
+    } else {
+        window.location.href = '../../views/pages/general-apu.html';
+    }
+
 }

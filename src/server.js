@@ -984,21 +984,29 @@ app.delete('/deleteEmpleado/:id_empleados', (req, res) => {
         if (error) throw error;
 
         if (results.length > 0) {
-            let deleteQuery = `DELETE FROM empleados WHERE id_empleados = ?`;
+            const checkForeignKeyQuery = `SELECT * FROM gastos_diarios WHERE id_empleados = ?`;
 
-            db_con.query(deleteQuery, [id_empleados], (error, results) => {
+            db_con.query(checkForeignKeyQuery, [id_empleados], (error, foreignKeyResults) => {
                 if (error) throw error;
 
-                console.log('Empleado eliminado correctamente:', results);
+                if (foreignKeyResults.length > 0) {
+                    return res.status(400).json({ message: 'No se puede eliminar el empleado porque tiene gastos asociados.' });
+                } else {
+                    let deleteQuery = `DELETE FROM empleados WHERE id_empleados = ?`;
 
-                return res.json({
-                    message: 'Empleado eliminado correctamente',
-                });
+                    db_con.query(deleteQuery, [id_empleados], (error, results) => {
+                        if (error) throw error;
+
+                        console.log('Empleado eliminado correctamente:', results);
+
+                        return res.json({
+                            message: 'Empleado eliminado correctamente',
+                        });
+                    });
+                }
             });
         } else {
-            return res
-                .status(404)
-                .json({ message: 'Empleado no encontrado' });
+            return res.status(404).json({ message: 'Empleado no encontrado' });
         }
     });
 });

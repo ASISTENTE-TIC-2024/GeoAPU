@@ -92,82 +92,96 @@ document.addEventListener('DOMContentLoaded', () => {
 
     /********************* MODULO TRANSPORTE **************************/
 
-    const selectTransportes = document.getElementById('selectTransportes');
-    const descripcionTransporte = document.getElementById('DESCRIPCION TRANSPORTE');
-    const unidadTransporte = document.getElementById('UNIDAD TRANSPORTE');
-    const distanciaTransporte = document.getElementById('DISTANCIA TRANSPORTE');
-    const precioUnitarioTransporte = document.getElementById('PRECIO UNITARIO TRANSPORTE');
-    const valorUnitarioTransporte = document.getElementById('VALOR UNITARIO TRANSPORTE');
+    if (window.location.pathname !== './general-apu.html') {
+        const selectTransportes = document.getElementById('selectTransportes');
+        const descripcionTransporte = document.getElementById('DESCRIPCION TRANSPORTE');
+        const unidadTransporte = document.getElementById('UNIDAD TRANSPORTE');
+        const distanciaTransporte = document.getElementById('DISTANCIA TRANSPORTE');
+        const precioUnitarioTransporte = document.getElementById('PRECIO UNITARIO TRANSPORTE');
+        const valorUnitarioTransporte = document.getElementById('VALOR UNITARIO TRANSPORTE');
 
-    async function obtenerTransportes() {
-        try {
-            const response = await fetch('http://localhost:5000/selectTransporteData');
-            const transportes = await response.json();
+        if (selectTransportes && descripcionTransporte && unidadTransporte && distanciaTransporte && precioUnitarioTransporte && valorUnitarioTransporte) {
+            async function obtenerTransportes() {
+                try {
+                    const response = await fetch('http://localhost:5000/selectTransporteData');
+                    const transportes = await response.json();
 
-            transportes.forEach(transporte => {
-                const option = document.createElement('option');
-                option.value = transporte.id_transportes;
-                option.textContent = transporte.descripcion_transportes;
-                option.dataset.unidad = transporte.unidad_transportes;
-                option.dataset.distancia = transporte.distancia_transportes;
-                option.dataset.precio = transporte.precio_unitario_transportes;
-                selectTransportes.appendChild(option);
+                    transportes.forEach(transporte => {
+                        const option = document.createElement('option');
+                        option.value = transporte.id_transportes;
+                        option.textContent = transporte.descripcion_transportes;
+                        option.dataset.unidad = transporte.unidad_transportes;
+                        option.dataset.distancia = transporte.distancia_transportes;
+                        option.dataset.precio = transporte.precio_unitario_transportes;
+                        selectTransportes.appendChild(option);
+                    });
+                } catch (error) {
+                    console.error('Error al obtener los transportes:', error);
+                }
+            }
+
+            obtenerTransportes();
+
+            selectTransportes.addEventListener('change', (event) => {
+                const selectedOption = event.target.selectedOptions[0];
+
+                if (selectedOption.textContent === 'Seleccione un item de transporte') {
+                    descripcionTransporte.value = '';
+                    unidadTransporte.value = '';
+                    distanciaTransporte.value = '';
+                    precioUnitarioTransporte.value = '';
+                    valorUnitarioTransporte.value = '';
+                } else {
+                    descripcionTransporte.value = selectedOption.textContent ?? '';
+                    unidadTransporte.value = selectedOption.dataset.unidad ?? '';
+                    distanciaTransporte.value = selectedOption.dataset.distancia ?? '';
+                    precioUnitarioTransporte.value = selectedOption.dataset.precio ?? '';
+                }
             });
-        } catch (error) {
-            console.error('Error al obtener los transportes:', error);
         }
     }
-
-    obtenerTransportes();
-
-    selectTransportes.addEventListener('change', (event) => {
-
-        const selectedOption = event.target.selectedOptions[0];
-
-        if (selectedOption.textContent === 'Seleccione un item de transporte') {
-            descripcionTransporte.value = '';
-            unidadTransporte.value = '';
-            distanciaTransporte.value = '';
-            precioUnitarioTransporte.value = '';
-            valorUnitarioTransporte.value = '';
-        } else {
-            descripcionTransporte.value = selectedOption.textContent ?? '';
-            unidadTransporte.value = selectedOption.dataset.unidad ?? '';
-            distanciaTransporte.value = selectedOption.dataset.distancia ?? '';
-            precioUnitarioTransporte.value = selectedOption.dataset.precio ?? '';
-        }
-    });
 
     /********************* MODULO MANO DE OBRA **************************/
 
     const selectManoDeObra = document.getElementById('selectManoDeObra');
 
-    const cargoEmpleado = document.getElementById('TRABAJADOR MANO DE OBRA');
     const jornalManoDeObra = document.getElementById('JORNAL MANO DE OBRA');
 
-    async function obtenerManoObra() {
+    const cargoEmpleado = document.getElementById('TRABAJADOR MANO DE OBRA');
 
+
+    async function obtenerManoObra() {
         try {
 
-            const response = await fetch('http://localhost:5000/selectEmpleadoData');
+            const response_1 = await fetch('http://localhost:5000/selectGastoData');
+            const response_2 = await fetch('http://localhost:5000/selectEmpleadoData');
 
-            const empleados = await response.json();
+            const gastos = await response_1.json();
+            const empleados = await response_2.json();
 
-            console.log(empleados);
+            // gastos.forEach(gasto => {
+            //     empleados.forEach(empleado => {
+            //         if (gasto.id_empleados === empleado.id_empleados) {
+            //             cargoEmpleado = empleado.cargo_empleados;
+            //         }
+            //     })
+            // })
 
-            empleados.forEach(empleado => {
-                const option = document.createElement('option');
-                option.value = empleado.id_empleados;
-                option.textContent = empleado.cargo_empleados;
-                option.dataset.empleado = empleado.cargo_empleados;
-                selectManoDeObra.appendChild(option);
+            gastos.forEach(gasto => {
+                empleados.forEach(empleado => {
+
+                    const option = document.createElement('option');
+
+                    option.value = gasto.id_gastos;
+                    option.textContent = empleado.cargo_empleados;
+
+                    selectManoDeObra.appendChild(option);
+
+                })
             });
-
-
         } catch (error) {
             console.error('Error al obtener la mano de obra:', error);
         }
-
     }
 
     obtenerManoObra();
@@ -178,26 +192,38 @@ document.addEventListener('DOMContentLoaded', () => {
 
         console.log(selectedOption);
 
-        const response_total = await fetch(`http://localhost:5000/totalGastos/${selectedOption.value}`);
-
-        console.log(response_total);
-
-        const jornal = await response_total.json();
-
-        console.log(jornal);
-
-        if (selectedOption.textContent == 'Seleccione una mano de obra' || !selectedOption.value) {
-
-            cargoEmpleado.value = '';
+        if (selectedOption.textContent === 'Seleccione una mano de obra') {
             jornalManoDeObra.value = '';
-
-        } else if (!jornal) {
-            cargoEmpleado.value = selectedOption.dataset.empleado ?? '';
-            jornalManoDeObra.value = '';
-
         } else {
-            cargoEmpleado.value = selectedOption.dataset.empleado ?? '';
-            jornalManoDeObra.value = jornal.total_gastos ?? '';
+
+            try {
+
+                console.log(selectedOption.value);
+
+                const response = await fetch(`http://localhost:5000/totalGastos/${selectedOption.value}`);
+
+                const data = await response.json();
+
+                const response_1 = await fetch('http://localhost:5000/selectGastoData');
+                const response_2 = await fetch('http://localhost:5000/selectEmpleadoData');
+
+                const gastos = await response_1.json();
+                const empleados = await response_2.json();
+
+                gastos.forEach(gasto => {
+                    empleados.forEach(empleado => {
+                        if (gasto.id_empleados === empleado.id_empleados) {
+                            cargoEmpleado.value = empleado.cargo_empleados;
+                        }
+                    })
+                })
+
+                jornalManoDeObra.value = data ?? '';
+
+
+            } catch (error) {
+                console.error('Error al obtener el jornal:', error);
+            }
         }
     });
 

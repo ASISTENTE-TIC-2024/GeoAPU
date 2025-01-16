@@ -43,12 +43,13 @@ document
 
         localStorage.setItem('datosEquiposMov', JSON.stringify(datosEquiposMov))
 
-        actualizarValorUnitario()
+        actualizarValorUnitarioEquipos()
         actualizarTablaEquipos()
 
     })
 
 function actualizarTablaEquipos() {
+
     let tbody = document.querySelector('#dataTableEquipos tbody')
 
     tbody.innerHTML = ''
@@ -119,7 +120,7 @@ function actualizarRendimientoEquipos() {
     actualizarTablaEquipos()
 }
 
-function actualizarValorUnitario() {
+function actualizarValorUnitarioEquipos() {
 
     const storedDatosEquiposMov =
         JSON.parse(localStorage.getItem('datosEquiposMov')) || []
@@ -616,7 +617,6 @@ function calcularTotalGeneral() {
     document.getElementById(
         'porcentajeManoDeObra'
     ).textContent = `${porcentajeManoDeObraMov.toFixed(2)}% `
-    // Mostrar el resultado en un elemento del DOM con dos decimales
     document.getElementById(
         'resultadoTotalGeneral'
     ).textContent = `$ ${isNaN(totalGeneralMov.toFixed(2)) || !isFinite(totalGeneralMov) ? 0 : totalGeneralMov.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")} `
@@ -634,6 +634,122 @@ function calcularTotalGeneral() {
     document.getElementById(
         'totalGlobal'
     ).textContent = `$ ${isNaN(totalGlobalMov.toFixed(2)) || !isFinite(totalGlobalMov) ? 0 : totalGlobalMov.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")} `
+
+    let totalesMovilizacion = []
+
+    totalesMovilizacion[0] = {
+        totalGlobalMov
+    }
+
+    return totalesMovilizacion;
+
+}
+
+function eliminarTodo() {
+
+    localStorage.clear()
+
+    actualizarTablaEquipos()
+    actualizarTablaMateriales()
+    actualizarTablaTransportes()
+    actualizarTablaManoDeObra()
+
+    calcularTotalGeneral()
+
+}
+
+function guardarInformacionProyecto() {
+
+    let storedDatosEquipos = JSON.parse(localStorage.getItem('datosEquiposMov')) || []
+    let storedDatosMateriales = JSON.parse(localStorage.getItem('datosMaterialesMov')) || []
+    let storedDatosTransportes = JSON.parse(localStorage.getItem('datosTransportesMov')) || []
+    let storedDatosManoDeObra = JSON.parse(localStorage.getItem('datosManoDeObraMov')) || []
+
+    let storedInformacionProyecto = {
+        datosEquipos: storedDatosEquipos,
+        datosMateriales: storedDatosMateriales,
+        datosTransportes: storedDatosTransportes,
+        datosManoDeObra: storedDatosManoDeObra
+    }
+
+    localStorage.setItem('storedInformacionProyecto', JSON.stringify(storedInformacionProyecto))
+
+    alert('Información guardada correctamente.')
+}
+
+
+// localStorage.removeItem('ofertaComercial');
+// localStorage.removeItem('datosMaterialesMov');
+// localStorage.removeItem('datosTransportesMov');
+// localStorage.removeItem('datosManoDeObraMov');
+// localStorage.removeItem('informacionRotulos');
+
+// eliminarTodo()
+
+
+function cargarInformacionProyecto() {
+
+    let storedInformacionProyecto = JSON.parse(localStorage.getItem('storedInformacionProyecto')) || {}
+
+    localStorage.setItem('datosEquiposMov', JSON.stringify(storedInformacionProyecto.datosEquipos))
+    localStorage.setItem('datosMaterialesMov', JSON.stringify(storedInformacionProyecto.datosMateriales))
+    localStorage.setItem('datosTransportesMov', JSON.stringify(storedInformacionProyecto.datosTransportes))
+    localStorage.setItem('datosManoDeObraMov', JSON.stringify(storedInformacionProyecto.datosManoDeObra))
+
+    actualizarTablaEquipos()
+    actualizarTablaMateriales()
+    actualizarTablaTransportes()
+    actualizarTablaManoDeObra()
+
+    calcularTotalGeneral()
+
+    alert('Información cargada correctamente.')
+}
+
+function valoresOfertaComercial() {
+
+    if (confirm('¿Estás seguro de que finalizaste la APU?')) {
+
+        let totalesMovilizacion =
+            JSON.parse(localStorage.getItem('totalesMovilizacion')) || []
+
+        console.log(totalesMovilizacion);
+
+        if (!Array.isArray(totalesMovilizacion)) {
+            totalesMovilizacion = [];
+        }
+
+        console.log(calcularTotalGeneral());
+
+        totalesMovilizacion = calcularTotalGeneral();
+
+        localStorage.setItem('totalesMovilizacion', JSON.stringify(totalesMovilizacion))
+
+        const informacionRotulos = JSON.parse(localStorage.getItem('informacionRotulos')) || [];
+        const informacionTotales = JSON.parse(localStorage.getItem('totalesMovilizacion')) || {};
+
+        console.log(informacionRotulos);
+        console.log(informacionTotales);
+
+        let ofertaComercial =
+            JSON.parse(localStorage.getItem('ofertaComercial')) || []
+
+        ofertaComercial.push({
+            capitulo: informacionRotulos[0].capitulo,
+            descripcion: informacionRotulos[0].descripcion_actividad,
+            unidad: informacionRotulos[0].unidad,
+            cantidad_instalar: informacionRotulos[0].cantidad_instalar,
+            valor_aiu: informacionTotales[0].totalGlobalMov,
+        })
+
+        console.log(ofertaComercial);
+
+        localStorage.setItem('ofertaComercial', JSON.stringify(ofertaComercial))
+
+        window.location.href =
+            '../../views/pages/commercial-offer.html';
+    }
+
 }
 
 // Configurar el MutationObserver para observar cambios en el contenedor de filas

@@ -7,6 +7,7 @@ let datosManoDeObra = []
 document
     .getElementById('dataFormEquipos')
     .addEventListener('submit', function (e) {
+
         e.preventDefault()
 
         let descripcion_equipos =
@@ -25,7 +26,9 @@ document
             parseFloat(document.getElementById('RENDIMIENTO_EQUIPOS').value).toFixed(4) || 0
 
         let valor_unitario_equipos =
-            parseFloat(document.getElementById('VALOR_UNITARIO_EQUIPOS').value) || 0
+            parseFloat(document.getElementById('VALOR_UNITARIO_EQUIPOS')) || 0
+
+        console.log(descripcion_equipos, marca_equipos, tipo_equipos, tarifa_dia_equipos, rendimiento_equipos, valor_unitario_equipos);
 
         // Obtener los datos existentes del localStorage
         let datosEquipos =
@@ -38,9 +41,8 @@ document
             tarifa_dia_equipos,
             rendimiento_equipos,
             valor_unitario_equipos,
+            porcentaje_incidencia: 0,
         })
-
-        console.log("Que es lo que se va a hacer push " + JSON.stringify(datosEquipos));
 
         localStorage.setItem('datosEquipos', JSON.stringify(datosEquipos))
 
@@ -57,7 +59,7 @@ function actualizarTablaEquipos() {
         JSON.parse(localStorage.getItem('datosEquipos')) || []
 
     let totalEquipos = storedDatosEquipos.reduce(
-        (sum, item) => sum + parseFloat(item.valor_unitario_equipos), 0
+        (sum, item) => sum + parseFloat(item.rendimiento_equipos * item.tarifa_dia_equipos), 0
     )
 
     tbody.innerHTML = ''
@@ -75,8 +77,8 @@ function actualizarTablaEquipos() {
             <td>${item.marca_equipos}</td>
             <td>${item.tipo_equipos}</td>
             <td>${item.tarifa_dia_equipos}</td>
-            <td>${isNaN(item.rendimiento_equipos) ? 0 : item.rendimiento_equipos}</td>
-            <td>${isNaN(item.valor_unitario_equipos) || !isFinite(item.valor_unitario_equipos) ? 0 : item.valor_unitario_equipos}</td>
+            <td>${isNaN(item.rendimiento_equipos) || !isFinite(item.rendimiento_equipos) ? 0 : item.rendimiento_equipos}</td>
+            <td>$ ${isNaN(item.rendimiento_equipos * item.tarifa_dia_equipos) || !isFinite(item.rendimiento_equipos * item.tarifa_dia_equipos) ? 0 : (item.rendimiento_equipos * item.tarifa_dia_equipos).toFixed(2)}</td>
             <td>${(item.porcentaje_incidencia = ((item.rendimiento_equipos * item.tarifa_dia_equipos) / totalEquipos) * 100 || 0).toFixed(2)}%</td>
             <td><button class="active:scale-90 transition-transform" onclick="eliminarElementoEquipos(${storedDatosEquipos.indexOf(item)})"><i class="fa-solid fa-trash-can"></i></button></td>`
 
@@ -450,7 +452,7 @@ function calcularTotalGeneral() {
         JSON.parse(localStorage.getItem('datosEquipos')) || []
 
     let totalEquipos = storedDatosEquipos.reduce(
-        (sum, item) => sum + parseFloat(item.valor_unitario_equipos), 0
+        (sum, item) => sum + parseFloat(item.rendimiento_equipos * item.tarifa_dia_equipos), 0
     )
 
     let storedDatosMateriales =

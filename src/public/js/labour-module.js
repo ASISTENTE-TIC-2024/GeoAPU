@@ -13,7 +13,7 @@ async function fetchData() {
             row.innerHTML = `
                 <td>${empleado.id_empleados}</td>
                 <td>${empleado.cargo_empleados}</td>
-                <td>$ ${parseFloat(empleado.salario_base_empleados).toLocaleString()}</td>
+                <td>${empleado.salario_base_empleados}</td>
                 <td class="flex align-center justify-center h-full w-full mb-2s">
                     <button class="bg-gray-700 text-white px-2 py-1 rounded h-[4em] w-1/2 m-1" onclick="editEmpleado(${empleado.id_empleados}, '${encodeURIComponent(empleado.cargo_empleados)}', '${encodeURIComponent(empleado.salario_base_empleados)}')">
                         <i class="fa-solid fa-pencil" style="color:rgb(255, 255, 255);"></i>
@@ -337,19 +337,37 @@ function searchTable() {
 }
 
 /* -------------------------------------------------------- MODULO DE GASTOS ------------------------------------------------------------------- */
+
 async function fetchDataGastos() {
     try {
-        const response = await fetch('http://localhost:5000/selectGastoData');
-        const data = await response.json();
+
+        const response_1 = await fetch('http://localhost:5000/selectGastoData');
+        const response_2 = await fetch('http://localhost:5000/selectEmpleadoData');
+
+        const data_1 = await response_1.json();
+        const data_2 = await response_2.json();
 
         // Aquí puedes actualizar tu tabla con los datos recibidos
         const dataTable = document.getElementById('data-table-gastos');
+
         dataTable.innerHTML = ''; // Limpiar la tabla antes de agregar nuevos datos
-        data.forEach((gasto) => {
+
+
+
+        data_1.forEach((gasto) => {
             const row = document.createElement('tr');
+
+            let nombreCargo = '';
+
+            data_2.forEach((empleado) => {
+                if (gasto.id_empleados == empleado.id_empleados) {
+                    nombreCargo = empleado.cargo_empleados;
+                }
+            })
+
             row.innerHTML = `
                 <td>${gasto.id_gastos}</td>
-                <td>${gasto.id_empleados}</td>
+                <td>${nombreCargo}</td>
                 <td>${gasto.lugar_diario}</td>
                 <td>${gasto.hotel_diario}</td>
                 <td>${gasto.desayuno_diario}</td>
@@ -527,8 +545,9 @@ function openDeleteModalGastos(id_gastos, id_empleados) {
 
     gastoIdToDelete = id_gastos;
 
-    // LLAMAR A LA TABLA EMPLEADOS PARA QUE ME PERMITA TRAER EL NOMBRE DEL EMPLEADO
-    document.getElementById('deleteMessageGastos',).textContent = `¿Está seguro de que desea eliminar el gasto del empleado ${decodeURIComponent(
+    document.getElementById(
+        'deleteMessageGastos',
+    ).textContent = `¿Está seguro de que desea eliminar el gasto del empleado ${decodeURIComponent(
         id_empleados,
     )} de la base de datos?`;
 
@@ -597,7 +616,7 @@ document.getElementById('editGastoForm').addEventListener('submit', async functi
     const refrigerio_diario = document.querySelector('#editGastoRefrigerio').value.trim();
     const salario_diario = document.querySelector('#editGastoSalario').value.trim();
     const carga_prestacional_diario = document.querySelector('#editGastoCarga').value.trim();
-    const eepp_diario = document.querySelector('#editGastoEepp').value.trim();
+    const eepp_diario = document.querySelector('#editGastoEPP').value.trim();
 
     const updatedGasto = {
         id_empleados,

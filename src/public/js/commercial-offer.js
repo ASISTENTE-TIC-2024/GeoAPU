@@ -1,137 +1,52 @@
 document.addEventListener('DOMContentLoaded', function () {
-    const data = [
-        {
-            ID: 1,
-            CAPITULO: '1. Trabajos preliminares',
-            DESCRIPCION: 'Limpieza del area de trabajo',
-            UNIDAD: 'dias',
-            CANTIDAD_INSTALAR: 1000,
-            VALOR_UNITARIO: 1000,
-            TOTAL: 1000000,
-        },
 
-        {
-            ID: 2,
-            CAPITULO: '2. Excavación y movimiento de tierras',
-            DESCRIPCION: 'Excavación en zanjas para cimentación',
-            UNIDAD: 'm3',
-            CANTIDAD_INSTALAR: 1000,
-            VALOR_UNITARIO: 1000,
-            TOTAL: 1000000,
-        },
-        {
-            ID: 3,
-            CAPITULO: '3. Cimentación',
-            DESCRIPCION: 'Cimentación corrida de concreto fc=150',
-            UNIDAD: 'm3',
-            CANTIDAD_INSTALAR: 1000,
-            VALOR_UNITARIO: 1000,
-            TOTAL: 1000000,
-        },
-
-        {
-            ID: 4,
-            CAPITULO: '4. Estructura del reservorio',
-            DESCRIPCION: 'Escalera de acceso a la cisterna',
-            UNIDAD: 'und',
-            CANTIDAD_INSTALAR: 1000,
-            VALOR_UNITARIO: 1000,
-            TOTAL: 1000000,
-        },
-        {
-            ID: 5,
-            CAPITULO: '5. Impermeabilización',
-            DESCRIPCION:
-                'Impermeabilización de cisterna con membrana asfáltica',
-            UNIDAD: 'm2',
-            CANTIDAD_INSTALAR: 1000,
-            VALOR_UNITARIO: 1000,
-            TOTAL: 1000000,
-        },
-        {
-            ID: 3,
-            CAPITULO: '3. Cimentación',
-            DESCRIPCION: 'Cimentación corrida de concreto fc=150',
-            UNIDAD: 'm3',
-            CANTIDAD_INSTALAR: 1000,
-            VALOR_UNITARIO: 1000,
-            TOTAL: 1000000,
-        },
-
-        {
-            ID: 4,
-            CAPITULO: '4. Estructura del reservorio',
-            DESCRIPCION: 'Escalera de acceso a la cisterna',
-            UNIDAD: 'und',
-            CANTIDAD_INSTALAR: 1000,
-            VALOR_UNITARIO: 1000,
-            TOTAL: 1000000,
-        },
-        {
-            ID: 5,
-            CAPITULO: '5. Impermeabilización',
-            DESCRIPCION:
-                'Impermeabilización de cisterna con membrana asfáltica',
-            UNIDAD: 'm2',
-            CANTIDAD_INSTALAR: 1000,
-            VALOR_UNITARIO: 1000,
-            TOTAL: 1000000,
-        },
-        {
-            ID: 3,
-            CAPITULO: '3. Cimentación',
-            DESCRIPCION: 'Cimentación corrida de concreto fc=150',
-            UNIDAD: 'm3',
-            CANTIDAD_INSTALAR: 1000,
-            VALOR_UNITARIO: 1000,
-            TOTAL: 1000000,
-        },
-
-        {
-            ID: 4,
-            CAPITULO: '4. Estructura del reservorio',
-            DESCRIPCION: 'Escalera de acceso a la cisterna',
-            UNIDAD: 'und',
-            CANTIDAD_INSTALAR: 1000,
-            VALOR_UNITARIO: 1000,
-            TOTAL: 1000000,
-        },
-        {
-            ID: 5,
-            CAPITULO: '5. Impermeabilización',
-            DESCRIPCION:
-                'Impermeabilización de cisterna con membrana asfáltica',
-            UNIDAD: 'm2',
-            CANTIDAD_INSTALAR: 1000,
-            VALOR_UNITARIO: 1000,
-            TOTAL: 1000000,
-        },
-    ]
+    const ofertaComercial = JSON.parse(localStorage.getItem('ofertaComercial')) || {};
 
     const tableBody = document.getElementById('data-table')
 
-    data.forEach((item) => {
-        
+    ofertaComercial.forEach((item) => {
+
         const row = document.createElement('tr')
         row.className = 'border-b'
 
+        const rowIndex = tableBody.getElementsByTagName('tr').length + 1;
         row.innerHTML = `
-            <td class="py-2">${item.ID}</td>
-            <td class="py-2">${item.CAPITULO}</td>
-            <td class="py-2">${item.DESCRIPCION}</td>
-            <td class="py-2">${item.UNIDAD}</td>
-            <td class="py-2">${item.CANTIDAD_INSTALAR}</td>
-            <td class="py-2">${item.VALOR_UNITARIO}</td>
-            <td class="py-2">${item.TOTAL}</td>
-            <td class="py-2">
-                <button class="bg-yellow-500 text-white px-2 py-1 rounded" onclick="editItem(${item.ID})"><i class="fa-regular fa-pen-to-square" style="color: #ffffff;"></i></button>
-                <button class="bg-red-500 text-white px-2 py-1 rounded" onclick="deleteItem(${item.ID})"><i class="fa-regular fa-trash-can" style="color: #ffffff;"></i></button>
+            <td class="py-2 border-b border-r text-center">${rowIndex}</td>
+            <td class="py-2 border-b border-r text-center">${item.capitulo}</td>
+            <td class="py-2 border-b border-r text-center">${item.descripcion}</td>
+            <td class="py-2 border-b border-r text-center">${item.unidad}</td>
+            <td class="py-2 border-b border-r text-center">${item.cantidad_instalar}</td>
+            <td class="py-2 border-b border-r text-center">$ ${item.valor_aiu.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
+            <td class="py-2 border-b border-r text-center">$ ${(item.cantidad_instalar * item.valor_aiu).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} </td>
+            <td class="py-2 border-b text-center">
+                <button class="bg-gray-500 text-white px-2 py-1 rounded" onclick="editItem(${rowIndex});"><i class="fa-regular fa-pen-to-square" style="color: #ffffff;"></i></button>
+                <button class="bg-gray-500 text-white px-2 py-1 rounded" onclick="deleteItem(${rowIndex}, ${item.capitulo});"><i class="fa-regular fa-trash-can" style="color: #ffffff;"></i></button>
             </td>
         `
 
         tableBody.appendChild(row)
     })
 })
+
+function deleteItem(rowIndex, capitulo) {
+
+    if (confirm('Esta seguro de que quiere eliminar el elemento con el capitulo: ' + capitulo + ' que esta en el ID: ' + rowIndex + '?')) {
+
+        const ofertaComercial = JSON.parse(localStorage.getItem('ofertaComercial')) || [];
+
+        console.log(ofertaComercial);
+        console.log(capitulo);
+
+        const updatedOfertaComercial = ofertaComercial.filter(item => item.capitulo !== capitulo);
+
+        console.log(updatedOfertaComercial);
+
+        localStorage.setItem('ofertaComercial', JSON.stringify(updatedOfertaComercial));
+
+        document.getElementById('data-table').deleteRow(rowIndex - 1); // Eliminar la fila de la tabla sin recargar la página
+    }
+
+}
 
 function sortTable(column) {
     const table = document.querySelector('tbody')
@@ -142,10 +57,10 @@ function sortTable(column) {
     rows.sort((a, b) => {
         const cellA = a
             .getElementsByTagName('td')
-            [column].innerText.toLowerCase()
+        [column].innerText.toLowerCase()
         const cellB = b
             .getElementsByTagName('td')
-            [column].innerText.toLowerCase()
+        [column].innerText.toLowerCase()
 
         if (cellA < cellB) return isAscending ? -1 : 1
         if (cellA > cellB) return isAscending ? 1 : -1
@@ -154,6 +69,7 @@ function sortTable(column) {
 
     rows.forEach((row) => table.appendChild(row))
 }
+
 function viewItem(ID) {
     alert('Estas viendo el elemento con el ID: ' + ID)
 }
@@ -162,30 +78,23 @@ function editItem(ID) {
     alert('Estas editando el elemento con el ID: ' + ID)
 }
 
-function deleteItem(ID) {
-    if (
-        confirm(
-            'Esta seguro de que quiere eliminar el elemento con el ID: ' +
-                ID +
-                '?'
-        )
-    ) {
-        alert('Elemento con el ID: ' + ID + ' eliminado.')
-    }
-}
-
 function borrarInformacionProyecto(index) {
+
     let informacionProyecto =
         JSON.parse(localStorage.getItem('informacionProyecto')) || []
+
     informacionProyecto.splice(index, 1)
+
     localStorage.setItem(
         'informacionProyecto',
         JSON.stringify(informacionProyecto)
     )
+
     mostrarInformacionProyecto()
 }
 
 function mostrarInformacionProyecto() {
+
     const informacionProyecto =
         JSON.parse(localStorage.getItem('informacionProyecto')) || []
     const dataContainer = document.getElementById('dataContainer')
