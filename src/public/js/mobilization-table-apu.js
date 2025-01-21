@@ -710,7 +710,7 @@ function guardarInformacionProyecto() {
         datosManoDeObra: storedDatosManoDeObra,
         informacionRotulos: storedInformacionRotulos,
         informacionProyecto: storedInformacionProyecto,
-        totalesMovilizacion: totalesMovilizacion,
+        totales: totalesMovilizacion,
     }
 
     localStorage.setItem('storedInformacionCompleta', JSON.stringify(storedInformacionCompleta))

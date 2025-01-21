@@ -337,37 +337,19 @@ function searchTable() {
 }
 
 /* -------------------------------------------------------- MODULO DE GASTOS ------------------------------------------------------------------- */
-
 async function fetchDataGastos() {
     try {
-
-        const response_1 = await fetch('http://localhost:5000/selectGastoData');
-        const response_2 = await fetch('http://localhost:5000/selectEmpleadoData');
-
-        const data_1 = await response_1.json();
-        const data_2 = await response_2.json();
+        const response = await fetch('http://localhost:5000/selectGastoData');
+        const data = await response.json();
 
         // Aquí puedes actualizar tu tabla con los datos recibidos
         const dataTable = document.getElementById('data-table-gastos');
-
         dataTable.innerHTML = ''; // Limpiar la tabla antes de agregar nuevos datos
-
-
-
-        data_1.forEach((gasto) => {
+        data.forEach((gasto) => {
             const row = document.createElement('tr');
-
-            let nombreCargo = '';
-
-            data_2.forEach((empleado) => {
-                if (gasto.id_empleados == empleado.id_empleados) {
-                    nombreCargo = empleado.cargo_empleados;
-                }
-            })
-
             row.innerHTML = `
                 <td>${gasto.id_gastos}</td>
-                <td>${nombreCargo}</td>
+                <td>${gasto.id_empleados}</td>
                 <td>${gasto.lugar_diario}</td>
                 <td>${gasto.hotel_diario}</td>
                 <td>${gasto.desayuno_diario}</td>
@@ -616,7 +598,7 @@ document.getElementById('editGastoForm').addEventListener('submit', async functi
     const refrigerio_diario = document.querySelector('#editGastoRefrigerio').value.trim();
     const salario_diario = document.querySelector('#editGastoSalario').value.trim();
     const carga_prestacional_diario = document.querySelector('#editGastoCarga').value.trim();
-    const eepp_diario = document.querySelector('#editGastoEPP').value.trim();
+    const eepp_diario = document.querySelector('#editGastoEepp').value.trim();
 
     const updatedGasto = {
         id_empleados,
@@ -721,7 +703,7 @@ async function editGasto(
     document.getElementById('editGastoCarga').value =
         decodeURIComponent(carga_prestacional_diario);
 
-    document.getElementById('editGastoEPP').value =
+    document.getElementById('editGastoEepp').value =
         decodeURIComponent(eepp_diario);
 
     document.getElementById('editModalGastos').classList.remove('hidden');

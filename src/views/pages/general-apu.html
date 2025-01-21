@@ -92,7 +92,7 @@
                 <div
                     class="col-start-3 row-start-5 border border-solid border-gray-400 text-center flex items-center justify-center break-all">
                     <input type="number" id="rendimientoDiario" class="w-full h-full text-center"
-                        oninput="rendimientoEquiposLocalStorage(); actualizarRendimientoEquipos(); valorUnitarioEquiposLocalStorage(); actualizarValorUnitarioEquipos(); cantidadMaterialesLocalStorage(); actualizarCantidadMateriales(); valorUnitarioMaterialesLocalStorage(); actualizarValorUnitarioMateriales(); rendimientoManoDeObraLocalStorage();" />
+                        oninput="rendimientoEquiposLocalStorage(); actualizarRendimientoEquipos(); valorUnitarioEquiposLocalStorage(); actualizarValorUnitarioEquipos(); cantidadMaterialesLocalStorage(); actualizarCantidadMateriales(); valorUnitarioMaterialesLocalStorage(); actualizarValorUnitarioMateriales(); rendimientoManoDeObraLocalStorage();  actualizarRendimientoManoDeObra(); actualizarValorUnitarioManoDeObra();" />
                 </div>
                 <div
                     class="col-start-4 row-start-5 border border-solid border-gray-400 text-center flex items-center justify-center break-all">
@@ -492,7 +492,8 @@
                                 <td scope="col" class="px-6 py-3">
                                     <input type="number" id="JORNAL MANO DE OBRA" placeholder="JORNAL"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg pl-3 h-10 mx-2"
-                                        step="0.01" />
+                                        step="any"
+                                        onchange="valorUnitarioManoDeObraLocalStorage(); actualizarTablaManoDeObra();" />
                                 </td>
                                 <td scope="col" class="px-6 py-3">
                                     <input type="text" id="PRESTACION (%) MANO DE OBRA" placeholder="PRESTACION (%)"
@@ -501,35 +502,37 @@
                                 <td scope="col" class="px-6 py-3">
                                     <input type="number" id="JORNAL TOTAL MANO DE OBRA" placeholder="JORNAL TOTAL"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg pl-3 h-10 mx-2"
-                                        oninput="valorUnitarioTransporteLocalStorage(); actualizarTablaManoDeObra();" />
+                                        oninput="valorUnitarioManoDeObraLocalStorage();  actualizarTablaManoDeObra();" />
                                 </td>
                                 <td scope="col" class="px-6 py-3">
                                     <input type="number" id="RENDIMIENTO MANO DE OBRA" placeholder="RENDIMIENTO"
-                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg pl-3 h-10 mx-2 readonly" />
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg pl-3 h-10 mx-2 readonly"
+                                        step="0.0001" />
                                 </td>
                                 <td scope="col" class="px-6 py-3">
                                     <input type="number" id="VALOR UNITARIO MANO DE OBRA" placeholder="VALOR UNITARIO"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg pl-3 h-10 mx-2"
-                                        step="0.01" />
+                                        step="0.0001" />
                                 </td>
                                 <td scope="col" class="px-6 py-3">
                                     <button type="submit" class="mr-5 text-4xl active:scale-90 transition-transform"
-                                        onclick="valorUnitarioTransporteLocalStorage(); actualizarTablaManoDeObra();">
+                                        onclick="valorUnitarioManoDeObraLocalStorage(); actualizarTablaManoDeObra();">
                                         <i class="fa-solid fa-circle-plus text-4xl"></i>
                                     </button>
                                 </td>
                             </tr>
                         </form>
+
                     </table>
                     <div style="
                     position: sticky;
                     left: 0;
                     background-color: white;
                 ">
-                        <!-- onclick="valorUnitarioManoDeObraLocalStorage(); actualizarValorUnitarioManoDeObra();" -->
                         <select
                             class="w-full h-10 m-5 bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded pl-3 pr-8 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-400 shadow-sm focus:shadow-md appearance-none cursor-pointer"
-                            id="selectManoDeObra" style="max-width: -webkit-fill-available">
+                            id="selectManoDeObra" style="max-width: -webkit-fill-available"
+                            onclick="valorUnitarioManoDeObraLocalStorage(); actualizarTablaManoDeObra();">
                             <option value="">Seleccione un cargo</option>
                         </select>
                     </div>
@@ -610,12 +613,13 @@
 
             <div id="buttons-apu-container" class="flex flex-row items-center justify-center mt-10">
                 <button type="button"
-                    class="text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
+                    class="text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+                    onclick="valoresOfertaComercial(); guardarInformacionProyecto();">
                     Finalizar APU
                 </button>
                 <button type="button"
                     class="text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
-                    onclick="cancelAPU()">
+                    onclick="cancelAPU(); eliminarTodo();">
                     Cancelar APU
                 </button>
             </div>

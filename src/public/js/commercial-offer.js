@@ -2,6 +2,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const ofertaComercial = JSON.parse(localStorage.getItem('ofertaComercial')) || {};
 
+    console.log('ofertaComercial', ofertaComercial);
+
     const tableBody = document.getElementById('data-table')
 
     ofertaComercial.forEach((item) => {
@@ -27,6 +29,13 @@ document.addEventListener('DOMContentLoaded', function () {
         tableBody.appendChild(row)
     })
 })
+
+// const ofertaComercial = JSON.parse(localStorage.getItem('ofertaComercial')) || {};
+
+// if (ofertaComercial.length > 0) {
+//     ofertaComercial.pop(); // Eliminar el último elemento del array
+//     localStorage.setItem('ofertaComercial', JSON.stringify(ofertaComercial));
+// }
 
 function deleteItem(rowIndex, capitulo) {
 
