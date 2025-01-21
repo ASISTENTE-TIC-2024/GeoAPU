@@ -79,7 +79,6 @@ function displayDataAPU() {
     const cantidad_instalar = document.getElementById("cantidadAInstalar")
     const cantidad_dias = document.getElementById("cantidadDias")
 
-    const rendimiento_equipos = document.getElementById("RENDIMIENTO_EQUIPOS")
     const cantidad_materiales = document.getElementById("CANTIDAD_MATERIALES")
 
     informacionProyecto.forEach((data, index) => {
@@ -97,7 +96,6 @@ function displayDataAPU() {
         actividad.innerHTML = `${data.descripcion_actividad}`;
         rendimiento_diario.value = isNaN(data.rendimiento) ? "No aplica" : `${data.rendimiento}`;
 
-        rendimiento_equipos.value = `${(1 / data.rendimiento).toFixed(4)}`;
         cantidad_materiales.value = `${(3 / data.rendimiento).toFixed(4)}`;
 
         cantidad_instalar.innerHTML = `${data.cantidad_instalar}`;
@@ -113,33 +111,6 @@ displayDataAPU()
 
 /*------------------ MODULO DE LA TABLA EQUIPOS ----------------------*/
 
-function rendimientoEquiposLocalStorage() {
-
-    // Obtener el valor del input
-    const rendimientoDiario =
-        document.getElementById('rendimientoDiario').value
-
-    // Obtener el objeto informacionRotulos desde localStorage
-    const informacionRotulos =
-        JSON.parse(localStorage.getItem('informacionRotulos')) || []
-
-    informacionRotulos.forEach((data, index) => {
-        data.rendimiento = rendimientoDiario
-    })
-
-    const RENDIMIENTO_EQUIPOS = document.getElementById("RENDIMIENTO_EQUIPOS")
-
-    RENDIMIENTO_EQUIPOS.value = `${(1 / rendimientoDiario).toFixed(4)}`
-
-    // Guardar el objeto actualizado de nuevo en localStorage
-    localStorage.setItem(
-        'informacionRotulos',
-        JSON.stringify(informacionRotulos)
-    )
-
-    console.log(JSON.stringify(informacionRotulos))
-
-}
 
 function valorUnitarioEquipos() {
 

@@ -1,15 +1,13 @@
 function guardarInformacionRotulos() {
 
     const capitulo = document.getElementById('capitulo').value || "No se ingreso una actividad";
-
     const descripcion_actividad = document.getElementById('descripcion-actividad').value || "No se ingreso una descripción de la actividad";
-    const item_pago = document.getElementById('item-pago').value || "No se ingreso un item de pago";
+    const item_pago = 1;
     const unidad = document.getElementById('unidad').value || "No se ingreso una unidad de medida";
     const rendimiento = parseFloat(document.getElementById('rendimiento').value).toFixed(2) || "No se ingreso un rendimiento";
     const cantidad_instalar = document.getElementById('cantidad-instalar').value === "Si" ? document.getElementById('cantidad-instalar-otro').value : document.getElementById('cantidad-instalar').value || "No se ingreso un rendimiento";
     const cantidad_dias = document.getElementById('cantidad-dias').value === "Si" ? document.getElementById('cantidad-dias-otro').value : document.getElementById('cantidad-dias').value || "No se ingresaron dias de trabajo";
-    const trm = document.getElementById('trm').value;
-    const iva = document.getElementById('iva').value;
+    const trm = 'Si';
     const distancia_movilizacion = document.getElementById('distancia-movilizacion').value === "Si" ? document.getElementById('distancia-movilizacion-otro').value : document.getElementById('distancia-movilizacion').value || "No se ingreso un rendimiento";
 
     // Obtener los datos existentes del Local Storage
@@ -29,7 +27,6 @@ function guardarInformacionRotulos() {
             cantidad_instalar,
             cantidad_dias,
             trm,
-            iva,
             distancia_movilizacion
         };
     } else {
@@ -43,7 +40,6 @@ function guardarInformacionRotulos() {
             cantidad_instalar,
             cantidad_dias,
             trm,
-            iva,
             distancia_movilizacion
         });
     }

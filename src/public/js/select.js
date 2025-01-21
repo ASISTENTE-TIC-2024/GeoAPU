@@ -146,9 +146,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const selectManoDeObra = document.getElementById('selectManoDeObra');
 
     const jornalManoDeObra = document.getElementById('JORNAL MANO DE OBRA');
-
     const cargoEmpleado = document.getElementById('TRABAJADOR MANO DE OBRA');
-
 
     async function obtenerManoObra() {
         try {
@@ -159,13 +157,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const gastos = await response_1.json();
             const empleados = await response_2.json();
 
-            // gastos.forEach(gasto => {
-            //     empleados.forEach(empleado => {
-            //         if (gasto.id_empleados === empleado.id_empleados) {
-            //             cargoEmpleado = empleado.cargo_empleados;
-            //         }
-            //     })
-            // })
+            console.log(gastos);
 
             gastos.forEach(gasto => {
                 empleados.forEach(empleado => {
@@ -173,12 +165,17 @@ document.addEventListener('DOMContentLoaded', () => {
                     const option = document.createElement('option');
 
                     option.value = gasto.id_gastos;
-                    option.textContent = empleado.cargo_empleados;
+
+                    if (gasto.id_empleados == empleado.id_empleados) {
+                        option.textContent = empleado.cargo_empleados;
+                    } else {
+                        option.style.display = 'none';
+                    }
 
                     selectManoDeObra.appendChild(option);
-
-                })
+                });
             });
+
         } catch (error) {
             console.error('Error al obtener la mano de obra:', error);
         }
@@ -192,39 +189,29 @@ document.addEventListener('DOMContentLoaded', () => {
 
         console.log(selectedOption);
 
-        if (selectedOption.textContent === 'Seleccione una mano de obra') {
+        if (selectedOption.textContent === 'Seleccione un cargo') {
             jornalManoDeObra.value = '';
+            cargoEmpleado.value = '';
+
         } else {
 
             try {
-
-                console.log(selectedOption.value);
 
                 const response = await fetch(`http://localhost:5000/totalGastos/${selectedOption.value}`);
 
                 const data = await response.json();
 
-                const response_1 = await fetch('http://localhost:5000/selectGastoData');
-                const response_2 = await fetch('http://localhost:5000/selectEmpleadoData');
-
-                const gastos = await response_1.json();
-                const empleados = await response_2.json();
-
-                gastos.forEach(gasto => {
-                    empleados.forEach(empleado => {
-                        if (gasto.id_empleados === empleado.id_empleados) {
-                            cargoEmpleado.value = empleado.cargo_empleados;
-                        }
-                    })
-                })
-
-                jornalManoDeObra.value = data ?? '';
-
+                cargoEmpleado.value = selectedOption.textContent;
+                jornalManoDeObra.value = data.total_gastos;
 
             } catch (error) {
                 console.error('Error al obtener el jornal:', error);
             }
         }
     });
+
+    // Trigger change event to update the fields when the page loads
+    const event = new Event('change');
+    selectManoDeObra.dispatchEvent(event);
 
 });

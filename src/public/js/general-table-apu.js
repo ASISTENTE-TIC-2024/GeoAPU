@@ -212,7 +212,6 @@ function actualizarTablaMateriales() {
 
     console.log(totalMateriales);
 
-
     tbody.innerHTML = ''
 
     storedDatosMateriales.forEach((item, index) => {
@@ -283,9 +282,12 @@ function actualizarValorUnitarioMateriales() {
     console.log(trmValue);
 
     storedDatosMateriales.forEach((item) => {
+
         if (item.tipo_moneda_materiales === 'USD' && !item.trm_applied) {
-            item.valor_unitario_materiales = (item.valor_unitario_materiales * trmValue).toFixed(2);
+            item.precio_unitario_materiales = (item.precio_unitario_materiales * trmValue).toFixed(2);
+            item.valor_unitario_materiales = (item.precio_unitario_materiales * item.cantidad_materiales).toFixed(2);
             item.trm_applied = true; // Marcar que la TRM ya ha sido aplicada
+
         } else if (item.tipo_moneda_materiales !== 'USD') {
             item.valor_unitario_materiales = (item.precio_unitario_materiales * item.cantidad_materiales).toFixed(2);
         }
@@ -298,6 +300,8 @@ function actualizarValorUnitarioMateriales() {
     actualizarTablaMateriales()
 
 }
+
+actualizarValorUnitarioMateriales();
 
 actualizarTablaMateriales();
 
@@ -384,6 +388,7 @@ function eliminarElementoTransporte(index) {
 document
     .getElementById('dataFormManoDeObra')
     .addEventListener('submit', function (e) {
+
         e.preventDefault()
 
         let trabajador_mano_de_obra =
@@ -393,6 +398,7 @@ document
         let jornal_mano_de_obra =
             parseFloat(document.getElementById('JORNAL MANO DE OBRA').value) ||
             0
+
         let prestacion_mano_de_obra =
             document.getElementById('PRESTACION (%) MANO DE OBRA').value || 0
         let jornal_total_mano_de_obra =
@@ -416,6 +422,7 @@ document
             rendimiento_mano_de_obra,
             valor_unitario_mano_de_obra,
         })
+
         actualizarTablaManoDeObra()
     })
 

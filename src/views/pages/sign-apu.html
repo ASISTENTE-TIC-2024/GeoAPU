@@ -31,8 +31,7 @@
 <body style="font-family: 'Museo Sans Rounded', sans-serif" class="bg-fixed">
     <div class="w-full h-full flex flex-col items-center justify-center">
         <div class="h-full w-full">
-            <!-- Code block starts -->
-            <!--- more free and premium Tailwind CSS components at https://tailwinduikit.com/ --->
+
             <nav role="navigation" class="bg-white shadow xl:block hidden fixed w-full z-50" id="navegador-principal">
                 <div class="mx-auto container px-6 py-2 xl:py-0">
                     <div class="flex items-center justify-between">
@@ -297,6 +296,7 @@
                     </div>
                 </div>
             </nav>
+
             <nav>
                 <div class="py-4 px-6 w-full flex xl:hidden justify-between items-center bg-white fixed top-0 z-40">
                     <div aria-label="logo" role="img" tabindex="0" class="focus:outline-none w-24">
@@ -495,6 +495,7 @@
                     </div>
                 </div>
             </nav>
+
         </div>
 
         <div class="w-full relative top-[6em]">
@@ -516,15 +517,17 @@
                 <form id="formulario-rotulos"
                     class="w-[80%] p-10 border border-gray-300 mt-5 flex flex-col justify-start items-stretch rounded-xl bg-gray-200 mb-6"
                     method="post">
+
                     <div class="capitulo-container my-2">
                         <label for="capitulo">Actividad a realizar:</label>
-                        <select id="capitulo" name="capitulo"
+                        <select id="capitulo" name="capitulo" onchange="toggleMovilizacionContainer()"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
                             <option value="">
                                 Selecciona una actividad
                             </option>
                             <option value="Movilización">
                                 1. Movilización
+                            </option>
                             <option value="1. Trabajos preliminares">
                                 2. Trabajos preliminares
                             </option>
@@ -569,21 +572,15 @@
                     </div>
 
                     <div class="w-full my-2 flex items-center justify-center">
-                        <div class="item-container text-center w-[33%]">
-                            <label for="item-pago">Item de pago:</label>
-                            <input type="text" id="item-pago" name="item-pago"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                                placeholder="Ingrese el item de pago de la actividad" />
-                        </div>
 
-                        <div class="unidad-container text-center w-[33%]">
+                        <div class="unidad-container text-center w-[50%]">
                             <label for="unidad">Unidad de medida:</label>
                             <input type="text" id="unidad" name="unidad"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                 placeholder="Ingrese la unidad de medida de la actividad" />
                         </div>
 
-                        <div class="rendimiento-container text-center w-[33%]">
+                        <div class="rendimiento-container text-center w-[50%]">
                             <label for="rendimiento">Rendimiento:</label>
                             <input type="text" id="rendimiento" name="rendimiento"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
@@ -621,35 +618,12 @@
                             <input placeholder="Ingrese la cantidad de dias" type="text" id="cantidad-dias-otro"
                                 class="mt-2 hidden border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" />
                         </div>
-                    </div>
 
-                    <div class="w-full flex my-2">
-                        <div class="trm-container w-[50%]">
-                            <label for="trm">¿Tiene TRM?</label>
-                            <select id="trm" name="trm"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
-                                <option value="">
-                                    Selecciona una opción
-                                </option>
-                                <option value="Si">Si</option>
-                                <option value="No">No</option>
-                            </select>
-                        </div>
 
-                        <div class="iva-container w-[50%]">
-                            <label for="iva">¿Tiene IVA?</label>
-                            <select id="iva" name="iva"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
-                                <option value="">
-                                    Selecciona una opción
-                                </option>
-                                <option value="Si">Si</option>
-                                <option value="No">No</option>
-                            </select>
-                        </div>
                     </div>
 
                     <div class="movilizacion-container my-2">
+
                         <label for="distancia-movilizacion">¿Tiene distancia por movilización?</label>
                         <select id="distancia-movilizacion" name="distancia-movilizacion"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
@@ -658,9 +632,12 @@
                             <option value="No">No</option>
                         </select>
 
-                        <input placeholder="Ingrese la distancia de movilización" type="text"
-                            id="distancia-movilizacion-otro"
-                            class="mt-2 hidden bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" />
+                        <input id="distancia-movilizacion-otro"
+                            class="mt-2 hidden bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                            type="range" min="0" max="100" value="50" oninput="rangeValue.innerText = this.value + '%'">
+
+                        <p id="rangeValue" class="hidden">50%</p>
+
                     </div>
 
                     <button type="button" onclick="guardarInformacionRotulos()"

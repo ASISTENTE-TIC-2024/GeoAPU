@@ -160,7 +160,7 @@
                                 <td class="px-6 py-3">
                                     <input type="number" id="RENDIMIENTO_EQUIPOS" placeholder="RENDIMIENTO"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg pl-3 h-10 mx-2"
-                                        readonly />
+                                        step="0.01" oninput="valorUnitarioEquipos()" />
                                 </td>
                                 <td class="px-6 py-3">
                                     <input type="number" id="VALOR_UNITARIO_EQUIPOS" placeholder="VALOR UNITARIO"
@@ -531,12 +531,14 @@
                     left: 0;
                     background-color: white;
                 ">
+
                         <select
                             class="w-full h-10 m-5 bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded pl-3 pr-8 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-400 shadow-sm focus:shadow-md appearance-none cursor-pointer"
                             id="selectManoDeObra" style="max-width: -webkit-fill-available"
                             onclick="valorUnitarioManoDeObra(); actualizarTablaManoDeObra();">
                             <option value="">Seleccione un cargo</option>
                         </select>
+
                     </div>
                 </div>
                 <div class="grid grid-cols-8 grid-rows-1">

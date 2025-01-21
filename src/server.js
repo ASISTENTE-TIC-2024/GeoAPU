@@ -1216,16 +1216,19 @@ app.get('/totalGastos/:id_gastos', (req, res) => {
 
     const { id_gastos } = req.params;
 
+    console.log('ID de gastos:', id_gastos);
+
     const query = `
         SELECT 
             (hotel_diario + desayuno_diario + almuerzo_diario + cena_diario + lavanderia_diario + hidratacion_diario + hielo_diario + refrigerio_diario + salario_diario + carga_prestacional_diario + eepp_diario) AS total_gastos
         FROM 
             gastos_diarios
         WHERE 
-            id_empleados = ?;  
+            id_gastos = ?;  
     `;
 
-    console.log(query);
+    console.log('Query:', query);
+
 
     db_con.query(query, [id_gastos], (err, results) => {
 
@@ -1233,6 +1236,8 @@ app.get('/totalGastos/:id_gastos', (req, res) => {
             console.error('Error al obtener el total de gastos:', err);
             return res.status(500).send('Error al obtener el total de gastos');
         }
+
+        console.log('Total de gastos:', results);
 
         if (results.length === 0) {
             return res.status(404).send('Gasto no encontrado');

@@ -638,44 +638,45 @@ function calcularTotalGeneral() {
     let totalesMovilizacion = []
 
     totalesMovilizacion[0] = {
-        totalGlobalMov
+        totalGlobalMov,
+        totalGeneralMov,
     }
 
     return totalesMovilizacion;
 
 }
 
-function eliminarTodo() {
+// function eliminarTodo() {
 
-    localStorage.clear()
+//     localStorage.clear()
 
-    actualizarTablaEquipos()
-    actualizarTablaMateriales()
-    actualizarTablaTransportes()
-    actualizarTablaManoDeObra()
+//     actualizarTablaEquipos()
+//     actualizarTablaMateriales()
+//     actualizarTablaTransportes()
+//     actualizarTablaManoDeObra()
 
-    calcularTotalGeneral()
+//     calcularTotalGeneral()
 
-}
+// }
 
-function guardarInformacionProyecto() {
+// function guardarInformacionProyecto() {
 
-    let storedDatosEquipos = JSON.parse(localStorage.getItem('datosEquiposMov')) || []
-    let storedDatosMateriales = JSON.parse(localStorage.getItem('datosMaterialesMov')) || []
-    let storedDatosTransportes = JSON.parse(localStorage.getItem('datosTransportesMov')) || []
-    let storedDatosManoDeObra = JSON.parse(localStorage.getItem('datosManoDeObraMov')) || []
+//     let storedDatosEquipos = JSON.parse(localStorage.getItem('datosEquiposMov')) || []
+//     let storedDatosMateriales = JSON.parse(localStorage.getItem('datosMaterialesMov')) || []
+//     let storedDatosTransportes = JSON.parse(localStorage.getItem('datosTransportesMov')) || []
+//     let storedDatosManoDeObra = JSON.parse(localStorage.getItem('datosManoDeObraMov')) || []
 
-    let storedInformacionProyecto = {
-        datosEquipos: storedDatosEquipos,
-        datosMateriales: storedDatosMateriales,
-        datosTransportes: storedDatosTransportes,
-        datosManoDeObra: storedDatosManoDeObra
-    }
+//     let storedInformacionProyecto = {
+//         datosEquipos: storedDatosEquipos,
+//         datosMateriales: storedDatosMateriales,
+//         datosTransportes: storedDatosTransportes,
+//         datosManoDeObra: storedDatosManoDeObra
+//     }
 
-    localStorage.setItem('storedInformacionProyecto', JSON.stringify(storedInformacionProyecto))
+//     localStorage.setItem('storedInformacionProyecto', JSON.stringify(storedInformacionProyecto))
 
-    alert('Información guardada correctamente.')
-}
+//     alert('Información guardada correctamente.')
+// }
 
 
 // localStorage.removeItem('ofertaComercial');
@@ -687,24 +688,24 @@ function guardarInformacionProyecto() {
 // eliminarTodo()
 
 
-function cargarInformacionProyecto() {
+// function cargarInformacionProyecto() {
 
-    let storedInformacionProyecto = JSON.parse(localStorage.getItem('storedInformacionProyecto')) || {}
+//     let storedInformacionProyecto = JSON.parse(localStorage.getItem('storedInformacionProyecto')) || {}
 
-    localStorage.setItem('datosEquiposMov', JSON.stringify(storedInformacionProyecto.datosEquipos))
-    localStorage.setItem('datosMaterialesMov', JSON.stringify(storedInformacionProyecto.datosMateriales))
-    localStorage.setItem('datosTransportesMov', JSON.stringify(storedInformacionProyecto.datosTransportes))
-    localStorage.setItem('datosManoDeObraMov', JSON.stringify(storedInformacionProyecto.datosManoDeObra))
+//     localStorage.setItem('datosEquiposMov', JSON.stringify(storedInformacionProyecto.datosEquipos))
+//     localStorage.setItem('datosMaterialesMov', JSON.stringify(storedInformacionProyecto.datosMateriales))
+//     localStorage.setItem('datosTransportesMov', JSON.stringify(storedInformacionProyecto.datosTransportes))
+//     localStorage.setItem('datosManoDeObraMov', JSON.stringify(storedInformacionProyecto.datosManoDeObra))
 
-    actualizarTablaEquipos()
-    actualizarTablaMateriales()
-    actualizarTablaTransportes()
-    actualizarTablaManoDeObra()
+//     actualizarTablaEquipos()
+//     actualizarTablaMateriales()
+//     actualizarTablaTransportes()
+//     actualizarTablaManoDeObra()
 
-    calcularTotalGeneral()
+//     calcularTotalGeneral()
 
-    alert('Información cargada correctamente.')
-}
+//     alert('Información cargada correctamente.')
+// }
 
 function valoresOfertaComercial() {
 
@@ -739,6 +740,7 @@ function valoresOfertaComercial() {
             descripcion: informacionRotulos[0].descripcion_actividad,
             unidad: informacionRotulos[0].unidad,
             cantidad_instalar: informacionRotulos[0].cantidad_instalar,
+            valor_sin_aiu: informacionTotales[0].totalGeneralMov,
             valor_aiu: informacionTotales[0].totalGlobalMov,
         })
 
