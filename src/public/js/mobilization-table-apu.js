@@ -646,67 +646,6 @@ function calcularTotalGeneral() {
 
 }
 
-// function eliminarTodo() {
-
-//     localStorage.clear()
-
-//     actualizarTablaEquipos()
-//     actualizarTablaMateriales()
-//     actualizarTablaTransportes()
-//     actualizarTablaManoDeObra()
-
-//     calcularTotalGeneral()
-
-// }
-
-// function guardarInformacionProyecto() {
-
-//     let storedDatosEquipos = JSON.parse(localStorage.getItem('datosEquiposMov')) || []
-//     let storedDatosMateriales = JSON.parse(localStorage.getItem('datosMaterialesMov')) || []
-//     let storedDatosTransportes = JSON.parse(localStorage.getItem('datosTransportesMov')) || []
-//     let storedDatosManoDeObra = JSON.parse(localStorage.getItem('datosManoDeObraMov')) || []
-
-//     let storedInformacionProyecto = {
-//         datosEquipos: storedDatosEquipos,
-//         datosMateriales: storedDatosMateriales,
-//         datosTransportes: storedDatosTransportes,
-//         datosManoDeObra: storedDatosManoDeObra
-//     }
-
-//     localStorage.setItem('storedInformacionProyecto', JSON.stringify(storedInformacionProyecto))
-
-//     alert('Información guardada correctamente.')
-// }
-
-
-// localStorage.removeItem('ofertaComercial');
-// localStorage.removeItem('datosMaterialesMov');
-// localStorage.removeItem('datosTransportesMov');
-// localStorage.removeItem('datosManoDeObraMov');
-// localStorage.removeItem('informacionRotulos');
-
-// eliminarTodo()
-
-
-// function cargarInformacionProyecto() {
-
-//     let storedInformacionProyecto = JSON.parse(localStorage.getItem('storedInformacionProyecto')) || {}
-
-//     localStorage.setItem('datosEquiposMov', JSON.stringify(storedInformacionProyecto.datosEquipos))
-//     localStorage.setItem('datosMaterialesMov', JSON.stringify(storedInformacionProyecto.datosMateriales))
-//     localStorage.setItem('datosTransportesMov', JSON.stringify(storedInformacionProyecto.datosTransportes))
-//     localStorage.setItem('datosManoDeObraMov', JSON.stringify(storedInformacionProyecto.datosManoDeObra))
-
-//     actualizarTablaEquipos()
-//     actualizarTablaMateriales()
-//     actualizarTablaTransportes()
-//     actualizarTablaManoDeObra()
-
-//     calcularTotalGeneral()
-
-//     alert('Información cargada correctamente.')
-// }
-
 function valoresOfertaComercial() {
 
     if (confirm('¿Estás seguro de que finalizaste la APU?')) {
@@ -753,6 +692,51 @@ function valoresOfertaComercial() {
     }
 
 }
+
+
+function guardarInformacionProyecto() {
+
+    let storedDatosEquipos = JSON.parse(localStorage.getItem('datosEquiposMov')) || []
+    let storedDatosMateriales = JSON.parse(localStorage.getItem('datosMaterialesMov')) || []
+    let storedDatosTransportes = JSON.parse(localStorage.getItem('datosTransportesMov')) || []
+    let storedDatosManoDeObra = JSON.parse(localStorage.getItem('datosManoDeObraMov')) || []
+    let storedInformacionRotulos = JSON.parse(localStorage.getItem('informacionRotulos')) || []
+    let storedInformacionProyecto = JSON.parse(localStorage.getItem('informacionProyecto')) || {}
+    let totalesMovilizacion = JSON.parse(localStorage.getItem('totalesMovilizacion')) || []
+
+    let storedInformacionCompleta = {
+        datosEquipos: storedDatosEquipos,
+        datosMateriales: storedDatosMateriales,
+        datosTransportes: storedDatosTransportes,
+        datosManoDeObra: storedDatosManoDeObra,
+        informacionRotulos: storedInformacionRotulos,
+        informacionProyecto: storedInformacionProyecto,
+        totalesMovilizacion: totalesMovilizacion,
+    }
+
+    localStorage.setItem('storedInformacionCompleta', JSON.stringify(storedInformacionCompleta))
+
+    eliminarTodo();
+
+    alert('Información guardada correctamente.')
+}
+
+function eliminarTodo() {
+    localStorage.removeItem('datosEquiposMov');
+    localStorage.removeItem('datosMaterialesMov');
+    localStorage.removeItem('datosTransportesMov');
+    localStorage.removeItem('datosManoDeObraMov');
+    localStorage.removeItem('informacionRotulos');
+    localStorage.removeItem('storedInformacionCompleta');
+    localStorage.removeItem('totalesMovilizacion');
+
+    actualizarTablaEquipos();
+    actualizarTablaMateriales();
+    actualizarTablaTransportes();
+    actualizarTablaManoDeObra();
+    calcularTotalGeneral();
+}
+
 
 // Configurar el MutationObserver para observar cambios en el contenedor de filas
 const observer = new MutationObserver((mutationsList) => {

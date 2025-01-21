@@ -72,7 +72,6 @@ function displayDataAPU() {
     const informacionProyecto = JSON.parse(localStorage.getItem('informacionProyecto')) || [];
     const informacionRotulos = JSON.parse(localStorage.getItem('informacionRotulos')) || [];
 
-
     const fecha = document.getElementById("fecha")
     const proyecto = document.getElementById("proyecto")
     const departamento = document.getElementById("departamento")
@@ -232,8 +231,6 @@ function valorUnitarioMaterialesLocalStorage() {
 
 }
 
-valorUnitarioMaterialesLocalStorage()
-
 function precioUnitarioTransporte() {
 
     let ofertaComercial =
@@ -258,3 +255,36 @@ function precioUnitarioTransporte() {
 }
 
 precioUnitarioTransporte()
+
+valorUnitarioMaterialesLocalStorage()
+
+function rendimientoTransporteLocalStorage() {
+
+    const RENDIMIENTO_TRANSPORTE = document.getElementById("RENDIMIENTO TRANSPORTE")
+
+    const informacionRotulos = JSON.parse(localStorage.getItem('informacionRotulos')) || [];
+
+    console.log(informacionRotulos);
+
+    RENDIMIENTO_TRANSPORTE.value = 1 / informacionRotulos[0].cantidad_instalar;
+
+}
+
+rendimientoTransporteLocalStorage();
+
+function valorUnitarioTransporteLocalStorage() {
+
+    const PRECIO_UNITARIO_TRANSPORTE = document.getElementById('PRECIO UNITARIO TRANSPORTE').value
+    const RENDIMIENTO_TRANSPORTE = document.getElementById("RENDIMIENTO TRANSPORTE").value
+
+    const VALOR_UNITARIO_TRANSPORTE = document.getElementById("VALOR UNITARIO TRANSPORTE")
+
+    console.log('1 ', PRECIO_UNITARIO_TRANSPORTE, '2 ', RENDIMIENTO_TRANSPORTE);
+
+    const valor = RENDIMIENTO_TRANSPORTE * PRECIO_UNITARIO_TRANSPORTE;
+
+    VALOR_UNITARIO_TRANSPORTE.value = `${valor.toFixed(2)}`;
+}
+
+valorUnitarioTransporteLocalStorage();
+

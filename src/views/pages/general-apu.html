@@ -399,16 +399,21 @@
                                 </td>
                                 <td scope="col" class="px-6 py-3">
                                     <input type="text" id="PRECIO UNITARIO TRANSPORTE" placeholder="PRECIO UNITARIO"
-                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg pl-3 h-10 mx-2" />
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg pl-3 h-10 mx-2"
+                                        oninput="rendimientoTransporteLocalStorage(); valorUnitarioTransporteLocalStorage();" />
                                 </td>
                                 <td scope="col" class="px-6 py-3">
                                     <input type="number" id="RENDIMIENTO TRANSPORTE" placeholder="RENDIMIENTO"
-                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg pl-3 h-10 mx-2" />
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg pl-3 h-10 mx-2"
+                                        step="any" />
                                 </td>
+
                                 <td scope="col" class="px-6 py-3">
                                     <input type="number" id="VALOR UNITARIO TRANSPORTE" placeholder="VALOR UNITARIO"
-                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg pl-3 h-10 mx-2" />
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg pl-3 h-10 mx-2"
+                                        step="any" />
                                 </td>
+
                                 <td scope="col" class="px-6 py-3">
                                     <button type="submit" class="mr-5 text-4xl active:scale-90 transition-transform">
                                         <i class="fa-solid fa-circle-plus text-4xl"></i>

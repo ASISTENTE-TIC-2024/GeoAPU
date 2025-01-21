@@ -633,10 +633,53 @@
                         </select>
 
                         <input id="distancia-movilizacion-otro"
-                            class="mt-2 hidden bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                            type="range" min="0" max="100" value="50" oninput="rangeValue.innerText = this.value + '%'">
+                            class="hidden mt-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                            type="range" min="0" max="100" value="0" oninput="updateMovilizacionValue(this.value)"
+                            disabled>
 
-                        <p id="rangeValue" class="hidden">50%</p>
+                        <input type="number" id="distancia_movilizacion_number"
+                            class="hidden mt-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                            min="0" max="100" value="0"
+                            oninput="document.getElementById('distancia-movilizacion-otro').value = this.value; updateMovilizacionValue(this.value)">
+
+                        <span id="percentage" class="hidden mt-5">0%</span>
+
+                        <script>
+                            document.getElementById('distancia_movilizacion_number').addEventListener('input', function () {
+                                document.getElementById('distancia-movilizacion-otro').value = this.value;
+                                document.getElementById('percentage').classList.remove('hidden');
+                                document.getElementById('percentage').innerText = this.value + '%';
+                                updateMovilizacionValue(this.value);
+                            });
+                        </script>
+
+                        <script>
+                            document.getElementById('distancia-movilizacion-otro').addEventListener('input', function () {
+                                document.getElementById('distancia-movilizacion-number').value = this.value;
+                            });
+                        </script>
+
+                        <p id="movValue" class="hidden">0</p>
+
+                        <script>
+                            function updateMovilizacionValue(value) {
+
+                                let ofertaComercial = JSON.parse(localStorage.getItem('ofertaComercial')) || [];
+
+                                console.log(ofertaComercial);
+
+                                let valorSinAiu = ofertaComercial[0].valor_sin_aiu;
+
+                                console.log(valorSinAiu);
+
+                                let movilizacionValue = (valorSinAiu * value) / 100;
+
+                                console.log(movilizacionValue);
+
+                                document.getElementById('movValue').innerText = movilizacionValue.toFixed(2);
+                                document.getElementById('movValue').classList.remove('hidden');
+                            }
+                        </script>
 
                     </div>
 
