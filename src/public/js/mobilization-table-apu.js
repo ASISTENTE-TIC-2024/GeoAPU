@@ -335,7 +335,6 @@ document
                 document.getElementById('VALOR UNITARIO TRANSPORTE').value
             ) || 0
 
-        console.log(valor_unitario_transportes);
 
         let datosTransportesMov =
             JSON.parse(localStorage.getItem('datosTransportesMov')) || []
@@ -378,7 +377,9 @@ function actualizarTablaTransportes() {
             index % 2 === 0
                 ? 'even:bg-gray-50 border-b'
                 : 'odd:bg-white even:bg-gray-50 border-b'
+
         item.porcentaje_incidencia = (item.valor_unitario_transportes / totalTransportesMov) * 100 || 0;
+
         tr.innerHTML = `<td> ${item.descripcion_transportes}</td>
                         <td>${item.unidad_transportes}</td>
                         <td>${item.distancia_transportes}</td>
@@ -413,8 +414,6 @@ function actualizarValorUnitarioTransportes() {
 
     const storedDatosTransportesMov =
         JSON.parse(localStorage.getItem('datosTransportesMov')) || []
-
-    console.log(storedDatosTransportesMov);
 
     const trmValue = parseFloat(localStorage.getItem('trmValue')) || 0;
 

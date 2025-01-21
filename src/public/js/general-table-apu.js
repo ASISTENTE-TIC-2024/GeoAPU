@@ -1,6 +1,3 @@
-let datosMateriales = []
-let datosTransporte = []
-let datosManoDeObra = []
 
 /******************************* EQUIPOS *******************************/
 
@@ -27,8 +24,6 @@ document
 
         let valor_unitario_equipos =
             parseFloat(document.getElementById('VALOR_UNITARIO_EQUIPOS')) || 0
-
-        console.log(descripcion_equipos, marca_equipos, tipo_equipos, tarifa_dia_equipos, rendimiento_equipos, valor_unitario_equipos);
 
         // Obtener los datos existentes del localStorage
         let datosEquipos =
@@ -105,8 +100,6 @@ function actualizarRendimientoEquipos() {
     const informacionRotulos =
         JSON.parse(localStorage.getItem('informacionRotulos')) || []
 
-    console.log(informacionRotulos)
-
     let storedDatosEquipos =
         JSON.parse(localStorage.getItem('datosEquipos')) || []
 
@@ -126,13 +119,10 @@ function actualizarValorUnitarioEquipos() {
     const storedDatosEquipos =
         JSON.parse(localStorage.getItem('datosEquipos')) || []
 
-    console.log(storedDatosEquipos)
 
     storedDatosEquipos.forEach((item) => {
         item.valor_unitario_equipos = (1 / item.tarifa_dia_equipos).toFixed(4)
     })
-
-    console.log(storedDatosEquipos)
 
     localStorage.setItem('datosEquipos', JSON.stringify(storedDatosEquipos))
 
@@ -187,8 +177,6 @@ document
             valor_unitario_materiales,
         })
 
-        console.log("Que es lo que se va a hacer push " + datosMateriales);
-
         localStorage.setItem('datosMateriales', JSON.stringify(datosMateriales))
 
         actualizarValorUnitarioMateriales()
@@ -203,14 +191,10 @@ function actualizarTablaMateriales() {
     let storedDatosMateriales =
         JSON.parse(localStorage.getItem('datosMateriales')) || []
 
-    console.log("POR ESTO: " + JSON.stringify(storedDatosMateriales));
-
     // Calcular el total de todos los valores
     let totalMateriales = storedDatosMateriales.reduce(
         (sum, item) => sum + parseFloat(item.valor_unitario_materiales), 0
     )
-
-    console.log(totalMateriales);
 
     tbody.innerHTML = ''
 
@@ -273,13 +257,8 @@ function actualizarValorUnitarioMateriales() {
     const storedDatosMateriales =
         JSON.parse(localStorage.getItem('datosMateriales')) || []
 
-    console.log(
-        storedDatosMateriales
-    );
 
     const trmValue = parseFloat(localStorage.getItem('trmValue')) || 0;
-
-    console.log(trmValue);
 
     storedDatosMateriales.forEach((item) => {
 
@@ -293,7 +272,6 @@ function actualizarValorUnitarioMateriales() {
         }
     });
 
-    console.log(storedDatosMateriales)
 
     localStorage.setItem('datosMateriales', JSON.stringify(storedDatosMateriales))
 
@@ -302,7 +280,6 @@ function actualizarValorUnitarioMateriales() {
 }
 
 actualizarValorUnitarioMateriales();
-
 actualizarTablaMateriales();
 
 /******************************* TRANSPORTE *******************************/
@@ -338,7 +315,10 @@ document
                 document.getElementById('VALOR UNITARIO TRANSPORTE').value
             ) || 0
 
-        datosTransporte.push({
+        let datosTransportes =
+            JSON.parse(localStorage.getItem('datosTransportes')) || []
+
+        datosTransportes.push({
             descripcion_transporte,
             unidad_transporte,
             distancia_transporte,
@@ -346,6 +326,8 @@ document
             rendimiento_transporte,
             valor_unitario_transporte,
         })
+
+        localStorage.setItem('datosTransportes', JSON.stringify(datosTransportes))
 
         actualizarTablaTransporte()
 
@@ -355,14 +337,26 @@ function actualizarTablaTransporte() {
 
     let tbody = document.querySelector('#dataTableTransporte tbody')
 
+    // Obtener los datos del localStorage
+    let storedDatosTransportes =
+        JSON.parse(localStorage.getItem('datosTransportes')) || []
+
+    // Calcular el total de todos los valores
+    let totalTransportes = storedDatosTransportes.reduce(
+        (sum, item) => sum + parseFloat(item.valor_unitario_transporte), 0
+    )
+
     tbody.innerHTML = ''
 
-    datosTransporte.forEach((item, index) => {
+    storedDatosTransportes.forEach((item, index) => {
         let tr = document.createElement('tr')
         tr.className =
             index % 2 === 0
                 ? 'even:bg-gray-50 border-b'
                 : 'odd:bg-white even:bg-gray-50 border-b'
+
+        item.porcentaje_incidencia = (item.valor_unitario_transporte / totalTransportes) * 100 || 0;
+
         tr.innerHTML = `
         <td> ${item.descripcion_transporte}</td>
         <td>${item.unidad_transporte}</td>
@@ -370,8 +364,9 @@ function actualizarTablaTransporte() {
         <td>$ ${item.precio_unitario_transporte}</td>
         <td>${item.rendimiento_transporte}</td>
         <td>$ ${item.valor_unitario_transporte}</td>
-        <td> % </td>
-        <td><button class="active:scale-90 transition-transform" onclick="eliminarElementoTransporte(${datosTransporte.indexOf(
+        <td>${isNaN(item.porcentaje_incidencia) || !isFinite(item.porcentaje_incidencia) ? 0 : item.porcentaje_incidencia.toFixed(2)}%</td>
+
+        <td><button class="active:scale-90 transition-transform" onclick="eliminarElementoTransporte(${storedDatosTransportes.indexOf(
             item
         )})"><i class="fa-solid fa-trash-can"></i></button></td>`
         tbody.appendChild(tr)
@@ -379,9 +374,20 @@ function actualizarTablaTransporte() {
 }
 
 function eliminarElementoTransporte(index) {
-    datosTransporte.splice(index, 1)
+    // Obtener los datos existentes del localStorage
+    let storedDatosTransportes = JSON.parse(localStorage.getItem('datosTransportes')) || []
+
+    // Eliminar el elemento del array
+    storedDatosTransportes.splice(index, 1)
+
+    // Guardar el array actualizado en el localStorage
+    localStorage.setItem('datosTransportes', JSON.stringify(storedDatosTransportes))
+
+    // Actualizar la tabla
     actualizarTablaTransporte()
 }
+
+actualizarTablaTransporte();
 
 /******************************* MANO DE OBRA *******************************/
 
@@ -401,18 +407,25 @@ document
 
         let prestacion_mano_de_obra =
             document.getElementById('PRESTACION (%) MANO DE OBRA').value || 0
+
         let jornal_total_mano_de_obra =
             parseFloat(
                 document.getElementById('JORNAL TOTAL MANO DE OBRA').value
             ) || 0
+
         let rendimiento_mano_de_obra =
             parseFloat(
                 document.getElementById('RENDIMIENTO MANO DE OBRA').value
             ) || 0
+
         let valor_unitario_mano_de_obra =
             parseFloat(
                 document.getElementById('VALOR UNITARIO MANO DE OBRA').value
             ) || 0
+
+
+        let datosManoDeObra =
+            JSON.parse(localStorage.getItem('datosManoDeObra')) || []
 
         datosManoDeObra.push({
             trabajador_mano_de_obra,
@@ -423,32 +436,61 @@ document
             valor_unitario_mano_de_obra,
         })
 
+        localStorage.setItem('datosManoDeObra', JSON.stringify(datosManoDeObra))
+
         actualizarTablaManoDeObra()
     })
 
 function actualizarTablaManoDeObra() {
+
+    let datosManoDeObra =
+        JSON.parse(localStorage.getItem('datosManoDeObra')) || []
+
+    // Calcular el total de todos los valores
+    let totalManoDeObra = datosManoDeObra.reduce(
+        (sum, item) => sum + parseFloat(item.valor_unitario_mano_de_obra), 0
+    )
+
     let tbody = document.querySelector('#dataTableManoDeObra tbody')
     tbody.innerHTML = ''
     datosManoDeObra.forEach((item, index) => {
+
+        item.porcentaje_incidencia = (item.valor_unitario_mano_de_obra / totalManoDeObra) * 100 || 0;
+
         let tr = document.createElement('tr')
         tr.className =
             index % 2 === 0
                 ? 'even:bg-gray-50 border-b'
                 : 'odd:bg-white even:bg-gray-50 border-b'
-        tr.innerHTML = `< td > ${item.trabajador_mano_de_obra}</td ><td>$ ${item.jornal_mano_de_obra
-            }</td><td>${item.prestacion_mano_de_obra}</td><td>$ ${item.jornal_total_mano_de_obra
-            }</td><td>${item.rendimiento_mano_de_obra}</td><td>$ ${item.valor_unitario_mano_de_obra
-            }</td><td> % </td><td><button class="active:scale-90 transition-transform" onclick="eliminarElementoManoDeObra(${datosManoDeObra.indexOf(
-                item
-            )})"><i class="fa-solid fa-trash-can"></i></button></td>`
+        tr.innerHTML = `
+                    <td> ${item.trabajador_mano_de_obra}</td>
+                    <td>$ ${item.jornal_mano_de_obra.toLocaleString()}</td>
+                    <td>${item.prestacion_mano_de_obra}</td>
+                    <td>${item.jornal_total_mano_de_obra.toLocaleString()}</td>
+                    <td>${item.rendimiento_mano_de_obra.toLocaleString()}</td>
+                    <td>$ ${item.valor_unitario_mano_de_obra.toLocaleString()}</td>
+                    <td>${isNaN(item.porcentaje_incidencia) || !isFinite(item.porcentaje_incidencia) ? 0 : item.porcentaje_incidencia.toFixed(2)}%</td>
+                    <td><button class="active:scale-90 transition-transform" onclick="eliminarElementoManoDeObra(${datosManoDeObra.indexOf(
+            item
+        )})"><i class="fa-solid fa-trash-can"></i></button></td>`
         tbody.appendChild(tr)
     })
+
 }
 
 function eliminarElementoManoDeObra(index) {
+
+    let datosManoDeObra = JSON.parse(localStorage.getItem('datosManoDeObra')) || []
+
     datosManoDeObra.splice(index, 1)
+
+    localStorage.setItem('datosManoDeObra', JSON.stringify(datosManoDeObra))
+
     actualizarTablaManoDeObra()
 }
+
+actualizarTablaManoDeObra();
+
 
 /******************************* TOTAL *******************************/
 
@@ -470,13 +512,20 @@ function calcularTotalGeneral() {
         (sum, item) => sum + parseFloat(item.valor_unitario_materiales), 0
     )
 
+    let storedDatosTransportes =
+        JSON.parse(localStorage.getItem('datosTransportes')) || []
+
     // Sumar los valores
-    let totalTransporte = datosTransporte.reduce(
+    let totalTransporte = storedDatosTransportes.reduce(
         (sum, item) => sum + item.valor_unitario_transporte,
         0
     )
+
+    let storedDatosManoDeObra =
+        JSON.parse(localStorage.getItem('datosManoDeObra')) || []
+
     // Sumar los valores
-    let totalManoDeObra = datosManoDeObra.reduce(
+    let totalManoDeObra = storedDatosManoDeObra.reduce(
         (sum, item) => sum + item.valor_unitario_mano_de_obra,
         0
     )

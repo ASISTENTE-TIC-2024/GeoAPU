@@ -92,7 +92,7 @@
                 <div
                     class="col-start-3 row-start-5 border border-solid border-gray-400 text-center flex items-center justify-center break-all">
                     <input type="number" id="rendimientoDiario" class="w-full h-full text-center"
-                        oninput="rendimientoEquiposLocalStorage(); actualizarRendimientoEquipos(); valorUnitarioEquiposLocalStorage(); actualizarValorUnitarioEquipos(); cantidadMaterialesLocalStorage(); actualizarCantidadMateriales(); valorUnitarioMaterialesLocalStorage(); actualizarValorUnitarioMateriales();" />
+                        oninput="rendimientoEquiposLocalStorage(); actualizarRendimientoEquipos(); valorUnitarioEquiposLocalStorage(); actualizarValorUnitarioEquipos(); cantidadMaterialesLocalStorage(); actualizarCantidadMateriales(); valorUnitarioMaterialesLocalStorage(); actualizarValorUnitarioMateriales(); rendimientoManoDeObraLocalStorage();" />
                 </div>
                 <div
                     class="col-start-4 row-start-5 border border-solid border-gray-400 text-center flex items-center justify-center break-all">
@@ -491,7 +491,8 @@
                                 </td>
                                 <td scope="col" class="px-6 py-3">
                                     <input type="number" id="JORNAL MANO DE OBRA" placeholder="JORNAL"
-                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg pl-3 h-10 mx-2" />
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg pl-3 h-10 mx-2"
+                                        step="0.01" />
                                 </td>
                                 <td scope="col" class="px-6 py-3">
                                     <input type="text" id="PRESTACION (%) MANO DE OBRA" placeholder="PRESTACION (%)"
@@ -499,18 +500,21 @@
                                 </td>
                                 <td scope="col" class="px-6 py-3">
                                     <input type="number" id="JORNAL TOTAL MANO DE OBRA" placeholder="JORNAL TOTAL"
-                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg pl-3 h-10 mx-2" />
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg pl-3 h-10 mx-2"
+                                        oninput="valorUnitarioTransporteLocalStorage(); actualizarTablaManoDeObra();" />
                                 </td>
                                 <td scope="col" class="px-6 py-3">
                                     <input type="number" id="RENDIMIENTO MANO DE OBRA" placeholder="RENDIMIENTO"
-                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg pl-3 h-10 mx-2" />
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg pl-3 h-10 mx-2 readonly" />
                                 </td>
                                 <td scope="col" class="px-6 py-3">
                                     <input type="number" id="VALOR UNITARIO MANO DE OBRA" placeholder="VALOR UNITARIO"
-                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg pl-3 h-10 mx-2" />
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg pl-3 h-10 mx-2"
+                                        step="0.01" />
                                 </td>
                                 <td scope="col" class="px-6 py-3">
-                                    <button type="submit" class="mr-5 text-4xl active:scale-90 transition-transform">
+                                    <button type="submit" class="mr-5 text-4xl active:scale-90 transition-transform"
+                                        onclick="valorUnitarioTransporteLocalStorage(); actualizarTablaManoDeObra();">
                                         <i class="fa-solid fa-circle-plus text-4xl"></i>
                                     </button>
                                 </td>

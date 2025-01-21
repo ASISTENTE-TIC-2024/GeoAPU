@@ -41,8 +41,6 @@ function fetchTRMValue() {
 
                         const trmValue = data[0].valor;
 
-                        console.log('TRM value:', trmValue);
-
                         const trm = document.getElementById('trm');
 
                         trm.innerHTML = `$ ${trmValue}`;
@@ -51,7 +49,7 @@ function fetchTRMValue() {
                         localStorage.setItem('trmValue', trmValue);
 
                     } else {
-                        console.log('No TRM data available for the given date.');
+                        console.log('No hay datos de TRM disponibles.'); s
                     }
                 })
                 .catch(error => {
@@ -116,8 +114,6 @@ function displayDataAPU() {
     if (informacionRotulos.length > 0) {
         const firstData = informacionRotulos[0];
 
-        console.log("PRIMER DATO AGREGADO: ", firstData);
-
         item_pago.innerHTML = `${firstData.item_pago}`;
         capitulo.innerHTML = `${firstData.capitulo}`;
         unidad.innerHTML = `${firstData.unidad}`;
@@ -146,8 +142,6 @@ function rendimientoEquiposLocalStorage() {
     const rendimientoDiario =
         document.getElementById('rendimientoDiario').value
 
-    console.log(rendimientoDiario)
-
     // Obtener el objeto informacionRotulos desde localStorage
     const informacionRotulos =
         JSON.parse(localStorage.getItem('informacionRotulos')) || []
@@ -165,8 +159,6 @@ function rendimientoEquiposLocalStorage() {
         'informacionRotulos',
         JSON.stringify(informacionRotulos)
     )
-
-    console.log(JSON.stringify(informacionRotulos))
 }
 
 function valorUnitarioEquiposLocalStorage() {
@@ -177,11 +169,7 @@ function valorUnitarioEquiposLocalStorage() {
 
     const VALOR_UNITARIO_EQUIPOS = document.getElementById("VALOR_UNITARIO_EQUIPOS")
 
-    console.log(TARIFA_DIA_EQUIPOS, RENDIMIENTO_EQUIPOS);
-
     const valor = TARIFA_DIA_EQUIPOS * RENDIMIENTO_EQUIPOS;
-
-    console.log(valor);
 
     VALOR_UNITARIO_EQUIPOS.value = `${valor.toFixed(2)}`;
 
@@ -200,8 +188,6 @@ function cantidadMaterialesLocalStorage() {
     const CANTIDAD_MATERIALES = document.getElementById("CANTIDAD_MATERIALES")
 
     CANTIDAD_MATERIALES.value = `${(3 / 1000).toFixed(4)}`
-
-    console.log(JSON.stringify(informacionRotulos))
 }
 
 cantidadMaterialesLocalStorage()
@@ -214,8 +200,6 @@ function valorUnitarioMaterialesLocalStorage() {
         const trmValue = localStorage.getItem('trmValue');
         const valor = CANTIDAD_MATERIALES * PRECIO_UNITARIO_MATERIALES * trmValue;
     }
-
-    console.log(informacionRotulos);
 
     // Obtener el valor del input
     const PRECIO_UNITARIO_MATERIALES =
@@ -238,17 +222,9 @@ function precioUnitarioTransporte() {
 
     let informacionRotulos = JSON.parse(localStorage.getItem('informacionRotulos')) || [];
 
-    console.log(informacionRotulos[0].distancia_movilizacion);
-
-    console.log(ofertaComercial);
-
     const PRECIO_UNITARIO_TRANSPORTE = document.getElementById("PRECIO UNITARIO TRANSPORTE");
 
-    console.log(PRECIO_UNITARIO_TRANSPORTE);
-
     const valor = ofertaComercial.length > 0 ? ofertaComercial[0].valor_sin_aiu * informacionRotulos[0].distancia_movilizacion / 100 : 0;
-
-    console.log(valor);
 
     PRECIO_UNITARIO_TRANSPORTE.value = `${valor.toFixed(2)}`;
 
@@ -264,8 +240,6 @@ function rendimientoTransporteLocalStorage() {
 
     const informacionRotulos = JSON.parse(localStorage.getItem('informacionRotulos')) || [];
 
-    console.log(informacionRotulos);
-
     RENDIMIENTO_TRANSPORTE.value = 1 / informacionRotulos[0].cantidad_instalar;
 
 }
@@ -279,12 +253,53 @@ function valorUnitarioTransporteLocalStorage() {
 
     const VALOR_UNITARIO_TRANSPORTE = document.getElementById("VALOR UNITARIO TRANSPORTE")
 
-    console.log('1 ', PRECIO_UNITARIO_TRANSPORTE, '2 ', RENDIMIENTO_TRANSPORTE);
-
     const valor = RENDIMIENTO_TRANSPORTE * PRECIO_UNITARIO_TRANSPORTE;
 
     VALOR_UNITARIO_TRANSPORTE.value = `${valor.toFixed(2)}`;
 }
 
 valorUnitarioTransporteLocalStorage();
+
+function rendimientoManoDeObraLocalStorage() {
+
+    // Obtener el valor del input
+    const rendimientoDiario =
+        document.getElementById('rendimientoDiario').value
+
+    // Obtener el objeto informacionRotulos desde localStorage
+    const informacionRotulos =
+        JSON.parse(localStorage.getItem('informacionRotulos')) || []
+
+    informacionRotulos.forEach((data, index) => {
+        data.rendimiento = rendimientoDiario
+    })
+
+    const RENDIMIENTO_MANO_DE_OBRA = document.getElementById("RENDIMIENTO MANO DE OBRA")
+
+    RENDIMIENTO_MANO_DE_OBRA.value = `${(1 / rendimientoDiario).toFixed(4)}`
+
+    localStorage.setItem(
+        'informacionRotulos',
+        JSON.stringify(informacionRotulos)
+    )
+}
+
+rendimientoManoDeObraLocalStorage();
+
+function valorUnitarioManoDeObraLocalStorage() {
+
+    const JORNAL_MANO_DE_OBRA = document.getElementById('JORNAL MANO DE OBRA').value
+    const JORNAL_TOTAL_MANO_DE_OBRA = document.getElementById("JORNAL TOTAL MANO DE OBRA").value
+    const RENDIMIENTO_MANO_DE_OBRA = document.getElementById("RENDIMIENTO MANO DE OBRA").value
+
+    const VALOR_UNITARIO_MANO_DE_OBRA = document.getElementById("VALOR UNITARIO MANO DE OBRA")
+
+    const valor = JORNAL_MANO_DE_OBRA * JORNAL_TOTAL_MANO_DE_OBRA * RENDIMIENTO_MANO_DE_OBRA;
+
+    VALOR_UNITARIO_MANO_DE_OBRA.value = `${valor.toFixed(2)}`;
+}
+
+valorUnitarioManoDeObraLocalStorage();
+
+
 
