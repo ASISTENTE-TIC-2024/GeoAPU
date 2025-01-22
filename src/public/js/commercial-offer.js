@@ -18,11 +18,11 @@ document.addEventListener('DOMContentLoaded', function () {
             <td class="py-2 border-b border-r text-center">${item.descripcion}</td>
             <td class="py-2 border-b border-r text-center">${item.unidad}</td>
             <td class="py-2 border-b border-r text-center">${item.cantidad_instalar}</td>
-            <td class="py-2 border-b border-r text-center">$ ${item.valor_aiu.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
-            <td class="py-2 border-b border-r text-center">$ ${(item.cantidad_instalar * item.valor_aiu).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} </td>
+            <td class="py-2 border-b border-r text-center">$ ${item.valor_sin_aiu.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
+            <td class="py-2 border-b border-r text-center">$ ${(item.cantidad_instalar * item.valor_sin_aiu).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} </td>
             <td class="py-2 border-b text-center">
                 <button class="bg-gray-500 text-white px-2 py-1 rounded" onclick="editItem(${rowIndex});"><i class="fa-regular fa-pen-to-square" style="color: #ffffff;"></i></button>
-                <button class="bg-gray-500 text-white px-2 py-1 rounded" onclick="deleteItem(${rowIndex}, ${item.capitulo});"><i class="fa-regular fa-trash-can" style="color: #ffffff;"></i></button>
+                <button class="bg-gray-500 text-white px-2 py-1 rounded" onclick="deleteItem(${rowIndex});"><i class="fa-regular fa-trash-can" style="color: #ffffff;"></i></button>
             </td>
         `
 
@@ -37,22 +37,20 @@ document.addEventListener('DOMContentLoaded', function () {
 //     localStorage.setItem('ofertaComercial', JSON.stringify(ofertaComercial));
 // }
 
-function deleteItem(rowIndex, capitulo) {
+function deleteItem(rowIndex) {
 
-    if (confirm('Esta seguro de que quiere eliminar el elemento con el capitulo: ' + capitulo + ' que esta en el ID: ' + rowIndex + '?')) {
+    if (confirm('Esta seguro de que quiere eliminar el elemento que esta en el ID: ' + rowIndex + '?')) {
 
         const ofertaComercial = JSON.parse(localStorage.getItem('ofertaComercial')) || [];
 
-        console.log(ofertaComercial);
-        console.log(capitulo);
+        // Eliminar el elemento del array
+        ofertaComercial.splice(rowIndex - 1, 1);
 
-        const updatedOfertaComercial = ofertaComercial.filter(item => item.capitulo !== capitulo);
+        // Actualizar el localStorage
+        localStorage.setItem('ofertaComercial', JSON.stringify(ofertaComercial));
 
-        console.log(updatedOfertaComercial);
-
-        localStorage.setItem('ofertaComercial', JSON.stringify(updatedOfertaComercial));
-
-        document.getElementById('data-table').deleteRow(rowIndex - 1); // Eliminar la fila de la tabla sin recargar la página
+        // Eliminar la fila de la tabla sin recargar la página
+        document.getElementById('data-table').deleteRow(rowIndex - 1);
     }
 
 }
