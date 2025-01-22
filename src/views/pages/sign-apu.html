@@ -639,14 +639,14 @@
 
                         <input type="number" id="distancia_movilizacion_number"
                             class="hidden mt-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                            min="0" max="100" value="0"
+                            min="1" max="100" value="1"
                             oninput="document.getElementById('distancia-movilizacion-otro').value = this.value; updateMovilizacionValue(this.value)">
 
                         <span id="percentage" class="hidden mt-5">0%</span>
 
                         <script>
                             document.getElementById('distancia_movilizacion_number').addEventListener('input', function () {
-                                document.getElementById('distancia-movilizacion-otro').value = this.value;
+                                document.getElementById('distancia-movilizacion-otro').value = this.value.toLocaleString();
                                 document.getElementById('percentage').classList.remove('hidden');
                                 document.getElementById('percentage').innerText = this.value + '%';
                                 updateMovilizacionValue(this.value);
@@ -655,7 +655,7 @@
 
                         <script>
                             document.getElementById('distancia-movilizacion-otro').addEventListener('input', function () {
-                                document.getElementById('distancia-movilizacion-number').value = this.value;
+                                document.getElementById('distancia-movilizacion-number').value = this.value.toLocaleString();
                             });
                         </script>
 

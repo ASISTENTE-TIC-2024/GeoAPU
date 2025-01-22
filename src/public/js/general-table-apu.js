@@ -500,9 +500,6 @@ function actualizarValorUnitarioManoDeObra() {
     const storedDatosManoDeObra =
         JSON.parse(localStorage.getItem('datosManoDeObra')) || []
 
-
-    console.log(storedDatosManoDeObra);
-
     storedDatosManoDeObra.forEach((item) => {
         item.valor_unitario_mano_de_obra = (item.jornal_mano_de_obra * item.jornal_total_mano_de_obra * item.rendimiento_mano_de_obra).toFixed(4)
     })
@@ -553,26 +550,18 @@ function calcularTotalGeneral() {
 
     // Sumar los valores
     let totalTransporte = storedDatosTransportes.reduce(
-        (sum, item) => sum + parseFloat(item.valor_unitario_transporte), 0
+        (sum, item) => sum + item.valor_unitario_transporte,
+        0
     )
 
     let storedDatosManoDeObra =
         JSON.parse(localStorage.getItem('datosManoDeObra')) || []
 
-    console.log(storedDatosManoDeObra);
-
     // Sumar los valores
     let totalManoDeObra = storedDatosManoDeObra.reduce(
-        (sum, item) => sum + parseFloat(item.valor_unitario_mano_de_obra), 0
+        (sum, item) => sum + parseFloat(item.valor_unitario_mano_de_obra),
+        0
     )
-
-    console.log(totalManoDeObra);
-
-    // Ensure totals are numbers
-    totalEquipos = isNaN(totalEquipos) ? 0 : totalEquipos;
-    totalMateriales = isNaN(totalMateriales) ? 0 : totalMateriales;
-    totalTransporte = isNaN(totalTransporte) ? 0 : totalTransporte;
-    totalManoDeObra = isNaN(totalManoDeObra) ? 0 : totalManoDeObra;
 
     // Sumar todos los totales
     let totalGeneral =
@@ -592,7 +581,7 @@ function calcularTotalGeneral() {
     // Mostrar los sub-totales en el DOM con dos decimales
     document.getElementById(
         'resultadoEquipos'
-    ).textContent = `$ ${isNaN(totalEquipos.toFixed(2)) || !isFinite(totalEquipos) ? 0 : totalEquipos.toFixed(2)} `
+    ).textContent = `$ ${isNaN(totalEquipos.toFixed(2)) || !isFinite(totalEquipos) ? 0 : totalEquipos.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")} `
 
     document.getElementById(
         'porcentajeEquipos'
@@ -600,7 +589,7 @@ function calcularTotalGeneral() {
 
     document.getElementById(
         'resultadoMateriales'
-    ).textContent = `$ ${isNaN(totalMateriales.toFixed(2)) || !isFinite(totalMateriales) ? 0 : totalMateriales.toFixed(2)} `
+    ).textContent = `$ ${isNaN(totalMateriales.toFixed(2)) || !isFinite(totalMateriales) ? 0 : totalMateriales.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")} `
 
     document.getElementById(
         'porcentajeMateriales'
@@ -608,30 +597,38 @@ function calcularTotalGeneral() {
 
     document.getElementById(
         'resultadoTransporte'
-    ).textContent = `$ ${isNaN(totalTransporte.toFixed(2)) || !isFinite(totalTransporte) ? 0 : totalTransporte.toFixed(2)} `
+    ).textContent = `$ ${isNaN(totalTransporte.toFixed(2)) || !isFinite(totalTransporte) ? 0 : totalTransporte.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")} `
 
     document.getElementById(
         'porcentajeTransporte'
-    ).textContent = `${isNaN(porcentajeTransporte.toFixed(2)) || !isFinite(porcentajeTransporte) ? 0 : porcentajeTransporte.toFixed(2)}% `
+    ).textContent = `${porcentajeTransporte.toFixed(2)}% `
 
     document.getElementById(
         'resultadoManoDeObra'
-    ).textContent = `$ ${isNaN(totalManoDeObra.toFixed(2)) || !isFinite(totalManoDeObra) ? 0 : totalManoDeObra.toFixed(2)} `
+    ).textContent = `$ ${isNaN(totalManoDeObra) || !isFinite(totalManoDeObra) ? 0 : totalManoDeObra.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")} `
 
     document.getElementById(
         'porcentajeManoDeObra'
-    ).textContent = `${isNaN(porcentajeManoDeObra.toFixed(2)) || !isFinite(porcentajeManoDeObra) ? 0 : porcentajeManoDeObra.toFixed(2)}% `
+    ).textContent = `${porcentajeManoDeObra.toFixed(2)}% `
 
-    // Mostrar el resultado en un elemento del DOM con dos decimales
-    document.getElementById('resultadoTotalGeneral').textContent = `$ ${totalGeneral.toFixed(2)} `
+    document.getElementById(
+        'resultadoTotalGeneral'
+    ).textContent = `$ ${isNaN(totalGeneral.toFixed(2)) || !isFinite(totalGeneral) ? 0 : totalGeneral.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")} `
 
-    document.getElementById('administracion').textContent = `$ ${administracion.toFixed(2)} `
+    document.getElementById(
+        'administracion'
+    ).textContent = `$ ${isNaN(administracion.toFixed(2)) || !isFinite(administracion) ? 0 : administracion.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")} `
 
-    document.getElementById('imprevistos').textContent = `$ ${imprevistos.toFixed(2)} `
+    document.getElementById(
+        'imprevistos'
+    ).textContent = `$ ${isNaN(imprevistos.toFixed(2)) || !isFinite(imprevistos) ? 0 : imprevistos.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")} `
 
-    document.getElementById('utilidad').textContent = `$ ${utilidad.toFixed(2)} `
+    document.getElementById('utilidad').textContent = `$ ${isNaN(utilidad.toFixed(2)) || !isFinite(utilidad) ? 0 : utilidad.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")} `
 
-    document.getElementById('totalGlobal').textContent = `$ ${totalGlobal.toFixed(2)} `
+    document.getElementById(
+        'totalGlobal'
+    ).textContent = `$ ${isNaN(totalGlobal.toFixed(2)) || !isFinite(totalGlobal) ? 0 : totalGlobal.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")} `
+
 
     let totales = []
 
@@ -639,6 +636,8 @@ function calcularTotalGeneral() {
         totalGlobal,
         totalGeneral,
     }
+
+    console.log(totales);
 
     return totales;
 
@@ -685,21 +684,26 @@ function valoresOfertaComercial() {
 
         localStorage.setItem('ofertaComercial', JSON.stringify(ofertaComercial))
 
+        guardarInformacionProyecto();
+
         window.location.href =
             '../../views/pages/commercial-offer.html';
+    } else {
+        console.log('No se guardó la información.');
     }
 
 }
 
+
 function guardarInformacionProyecto() {
 
-    let storedDatosEquipos = JSON.parse(localStorage.getItem('datosEquipos')) || []
-    let storedDatosMateriales = JSON.parse(localStorage.getItem('datosMateriales')) || []
-    let storedDatosTransportes = JSON.parse(localStorage.getItem('datosTransportes')) || []
-    let storedDatosManoDeObra = JSON.parse(localStorage.getItem('datosManoDeObra')) || []
+    let storedDatosEquipos = JSON.parse(localStorage.getItem('datosEquiposMov')) || []
+    let storedDatosMateriales = JSON.parse(localStorage.getItem('datosMaterialesMov')) || []
+    let storedDatosTransportes = JSON.parse(localStorage.getItem('datosTransportesMov')) || []
+    let storedDatosManoDeObra = JSON.parse(localStorage.getItem('datosManoDeObraMov')) || []
     let storedInformacionRotulos = JSON.parse(localStorage.getItem('informacionRotulos')) || []
     let storedInformacionProyecto = JSON.parse(localStorage.getItem('informacionProyecto')) || {}
-    let totales = JSON.parse(localStorage.getItem('totales')) || []
+    let totalesMovilizacion = JSON.parse(localStorage.getItem('totalesMovilizacion')) || []
 
     let storedInformacionCompleta = {
         datosEquipos: storedDatosEquipos,
@@ -708,7 +712,7 @@ function guardarInformacionProyecto() {
         datosManoDeObra: storedDatosManoDeObra,
         informacionRotulos: storedInformacionRotulos,
         informacionProyecto: storedInformacionProyecto,
-        totale: totales,
+        totalesMovilizacion: totalesMovilizacion,
     }
 
     localStorage.setItem('storedInformacionCompleta', JSON.stringify(storedInformacionCompleta))
@@ -719,13 +723,13 @@ function guardarInformacionProyecto() {
 }
 
 function eliminarTodo() {
-    localStorage.removeItem('datosEquipos');
-    localStorage.removeItem('datosMateriales');
-    localStorage.removeItem('datosTransportes');
-    localStorage.removeItem('datosManoDeObra');
+    localStorage.removeItem('datosEquiposMov');
+    localStorage.removeItem('datosMaterialesMov');
+    localStorage.removeItem('datosTransportesMov');
+    localStorage.removeItem('datosManoDeObraMov');
     localStorage.removeItem('informacionRotulos');
     localStorage.removeItem('storedInformacionCompleta');
-    localStorage.removeItem('totales');
+    localStorage.removeItem('totalesMovilizacion');
 
     actualizarTablaEquipos();
     actualizarTablaMateriales();

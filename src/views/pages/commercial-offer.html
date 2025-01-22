@@ -618,51 +618,30 @@
             </div>
         </div>
 
-        <script>
-            document.addEventListener('DOMContentLoaded', (event) => {
 
-                const ofertaComercial = JSON.parse(localStorage.getItem('ofertaComercial')) || [];
+        <div id="buttons-container"
+            class="w-full flex flex-col align-center justify-center relative mt-20 p-20 space-y-10">
+            <div class="flex flex-row justify-between space-x-4">
+                <button
+                    class="focus:ring-2 focus:ring-offset-2 focus:ring-red-700 focus:text-gray-50 focus:outline-none bg-red-700 border-red-300 border transition duration-150 ease-in-out hover:bg-red-300 rounded-full text-gray-50 px-20 py-4 text-lg w-full mx-2">
+                    CANCELAR OFERTA COMERCIAL
+                </button>
 
-                console.log(ofertaComercial);
+                <button
+                    class="focus:ring-2 focus:ring-offset-2 focus:ring-green-700 focus:text-gray-50 focus:outline-none bg-green-700 border-green-300 border transition duration-150 ease-in-out hover:bg-green-300 rounded-full text-gray-50 px-20 py-4 text-lg w-full mx-2">
+                    GENERAR OFERTA COMERCIAL
+                </button>
 
+                <button
+                    class="focus:ring-2 focus:ring-offset-2 focus:ring-blue-700 focus:text-gray-50 focus:outline-none bg-blue-700 border-blue-300 border transition duration-150 ease-in-out hover:bg-blue-300 rounded-full text-gray-50 px-20 py-4 text-lg w-full mx-2"
+                    onclick="window.location.href='./sign-apu.html'">
+                    CREAR UNA NUEVA APU
+                </button>
+            </div>
 
-                if (ofertaComercial) {
-
-                    let total = 0;
-
-                    ofertaComercial.forEach(item => {
-                        total += item.valor_sin_aiu;
-                    });
-
-                    document.getElementById('subTotalOferta').innerText = `$${total.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}`;
-
-                    const iva = total * 0.19;
-
-                    document.getElementById('ivaOferta').innerText = `$${iva.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}`;
-
-                    const totalConIva = total + iva;
-
-                    document.getElementById('totalOferta').innerText = `$${totalConIva.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}`;
-                }
-
-            });
-        </script>
-
-        <div id="buttons-container" class="w-full flex flex-row align-center justify-between relative mt-20 p-20">
-            <button
-                class="focus:ring-2 focus:ring-offset-2 focus:ring-red-700 focus:text-gray-50 focus:outline-none bg-red-700 border-red-300 border transition duration-150 ease-in-out hover:bg-red-300 rounded text-gray-50 px-5 py-2 text-xs">
-                CANCELAR OFERTA COMERCIAL
-            </button>
-            <button
-                class="focus:ring-2 focus:ring-offset-2 focus:ring-green-700 focus:text-gray-50 focus:outline-none bg-green-700 border-green-300 border transition duration-150 ease-in-out hover:bg-green-300 rounded text-gray-50 px-5 py-2 text-xs">
-                GENERAR OFERTA COMERCIAL
-            </button>
-            <button
-                class="focus:ring-2 focus:ring-offset-2 focus:ring-blue-700 focus:text-gray-50 focus:outline-none bg-blue-700 border-blue-300 border transition duration-150 ease-in-out hover:bg-blue-300 rounded text-gray-50 px-5 py-2 text-xs"
-                onclick="window.location.href='./sign-apu.html'">
-                CREAR UNA NUEVA APU
-            </button>
         </div>
+
+
 
         <script src="../../public/js/nav.js"></script>
         <script src="../../public/js/commercial-offer.js"></script>

@@ -157,8 +157,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const gastos = await response_1.json();
             const empleados = await response_2.json();
 
-            console.log(gastos);
-
             gastos.forEach(gasto => {
                 empleados.forEach(empleado => {
 
@@ -186,8 +184,6 @@ document.addEventListener('DOMContentLoaded', () => {
     selectManoDeObra.addEventListener('change', async (event) => {
 
         const selectedOption = event.target.selectedOptions[0];
-
-        console.log(selectedOption);
 
         if (selectedOption.textContent === 'Seleccione un cargo') {
             jornalManoDeObra.value = '';

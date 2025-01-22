@@ -194,13 +194,6 @@ cantidadMaterialesLocalStorage()
 
 function valorUnitarioMaterialesLocalStorage() {
 
-    const informacionRotulos = JSON.parse(localStorage.getItem('informacionRotulos')) || [];
-
-    if (informacionRotulos.trm === 'Si') {
-        const trmValue = localStorage.getItem('trmValue');
-        const valor = CANTIDAD_MATERIALES * PRECIO_UNITARIO_MATERIALES * trmValue;
-    }
-
     // Obtener el valor del input
     const PRECIO_UNITARIO_MATERIALES =
         document.getElementById('PRECIO_UNITARIO_MATERIALES').value
@@ -230,9 +223,9 @@ function precioUnitarioTransporte() {
 
 }
 
-precioUnitarioTransporte()
+precioUnitarioTransporte();
 
-valorUnitarioMaterialesLocalStorage()
+valorUnitarioMaterialesLocalStorage();
 
 function rendimientoTransporteLocalStorage() {
 

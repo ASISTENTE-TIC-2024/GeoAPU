@@ -155,7 +155,7 @@ function cantidadMaterialesLocalStorage() {
 
 }
 
-cantidadMaterialesLocalStorage()
+cantidadMaterialesLocalStorage();
 
 function valorUnitarioMateriales() {
 

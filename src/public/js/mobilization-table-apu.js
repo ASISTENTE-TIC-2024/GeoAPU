@@ -100,26 +100,6 @@ function eliminarElementoEquipos(index) {
     actualizarTablaEquipos()
 }
 
-function actualizarRendimientoEquipos() {
-
-    const informacionRotulos =
-        JSON.parse(localStorage.getItem('informacionRotulos')) || []
-
-    console.log(informacionRotulos)
-
-    let storedDatosEquiposMov =
-        JSON.parse(localStorage.getItem('datosEquiposMov')) || []
-
-    informacionRotulos.forEach((data) => {
-        storedDatosEquiposMov.forEach((item) => {
-            item.rendimiento_equipos = (1 / data.rendimiento).toFixed(4)
-        })
-    })
-
-    localStorage.setItem('datosEquiposMov', JSON.stringify(storedDatosEquiposMov))
-    actualizarTablaEquipos()
-}
-
 function actualizarValorUnitarioEquipos() {
 
     const storedDatosEquiposMov =

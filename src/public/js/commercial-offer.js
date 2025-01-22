@@ -92,6 +92,8 @@ function borrarInformacionProyecto(index) {
 
     informacionProyecto.splice(index, 1)
 
+    mostrarInformacionProyecto();
+
     localStorage.setItem(
         'informacionProyecto',
         JSON.stringify(informacionProyecto)
@@ -126,4 +128,31 @@ function mostrarInformacionProyecto() {
     })
 }
 
-mostrarInformacionProyecto()
+mostrarInformacionProyecto();
+
+document.addEventListener('DOMContentLoaded', (event) => {
+
+    const ofertaComercial = JSON.parse(localStorage.getItem('ofertaComercial')) || [];
+
+    console.log(ofertaComercial);
+
+    if (ofertaComercial) {
+
+        let total = 0;
+
+        ofertaComercial.forEach(item => {
+            total += item.valor_sin_aiu * item.cantidad_instalar;
+        });
+
+        document.getElementById('subTotalOferta').innerText = `$${total.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}`;
+
+        const iva = total * 0.19;
+
+        document.getElementById('ivaOferta').innerText = `$${iva.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}`;
+
+        const totalConIva = total + iva;
+
+        document.getElementById('totalOferta').innerText = `$${totalConIva.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}`;
+    }
+
+});
