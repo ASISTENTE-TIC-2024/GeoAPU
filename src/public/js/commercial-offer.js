@@ -49,8 +49,8 @@ function deleteItem(rowIndex) {
         // Actualizar el localStorage
         localStorage.setItem('ofertaComercial', JSON.stringify(ofertaComercial));
 
-        // Eliminar la fila de la tabla sin recargar la página
-        document.getElementById('data-table').deleteRow(rowIndex - 1);
+        // Recargar la página para reflejar los cambios
+        location.reload();
     }
 
 }
@@ -77,29 +77,12 @@ function sortTable(column) {
     rows.forEach((row) => table.appendChild(row))
 }
 
-function viewItem(ID) {
-    alert('Estas viendo el elemento con el ID: ' + ID)
-}
-
 function editItem(ID) {
     alert('Estas editando el elemento con el ID: ' + ID)
 }
 
-function borrarInformacionProyecto(index) {
-
-    let informacionProyecto =
-        JSON.parse(localStorage.getItem('informacionProyecto')) || []
-
-    informacionProyecto.splice(index, 1)
-
-    mostrarInformacionProyecto();
-
-    localStorage.setItem(
-        'informacionProyecto',
-        JSON.stringify(informacionProyecto)
-    )
-
-    mostrarInformacionProyecto()
+function cancelOffer() {
+    localStorage.removeItem('informacionProyecto');
 }
 
 function mostrarInformacionProyecto() {
@@ -122,7 +105,6 @@ function mostrarInformacionProyecto() {
             <p><strong>Correo Electrónico:</strong> ${data.correo}</p>
             <p><strong>Departamento:</strong> ${data.departamento}</p>
             <p><strong>Municipio:</strong> ${data.municipio}</p>
-            <button onclick="borrarInformacionProyecto(${index})">Eliminar</button>
         `
         dataContainer.appendChild(dataDiv)
     })

@@ -723,10 +723,10 @@ function guardarInformacionProyecto() {
 }
 
 function eliminarTodo() {
-    localStorage.removeItem('datosEquiposMov');
-    localStorage.removeItem('datosMaterialesMov');
-    localStorage.removeItem('datosTransportesMov');
-    localStorage.removeItem('datosManoDeObraMov');
+    localStorage.removeItem('datosEquipos');
+    localStorage.removeItem('datosMateriales');
+    localStorage.removeItem('datosTransportes');
+    localStorage.removeItem('datosManoDeObra');
     localStorage.removeItem('informacionRotulos');
     localStorage.removeItem('storedInformacionCompleta');
     localStorage.removeItem('totalesMovilizacion');
