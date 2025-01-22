@@ -21,8 +21,8 @@ document.addEventListener('DOMContentLoaded', function () {
             <td class="py-2 border-b border-r text-center">$ ${item.valor_sin_aiu.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
             <td class="py-2 border-b border-r text-center">$ ${(item.cantidad_instalar * item.valor_sin_aiu).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} </td>
             <td class="py-2 border-b text-center">
-                <button class="bg-gray-500 text-white px-2 py-1 rounded" onclick="editItem(${rowIndex});"><i class="fa-regular fa-pen-to-square" style="color: #ffffff;"></i></button>
-                <button class="bg-gray-500 text-white px-2 py-1 rounded" onclick="deleteItem(${rowIndex});"><i class="fa-regular fa-trash-can" style="color: #ffffff;"></i></button>
+                <button class="bg-gray-500 text-white px-2 py-1 rounded no-print" onclick="editItem(${rowIndex});"><i class="fa-regular fa-pen-to-square" style="color: #ffffff;"></i></button>
+                <button class="bg-gray-500 text-white px-2 py-1 rounded no-print" onclick="deleteItem(${rowIndex});"><i class="fa-regular fa-trash-can" style="color: #ffffff;"></i></button>
             </td>
         `
 
@@ -138,3 +138,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     }
 
 });
+
+function printPage() {
+    window.print();
+}

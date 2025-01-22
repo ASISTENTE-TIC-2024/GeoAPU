@@ -9,6 +9,15 @@
     <script src="../../middleware/check-auth.js"></script>
     <link href="https://fonts.cdnfonts.com/css/museo-sans-rounded" rel="stylesheet" />
     <title>GeoAPU</title>
+    <style>
+        @media print {
+
+            /* Ocultar elementos específicos durante la impresión */
+            .no-print {
+                display: none;
+            }
+        }
+    </style>
 </head>
 
 <body style="font-family: 'Museo Sans Rounded', sans-serif">
@@ -218,7 +227,7 @@
                             <div class="relative md:mr-6 my-2">
                                 <a href="./users-module.html">
                                     <button
-                                        class="focus:ring-2 focus:ring-offset-2 focus:ring-pink-700 focus:text-pink-700 focus:outline-none bg-gray-100 border-gray-300 border transition duration-150 ease-in-out hover:bg-gray-300 rounded text-gray-600 px-5 py-2 text-xs">
+                                        class="focus:ring-2 focus:ring-offset-2 focus:ring-pink-700 focus:text-pink-700 focus:outline-none bg-gray-100 border-gray-300 border transition duration-150 ease-in-out hover:bg-gray-300 rounded text-gray-600 px-5 py-2 text-xs no-print">
                                         Usuarios
                                     </button>
                                 </a>
@@ -286,13 +295,13 @@
                     <div class="relative mr-6">
                         <a href="./users-module.html">
                             <button
-                                class="focus:ring-2 focus:ring-offset-2 focus:ring-pink-700 focus:text-pink-700 focus:outline-none bg-gray-100 border-gray-300 border transition duration-150 ease-in-out hover:bg-gray-300 rounded text-gray-600 px-5 py-2 text-xs">
+                                class="focus:ring-2 focus:ring-offset-2 focus:ring-pink-700 focus:text-pink-700 focus:outline-none bg-gray-100 border-gray-300 border transition duration-150 ease-in-out hover:bg-gray-300 rounded text-gray-600 px-5 py-2 text-xs no-print">
                                 Usuarios
                             </button>
                         </a>
 
                     </div>
-                    <button id="menu" aria-label="open menu"
+                    <button id=" menu" class="no-print" aria-label="open menu"
                         class="focus:outline-none focus:ring-2 focus:ring-gray-600 rounded-md text-gray-800"
                         onclick="sidebarHandler(true)">
                         <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-menu-2" width="24"
@@ -589,8 +598,8 @@
                             </i>
                         </div>
                     </th>
-                    <th class="py-2 border-b border-r text-center" onclick="sortTable(4)">
-                        <div class="flex items-center justify-center text-gray-50">ACCIONES</div>
+                    <th class="py-2 border-b border-r text-center no-print" onclick="sortTable(4)">
+                        <div class="flex items-center justify-center text-gray-50 no-print">ACCIONES</div>
                     </th>
                 </tr>
             </thead>
@@ -640,13 +649,13 @@
                         <h2 class="text-lg font-bold mb-2">Síguenos</h2>
                         <div class="flex justify-center space-x-4">
                             <a href="#" class="text-gray-400 hover:text-gray-400 mx-2"><i
-                                    class="fab fa-facebook-f"></i></a>
+                                    class="fab fa-facebook-f text-2xl"></i></a>
                             <a href="#" class="text-gray-400 hover:text-gray-400 mx-2"><i
-                                    class="fab fa-youtube"></i></a>
+                                    class="fab fa-youtube text-2xl"></i></a>
                             <a href="#" class="text-gray-400 hover:text-gray-400 mx-2"><i
-                                    class="fab fa-linkedin-in"></i></a>
+                                    class="fab fa-linkedin-in text-2xl"></i></a>
                             <a href="#" class="text-gray-400 hover:text-gray-400 mx-2"><i
-                                    class="fab fa-instagram"></i></a>
+                                    class="fab fa-instagram text-2xl"></i></a>
                         </div>
                     </div>
 
@@ -665,18 +674,19 @@
         <div id="buttons-container" class="w-full flex flex-col align-center justify-center relative  p-20 space-y-10">
             <div class="flex flex-row justify-between space-x-4">
                 <button
-                    class="focus:ring-2 focus:ring-offset-2 focus:ring-red-700 focus:text-gray-50 focus:outline-none bg-red-700 border-red-300 border transition duration-150 ease-in-out hover:bg-red-300 rounded-full text-gray-50 px-20 py-4 text-lg w-full mx-2"
+                    class="focus:ring-2 focus:ring-offset-2 focus:ring-red-700 focus:text-gray-50 focus:outline-none bg-red-700 border-red-300 border transition duration-150 ease-in-out hover:bg-red-300 rounded-full text-gray-50 px-20 py-4 text-lg w-full mx-2 no-print"
                     onclick="cancelOffer()">
                     CANCELAR OFERTA COMERCIAL
                 </button>
 
                 <button
-                    class="focus:ring-2 focus:ring-offset-2 focus:ring-green-700 focus:text-gray-50 focus:outline-none bg-green-700 border-green-300 border transition duration-150 ease-in-out hover:bg-green-300 rounded-full text-gray-50 px-20 py-4 text-lg w-full mx-2">
+                    class="focus:ring-2 focus:ring-offset-2 focus:ring-green-700 focus:text-gray-50 focus:outline-none bg-green-700 border-green-300 border transition duration-150 ease-in-out hover:bg-green-300 rounded-full text-gray-50 px-20 py-4 text-lg w-full mx-2 no-print"
+                    onclick="printPage()">
                     GENERAR OFERTA COMERCIAL
                 </button>
 
                 <button
-                    class="focus:ring-2 focus:ring-offset-2 focus:ring-blue-700 focus:text-gray-50 focus:outline-none bg-blue-700 border-blue-300 border transition duration-150 ease-in-out hover:bg-blue-300 rounded-full text-gray-50 px-20 py-4 text-lg w-full mx-2"
+                    class="focus:ring-2 focus:ring-offset-2 focus:ring-blue-700 focus:text-gray-50 focus:outline-none bg-blue-700 border-blue-300 border transition duration-150 ease-in-out hover:bg-blue-300 rounded-full text-gray-50 px-20 py-4 text-lg w-full mx-2 no-print"
                     onclick="window.location.href='./sign-apu.html'">
                     CREAR UNA NUEVA APU
                 </button>
