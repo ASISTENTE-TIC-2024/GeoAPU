@@ -83,6 +83,8 @@ function editItem(ID) {
 
 function cancelOffer() {
     localStorage.removeItem('informacionProyecto');
+    localStorage.removeItem('ofertaComercial');
+    location.href = './main.html';
 }
 
 function mostrarInformacionProyecto() {

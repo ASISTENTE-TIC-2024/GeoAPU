@@ -13,22 +13,22 @@ async function fetchData() {
             const contrasena = '•'.repeat(10);
             const row = document.createElement('tr')
             row.innerHTML = `
-                <td>${user.id_usuario}</td>
-                <td>
-                    <img class="rounded-full h-10 w-10 cursor-pointer transition-transform duration-300" src="${user.foto_usuario}" alt="Foto de perfil" onclick="enlargeImage(this)">
+                <td class="py-2 border-b border-r text-center">${user.id_usuario}</td>
+                <td class="py-2 border-b border-r text-center">
+                    <img class="rounded-full h-10 w-10 mx-auto cursor-pointer transition-transform duration-300" src="${user.foto_usuario}" alt="Foto de perfil" onclick="enlargeImage(this)">
                 </td>
-                <td>${user.nombre_usuario}</td>
-                <td>${user.correo_usuario}</td>
-                <td>${contrasena}</td>
-                <td>${user.rol_usuario}</td>
-                <td>
-                    <button class="bg-yellow-500 text-white px-2 py-1 rounded" onclick="editUser(${user.id_usuario
+                <td class="py-2 border-b border-r text-center">${user.nombre_usuario}</td>
+                <td class="py-2 border-b border-r text-center">${user.correo_usuario}</td>
+                <td class="py-2 border-b border-r text-center">${contrasena}</td>
+                <td class="py-2 border-b border-r text-center">${user.rol_usuario}</td>
+                <td class="py-2 border-b border-r text-center">
+                    <button class="bg-gray-500 text-white px-2 py-1 rounded" onclick="editUser(${user.id_usuario
                 }, '${encodeURIComponent(user.foto_usuario)}', '${encodeURIComponent(user.nombre_usuario)}', '${encodeURIComponent(user.correo_usuario)
                 }', '${encodeURIComponent(user.contrasena_usuario)}', ${user.rol_usuario
-                })"><i class="fa-solid fa-user-pen" style="color: #ffffff;"></i> Editar</button>
-                    <button class="bg-red-500 text-white px-2 py-1 rounded" onclick="openDeleteModal(${user.id_usuario
+                })"><i class="fa-solid fa-user-pen" style="color: #ffffff;"></i></button>
+                    <button class="bg-gray-500 text-white px-2 py-1 rounded" onclick="openDeleteModal(${user.id_usuario
                 }, '${encodeURIComponent(user.nombre_usuario)
-                }')"><i class="fa-solid fa-user-minus" style="color: #ffffff;"></i> Eliminar</button>
+                }')"><i class="fa-solid fa-user-minus" style="color: #ffffff;"></i></button>
                 </td>
             `
             dataTable.appendChild(row)
