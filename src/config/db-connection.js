@@ -1,7 +1,6 @@
 import mysql2 from 'mysql2';
 import { DB_HOST, DB_USER, DB_PASSWORD, DB_NAME, DB_PORT } from './config.js';
 
-dotenv.config();
 
 const db_con = mysql2.createPool({
     host: DB_HOST,
