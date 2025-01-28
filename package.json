@@ -6,11 +6,9 @@
     "type": "module",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "server": "node src/server.js",
+        "start": "node src/server.js",
         "nodemon": "nodemon src/server.js",
         "build": "postcss ./src/views/pages/build/styles.css -o ./src/views/pages/build/main.css",
-        "watch:css": "nodemon -e css -x \"npm run build\"",
-        "start": "concurrently \"npm run watch:css\" \"npm run nodemon\""
     },
     "author": "Jesus Daniel Cuadro Dita",
     "license": "MIT",
