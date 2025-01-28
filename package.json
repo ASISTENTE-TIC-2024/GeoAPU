@@ -8,7 +8,7 @@
         "test": "echo \"Error: no test specified\" && exit 1",
         "start": "node src/server.js",
         "nodemon": "nodemon src/server.js",
-        "build": "postcss ./src/views/pages/build/styles.css -o ./src/views/pages/build/main.css",
+        "build": "postcss ./src/views/pages/build/styles.css -o ./src/views/pages/build/main.css"
     },
     "author": "Jesus Daniel Cuadro Dita",
     "license": "MIT",
