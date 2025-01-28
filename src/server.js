@@ -9,7 +9,9 @@ import { fileURLToPath } from 'url';
 import cors from 'cors';
 import multer from 'multer';
 import fs from 'fs-extra';
-import dotenv from 'dotenv';
+import dotenv, { config } from 'dotenv';
+import { PORT } from './config/config.js';
+
 
 const app = express();
 
@@ -1264,4 +1266,4 @@ const startServer = (port) => {
     });
 };
 
-startServer(5000);
+startServer(PORT);
