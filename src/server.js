@@ -22,6 +22,12 @@ app.use((req, res, next) => {
     next();
 });
 
+app.use(express.static(path.join(__dirname, 'src')));
+
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'src', 'index.html'));
+});
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(passport.initialize()); // Inicializar passport
@@ -30,8 +36,6 @@ dotenv.config();
 
 // Configurar CORS
 app.use(cors());
-app.use(express.static('public'));
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
