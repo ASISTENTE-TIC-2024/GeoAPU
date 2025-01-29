@@ -22,6 +22,9 @@ app.use((req, res, next) => {
     next();
 });
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 app.use(express.static(path.join(__dirname, 'src')));
 
 app.get('/', (req, res) => {
@@ -41,9 +44,6 @@ app.use(express.urlencoded({ extended: true }));
 
 const secretKey = process.env.SECRET_KEY;
 
-// Configurar multer
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
 const storage = multer.diskStorage({
     destination: path.join(__dirname, './table-images'),
