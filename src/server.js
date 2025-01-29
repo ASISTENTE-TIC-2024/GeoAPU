@@ -11,6 +11,7 @@ import multer from 'multer';
 import fs from 'fs-extra';
 import dotenv, { config } from 'dotenv';
 import { PORT } from './config/config.js';
+import { log } from 'util';
 
 
 const app = express();
@@ -23,7 +24,12 @@ app.use((req, res, next) => {
 });
 
 const __filename = fileURLToPath(import.meta.url);
+
+console.log("QUE CONTIENE EL FILENAME: " + __filename);
+
 const __dirname = path.dirname(__filename);
+
+console.log("QUE CONTIENE EL DIRNAME: " + __dirname);
 
 app.use(express.static(path.join(__dirname, 'src/views')));
 
