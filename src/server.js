@@ -84,7 +84,11 @@ app.post('/login', (req, res) => {
                                 secretKey,
                                 { expiresIn: '3d' },
                             );
-                            res.redirect(`views/pages/main.html?token=${token}`);
+
+                            res.redirect(app.get('/', (req, res) => {
+                                res.sendFile(path.join(__dirname, 'pages', 'main.html'));
+                            }));
+
                         } else {
                             res.status(401).json({
                                 message: 'Credenciales incorrectas!',
