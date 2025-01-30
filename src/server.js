@@ -60,7 +60,9 @@ const storage = multer.diskStorage({
 
 // Ruta de login
 app.post('/login', (req, res) => {
+
     const { email, password } = req.body;
+
     db_con.query(
         'SELECT * FROM usuarios WHERE correo_usuario = ?',
         [email],
@@ -86,6 +88,8 @@ app.post('/login', (req, res) => {
                                 secretKey,
                                 { expiresIn: '3d' },
                             );
+
+                            res.send(`window.location.href = '/pages/main.html';</script>`);
 
                         } else {
                             res.send(`<script>alert('Credenciales incorrectas!'); window.location.href = '/views/index.html';</script>`);
