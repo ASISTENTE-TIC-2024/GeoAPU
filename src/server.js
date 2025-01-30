@@ -27,7 +27,7 @@ app.use((req, res, next) => {
 app.use(express.static(path.join(__dirname, 'src')));
 
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'src', '/views/index.html'));
+    res.sendFile(path.join('/views/index.html'));
 });
 
 app.use(bodyParser.json());
