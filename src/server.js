@@ -23,15 +23,7 @@ app.use((req, res, next) => {
     next();
 });
 
-const __filename = fileURLToPath(import.meta.url);
-
-console.log("QUE CONTIENE EL FILENAME: " + __filename);
-
-const __dirname = path.dirname(__filename);
-
-console.log("QUE CONTIENE EL DIRNAME: " + __dirname);
-
-app.use(express.static(path.join(__dirname, 'src/views')));
+app.use(express.static(path.join(__dirname, 'views')));
 
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
@@ -50,9 +42,11 @@ app.use(express.urlencoded({ extended: true }));
 
 const secretKey = process.env.SECRET_KEY;
 
+const __filename = fileURLToPath(import.meta.url);
+let __nombreDirec = path.dirname(__filename);
 
 const storage = multer.diskStorage({
-    destination: path.join(__dirname, './table-images'),
+    destination: path.join(__nombreDirec, './table-images'),
     filename: function (_, file, cb) {
         cb(
             null,
