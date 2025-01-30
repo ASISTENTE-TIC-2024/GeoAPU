@@ -1,4 +1,5 @@
 document.getElementById('loginForm').addEventListener('submit', async function (event) {
+
     event.preventDefault();
 
     const email = document.getElementById('email').value;
@@ -7,6 +8,9 @@ document.getElementById('loginForm').addEventListener('submit', async function (
     try {
 
         const url = `${window.location.origin}/login/`;
+
+        console.log("DONDE SE HACE EL POST: " + url);
+
         const response = await fetch(url, {
             method: 'POST',
             headers: {

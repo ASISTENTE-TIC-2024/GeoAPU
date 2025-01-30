@@ -11,8 +11,6 @@ import multer from 'multer';
 import fs from 'fs-extra';
 import dotenv, { config } from 'dotenv';
 import { PORT } from './config/config.js';
-import { log } from 'util';
-
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -26,12 +24,10 @@ app.use((req, res, next) => {
     next();
 });
 
-// Serve static files from the 'public' directory
-app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.static(path.join(__dirname, 'views')));
+app.use(express.static(path.join(__dirname, 'src')));
 
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'views', 'index.html'));
+    res.sendFile(path.join(__dirname, 'src', '/views/index.html'));
 });
 
 app.use(bodyParser.json());

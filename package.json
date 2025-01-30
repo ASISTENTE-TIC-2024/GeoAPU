@@ -40,6 +40,7 @@
         "passport": "^0.7.0",
         "passport-openidconnect": "^0.1.2",
         "path": "^0.12.7",
+        "railway": "^2.0.17",
         "sweetalert2": "^11.14.1"
     }
 }
