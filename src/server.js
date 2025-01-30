@@ -26,6 +26,8 @@ app.use((req, res, next) => {
 
 app.use(express.static(path.join(__dirname, 'src')));
 app.use(express.static(path.join(__dirname, 'views')));
+app.use(express.static(path.join(__dirname, 'pages')));
+
 
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'views', 'index.html'));
@@ -85,9 +87,9 @@ app.post('/login', (req, res) => {
                                 { expiresIn: '3d' },
                             );
 
-                            res.redirect(app.get('/', (req, res) => {
+                            app.get('/', (req, res) => {
                                 res.sendFile(path.join(__dirname, 'pages', 'main.html'));
-                            }));
+                            });
 
                         } else {
                             res.status(401).json({
