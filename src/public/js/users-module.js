@@ -2,9 +2,13 @@ document.addEventListener('DOMContentLoaded', fetchData)
 
 async function fetchData() {
     try {
-        const response = await fetch('http://localhost:5000/selectUserData')
+
+        const url = `${window.location.origin}/selectUserData/`;
+
+        const response = await fetch(url)
 
         const data = await response.json()
+
         // Aquí puedes actualizar tu tabla con los datos recibidos
         const dataTable = document.getElementById('data-table')
 
@@ -84,7 +88,10 @@ document
         }
 
         try {
-            const response = await fetch(`http://localhost:5000/addUser`, {
+
+            const url = `${window.location.origin}/addUser/`;
+
+            const response = await fetch(url, {
                 method: 'POST',
                 body: formData,
             });
@@ -148,7 +155,9 @@ async function confirmDelete() {
     try {
         console.log("Usuario a eliminar: " + userIdToDelete);
 
-        const response = await fetch(`http://localhost:5000/deleteUser/${userIdToDelete}`, {
+        const url = `${window.location.origin}/deleteUser/${userIdToDelete}/`;
+
+        const response = await fetch(url, {
             method: 'DELETE',
         });
 
@@ -200,8 +209,11 @@ document
         }
 
         try {
+
+            const url = `${window.location.origin}/updateUser/${id_usuario}/`;
+
             const response = await fetch(
-                `http://localhost:5000/updateUser/${id_usuario}`,
+                url,
                 {
                     method: 'PUT',
                     body: formData,
@@ -243,7 +255,9 @@ async function editUser(
     try {
         const plainTextPassword = prompt('Ingresa la contraseña del usuario para editar:');
 
-        const response = await fetch('http://localhost:5000/verify-password', {
+        const url = `${window.location.origin}/verify-password/`;
+
+        const response = await fetch(url, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

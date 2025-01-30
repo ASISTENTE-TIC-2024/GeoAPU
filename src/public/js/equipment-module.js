@@ -2,7 +2,10 @@ document.addEventListener('DOMContentLoaded', fetchData);
 
 async function fetchData() {
     try {
-        const response = await fetch('http://localhost:5000/selectEquipoData');
+
+        const url = `${window.location.origin}/selectEquipoData/`;
+
+        const response = await fetch(url);
 
         const data = await response.json();
         // Aquí puedes actualizar tu tabla con los datos recibidos
@@ -115,7 +118,10 @@ document
         }
 
         try {
-            const response = await fetch(`http://localhost:5000/addEquipo`, {
+
+            const url = `${window.location.origin}/addEquipo/`;
+
+            const response = await fetch(url, {
                 method: 'POST',
                 body: formData,
             });
@@ -180,10 +186,11 @@ async function confirmDelete() {
     }
 
     try {
-        console.log('equipo a eliminar: ' + equipoIdToDelete);
+
+        const url = `${window.location.origin}/deleteEquipo/${equipoIdToDelete}/`;
 
         const response = await fetch(
-            `http://localhost:5000/deleteEquipo/${equipoIdToDelete}`,
+            url,
             {
                 method: 'DELETE',
             },
@@ -244,8 +251,11 @@ document
         }
 
         try {
+
+            const url = `${window.location.origin}/updateEquipo/${id_equipos}/`;
+
             const response = await fetch(
-                `http://localhost:5000/updateEquipo/${id_equipos}`,
+                url,
                 {
                     method: 'PUT',
                     body: formData,
