@@ -87,14 +87,8 @@ app.post('/login', (req, res) => {
                                 { expiresIn: '3d' },
                             );
 
-                            app.get('/', (req, res) => {
-                                res.sendFile(path.join(__dirname, 'pages', 'main.html'));
-                            });
-
                         } else {
-                            res.status(401).json({
-                                message: 'Credenciales incorrectas!',
-                            });
+                            res.send(`<script>alert('Credenciales incorrectas!'); window.location.href = '/views/index.html';</script>`);
                         }
                     },
                 );

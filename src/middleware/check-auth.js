@@ -46,7 +46,7 @@ function logout() {
         // Eliminar el token JWT del almacenamiento local
         localStorage.removeItem('token');
         // Redirigir al usuario a la página de inicio de sesión
-        window.location.href = '/views/index.html';
+        window.location.href = 'views/index.html';
     }
 }
 
