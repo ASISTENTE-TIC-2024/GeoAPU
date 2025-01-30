@@ -63,7 +63,9 @@ app.post('/login', (req, res) => {
         'SELECT * FROM usuarios WHERE correo_usuario = ?',
         [email],
         (err, results) => {
+
             if (err) throw err;
+
             if (results.length > 0) {
                 const user = results[0];
                 bcrypt.compare(
@@ -82,7 +84,7 @@ app.post('/login', (req, res) => {
                                 secretKey,
                                 { expiresIn: '3d' },
                             );
-                            res.json({ token });
+                            res.redirect(`views/pages/main.html?token=${token}`);
                         } else {
                             res.status(401).json({
                                 message: 'Credenciales incorrectas!',
