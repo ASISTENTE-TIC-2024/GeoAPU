@@ -14,6 +14,9 @@ import { PORT } from './config/config.js';
 import { log } from 'util';
 
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 const app = express();
 
 app.use((req, res, next) => {
@@ -42,7 +45,6 @@ app.use(express.urlencoded({ extended: true }));
 
 const secretKey = process.env.SECRET_KEY;
 
-const __filename = fileURLToPath(import.meta.url);
 let __nombreDirec = path.dirname(__filename);
 
 const storage = multer.diskStorage({
