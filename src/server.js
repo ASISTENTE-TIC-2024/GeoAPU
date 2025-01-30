@@ -26,12 +26,10 @@ app.use((req, res, next) => {
     next();
 });
 
-// Configurar el servidor para servir archivos estáticos desde el directorio 'public' o el directorio donde se encuentran tus archivos compilados
-app.use(express.static(path.join(__dirname, 'src', 'views', 'pages', 'build')));
+app.use(express.static(path.join(__dirname, 'views')));
 
-// Manejar la ruta raíz
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'src', 'views', 'pages', 'build', 'index.html'));
+    res.sendFile(path.join(__dirname, 'index.html'));
 });
 
 app.use(bodyParser.json());
