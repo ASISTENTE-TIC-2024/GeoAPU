@@ -89,7 +89,7 @@ app.post('/login', (req, res) => {
                                 { expiresIn: '3d' },
                             );
 
-                            res.send(`window.location.href = '/pages/main.html';</script>`);
+                            res.send(`<script> window.location.href = '/pages/main.html'; </script>`);
 
                         } else {
                             res.send(`<script>alert('Credenciales incorrectas!'); window.location.href = '/views/index.html';</script>`);
