@@ -27,10 +27,9 @@ app.use((req, res, next) => {
 app.use(express.static(path.join(__dirname, 'src')));
 app.use(express.static(path.join(__dirname, 'views')));
 app.use(express.static(path.join(__dirname, 'pages')));
-app.use(express.static(path.join(__dirname, 'public')))
-app.use(express.static(path.join(__dirname, 'middleware')));
-;
 
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'middleware')));
 
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'views', 'index.html'));
@@ -92,7 +91,7 @@ app.post('/login', (req, res) => {
                                 { expiresIn: '3d' },
                             );
 
-                            res.send(`<script> window.location.href = '/pages/main.html'; </script>`);
+                            res.send(`<script>alert('Has iniciado sesión exitosamente!'); window.location.href = '/pages/main.html'; </script>`);
 
                         } else {
                             res.send(`<script>alert('Credenciales incorrectas!'); window.location.href = '/views/index.html';</script>`);
