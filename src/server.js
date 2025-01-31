@@ -27,6 +27,9 @@ app.use((req, res, next) => {
 app.use(express.static(path.join(__dirname, 'src')));
 app.use(express.static(path.join(__dirname, 'views')));
 app.use(express.static(path.join(__dirname, 'pages')));
+app.use(express.static(path.join(__dirname, 'public')))
+app.use(express.static(path.join(__dirname, 'middleware')));
+;
 
 
 app.get('/', (req, res) => {
