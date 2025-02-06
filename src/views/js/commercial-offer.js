@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-
+    logout
     const ofertaComercial = JSON.parse(localStorage.getItem('ofertaComercial')) || {};
 
     console.log('ofertaComercial', ofertaComercial);

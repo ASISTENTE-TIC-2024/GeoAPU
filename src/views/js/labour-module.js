@@ -2,7 +2,10 @@ document.addEventListener('DOMContentLoaded', fetchData);
 
 async function fetchData() {
     try {
-        const response = await fetch('http://localhost:5000/selectEmpleadoData');
+
+        const url = `${window.location.origin}/selectEmpleadoData/`;
+
+        const response = await fetch(url);
         const data = await response.json();
 
         // Aquí puedes actualizar tu tabla con los datos recibidos
@@ -120,8 +123,11 @@ document
         formData.append('salario_base_empleados', salario_base_empleados);
 
         try {
+
+            const url = `${window.location.origin}/addEmpleado/`;
+
             const response = await fetch(
-                `http://localhost:5000/addEmpleado`,
+                url,
                 {
                     method: 'POST',
                     body: formData,
@@ -181,8 +187,11 @@ async function confirmDeleteEmpleados() {
     }
 
     try {
+
+        const url = `${window.location.origin}/deleteEmpleado/${empleadoIdToDelete}`;
+
         const response = await fetch(
-            `http://localhost:5000/deleteEmpleado/${empleadoIdToDelete}`,
+            url,
             {
                 method: 'DELETE',
             },
@@ -227,7 +236,10 @@ document.getElementById('editEmpleadoForm').addEventListener('submit', async fun
     console.log(id_empleados, updatedEmpleado);
 
     try {
-        const response = await fetch(`http://localhost:5000/updateEmpleado/${id_empleados}`, {
+
+        const url = `${window.location.origin}/updateEmpleado/${id_empleados}`;
+
+        const response = await fetch(url, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -339,7 +351,10 @@ function searchTable() {
 /* -------------------------------------------------------- MODULO DE GASTOS ------------------------------------------------------------------- */
 async function fetchDataGastos() {
     try {
-        const response = await fetch('http://localhost:5000/selectGastoData');
+
+        const url = `${window.location.origin}/selectGastoData/`;
+
+        const response = await fetch(url);
         const data = await response.json();
 
         // Aquí puedes actualizar tu tabla con los datos recibidos
@@ -493,7 +508,10 @@ document
         formData.append('eepp_diario', eepp_diario);
 
         try {
-            const response = await fetch('http://localhost:5000/addGasto', {
+
+            const url = `${window.location.origin}/addGasto/`;
+
+            const response = await fetch(url, {
                 method: 'POST',
                 body: formData,
             });
@@ -552,8 +570,11 @@ async function confirmDeleteGastos() {
     }
 
     try {
+
+        const url = `${window.location.origin}/deleteGasto/${gastoIdToDelete}`;
+
         const response = await fetch(
-            `http://localhost:5000/deleteGasto/${gastoIdToDelete}`,
+            url,
             {
                 method: 'DELETE',
             },
@@ -619,7 +640,10 @@ document.getElementById('editGastoForm').addEventListener('submit', async functi
     console.log(id_gastos, updatedGasto);
 
     try {
-        const response = await fetch(`http://localhost:5000/updateGasto/${id_gastos}`, {
+
+        const url = `${window.location.origin}/updateGasto/${id_gastos}`;
+
+        const response = await fetch(url, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
