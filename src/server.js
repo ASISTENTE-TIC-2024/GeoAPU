@@ -51,7 +51,7 @@ const secretKey = process.env.SECRET_KEY;
 let __nombreDirec = path.dirname(__filename);
 
 const storage = multer.diskStorage({
-    destination: path.join(__nombreDirec, './table-images'),
+    destination: path.join(__nombreDirec, './images'),
     filename: function (_, file, cb) {
         cb(
             null,
@@ -206,7 +206,7 @@ app.post('/addUser', multer({ storage }).single('foto_usuario'), (req, res) => {
 
     const { nombre_usuario, correo_usuario, contrasena_usuario, rol_usuario } =
         req.body;
-    const ruta_foto_usuario = `../../table-images/${req.file.filename}`;
+    const ruta_foto_usuario = `../../images/${req.file.filename}`;
 
     // Hash the password before storing it in the database
     bcrypt.hash(contrasena_usuario, 10, (err, hashedPassword) => {
@@ -294,7 +294,7 @@ app.put(
         } = req.body;
 
         const newImagePath = req.file
-            ? `../../table-images/${req.file.filename}`
+            ? `../../images/${req.file.filename}`
             : null;
 
         console.log('Nueva ruta de la imagen:', newImagePath);
@@ -398,7 +398,7 @@ app.post(
         console.log('Datos del equipo:', req.body);
 
         const ruta_foto_equipo = req.file
-            ? `../../table-images/${req.file.filename}`
+            ? `../../images/${req.file.filename}`
             : null;
 
         console.log('Ruta de la foto del equipo:', ruta_foto_equipo);
@@ -496,7 +496,7 @@ app.put(
         } = req.body;
 
         const newImagePath = req.file
-            ? `../../table-images/${req.file.filename}`
+            ? `../../images/${req.file.filename}`
             : null;
 
         console.log('Nueva ruta de la imagen:', newImagePath);
@@ -605,7 +605,7 @@ app.post(
         console.log('Datos del material:', req.body);
 
         const ruta_foto_material = req.file
-            ? `../../table-images/${req.file.filename}`
+            ? `../../images/${req.file.filename}`
             : null;
 
         console.log('Ruta de la foto del material:', ruta_foto_material);
@@ -720,7 +720,7 @@ app.put(
         } = req.body;
 
         const newImagePath = req.file
-            ? `../../table-images/${req.file.filename}`
+            ? `../../images/${req.file.filename}`
             : null;
 
         console.log('Nueva ruta de la imagen:', newImagePath);
