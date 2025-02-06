@@ -1,16 +1,16 @@
-import db_con from './config/db-connection.js';
+import db_con from './views/config/db-connection.js';
 import express from 'express';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import bodyParser from 'body-parser';
-import passport from './config/auth.js';
+import passport from './views/config/auth.js';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import cors from 'cors';
 import multer from 'multer';
 import fs from 'fs-extra';
 import dotenv, { config } from 'dotenv';
-import { PORT } from './config/config.js';
+import { PORT } from './views/config/config.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
