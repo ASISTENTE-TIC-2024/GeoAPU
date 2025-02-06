@@ -91,7 +91,10 @@ app.post('/login', (req, res) => {
                                 { expiresIn: '3d' },
                             );
 
-                            res.send(`<script>alert('Has iniciado sesión exitosamente!'); window.location.href = '/pages/main.html'; </script>`);
+                            res.send(`<script>
+                                localStorage.setItem('token', '${token}');
+                                window.location.href = '/pages/main.html';
+                            </script>`);
 
                         } else {
                             res.send(`<script>alert('Credenciales incorrectas!'); window.location.href = '/views/index.html';</script>`);
