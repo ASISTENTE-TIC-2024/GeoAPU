@@ -667,7 +667,7 @@ function valoresOfertaComercial() {
         localStorage.setItem('ofertaComercial', JSON.stringify(ofertaComercial))
 
         window.location.href =
-            '../../views/pages/commercial-offer.html';
+            '../pages/commercial-offer.html';
     }
 
 }

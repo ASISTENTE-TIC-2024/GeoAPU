@@ -3,8 +3,8 @@ function guardarInformacionProyecto() {
     let fechaFormateada = new Date(fecha)
     const formato =
         ('0' + fechaFormateada.getDate()).slice(-2) +
-        '/' +
-        ('0' + (fechaFormateada.getMonth() + 1)).slice(-2) +
+        '/' + commercial
+            ('0' + (fechaFormateada.getMonth() + 1)).slice(-2) +
         '/' +
         fechaFormateada.getFullYear()
     fechaFormateada.value = formato
