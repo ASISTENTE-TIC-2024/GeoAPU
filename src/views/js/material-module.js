@@ -2,10 +2,13 @@ document.addEventListener('DOMContentLoaded', fetchData)
 
 async function fetchData() {
     try {
-        const response = await fetch('http://localhost:5000/selectMaterialData')
+
+        const url = `${window.location.origin}/selectMaterialData`
+
+        const response = await fetch(url)
 
         const data = await response.json()
-        // Aquí puedes actualizar tu tabla con los datos recibidos
+
         const dataTable = document.getElementById('data-table')
 
         dataTable.innerHTML = '' // Limpiar la tabla antes de agregar nuevos datos
@@ -109,7 +112,10 @@ document
         }
 
         try {
-            const response = await fetch(`http://localhost:5000/addMaterial`, {
+
+            const url = `${window.location.origin}/addMaterial`
+
+            const response = await fetch(url, {
                 method: 'POST',
                 body: formData,
             });
@@ -174,7 +180,9 @@ async function confirmDelete() {
     try {
         console.log("Material a eliminar: " + materialIdToDelete);
 
-        const response = await fetch(`http://localhost:5000/deleteMaterial/${materialIdToDelete}`, {
+        const url = `${window.location.origin}/deleteMaterial/${materialIdToDelete}`
+
+        const response = await fetch(url, {
             method: 'DELETE',
         });
 
@@ -240,8 +248,11 @@ document
         }
 
         try {
+
+            const url = `${window.location.origin}/updateMaterial/${id_materiales}`
+
             const response = await fetch(
-                `http://localhost:5000/updateMaterial/${id_materiales}`,
+                url,
                 {
                     method: 'PUT',
                     body: formData,

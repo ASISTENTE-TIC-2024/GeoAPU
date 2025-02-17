@@ -921,7 +921,7 @@
                     <script>
                         document.addEventListener('DOMContentLoaded', function () {
 
-                            fetch('http://localhost:5000/selectEmpleadoData')
+                            fetch('${window.location.origin}/selectEmpleadoData')
                                 .then(response => response.json())
                                 .then(data => {
                                     const select = document.getElementById('addGastoCargo');
