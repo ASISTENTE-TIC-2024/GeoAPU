@@ -50,7 +50,7 @@ function guardarInformacionProyecto() {
 
     alert('Datos guardados exitosamente!');
 
-    window.location.href = '../../views/pages/commercial-offer.html';
+    window.location.href = '../pages/commercial-offer.html';
 }
 
 
