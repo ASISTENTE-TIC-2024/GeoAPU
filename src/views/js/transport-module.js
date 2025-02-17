@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', fetchData);
 async function fetchData() {
     try {
         const response = await fetch(
-            '${window.location.origin}/selectTransporteData',
+            `${window.location.origin}/selectTransporteData`,
         );
 
         const data = await response.json();
