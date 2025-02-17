@@ -687,7 +687,7 @@ function valoresOfertaComercial() {
         guardarInformacionProyecto();
 
         window.location.href =
-            '../../views/pages/commercial-offer.html';
+            '../pages/commercial-offer.html';
     } else {
         console.log('No se guardó la información.');
     }

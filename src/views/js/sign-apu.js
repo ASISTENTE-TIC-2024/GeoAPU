@@ -53,9 +53,9 @@ function guardarInformacionRotulos() {
 
     // Redirigir según el valor de capitulo
     if (capitulo == "Movilización") {
-        window.location.href = '../../views/pages/mobilization-apu.html';
+        window.location.href = '../pages/mobilization-apu.html';
     } else {
-        window.location.href = '../../views/pages/general-apu.html';
+        window.location.href = '../pages/general-apu.html';
     }
 
 }

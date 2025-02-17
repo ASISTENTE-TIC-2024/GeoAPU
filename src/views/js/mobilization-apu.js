@@ -9,7 +9,7 @@ function cancelAPU() {
         localStorage.setItem('informacionRotulos', JSON.stringify(informacionRotulos));
 
         window.location.href =
-            '../../views/pages/commercial-offer.html';
+            '../pages/commercial-offer.html';
     }
 
 }
