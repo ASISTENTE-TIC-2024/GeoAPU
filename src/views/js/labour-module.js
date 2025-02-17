@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', fetchData);
 async function fetchData() {
     try {
 
-        const url = `${window.location.origin}/selectEmpleadoData/`;
+        const url = `http://localhost:5000/selectEmpleadoData/`;
 
         const response = await fetch(url);
         const data = await response.json();
@@ -124,7 +124,7 @@ document
 
         try {
 
-            const url = `${window.location.origin}/addEmpleado/`;
+            const url = `http://localhost:5000/addEmpleado/`;
 
             const response = await fetch(
                 url,
@@ -188,7 +188,7 @@ async function confirmDeleteEmpleados() {
 
     try {
 
-        const url = `${window.location.origin}/deleteEmpleado/${empleadoIdToDelete}`;
+        const url = `http://localhost:5000/deleteEmpleado/${empleadoIdToDelete}`;
 
         const response = await fetch(
             url,
@@ -237,7 +237,7 @@ document.getElementById('editEmpleadoForm').addEventListener('submit', async fun
 
     try {
 
-        const url = `${window.location.origin}/updateEmpleado/${id_empleados}`;
+        const url = `http://localhost:5000/updateEmpleado/${id_empleados}`;
 
         const response = await fetch(url, {
             method: 'PUT',
@@ -352,7 +352,7 @@ function searchTable() {
 async function fetchDataGastos() {
     try {
 
-        const url = `${window.location.origin}/selectGastoData/`;
+        const url = `http://localhost:5000/selectGastoData/`;
 
         const response = await fetch(url);
         const data = await response.json();
@@ -509,7 +509,7 @@ document
 
         try {
 
-            const url = `${window.location.origin}/addGasto/`;
+            const url = `http://localhost:5000/addGasto/`;
 
             const response = await fetch(url, {
                 method: 'POST',
@@ -571,7 +571,7 @@ async function confirmDeleteGastos() {
 
     try {
 
-        const url = `${window.location.origin}/deleteGasto/${gastoIdToDelete}`;
+        const url = `http://localhost:5000/deleteGasto/${gastoIdToDelete}`;
 
         const response = await fetch(
             url,
@@ -641,7 +641,7 @@ document.getElementById('editGastoForm').addEventListener('submit', async functi
 
     try {
 
-        const url = `${window.location.origin}/updateGasto/${id_gastos}`;
+        const url = `http://localhost:5000/updateGasto/${id_gastos}`;
 
         const response = await fetch(url, {
             method: 'PUT',
