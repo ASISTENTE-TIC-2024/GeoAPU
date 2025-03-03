@@ -3,7 +3,7 @@ function checkAuth() {
     const token = localStorage.getItem('token');
 
     if (!token) {
-        window.location.href = '/views/index.html';
+        window.location.href = '../index.html';
         return;
     }
 
@@ -34,7 +34,7 @@ function checkAuth() {
         .catch(error => {
             console.error('Error verificando el Token: ', error);
             alert('Necesitas iniciar sesión');
-            window.location.href = '/views/index.html';
+            window.location.href = '../index.html';
         });
 }
 
