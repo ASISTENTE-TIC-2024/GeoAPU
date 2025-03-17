@@ -18,11 +18,11 @@ async function fetchData() {
                 <td>${empleado.cargo_empleados}</td>
                 <td>${empleado.salario_base_empleados}</td>
                 <td class="flex align-center justify-center h-full w-full mb-2s">
-                    <button class="bg-gray-700 text-white px-2 py-1 rounded h-[4em] w-1/2 m-1" onclick="editEmpleado(${empleado.id_empleados}, '${encodeURIComponent(empleado.cargo_empleados)}', '${encodeURIComponent(empleado.salario_base_empleados)}')">
-                        <i class="fa-solid fa-pencil" style="color:rgb(255, 255, 255);"></i>
+                    <button class="bg-gray-200 text-white px-2 py-1 rounded h-[4em] w-1/2 m-1" onclick="editEmpleado(${empleado.id_empleados}, '${encodeURIComponent(empleado.cargo_empleados)}', '${encodeURIComponent(empleado.salario_base_empleados)}')">
+                        <i class="fa-solid fa-pencil" style="color:rgb(51, 47, 47);"></i>
                     </button>
-                    <button class="bg-gray-700 text-white px-2 py-1 rounded h-[4em] w-1/2 m-1" onclick="openDeleteModal(${empleado.id_empleados}, '${encodeURIComponent(empleado.cargo_empleados)}')">
-                        <i class="fa-solid fa-trash" style="color:rgb(255, 255, 255);">
+                    <button class="bg-gray-200 text-white px-2 py-1 rounded h-[4em] w-1/2 m-1" onclick="openDeleteModal(${empleado.id_empleados}, '${encodeURIComponent(empleado.cargo_empleados)}')">
+                        <i class="fa-solid fa-trash" style="color:rgb(51, 47, 47);">
                     </button>
                 </td>
             `;
