@@ -378,11 +378,12 @@ async function fetchDataGastos() {
                 <td>${gasto.carga_prestacional_diario}</td>
                 <td>${gasto.eepp_diario}</td>
                 <td class="flex align-center justify-center h-full w-full mb-2s">
-                    <button class="bg-gray-700 text-white px-2 py-1 rounded h-[4em] w-1/2 m-1" onclick="editGasto(${gasto.id_gastos}, '${encodeURIComponent(gasto.id_empleados)}', '${encodeURIComponent(gasto.lugar_diario)}', '${encodeURIComponent(gasto.hotel_diario)}', '${encodeURIComponent(gasto.desayuno_diario)}', '${encodeURIComponent(gasto.almuerzo_diario)}', '${encodeURIComponent(gasto.cena_diario)}', '${encodeURIComponent(gasto.lavanderia_diario)}', '${encodeURIComponent(gasto.hidratacion_diario)}', '${encodeURIComponent(gasto.hielo_diario)}', '${encodeURIComponent(gasto.refrigerio_diario)}', '${encodeURIComponent(gasto.salario_diario)}', '${encodeURIComponent(gasto.carga_prestacional_diario)}', '${encodeURIComponent(gasto.eepp_diario)}')">
-                        <i class="fa-solid fa-pencil" style="color:rgb(255, 255, 255);"></i>
+                    <button class="bg-gray-200 text-white px-2 py-1 rounded h-[4em] w-1/2 m-1" onclick="editGasto(${gasto.id_gastos}, '${encodeURIComponent(gasto.id_empleados)}', '${encodeURIComponent(gasto.lugar_diario)}', '${encodeURIComponent(gasto.hotel_diario)}', '${encodeURIComponent(gasto.desayuno_diario)}', '${encodeURIComponent(gasto.almuerzo_diario)}', '${encodeURIComponent(gasto.cena_diario)}', '${encodeURIComponent(gasto.lavanderia_diario)}', '${encodeURIComponent(gasto.hidratacion_diario)}', '${encodeURIComponent(gasto.hielo_diario)}', '${encodeURIComponent(gasto.refrigerio_diario)}', '${encodeURIComponent(gasto.salario_diario)}', '${encodeURIComponent(gasto.carga_prestacional_diario)}', '${encodeURIComponent(gasto.eepp_diario)}')">
+                        <i class="fa-solid fa-pencil" style="color:rgb(51, 47, 47);"></i>
+                        
                     </button>
-                    <button class="bg-gray-700 text-white px-2 py-1 rounded h-[4em] w-1/2 m-1" onclick="openDeleteModalGastos(${gasto.id_gastos}, '${encodeURIComponent(gasto.id_empleados)}')">
-                        <i class="fa-solid fa-trash" style="color:rgb(255, 255, 255);">
+                    <button class="bg-gray-200 text-white px-2 py-1 rounded h-[4em] w-1/2 m-1" onclick="openDeleteModalGastos(${gasto.id_gastos}, '${encodeURIComponent(gasto.id_empleados)}')">
+                        <i class="fa-solid fa-trash" style="color:rgb(51, 47, 47);">
                     </button>
                 </td>
             `;
