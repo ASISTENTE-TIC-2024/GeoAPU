@@ -474,7 +474,7 @@
             Este módulo permite gestionar los transportes disponibles, incluyendo la adición, edición y eliminación de
             transportes.
             También se puede visualizar la información detallada de cada transporte, como su descripción, unidad de
-            medida, distancia y precio unitario.
+            medida, cantidad y precio unitario.
         </p>
 
         <button
@@ -493,12 +493,12 @@
 
     <div class="table-container mx-10 mb-40 overflow-x-auto relative top-[50px] rounded-lg">
 
-        <table class="min-w-full bg-white border border-gray-300 rounded-lg shadow-sm">
+        <table class="min-w-full even:bg-gray-50 border-b odd:bg-white even:bg-gray-50 border-b">
 
             <thead class="rounded-lg" style="background-color: rgb(34, 34, 34)">
 
                 <tr class="text-center">
-                    <th class="py-2 p-2" onclick="sortTable(0)">
+                    <th class="py-2 border-b border-r text-center" onclick="sortTable(0)">
                         <div class="flex items-center justify-center text-gray-50">
                             ID
                             <a href="#"><svg class="w-3 h-3 ms-1.5" aria-hidden="true"
@@ -512,7 +512,7 @@
                         </div>
                     </th>
 
-                    <th class="py-2 p-2" onclick="sortTable(0)">
+                    <th class="py-2 border-b border-r text-center" onclick="sortTable(0)">
                         <div class="flex items-center justify-center text-gray-50">
                             DESCRIPCIÓN
                             <a href="#"><svg class="w-3 h-3 ms-1.5" aria-hidden="true"
@@ -526,7 +526,7 @@
                         </div>
                     </th>
 
-                    <th class="py-2 p-2" onclick="sortTable(1)">
+                    <th class="py-2 border-b border-r text-center" onclick="sortTable(1)">
                         <div class="flex items-center justify-center text-gray-50">
                             UNIDAD
                             <a href="#"><svg class="w-3 h-3 ms-1.5" aria-hidden="true"
@@ -540,9 +540,9 @@
                         </div>
                     </th>
 
-                    <th class="py-2 p-2" onclick="sortTable(2)">
+                    <th class="py-2 border-b border-r text-center" onclick="sortTable(2)">
                         <div class="flex items-center justify-center text-gray-50">
-                            DISTANCIA
+                            CANTIDAD
                             <a href="#"><svg class="w-3 h-3 ms-1.5" aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"
                                     color="white">
@@ -554,7 +554,7 @@
                         </div>
                     </th>
 
-                    <th class="py-2 p-2" onclick="sortTable(3)">
+                    <th class="py-2 border-b border-r text-center" onclick="sortTable(3)">
                         <div class="flex items-center justify-center text-gray-50">
                             PRECIO UNITARIO
                             <a href="#"><svg class="w-3 h-3 ms-1.5" aria-hidden="true"
@@ -568,7 +568,7 @@
                         </div>
                     </th>
 
-                    <th class="py-2 p-2" onclick="sortTable(6)">
+                    <th class="py-2 border-b border-r text-center" onclick="sortTable(6)">
                         <div class="flex items-center justify-center text-gray-50">
                             ACCIONES
                         </div>
@@ -591,22 +591,25 @@
                 <label for="addTransporteDescripcion" class="block text-gray-700">Descripción:</label>
                 <input type="text" id="addTransporteDescripcion" class="w-full px-3 py-2 border rounded" required />
             </div>
+
             <div class="mb-4">
                 <label for="addTransporteUnidad" class="block text-gray-700">Unidad de medida:
                 </label>
                 <input type="text" id="addTransporteUnidad" class="w-full px-3 py-2 border rounded" />
             </div>
+
             <div class="mb-4">
-                <label for="addTransporteDistancia" class="block text-gray-700">Distancia:</label>
+                <label for="addTransporteDistancia" class="block text-gray-700">Cantidad:</label>
                 <div class="relative">
-                    <input id="addTransporteDistancia" type="text"
+                    <input id="addTransporteDistancia" type="number"
                         class="py-3 px-4 block w-full border rounded border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none" />
                 </div>
             </div>
+
             <div class="mb-4">
                 <label for="addTransportePrecio" class="block text-gray-700">Precio unitario:</label>
-                <input type="number" id="addTransportePrecio" class="w-full px-3 py-2 border rounded" step="0.01"
-                    min="0" required />
+                <input type="text" id="addTransportePrecio" class="w-full px-3 py-2 border rounded" step="0.01" min="0"
+                    required oninput="formatCurrency(this)" />
             </div>
 
             <div class="flex justify-end">
@@ -658,7 +661,7 @@
                     <label for="editTransporteUnidad" class="block text-gray-700">Unidad de medida:</label>
                     <input type="text" id="editTransporteUnidad" class="w-full px-3 py-2 border rounded" />
 
-                    <label for="editTransporteDistancia" class="block text-gray-700">Distancia:</label>
+                    <label for="editTransporteDistancia" class="block text-gray-700">Cantidad:</label>
                     <input type="text" id="editTransporteDistancia" class="w-full px-3 py-2 border rounded" />
 
                     <label for="editTransportePrecio" class="block text-gray-700">Precio unitario:</label>

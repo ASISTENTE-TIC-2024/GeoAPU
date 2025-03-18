@@ -15,23 +15,23 @@ async function fetchData() {
             const row = document.createElement('tr');
             row.innerHTML = `
 
-                <td>${transporte.id_transportes}</td>
-                <td>${transporte.descripcion_transportes}</td>
-                <td>${transporte.unidad_transportes}</td>
-                <td>${transporte.distancia_transportes}</td>
-                <td>${transporte.precio_unitario_transportes}</td>
+                <td class="py-2 border-b border-r text-center">${transporte.id_transportes}</td>
+                <td class="py-2 border-b border-r text-center">${transporte.descripcion_transportes}</td>
+                <td class="py-2 border-b border-r text-center">${transporte.unidad_transportes}</td>
+                <td class="py-2 border-b border-r text-center">${transporte.distancia_transportes}</td>
+                <td class="py-2 border-b border-r text-center">${new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP' }).format(transporte.precio_unitario_transportes)}</td>
 
                 <td class="flex align-center justify-center h-full w-full mb-2s">
 
-                    <button class="bg-gray-700 text-white px-2 py-1 rounded h-[4em] w-1/2 m-1" onclick="editTransporte(${transporte.id_transportes}, '${encodeURIComponent(transporte.descripcion_transportes)}', '${encodeURIComponent(transporte.unidad_transportes)}', ${encodeURIComponent(transporte.distancia_transportes)}, ${encodeURIComponent(transporte.precio_unitario_transportes)})">
+                    <button class="bg-gray-500 text-white px-3 py-2 rounded mr-2" onclick="editTransporte(${transporte.id_transportes}, '${encodeURIComponent(transporte.descripcion_transportes)}', '${encodeURIComponent(transporte.unidad_transportes)}', ${encodeURIComponent(transporte.distancia_transportes)}, ${encodeURIComponent(transporte.precio_unitario_transportes)})">
                     
                         <i class="fa-solid fa-pencil" style="color:rgb(255, 255, 255);"></i>
 
                     </button>
 
-                    <button class="bg-gray-700 text-white px-2 py-1 rounded h-[4em] w-1/2 m-1" onclick="openDeleteModal(${transporte.id_transportes}, '${encodeURIComponent(transporte.descripcion_transportes,)}')">
+                    <button class="bg-gray-500 text-white px-3 py-2 rounded" onclick="openDeleteModal(${transporte.id_transportes}, '${encodeURIComponent(transporte.descripcion_transportes,)}')">
                     
-                        <i class="fa-solid fa-user-minus" style="color:rgb(255, 255, 255);"></i>
+                        <i class="fa-solid fa-trash" style="color:rgb(255, 255, 255);"></i>
                     
                     </button>
                 </td>
@@ -287,6 +287,12 @@ function sortTable(column) {
 function closeModal() {
     document.getElementById('editModal').classList.add('hidden');
     document.getElementById('addModal').classList.add('hidden');
+}
+
+
+function formatCurrency(input) {
+    let value = input.value.replace(/\D/g, '');
+    input.value = new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP', minimumFractionDigits: 2 }).format(value / 100).replace(/\./g, '#').replace(/,/g, '.').replace(/#/g, ',');
 }
 
 // Llamar a la función fetchData cuando el DOM esté completamente cargado
