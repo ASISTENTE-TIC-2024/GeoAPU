@@ -14,28 +14,29 @@ async function fetchData() {
         dataTable.innerHTML = ''; // Limpiar la tabla antes de agregar nuevos datos
         data.forEach((material) => {
             const row = document.createElement('tr');
+            row.style.height = '50px'; // Ajusta la altura de la fila según sea necesario
+
             row.innerHTML = `
 
-                <td>${material.id_equipos}</td>
+                <td class="py-2 border-b border-r text-center">${material.id_equipos}</td>
                 
-                <td class="text-center">
-                    <img class="rounded-full h-10 w-10 cursor-pointer transition-transform duration-300 mx-auto" src="${material.foto_equipos
-                }" alt="Foto de perfil" onclick="enlargeImage(this)">
+                <td class="py-2 border-b border-r text-center">
+                    <img class="rounded-full h-10 w-10 cursor-pointer transition-transform duration-300 mx-auto" src="${material.foto_equipos}" alt="Foto de perfil" onclick="enlargeImage(this)">
                 </td>
 
-                <td>${material.descripcion_equipos}</td >
-                <td>${material.marca_equipos}</td>
-                <td>${material.tipo_equipos}</td>
-                <td>${material.tarifa_dia_equipos}</td>
+                <td class="py-2 border-b border-r text-center">${material.descripcion_equipos}</td>
+                <td class="py-2 border-b border-r text-center">${material.marca_equipos}</td>
+                <td class="py-2 border-b border-r text-center">${material.tipo_equipos}</td>
+                <td class="py-2 border-b border-r text-center">${material.tarifa_dia_equipos}</td>
 
-                <td class="flex align-center justify-center h-full w-full mb-2s">
+                <td class="flex items-center justify-center h-full w-full mb-2" style="text-align: center; height: inherit;">
 
-                    <button class="bg-gray-700 text-white px-2 py-1 rounded h-[4em] w-1/2 m-1" onclick="editEquipo(${material.id_equipos}, '${material.foto_equipos}', '${encodeURIComponent(material.descripcion_equipos,)}', '${encodeURIComponent(material.marca_equipos,)}', '${encodeURIComponent(material.tipo_equipos)}', ${material.tarifa_dia_equipos})">
+                    <button class="bg-gray-500 text-white px-3 py-2 rounded mr-2" onclick="editEquipo(${material.id_equipos}, '${material.foto_equipos}', '${encodeURIComponent(material.descripcion_equipos)}', '${encodeURIComponent(material.marca_equipos)}', '${encodeURIComponent(material.tipo_equipos)}', ${material.tarifa_dia_equipos})">
                         <i class="fa-solid fa-pencil" style="color:rgb(255, 255, 255);"></i>
                     </button>
 
-                    <button class="bg-gray-700 text-white px-2 py-1 rounded h-[4em] w-1/2 m-1" onclick="openDeleteModal(${material.id_equipos}, '${encodeURIComponent(material.descripcion_equipos,)}')">
-                        <i class="fa-solid fa-user-minus" style="color:rgb(255, 255, 255);"></i>
+                    <button class="bg-gray-500 text-white px-3 py-2 rounded" onclick="openDeleteModal(${material.id_equipos}, '${encodeURIComponent(material.descripcion_equipos)}')">
+                        <i class="fa-solid fa-trash" style="color:rgb(255, 255, 255);"></i>
                     </button>
 
                 </td>

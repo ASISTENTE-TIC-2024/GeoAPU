@@ -1,5 +1,8 @@
+import dotenv from 'dotenv';
 import passport from 'passport';
 import { Strategy as OpenIDConnectStrategy } from 'passport-openidconnect';
+
+dotenv.config();
 
 const requiredEnvVars = ['DOMAIN', 'AUTH_URL', 'TOKEN_URL', 'USER_INFO_URL', 'CLIENT_ID', 'CLIENT_SECRET', 'CALLBACK_URL'];
 

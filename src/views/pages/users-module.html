@@ -12,6 +12,7 @@
 </head>
 
 <body style="font-family: 'Museo Sans Rounded', sans-serif" class="bg-gradient-to-tr from-gray-100 to-gray-50">
+
     <div class="h-full w-full">
         <nav role="navigation" class="bg-white shadow xl:block hidden fixed w-full z-50" id="navegador-principal">
             <div class="mx-auto container px-6 py-2 xl:py-0">
@@ -488,6 +489,7 @@
                                 </a>
                             </div>
                         </th>
+
                         <th class="py-2 border-b border-r text-center" onclick="sortTable(3)">
                             <div class="flex items-center justify-center text-gray-50">
                                 CORREO
@@ -501,6 +503,7 @@
                                 </a>
                             </div>
                         </th>
+
                         <th class="py-2 border-b border-r text-center" onclick="sortTable(4)">
                             <div class="flex items-center justify-center text-gray-50">
                                 CONTRASEÑA
@@ -522,11 +525,13 @@
                                 </a>
                             </div>
                         </th>
+
                         <th class="py-2 border-b border-r text-center" onclick="sortTable(6)">
                             <div class="flex items-center justify-center text-gray-50">
                                 ACCIONES
                             </div>
                         </th>
+
                     </tr>
                 </thead>
                 <tbody id="data-table"></tbody>
@@ -535,10 +540,13 @@
     </div>
 
     <!-- Modal para agregar usuario -->
+
     <div id="addModal"
         class="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 hidden z-50 overflow-auto">
         <div class="bg-white p-6 rounded-lg w-[40em] m-auto relative">
+
             <h2 class="text-xl mb-4">Agregar Usuario</h2>
+
             <form id="addForm" action="/addUser" method="post" enctype="multipart/form-data">
                 <div class="mb-4">
                     <div class="mb-4 flex flex-col items-center">

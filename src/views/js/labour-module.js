@@ -13,17 +13,21 @@ async function fetchData() {
         dataTable.innerHTML = ''; // Limpiar la tabla antes de agregar nuevos datos
         data.forEach((empleado) => {
             const row = document.createElement('tr');
+            row.style.height = '50px'; // Ajusta la altura de la fila según sea necesario
             row.innerHTML = `
-                <td>${empleado.id_empleados}</td>
-                <td>${empleado.cargo_empleados}</td>
-                <td>${empleado.salario_base_empleados}</td>
-                <td class="flex align-center justify-center h-full w-full mb-2s">
-                    <button class="bg-gray-200 text-white px-2 py-1 rounded h-[4em] w-1/2 m-1" onclick="editEmpleado(${empleado.id_empleados}, '${encodeURIComponent(empleado.cargo_empleados)}', '${encodeURIComponent(empleado.salario_base_empleados)}')">
-                        <i class="fa-solid fa-pencil" style="color:rgb(51, 47, 47);"></i>
+                <td class="py-2 border-b border-r text-center">${empleado.id_empleados}</td>
+                <td class="py-2 border-b border-r text-center">${empleado.cargo_empleados}</td>
+                <td class="py-2 border-b border-r text-center">${empleado.salario_base_empleados}</td>
+                <td class="flex items-center justify-center h-full w-full mb-2" style="text-align: center; height: inherit;">
+
+                    <button class="bg-gray-500 text-white px-3 py-2 rounded mr-2" onclick="editEmpleado(${empleado.id_empleados}, '${encodeURIComponent(empleado.cargo_empleados)}', '${encodeURIComponent(empleado.salario_base_empleados)}')">
+                        <i class="fa-solid fa-pencil" style="color:rgb(255, 255, 255);"></i>
                     </button>
-                    <button class="bg-gray-200 text-white px-2 py-1 rounded h-[4em] w-1/2 m-1" onclick="openDeleteModal(${empleado.id_empleados}, '${encodeURIComponent(empleado.cargo_empleados)}')">
-                        <i class="fa-solid fa-trash" style="color:rgb(51, 47, 47);">
+
+                    <button class="bg-gray-500 text-white px-3 py-2 rounded" onclick="openDeleteModal(${empleado.id_empleados}, '${encodeURIComponent(empleado.cargo_empleados)}')">
+                        <i class="fa-solid fa-trash" style="color:rgb(255, 255, 255);"></i>
                     </button>
+
                 </td>
             `;
             dataTable.appendChild(row);
@@ -349,6 +353,7 @@ function searchTable() {
 }
 
 /* -------------------------------------------------------- MODULO DE GASTOS ------------------------------------------------------------------- */
+
 async function fetchDataGastos() {
     try {
 
@@ -357,34 +362,51 @@ async function fetchDataGastos() {
         const response = await fetch(url);
         const data = await response.json();
 
+        const url2 = `http://localhost:5000/selectEmpleadoData/`;
+
+        const response2 = await fetch(url2);
+        const data2 = await response2.json();
+
+
         // Aquí puedes actualizar tu tabla con los datos recibidos
         const dataTable = document.getElementById('data-table-gastos');
         dataTable.innerHTML = ''; // Limpiar la tabla antes de agregar nuevos datos
         data.forEach((gasto) => {
+
             const row = document.createElement('tr');
+            row.style.height = '100px'; // Ajusta la altura de la fila según sea necesario
+
+            const empleado = data2.find((empleado) => empleado.id_empleados === gasto.id_empleados);
+            const nombreEmpleado = empleado ? empleado.cargo_empleados : 'No encontrado';
+
             row.innerHTML = `
-                <td>${gasto.id_gastos}</td>
-                <td>${gasto.id_empleados}</td>
-                <td>${gasto.lugar_diario}</td>
-                <td>${gasto.hotel_diario}</td>
-                <td>${gasto.desayuno_diario}</td>
-                <td>${gasto.almuerzo_diario}</td>
-                <td>${gasto.cena_diario}</td>
-                <td>${gasto.lavanderia_diario}</td>
-                <td>${gasto.hidratacion_diario}</td>
-                <td>${gasto.hielo_diario}</td>
-                <td>${gasto.refrigerio_diario}</td>
-                <td>${gasto.salario_diario}</td>
-                <td>${gasto.carga_prestacional_diario}</td>
-                <td>${gasto.eepp_diario}</td>
-                <td class="flex align-center justify-center h-full w-full mb-2s">
-                    <button class="bg-gray-200 text-white px-2 py-1 rounded h-[4em] w-1/2 m-1" onclick="editGasto(${gasto.id_gastos}, '${encodeURIComponent(gasto.id_empleados)}', '${encodeURIComponent(gasto.lugar_diario)}', '${encodeURIComponent(gasto.hotel_diario)}', '${encodeURIComponent(gasto.desayuno_diario)}', '${encodeURIComponent(gasto.almuerzo_diario)}', '${encodeURIComponent(gasto.cena_diario)}', '${encodeURIComponent(gasto.lavanderia_diario)}', '${encodeURIComponent(gasto.hidratacion_diario)}', '${encodeURIComponent(gasto.hielo_diario)}', '${encodeURIComponent(gasto.refrigerio_diario)}', '${encodeURIComponent(gasto.salario_diario)}', '${encodeURIComponent(gasto.carga_prestacional_diario)}', '${encodeURIComponent(gasto.eepp_diario)}')">
-                        <i class="fa-solid fa-pencil" style="color:rgb(51, 47, 47);"></i>
-                        
+                <td class="py-2 border-b border-r text-center">${gasto.id_gastos}</td>
+
+                <td class="py-2 border-b border-r text-center">${nombreEmpleado}</td>
+                
+                <td class="py-2 border-b border-r text-center">${gasto.lugar_diario}</td>
+                <td class="py-2 border-b border-r text-center">$${parseFloat(gasto.hotel_diario).toLocaleString('es-CO')}</td>
+                <td class="py-2 border-b border-r text-center">$${parseFloat(gasto.desayuno_diario).toLocaleString('es-CO')}</td>
+                <td class="py-2 border-b border-r text-center">$${parseFloat(gasto.almuerzo_diario).toLocaleString('es-CO')}</td>
+                <td class="py-2 border-b border-r text-center">$${parseFloat(gasto.cena_diario).toLocaleString('es-CO')}</td>
+                <td class="py-2 border-b border-r text-center">$${parseFloat(gasto.lavanderia_diario).toLocaleString('es-CO')}</td>
+                <td class="py-2 border-b border-r text-center">$${parseFloat(gasto.hidratacion_diario).toLocaleString('es-CO')}</td>
+                <td class="py-2 border-b border-r text-center">$${parseFloat(gasto.hielo_diario).toLocaleString('es-CO')}</td>
+                <td class="py-2 border-b border-r text-center">$${parseFloat(gasto.refrigerio_diario).toLocaleString('es-CO')}</td>
+                <td class="py-2 border-b border-r text-center">$${parseFloat(gasto.salario_diario).toLocaleString('es-CO')}</td>
+                <td class="py-2 border-b border-r text-center">$${parseFloat(gasto.carga_prestacional_diario).toLocaleString('es-CO')}</td>
+                <td class="py-2 border-b border-r text-center">$${parseFloat(gasto.eepp_diario).toLocaleString('es-CO')}</td>
+
+                <td class="flex items-center justify-center h-full w-full mb-2" style="text-align: center; height: inherit;">
+
+                    <button class="bg-gray-500 text-white px-3 py-2 rounded mr-2" onclick="editGasto(${gasto.id_gastos}, '${encodeURIComponent(gasto.id_empleados)}', '${encodeURIComponent(gasto.lugar_diario)}', '${encodeURIComponent(gasto.hotel_diario)}', '${encodeURIComponent(gasto.desayuno_diario)}', '${encodeURIComponent(gasto.almuerzo_diario)}', '${encodeURIComponent(gasto.cena_diario)}', '${encodeURIComponent(gasto.lavanderia_diario)}', '${encodeURIComponent(gasto.hidratacion_diario)}', '${encodeURIComponent(gasto.hielo_diario)}', '${encodeURIComponent(gasto.refrigerio_diario)}', '${encodeURIComponent(gasto.salario_diario)}', '${encodeURIComponent(gasto.carga_prestacional_diario)}', '${encodeURIComponent(gasto.eepp_diario)}')">
+                        <i class="fa-solid fa-pencil" style="color:rgb(255, 255, 255);"></i>
                     </button>
-                    <button class="bg-gray-200 text-white px-2 py-1 rounded h-[4em] w-1/2 m-1" onclick="openDeleteModalGastos(${gasto.id_gastos}, '${encodeURIComponent(gasto.id_empleados)}')">
-                        <i class="fa-solid fa-trash" style="color:rgb(51, 47, 47);">
+
+                    <button class="bg-gray-500 text-white px-3 py-2 rounded" onclick="openDeleteModalGastos(${gasto.id_gastos}, '${encodeURIComponent(gasto.id_empleados)}')">
+                        <i class="fa-solid fa-trash" style="color:rgb(255, 255, 255);"></i>
                     </button>
+
                 </td>
             `;
             dataTable.appendChild(row);

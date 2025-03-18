@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', fetchData)
 async function fetchData() {
     try {
 
-        const url = `${window.location.origin}/selectMaterialData`
+        const url = `http://localhost:5000/selectMaterialData`
 
         const response = await fetch(url)
 
@@ -14,33 +14,33 @@ async function fetchData() {
         dataTable.innerHTML = '' // Limpiar la tabla antes de agregar nuevos datos
         data.forEach((material) => {
             const row = document.createElement('tr')
+            row.style.height = '100px'; // Ajusta la altura de la fila según sea necesario
             row.innerHTML = `
-                <td>${material.id_materiales}</td>
-                <td>
-                    <img class="rounded-full h-10 w-10 cursor-pointer transition-transform duration-300" src="${material.foto_materiales}" alt="Foto de perfil" onclick="enlargeImage(this)">
-                </td>
-                <td>${material.descripcion_materiales}</td>
-                <td>${material.tipo_moneda_materiales}</td>
-                <td>${material.unidad_medida_materiales}</td>
-                <td>${material.valor_unitario_materiales}</td>
-                <td>${material.fabricacion_materiales}</td>
-                <td>${material.margen_materiales}</td>
-                <td>%</td>
-                <td>${material.costo_unitario_materiales}</td>
-                <td>${material.dimension_materiales}</td>
-                <td>${material.unidad_materiales}</td>
-                <td>${material.precio_producto_materiales}</td>
-                <td>${material.proveedor_materiales}</td>
-                <td class="flex align-center justify-center h-full w-full mb-2s">
+                <td class="py-2 border-b border-r text-center">${material.id_materiales}</td>
 
-                    <button class="bg-gray-700 text-white px-2 py-1 rounded h-[4em] w-1/2 m-1" onclick="editMaterial(${material.id_materiales}, '${material.foto_materiales}', '${encodeURIComponent(material.descripcion_materiales)}', '${encodeURIComponent(material.tipo_moneda_materiales)}', '${encodeURIComponent(material.unidad_medida_materiales)}', ${material.valor_unitario_materiales}, '${encodeURIComponent(material.fabricacion_materiales)}', ${material.margen_materiales}, ${material.costo_unitario_materiales}, ${material.dimension_materiales}, '${encodeURIComponent(material.unidad_materiales)}', ${material.precio_producto_materiales}, '${encodeURIComponent(material.proveedor_materiales)}')">
+                <td class="py-2 border-b border-r text-center">
+                    <img class="rounded-full h-10 w-10 mx-auto cursor-pointer transition-transform duration-300" src="${material.foto_materiales}" alt="Foto de perfil" onclick="enlargeImage(this)">
+                </td>
+
+                <td class="py-2 border-b border-r text-center">${material.descripcion_materiales}</td>
+                <td class="py-2 border-b border-r text-center">${material.tipo_moneda_materiales}</td>
+                <td class="py-2 border-b border-r text-center">${material.unidad_medida_materiales}</td>
+                <td class="py-2 border-b border-r text-center">${material.valor_unitario_materiales}</td>
+                <td class="py-2 border-b border-r text-center">${material.fabricacion_materiales}</td>
+                <td class="py-2 border-b border-r text-center">${material.margen_materiales}</td>
+                <td class="py-2 border-b border-r text-center">%</td>
+                <td class="py-2 border-b border-r text-center">${material.costo_unitario_materiales}</td>
+                <td class="py-2 border-b border-r text-center">${material.dimension_materiales}</td>
+                <td class="py-2 border-b border-r text-center">${material.unidad_materiales}</td>
+                <td class="py-2 border-b border-r text-center">${material.precio_producto_materiales}</td>
+                <td class="py-2 border-b border-r text-center">${material.proveedor_materiales}</td>
+                <td class="flex items-center justify-center h-full w-full mb-2" style="text-align: center; height: inherit;">
+                    <button class="bg-gray-500 text-white px-3 py-2 rounded mr-2" onclick="editMaterial(${material.id_materiales}, '${material.foto_materiales}', '${encodeURIComponent(material.descripcion_materiales)}', '${encodeURIComponent(material.tipo_moneda_materiales)}', '${encodeURIComponent(material.unidad_medida_materiales)}', ${material.valor_unitario_materiales}, '${encodeURIComponent(material.fabricacion_materiales)}', ${material.margen_materiales}, ${material.costo_unitario_materiales}, ${material.dimension_materiales}, '${encodeURIComponent(material.unidad_materiales)}', ${material.precio_producto_materiales}, '${encodeURIComponent(material.proveedor_materiales)}')">
                         <i class="fa-solid fa-pencil" style="color:rgb(255, 255, 255);"></i>
                     </button>
-
-                    <button class="bg-gray-700 text-white px-2 py-1 rounded h-[4em] w-1/2 m-1" onclick="openDeleteModal(${material.id_materiales}, '${encodeURIComponent(material.descripcion_materiales)}')">
-                        <i class="fa-solid fa-user-minus" style="color:rgb(255, 255, 255);"></i>
+                    <button class="bg-gray-500 text-white px-3 py-2 rounded" onclick="openDeleteModal(${material.id_materiales}, '${encodeURIComponent(material.descripcion_materiales)}')">
+                        <i class="fa-solid fa-trash" style="color:rgb(255, 255, 255);"></i>
                     </button>
-
                 </td>
             `;
             dataTable.appendChild(row)
@@ -113,7 +113,7 @@ document
 
         try {
 
-            const url = `${window.location.origin}/addMaterial`
+            const url = `http://localhost:5000/addMaterial`
 
             const response = await fetch(url, {
                 method: 'POST',
@@ -180,7 +180,7 @@ async function confirmDelete() {
     try {
         console.log("Material a eliminar: " + materialIdToDelete);
 
-        const url = `${window.location.origin}/deleteMaterial/${materialIdToDelete}`
+        const url = `http://localhost:5000/deleteMaterial/${materialIdToDelete}`
 
         const response = await fetch(url, {
             method: 'DELETE',
@@ -249,7 +249,7 @@ document
 
         try {
 
-            const url = `${window.location.origin}/updateMaterial/${id_materiales}`
+            const url = `http://localhost:5000/updateMaterial/${id_materiales}`
 
             const response = await fetch(
                 url,

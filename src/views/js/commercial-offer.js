@@ -91,6 +91,7 @@ function mostrarInformacionProyecto() {
 
     const informacionProyecto =
         JSON.parse(localStorage.getItem('informacionProyecto')) || []
+
     const dataContainer = document.getElementById('dataContainer')
 
     // Limpiar el contenedor antes de agregar nuevos datos

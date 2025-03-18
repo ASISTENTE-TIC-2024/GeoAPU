@@ -51,7 +51,7 @@ const secretKey = process.env.SECRET_KEY;
 let __nombreDirec = path.dirname(__filename);
 
 const storage = multer.diskStorage({
-    destination: path.join(__nombreDirec, './images'),
+    destination: path.join(__nombreDirec, './views/images'),
     filename: function (_, file, cb) {
         cb(
             null,
@@ -207,6 +207,7 @@ app.post('/addUser', multer({ storage }).single('foto_usuario'), (req, res) => {
 
     const { nombre_usuario, correo_usuario, contrasena_usuario, rol_usuario } =
         req.body;
+
     const ruta_foto_usuario = `../../images/${req.file.filename}`;
 
     // Hash the password before storing it in the database
