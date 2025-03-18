@@ -303,10 +303,10 @@ function showConfirmationModal() {
         });
 }
 
-
 /* ---------------------------------------------------------------- ORDENAR TABLA EMPLEADOS ----------------------------------------------------------------------------- */
 
 function sortTable(column) {
+
     const table = document.getElementById('data-table');
     const rows = Array.from(table.getElementsByTagName('tr'));
     const isAscending = table.getAttribute('data-sort-order') === 'asc';
@@ -326,6 +326,7 @@ function sortTable(column) {
     });
 
     rows.forEach((row) => table.appendChild(row));
+
 }
 
 function searchTable() {
@@ -642,7 +643,7 @@ document.getElementById('editGastoForm').addEventListener('submit', async functi
     const refrigerio_diario = document.querySelector('#editGastoRefrigerio').value.trim();
     const salario_diario = document.querySelector('#editGastoSalario').value.trim();
     const carga_prestacional_diario = document.querySelector('#editGastoCarga').value.trim();
-    const eepp_diario = document.querySelector('#editGastoEepp').value.trim();
+    const eepp_diario = document.querySelector('#editGastoEPP').value.trim();
 
     const updatedGasto = {
         id_empleados,
@@ -747,11 +748,19 @@ async function editGasto(
     document.getElementById('editGastoSalario').value =
         decodeURIComponent(salario_diario);
 
-    document.getElementById('editGastoCarga').value =
-        decodeURIComponent(carga_prestacional_diario);
+    const editGastoCargaElement = document.getElementById('editGastoCarga');
+    if (editGastoCargaElement) {
+        editGastoCargaElement.value = decodeURIComponent(carga_prestacional_diario);
+    } else {
+        console.error('Element with ID "editGastoCarga" not found.');
+    }
 
-    document.getElementById('editGastoEepp').value =
-        decodeURIComponent(eepp_diario);
+    const editGastoEeppElement = document.getElementById('editGastoEPP');
+    if (editGastoEeppElement) {
+        editGastoEeppElement.value = decodeURIComponent(eepp_diario);
+    } else {
+        console.error('Element with ID "editGastoEepp" not found.');
+    }
 
     document.getElementById('editModalGastos').classList.remove('hidden');
 }
