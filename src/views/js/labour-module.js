@@ -17,7 +17,7 @@ async function fetchData() {
             row.innerHTML = `
                 <td class="py-2 border-b border-r text-center">${empleado.id_empleados}</td>
                 <td class="py-2 border-b border-r text-center">${empleado.cargo_empleados}</td>
-                <td class="py-2 border-b border-r text-center">${empleado.salario_base_empleados}</td>
+                <td class="py-2 border-b border-r text-center">$${parseFloat(empleado.salario_base_empleados).toLocaleString('es-CO')}</td>
                 <td class="flex items-center justify-center h-full w-full mb-2" style="text-align: center; height: inherit;">
 
                     <button class="bg-gray-500 text-white px-3 py-2 rounded mr-2" onclick="editEmpleado(${empleado.id_empleados}, '${encodeURIComponent(empleado.cargo_empleados)}', '${encodeURIComponent(empleado.salario_base_empleados)}')">
@@ -118,6 +118,8 @@ document
         const salario_base_empleados = document
             .getElementById('addEmpleadoSalario')
             .value.trim();
+
+        salario_base_empleados.value = salario_base_empleados.value.replace(/\D/g, '');
 
         console.log(
             'cargo_empleado:', cargo_empleados, 'salario_base_empleado:', salario_base_empleados,
@@ -334,7 +336,7 @@ function searchTable() {
     let input, filter, table, tr, td, i, j, txtValue;
     input = document.getElementById("searchInput");
     filter = input.value.toUpperCase();
-    table = document.querySelector("table");
+    table = document.getElementById("listingTable");
     tr = table.getElementsByTagName("tr");
 
     for (i = 1; i < tr.length; i++) {
@@ -620,6 +622,7 @@ async function confirmDeleteGastos() {
         fetchDataGastos();
 
     } catch (error) {
+        alert('Debe eliminar al empleado primero antes de eliminar el gasto.');
         console.error('Error eliminando el gasto: ', error);
     }
 }
@@ -782,7 +785,8 @@ function showConfirmationModalGastos() {
 /* ---------------------------------------------------------------- ORDENAR TABLA GASTOS ----------------------------------------------------------------------------- */
 
 function sortTableGastos(column) {
-    const table = document.querySelector('tbody');
+
+    const table = document.getElementById('data-table-gastos');
     const rows = Array.from(table.getElementsByTagName('tr'));
     const isAscending = table.getAttribute('data-sort-order') === 'asc';
     table.setAttribute('data-sort-order', isAscending ? 'desc' : 'asc');
@@ -808,7 +812,7 @@ function searchTableGastos() {
     let input, filter, table, tr, td, i, j, txtValue;
     input = document.getElementById("searchInputGastos");
     filter = input.value.toUpperCase();
-    table = document.querySelector("table");
+    table = document.getElementById("listingTableGastos");
     tr = table.getElementsByTagName("tr");
 
     for (i = 1; i < tr.length; i++) {
@@ -838,10 +842,9 @@ function closeModal() {
 
 function formatCurrency(input) {
     let value = input.value.replace(/\D/g, '');
-    value = (value / 100).toFixed(2);
-    value = value.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-    input.value = '$ ' + value;
+    input.value = new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP', minimumFractionDigits: 2 }).format(value / 100).replace(/\./g, '#').replace(/,/g, '.').replace(/#/g, ',');
 }
+
 
 // Llamar a la función fetchData cuando el DOM esté completamente cargado
 
