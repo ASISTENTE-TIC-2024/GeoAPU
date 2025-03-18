@@ -97,12 +97,13 @@ app.post('/login', (req, res) => {
                             </script>`);
 
                         } else {
-                            res.send(`<script>alert('Credenciales incorrectas!'); window.location.href = '/views/index.html';</script>`);
+                            res.send(`<script>alert('Credenciales incorrectas!'); window.location.href = '/index.html';</script>`);
                         }
                     },
                 );
             } else {
-                res.status(401).json({ message: 'Credenciales incorrectas!' });
+                res.send(`<script>alert('Credenciales incorrectas!'); window.location.href = '/index.html';</script>`);
+
             }
         },
     );
