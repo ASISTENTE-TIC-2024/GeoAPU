@@ -27,7 +27,7 @@ async function fetchData() {
                 <td class="py-2 border-b border-r text-center">${material.descripcion_equipos}</td>
                 <td class="py-2 border-b border-r text-center">${material.marca_equipos}</td>
                 <td class="py-2 border-b border-r text-center">${material.tipo_equipos}</td>
-                <td class="py-2 border-b border-r text-center">${material.tarifa_dia_equipos}</td>
+                <td class="py-2 border-b border-r text-center">${new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP' }).format(material.tarifa_dia_equipos)}</td>
 
                 <td class="flex items-center justify-center h-full w-full mb-2" style="text-align: center; height: inherit;">
 
@@ -353,6 +353,30 @@ function sortTable(column) {
 function closeModal() {
     document.getElementById('editModal').classList.add('hidden');
     document.getElementById('addModal').classList.add('hidden');
+}
+
+function searchTable() {
+
+    let input, filter, table, tr, td, i, j, txtValue;
+    input = document.getElementById("searchInput");
+    filter = input.value.toUpperCase();
+    table = document.getElementById("listingTable");
+    tr = table.getElementsByTagName("tr");
+
+    for (i = 1; i < tr.length; i++) {
+        tr[i].style.display = "none";
+        td = tr[i].getElementsByTagName("td");
+        for (j = 0; j < td.length; j++) {
+            if (td[j]) {
+                txtValue = td[j].textContent || td[j].innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                    break;
+                }
+            }
+        }
+    }
+
 }
 
 // Llamar a la función fetchData cuando el DOM esté completamente cargado

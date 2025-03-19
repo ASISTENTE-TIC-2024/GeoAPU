@@ -8,7 +8,7 @@ function guardarInformacionRotulos() {
     const cantidad_instalar = document.getElementById('cantidad-instalar').value === "Si" ? document.getElementById('cantidad-instalar-otro').value : document.getElementById('cantidad-instalar').value || "No se ingreso un rendimiento";
     const cantidad_dias = document.getElementById('cantidad-dias').value === "Si" ? document.getElementById('cantidad-dias-otro').value : document.getElementById('cantidad-dias').value || "No se ingresaron dias de trabajo";
     const trm = 'Si';
-    const distancia_movilizacion = document.getElementById('distancia-movilizacion').value === "Si" ? document.getElementById('distancia-movilizacion-otro').value : document.getElementById('distancia-movilizacion').value || "No se ingreso un rendimiento";
+    const distancia_movilizacion = document.getElementById('distancia-movilizacion').value === "Si" ? document.getElementById('distancia-movilizacion-otro').value : document.getElementById('distancia-movilizacion').value || "No se ingreso una distancia de movilización";
 
     // Obtener los datos existentes del Local Storage
     let informacionRotulos = JSON.parse(localStorage.getItem('informacionRotulos')) || [];
@@ -59,3 +59,30 @@ function guardarInformacionRotulos() {
     }
 
 }
+
+function updateMovilizacionValue(value) {
+
+    let ofertaComercial = JSON.parse(localStorage.getItem('ofertaComercial')) || [];
+
+    console.log(ofertaComercial);
+
+    let valorSinAiu = ofertaComercial[0].valor_sin_aiu;
+
+    console.log(valorSinAiu);
+
+    let movilizacionValue = (valorSinAiu * value) / 100;
+
+    console.log(movilizacionValue);
+
+    document.getElementById('movValue').innerText = movilizacionValue.toFixed(2);
+
+    console.log(document.getElementById('movValue').innerText);
+
+    document.getElementById('movValue').classList.remove('hidden');
+}
+
+function formatCurrency(input) {
+    let value = input.value.replace(/\D/g, '');
+    input.value = value + ' %';
+}
+

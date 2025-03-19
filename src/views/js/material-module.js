@@ -25,14 +25,14 @@ async function fetchData() {
                 <td class="py-2 border-b border-r text-center">${material.descripcion_materiales}</td>
                 <td class="py-2 border-b border-r text-center">${material.tipo_moneda_materiales}</td>
                 <td class="py-2 border-b border-r text-center">${material.unidad_medida_materiales}</td>
-                <td class="py-2 border-b border-r text-center">${material.valor_unitario_materiales}</td>
+                <td class="py-2 border-b border-r text-center">${new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP' }).format(material.valor_unitario_materiales)}</td>
                 <td class="py-2 border-b border-r text-center">${material.fabricacion_materiales}</td>
-                <td class="py-2 border-b border-r text-center">${material.margen_materiales}</td>
+                <td class="py-2 border-b border-r text-center">${new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP' }).format(material.margen_materiales)}</td>
                 <td class="py-2 border-b border-r text-center">%</td>
-                <td class="py-2 border-b border-r text-center">${material.costo_unitario_materiales}</td>
+                <td class="py-2 border-b border-r text-center">${new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP' }).format(material.costo_unitario_materiales)}</td>
                 <td class="py-2 border-b border-r text-center">${material.dimension_materiales}</td>
                 <td class="py-2 border-b border-r text-center">${material.unidad_materiales}</td>
-                <td class="py-2 border-b border-r text-center">${material.precio_producto_materiales}</td>
+                <td class="py-2 border-b border-r text-center">${new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP' }).format(material.precio_producto_materiales)}</td>
                 <td class="py-2 border-b border-r text-center">${material.proveedor_materiales}</td>
                 <td class="flex items-center justify-center h-full w-full mb-2" style="text-align: center; height: inherit;">
                     <button class="bg-gray-500 text-white px-3 py-2 rounded mr-2" onclick="editMaterial(${material.id_materiales}, '${material.foto_materiales}', '${encodeURIComponent(material.descripcion_materiales)}', '${encodeURIComponent(material.tipo_moneda_materiales)}', '${encodeURIComponent(material.unidad_medida_materiales)}', ${material.valor_unitario_materiales}, '${encodeURIComponent(material.fabricacion_materiales)}', ${material.margen_materiales}, ${material.costo_unitario_materiales}, ${material.dimension_materiales}, '${encodeURIComponent(material.unidad_materiales)}', ${material.precio_producto_materiales}, '${encodeURIComponent(material.proveedor_materiales)}')">
@@ -363,6 +363,30 @@ function sortTable(column) {
 function closeModal() {
     document.getElementById('editModal').classList.add('hidden')
     document.getElementById('addModal').classList.add('hidden')
+}
+
+function searchTable() {
+
+    let input, filter, table, tr, td, i, j, txtValue;
+    input = document.getElementById("searchInput");
+    filter = input.value.toUpperCase();
+    table = document.getElementById("listingTable");
+    tr = table.getElementsByTagName("tr");
+
+    for (i = 1; i < tr.length; i++) {
+        tr[i].style.display = "none";
+        td = tr[i].getElementsByTagName("td");
+        for (j = 0; j < td.length; j++) {
+            if (td[j]) {
+                txtValue = td[j].textContent || td[j].innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                    break;
+                }
+            }
+        }
+    }
+
 }
 
 // Llamar a la función fetchData cuando el DOM esté completamente cargado
