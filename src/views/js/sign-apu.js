@@ -70,9 +70,14 @@ function updateMovilizacionValue(value) {
 
     console.log(valorSinAiu);
 
+    console.log(value);
+
+    value = value.replace(' %', '');
+
     let movilizacionValue = (valorSinAiu * value) / 100;
 
     console.log(movilizacionValue);
+
 
     document.getElementById('movValue').innerText = movilizacionValue.toFixed(2);
 
@@ -84,5 +89,6 @@ function updateMovilizacionValue(value) {
 function formatCurrency(input) {
     let value = input.value.replace(/\D/g, '');
     input.value = value + ' %';
+    input.setSelectionRange(value.length, value.length);
 }
 

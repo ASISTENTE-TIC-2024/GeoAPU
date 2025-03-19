@@ -1,4 +1,5 @@
 const textarea = document.getElementById('descripcion-actividad')
+
 textarea.addEventListener('input', function () {
     this.style.height = 'auto'
     this.style.height = this.scrollHeight + 'px'
@@ -7,7 +8,9 @@ textarea.addEventListener('input', function () {
 document
     .getElementById('cantidad-instalar')
     .addEventListener('change', function () {
+
         let otraOpcionText = document.getElementById('cantidad-instalar-otro')
+
         if (this.value === 'Si') {
             otraOpcionText.style.display = 'block'
         } else {
@@ -45,6 +48,7 @@ document
             distancia_movilizacion_number.style.display = 'none'
             movValue.style.display = 'none'
         }
+
     })
 
 function toggleMovilizacionContainer() {
