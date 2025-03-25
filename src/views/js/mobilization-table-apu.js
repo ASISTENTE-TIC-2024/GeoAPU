@@ -650,21 +650,24 @@ function valoresOfertaComercial() {
         console.log(informacionRotulos);
         console.log(informacionTotales);
 
-        let ofertaComercial =
-            JSON.parse(localStorage.getItem('ofertaComercial')) || []
+        let ofertaComercialMov =
+            JSON.parse(localStorage.getItem('ofertaComercialMov')) || []
 
-        ofertaComercial.push({
+        ofertaComercialMov.push({
             capitulo: informacionRotulos[0].capitulo,
             descripcion: informacionRotulos[0].descripcion_actividad,
+            item_pago: 1,
+            rendimiento: parseFloat(informacionRotulos[0].rendimiento),
             unidad: informacionRotulos[0].unidad,
-            cantidad_instalar: informacionRotulos[0].cantidad_instalar,
-            valor_sin_aiu: informacionTotales[0].totalGeneralMov,
-            valor_aiu: informacionTotales[0].totalGlobalMov,
+            cantidad_instalar: parseFloat(informacionRotulos[0].cantidad_instalar),
+            trm: parseFloat(localStorage.getItem('trmValue')),
+            valor_sin_aiu: parseFloat(informacionTotales[0].totalGeneralMov),
+            valor_aiu: parseFloat(informacionTotales[0].totalGlobalMov),
         })
 
-        console.log(ofertaComercial);
+        console.log(ofertaComercialMov);
 
-        localStorage.setItem('ofertaComercial', JSON.stringify(ofertaComercial))
+        localStorage.setItem('ofertaComercialMov', JSON.stringify(ofertaComercialMov))
 
         window.location.href =
             '../pages/commercial-offer.html';

@@ -405,7 +405,36 @@
             objetivos.
         </p>
 
-        <div id="dataContainer" class="ml-[4em] mt-10 text-center text-justify "></div>
+        <div id="dataContainer" class="ml-[4em] mt-10 text-center text-justify"></div>
+
+        <div id="movValueContainer" class="ml-[4em] mt-5 mb-5 text-center text-justify no-print">El valor por
+            movilización sin
+            AIU
+            corresponde a: <p id="movValue"></p>
+
+            <br>
+
+            <div id="buttonsMovContainer" class="flex justify-start flex-wrap">
+                <button id="btnMovView"
+                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full m-2"
+                    onclick="movView()">
+                    Ver APU Movilización
+                </button>
+                <button id="btnMovEdit"
+                    class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded-full m-2"
+                    onclick="movEdit()">
+                    Editar APU Movilización
+                </button>
+                <button id="btnMovDelete"
+                    class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full m-2"
+                    onclick="deleteMovItem()">
+                    Eliminar APU Movilización
+                </button>
+            </div>
+
+        </div>
+
+
     </div>
 
     <div class="table-container mx-10 overflow-x-auto" style="position: relative; top: 100px">
@@ -582,27 +611,25 @@
         </footer>
 
 
-        <div id="buttons-container" class="w-full flex flex-col align-center justify-center relative  p-20 space-y-10">
-            <div class="flex flex-row justify-between space-x-4">
-                <button
-                    class="focus:ring-2 focus:ring-offset-2 focus:ring-red-700 focus:text-gray-50 focus:outline-none bg-red-700 border-red-300 border transition duration-150 ease-in-out hover:bg-red-300 rounded-full text-gray-50 px-20 py-4 text-lg w-full mx-2 no-print"
-                    onclick="cancelOffer()">
-                    CANCELAR OFERTA COMERCIAL
-                </button>
+        <div id="buttons-container"
+            class="w-full flex flex-col md:flex-row justify-center space-y-4 lg:space-y-0 lg:space-x-4 p-20 no-print">
+            <button
+                class="focus:ring-2 focus:ring-offset-2 focus:ring-red-700 focus:text-gray-50 focus:outline-none bg-red-700 border-red-300 border transition duration-150 ease-in-out hover:bg-red-300 rounded-full text-gray-50 px-20 py-4 text-lg"
+                onclick="cancelOffer()">
+                CANCELAR OFERTA COMERCIAL
+            </button>
 
-                <button
-                    class="focus:ring-2 focus:ring-offset-2 focus:ring-green-700 focus:text-gray-50 focus:outline-none bg-green-700 border-green-300 border transition duration-150 ease-in-out hover:bg-green-300 rounded-full text-gray-50 px-20 py-4 text-lg w-full mx-2 no-print"
-                    onclick="printPage()">
-                    GENERAR OFERTA COMERCIAL
-                </button>
+            <button
+                class="focus:ring-2 focus:ring-offset-2 focus:ring-green-700 focus:text-gray-50 focus:outline-none bg-green-700 border-green-300 border transition duration-150 ease-in-out hover:bg-green-300 rounded-full text-gray-50 px-20 py-4 text-lg"
+                onclick="printPage()">
+                GENERAR OFERTA COMERCIAL
+            </button>
 
-                <button
-                    class="focus:ring-2 focus:ring-offset-2 focus:ring-blue-700 focus:text-gray-50 focus:outline-none bg-blue-700 border-blue-300 border transition duration-150 ease-in-out hover:bg-blue-300 rounded-full text-gray-50 px-20 py-4 text-lg w-full mx-2 no-print"
-                    onclick="window.location.href='./sign-apu.html'">
-                    CREAR UNA NUEVA APU
-                </button>
-            </div>
-
+            <button
+                class="focus:ring-2 focus:ring-offset-2 focus:ring-blue-700 focus:text-gray-50 focus:outline-none bg-blue-700 border-blue-300 border transition duration-150 ease-in-out hover:bg-blue-300 rounded-full text-gray-50 px-20 py-4 text-lg"
+                onclick="window.location.href='./sign-apu.html'">
+                CREAR UNA NUEVA APU
+            </button>
         </div>
 
 

@@ -494,23 +494,9 @@
                         </div>
                     </div>
 
-                    <div class="w-full my-2 flex flex-row">
-                        <div class="instalar-container w-[50%]">
-                            <label for="cantidad-instalar">¿Tiene cantidad a instalar?</label>
-                            <select id="cantidad-instalar" name="cantidad-instalar"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
-                                <option value="">
-                                    Selecciona una opción
-                                </option>
-                                <option value="Si">Si</option>
-                                <option value="No">No</option>
-                            </select>
+                    <div class="w-full my-2">
 
-                            <input placeholder="Ingrese la cantidad a instalar" type="text" id="cantidad-instalar-otro"
-                                class="mt-2 hidden bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" />
-                        </div>
-
-                        <div class="dias-container w-[50%]">
+                        <div class="dias-container">
                             <label for="cantidad-dias">¿Tiene cantidad de dias?</label>
                             <select id="cantidad-dias" name="cantidad-dias"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
@@ -525,7 +511,23 @@
                                 class="mt-2 hidden border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" />
                         </div>
 
+                    </div>
 
+                    <div class="cantidad_instalar_container my-2">
+                        <div class="instalar-container">
+                            <label for="cantidad-instalar">¿Tiene cantidad a instalar?</label>
+                            <select id="cantidad-instalar" name="cantidad-instalar"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                                <option value="">
+                                    Selecciona una opción
+                                </option>
+                                <option value="Si">Si</option>
+                                <option value="No">No</option>
+                            </select>
+
+                            <input placeholder="Ingrese la cantidad a instalar" type="text" id="cantidad-instalar-otro"
+                                class="mt-2 hidden bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" />
+                        </div>
                     </div>
 
                     <div class="movilizacion-container my-2">
@@ -542,6 +544,8 @@
                             class="hidden mt-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                             min="1" max="100"
                             oninput="updateMovilizacionValue(this.value); formatCurrency(this); if (this.value > 100) this.value = '100 %';">
+
+                        <br>
 
                         <p id="movValue" class="hidden">$ 0</p>
 

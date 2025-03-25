@@ -5,7 +5,7 @@ function guardarInformacionRotulos() {
     const item_pago = 1;
     const unidad = document.getElementById('unidad').value || "No se ingreso una unidad de medida";
     const rendimiento = parseFloat(document.getElementById('rendimiento').value).toFixed(2) || "No se ingreso un rendimiento";
-    const cantidad_instalar = document.getElementById('cantidad-instalar').value === "Si" ? document.getElementById('cantidad-instalar-otro').value : document.getElementById('cantidad-instalar').value || "No se ingreso un rendimiento";
+    const cantidad_instalar = document.getElementById('cantidad-instalar').value === "Si" ? document.getElementById('cantidad-instalar-otro').value : document.getElementById('cantidad-instalar').value || "No se ingreso una cantidad a instalar";
     const cantidad_dias = document.getElementById('cantidad-dias').value === "Si" ? document.getElementById('cantidad-dias-otro').value : document.getElementById('cantidad-dias').value || "No se ingresaron dias de trabajo";
     const trm = 'Si';
     const distancia_movilizacion = document.getElementById('distancia-movilizacion').value === "Si" ? document.getElementById('distancia-movilizacion-otro').value : document.getElementById('distancia-movilizacion').value || "No se ingreso una distancia de movilización";
@@ -62,11 +62,11 @@ function guardarInformacionRotulos() {
 
 function updateMovilizacionValue(value) {
 
-    let ofertaComercial = JSON.parse(localStorage.getItem('ofertaComercial')) || [];
+    let ofertaComercialMov = JSON.parse(localStorage.getItem('ofertaComercialMov')) || [];
 
-    console.log(ofertaComercial);
+    console.log(ofertaComercialMov);
 
-    let valorSinAiu = ofertaComercial[0].valor_sin_aiu;
+    let valorSinAiu = ofertaComercialMov[0].valor_sin_aiu;
 
     console.log(valorSinAiu);
 
@@ -78,8 +78,7 @@ function updateMovilizacionValue(value) {
 
     console.log(movilizacionValue);
 
-
-    document.getElementById('movValue').innerText = movilizacionValue.toFixed(2);
+    document.getElementById('movValue').innerText = "Esta destinando para esta APU: " + movilizacionValue.toLocaleString('es-CO', { style: 'currency', currency: 'COP' }) + " de movilizacion de un total " + valorSinAiu.toLocaleString('es-CO', { style: 'currency', currency: 'COP' });
 
     console.log(document.getElementById('movValue').innerText);
 

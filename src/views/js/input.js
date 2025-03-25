@@ -52,11 +52,16 @@ document
     })
 
 function toggleMovilizacionContainer() {
+
     const capituloSelect = document.getElementById('capitulo');
     const movilizacionContainer = document.querySelector('.movilizacion-container');
+    const cantidad_instalar_container = document.querySelector('.cantidad_instalar_container')
+
     if (capituloSelect.value === 'Movilización') {
         movilizacionContainer.style.display = 'none';
+        cantidad_instalar_container.style.display = 'none';
     } else {
         movilizacionContainer.style.display = 'block';
+        cantidad_instalar_container.style.display = 'block';
     }
 }

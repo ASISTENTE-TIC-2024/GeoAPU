@@ -7,7 +7,7 @@ function checkAuth() {
         return;
     }
 
-    const url = `${window.location.origin}/verify-token/`;
+    const url = `http://localhost:5000/verify-token/`;
 
     // Opcional: Verificar la validez del token con el servidor
     fetch(url, {

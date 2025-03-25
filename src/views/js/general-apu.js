@@ -125,7 +125,7 @@ function displayDataAPU() {
         cantidad_materiales.value = `${(3 / firstData.rendimiento).toFixed(4)}`;
 
         cantidad_instalar.innerHTML = `${firstData.cantidad_instalar}`;
-        distancia_movilizacion.innerHTML = `${firstData.distancia_movilizacion}%`;
+        distancia_movilizacion.innerHTML = `${firstData.distancia_movilizacion}`;
         cantidad_dias.innerHTML = `${firstData.cantidad_dias}`;
     }
 
@@ -210,14 +210,24 @@ function valorUnitarioMaterialesLocalStorage() {
 
 function precioUnitarioTransporte() {
 
-    let ofertaComercial =
-        JSON.parse(localStorage.getItem('ofertaComercial')) || []
+    let ofertaComercialMov =
+        JSON.parse(localStorage.getItem('ofertaComercialMov')) || []
+
+    console.log(ofertaComercialMov);
 
     let informacionRotulos = JSON.parse(localStorage.getItem('informacionRotulos')) || [];
 
+    console.log(informacionRotulos);
+
     const PRECIO_UNITARIO_TRANSPORTE = document.getElementById("PRECIO UNITARIO TRANSPORTE");
 
-    const valor = ofertaComercial.length > 0 ? ofertaComercial[0].valor_sin_aiu * informacionRotulos[0].distancia_movilizacion / 100 : 0;
+    console.log(PRECIO_UNITARIO_TRANSPORTE);
+
+    const distancia_movilizacion = parseFloat(informacionRotulos[0].distancia_movilizacion.replace(' %', ''));
+
+    const valor = ofertaComercialMov.length > 0 ? ofertaComercialMov[0].valor_sin_aiu * distancia_movilizacion / 100 : 0;
+
+    console.log(valor);
 
     PRECIO_UNITARIO_TRANSPORTE.value = `${valor.toFixed(2)}`;
 
@@ -242,6 +252,7 @@ rendimientoTransporteLocalStorage();
 function valorUnitarioTransporteLocalStorage() {
 
     const PRECIO_UNITARIO_TRANSPORTE = document.getElementById('PRECIO UNITARIO TRANSPORTE').value
+
     const RENDIMIENTO_TRANSPORTE = document.getElementById("RENDIMIENTO TRANSPORTE").value
 
     const VALOR_UNITARIO_TRANSPORTE = document.getElementById("VALOR UNITARIO TRANSPORTE")
