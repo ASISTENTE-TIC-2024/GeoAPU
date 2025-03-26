@@ -559,19 +559,22 @@
                         <label for="editEmpleadoCargo" class="block text-gray-700">Cargo:</label>
                         <input type="text" id="editEmpleadoCargo" class="w-full px-3 py-2 border rounded" />
 
-                        <label for="editEmpleadoSalario" class="block text-gray-700">Salario:</label>
+                        <label for="editEmpleadoSalario" class="block text-gray-700">Salario Base:</label>
                         <input type="number" id="editEmpleadoSalario" class="w-full px-3 py-2 border rounded" />
 
                     </div>
                     <div class="flex justify-end">
+
                         <button type="button" class="bg-gray-500 text-white px-4 py-2 rounded mr-2"
                             onclick="closeModal('editModalEmpleados')">
                             Cancelar
                         </button>
+
                         <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded"
                             onclick="showConfirmationModal()">
                             Aceptar
                         </button>
+
                     </div>
                 </form>
             </div>
@@ -852,29 +855,69 @@
 
                     <div class="mb-4">
                         <label for="addGastoCargo" class="block text-gray-700">Cargo: </label>
-                        <select id="addGastoCargo" class="w-full px-3 py-2 border rounded"></select>
+                        <select id="addGastoCargo" class="w-full px-3 py-2 border rounded" onchange="updateSalario()">
+                            <option value="" disabled selected>Seleccione a un empleado</option>
+                        </select>
                     </div>
 
                     <script>
                         document.addEventListener('DOMContentLoaded', function () {
-
-                            fetch(`${window.location.origin}/selectEmpleadoData`)
+                            fetch(`http://localhost:5000/selectEmpleadoData`)
                                 .then(response => response.json())
                                 .then(data => {
+
                                     const select = document.getElementById('addGastoCargo');
+                                    const salarioInput = document.getElementById('addGastoSalario');
+                                    const cargaInput = document.getElementById('addGastoCarga');
+
+                                    console.log(data);
+
                                     data.forEach(empleado => {
                                         const option = document.createElement('option');
                                         option.value = empleado.id_empleados;
                                         option.textContent = empleado.cargo_empleados;
+                                        option.dataset.salario = empleado.salario_base_empleados;
                                         select.appendChild(option);
+                                    });
+
+                                    select.addEventListener('change', function () {
+                                        const selectedOption = select.options[select.selectedIndex];
+                                        salarioInput.value = (selectedOption.dataset.salario / 30).toFixed(2);
+                                        cargaInput.value = (selectedOption.dataset.salario / 30 * 0.48).toFixed(2);
+                                        formatCurrency(salarioInput);
+                                        formatCurrency(cargaInput);
                                     });
                                 })
                                 .catch(error => console.error('Error fetching empleados:', error));
                         });
+
+                        function updateSalario() {
+                            const select = document.getElementById('addGastoCargo');
+                            const salarioInput = document.getElementById('addGastoSalario');
+                            const cargaInput = document.getElementById('addGastoCarga');
+                            const selectedOption = select.options[select.selectedIndex];
+                            salarioInput.value = parseFloat(selectedOption.dataset.salario / 30).toFixed(2);
+                            cargaInput.value = (selectedOption.dataset.salario / 30 * 0.48).toFixed(2);
+                        }
                     </script>
+                    <div class="mb-4">
+                        <label for="addGastoSalario" class="block text-gray-700">Salario: </label>
+                        <input type="text" id="addGastoSalario" class="w-full px-3 py-2 border rounded" readonly />
+                    </div>
 
                     <div class="mb-4">
-                        <label for="addGastoLugar" class="block text-gray-700">Lugar: </label>
+                        <label for="addGastoCarga" class="block text-gray-700">Carga Prestacional: </label>
+                        <input type="text" id="addGastoCarga" class="w-full px-3 py-2 border rounded" readonly />
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="addGastoEPP" class="block text-gray-700">EPP: </label>
+                        <input type="text" id="addGastoEPP" class="w-full px-3 py-2 border rounded"
+                            oninput="formatCurrency(this)" required />
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="addGastoLugar" class="block text-gray-700">Zona: </label>
                         <input type="text" id="addGastoLugar" class="w-full px-3 py-2 border rounded" required />
                     </div>
 
@@ -923,24 +966,6 @@
                     <div class="mb-4">
                         <label for="addGastoRefrigerio" class="block text-gray-700">Refrigerio: </label>
                         <input type="text" id="addGastoRefrigerio" class="w-full px-3 py-2 border rounded"
-                            oninput="formatCurrency(this)" required />
-                    </div>
-
-                    <div class="mb-4">
-                        <label for="addGastoSalario" class="block text-gray-700">Salario: </label>
-                        <input type="text" id="addGastoSalario" class="w-full px-3 py-2 border rounded"
-                            oninput="formatCurrency(this)" required />
-                    </div>
-
-                    <div class="mb-4">
-                        <label for="addGastoCarga" class="block text-gray-700">Carga Prestacional: </label>
-                        <input type="text" id="addGastoCarga" class="w-full px-3 py-2 border rounded"
-                            oninput="formatCurrency(this)" required />
-                    </div>
-
-                    <div class="mb-4">
-                        <label for="addGastoEPP" class="block text-gray-700">EPP: </label>
-                        <input type="text" id="addGastoEPP" class="w-full px-3 py-2 border rounded"
                             oninput="formatCurrency(this)" required />
                     </div>
 
