@@ -860,46 +860,11 @@
                         </select>
                     </div>
 
-                    <script>
-                        document.addEventListener('DOMContentLoaded', function () {
-                            fetch(`http://localhost:5000/selectEmpleadoData`)
-                                .then(response => response.json())
-                                .then(data => {
+                    <div class="mb-4">
+                        <label for="addGastoLugar" class="block text-gray-700">Zona: </label>
+                        <input type="text" id="addGastoLugar" class="w-full px-3 py-2 border rounded" required />
+                    </div>
 
-                                    const select = document.getElementById('addGastoCargo');
-                                    const salarioInput = document.getElementById('addGastoSalario');
-                                    const cargaInput = document.getElementById('addGastoCarga');
-
-                                    console.log(data);
-
-                                    data.forEach(empleado => {
-                                        const option = document.createElement('option');
-                                        option.value = empleado.id_empleados;
-                                        option.textContent = empleado.cargo_empleados;
-                                        option.dataset.salario = empleado.salario_base_empleados;
-                                        select.appendChild(option);
-                                    });
-
-                                    select.addEventListener('change', function () {
-                                        const selectedOption = select.options[select.selectedIndex];
-                                        salarioInput.value = (selectedOption.dataset.salario / 30).toFixed(2);
-                                        cargaInput.value = (selectedOption.dataset.salario / 30 * 0.48).toFixed(2);
-                                        formatCurrency(salarioInput);
-                                        formatCurrency(cargaInput);
-                                    });
-                                })
-                                .catch(error => console.error('Error fetching empleados:', error));
-                        });
-
-                        function updateSalario() {
-                            const select = document.getElementById('addGastoCargo');
-                            const salarioInput = document.getElementById('addGastoSalario');
-                            const cargaInput = document.getElementById('addGastoCarga');
-                            const selectedOption = select.options[select.selectedIndex];
-                            salarioInput.value = parseFloat(selectedOption.dataset.salario / 30).toFixed(2);
-                            cargaInput.value = (selectedOption.dataset.salario / 30 * 0.48).toFixed(2);
-                        }
-                    </script>
                     <div class="mb-4">
                         <label for="addGastoSalario" class="block text-gray-700">Salario: </label>
                         <input type="text" id="addGastoSalario" class="w-full px-3 py-2 border rounded" readonly />
@@ -911,62 +876,178 @@
                     </div>
 
                     <div class="mb-4">
-                        <label for="addGastoEPP" class="block text-gray-700">EPP: </label>
-                        <input type="text" id="addGastoEPP" class="w-full px-3 py-2 border rounded"
-                            oninput="formatCurrency(this)" required />
-                    </div>
-
-                    <div class="mb-4">
-                        <label for="addGastoLugar" class="block text-gray-700">Zona: </label>
-                        <input type="text" id="addGastoLugar" class="w-full px-3 py-2 border rounded" required />
-                    </div>
-
-                    <div class="mb-4">
-                        <label for="addGastoHotel" class="block text-gray-700">Hotel: </label>
-                        <input type="text" id="addGastoHotel" class="w-full px-3 py-2 border rounded"
-                            oninput="formatCurrency(this)" required />
-                    </div>
-
-                    <div class="mb-4">
                         <label for="addGastoDesayuno" class="block text-gray-700">Desayuno: </label>
-                        <input type="text" id="addGastoDesayuno" class="w-full px-3 py-2 border rounded"
-                            oninput="formatCurrency(this)" required />
+                        <input type="text" id="addGastoDesayuno" class="w-full px-3 py-2 border rounded" readonly />
                     </div>
 
                     <div class="mb-4">
                         <label for="addGastoAlmuerzo" class="block text-gray-700">Almuerzo: </label>
-                        <input type="text" id="addGastoAlmuerzo" class="w-full px-3 py-2 border rounded"
-                            oninput="formatCurrency(this)" required />
+                        <input type="text" id="addGastoAlmuerzo" class="w-full px-3 py-2 border rounded" readonly />
                     </div>
 
                     <div class="mb-4">
                         <label for="addGastoCena" class="block text-gray-700">Cena: </label>
-                        <input type="text" id="addGastoCena" class="w-full px-3 py-2 border rounded"
-                            oninput="formatCurrency(this)" required />
+                        <input type="text" id="addGastoCena" class="w-full px-3 py-2 border rounded" readonly />
                     </div>
 
                     <div class="mb-4">
-                        <label for="addGastoLavanderia" class="block text-gray-700">Lavanderia: </label>
-                        <input type="text" id="addGastoLavanderia" class="w-full px-3 py-2 border rounded"
-                            oninput="formatCurrency(this)" required />
+                        <label for="addGastoEPPRequired" class="block text-gray-700">¿Se necesitan EPP's?: </label>
+                        <select id="addGastoEPPRequired" class="w-full px-3 py-2 border rounded"
+                            onchange="toggleEPPInput()">
+                            <option value="no" selected>No</option>
+                            <option value="si">Sí</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-4" id="eppInputContainer" style="display: none;">
+                        <label for="addGastoEPP" class="block text-gray-700">Ingrese el costo asociado a EPP's:
+                        </label>
+                        <input type="text" id="addGastoEPP" class="w-full px-3 py-2 border rounded"
+                            oninput="formatCurrency(this)" />
                     </div>
 
                     <div class="mb-4">
-                        <label for="addGastoHidratacion" class="block text-gray-700">Hidratación: </label>
-                        <input type="text" id="addGastoHidratacion" class="w-full px-3 py-2 border rounded"
-                            oninput="formatCurrency(this)" required />
+                        <label for="addGastoHotelRequired" class="block text-gray-700">¿Se necesita Hotel?: </label>
+                        <select id="addGastoHotelRequired" class="w-full px-3 py-2 border rounded"
+                            onchange="toggleHotelInput()">
+                            <option value="no" selected>No</option>
+                            <option value="si">Sí</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-4" id="hotelInputContainer" style="display: none;">
+                        <label for="addGastoHotel" class="block text-gray-700">Ingrese el costo asociado a Hotel:
+                        </label>
+                        <input type="text" id="addGastoHotel" class="w-full px-3 py-2 border rounded"
+                            oninput="formatCurrency(this)" />
                     </div>
 
                     <div class="mb-4">
-                        <label for="addGastoHielo" class="block text-gray-700">Hielo: </label>
-                        <input type="text" id="addGastoHielo" class="w-full px-3 py-2 border rounded"
-                            oninput="formatCurrency(this)" required />
+                        <label for="addGastoRefrigerioRequired" class="block text-gray-700">¿Se necesita Refrigerio?:
+                        </label>
+                        <select id="addGastoRefrigerioRequired" class="w-full px-3 py-2 border rounded"
+                            onchange="toggleRefrigerioInput()">
+                            <option value="no" selected>No</option>
+                            <option value="si">Sí</option>
+                        </select>
                     </div>
 
-                    <div class="mb-4">
-                        <label for="addGastoRefrigerio" class="block text-gray-700">Refrigerio: </label>
+                    <div class="mb-4" id="refrigerioInputContainer" style="display: none;">
+                        <label for="addGastoRefrigerio" class="block text-gray-700">Ingrese el costo asociado a
+                            Refrigerio:
+                        </label>
                         <input type="text" id="addGastoRefrigerio" class="w-full px-3 py-2 border rounded"
-                            oninput="formatCurrency(this)" required />
+                            oninput="formatCurrency(this)" />
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="addGastoLavanderiaRequired" class="block text-gray-700">¿Se necesita Lavanderia?:
+                        </label>
+                        <select id="addGastoLavanderiaRequired" class="w-full px-3 py-2 border rounded"
+                            onchange="toggleLavanderiaInput()">
+                            <option value="no" selected>No</option>
+                            <option value="si">Sí</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-4" id="LavanderiaInputContainer" style="display: none;">
+                        <label for="addGastoLavanderia" class="block text-gray-700">Ingrese el costo asociado a
+                            Lavanderia:
+                        </label>
+                        <input type="text" id="addGastoLavanderia" class="w-full px-3 py-2 border rounded"
+                            oninput="formatCurrency(this)" />
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="addGastoTransporteRequired" class="block text-gray-700">¿Se necesita Transporte?:
+                        </label>
+                        <select id="addGastoTransporteRequired" class="w-full px-3 py-2 border rounded"
+                            onchange="toggleTransporteInput()">
+                            <option value="no" selected>No</option>
+                            <option value="si">Sí</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-4" id="TransporteInputContainer" style="display: none;">
+                        <label for="addGastoTransporte" class="block text-gray-700">Ingrese el costo asociado a
+                            Transporte:
+                        </label>
+                        <input type="text" id="addGastoTransporte" class="w-full px-3 py-2 border rounded"
+                            oninput="formatCurrency(this)" />
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="addGastoHieloRequired" class="block text-gray-700">¿Se necesita Hielo?:
+                        </label>
+                        <select id="addGastoHieloRequired" class="w-full px-3 py-2 border rounded"
+                            onchange="toggleHieloInput()">
+                            <option value="no" selected>No</option>
+                            <option value="si">Sí</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-4" id="HieloInputContainer" style="display: none;">
+                        <label for="addGastoHielo" class="block text-gray-700">Ingrese el costo asociado a
+                            Hielo:
+                        </label>
+                        <input type="text" id="addGastoHielo" class="w-full px-3 py-2 border rounded"
+                            oninput="formatCurrency(this)" />
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="addGastoBioseguridadRequired" class="block text-gray-700">¿Se necesita
+                            Kit de Bioseguridad?:
+                        </label>
+                        <select id="addGastoBioseguridadRequired" class="w-full px-3 py-2 border rounded"
+                            onchange="toggleBioseguridadInput()">
+                            <option value="no" selected>No</option>
+                            <option value="si">Sí</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-4" id="BioseguridadInputContainer" style="display: none;">
+                        <label for="addGastoBioseguridad" class="block text-gray-700">Ingrese el costo asociado a el Kit
+                            de Bioseguridad:
+                        </label>
+                        <input type="text" id="addGastoBioseguridad" class="w-full px-3 py-2 border rounded"
+                            oninput="formatCurrency(this)" />
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="addGastoIngresoRequired" class="block text-gray-700">¿Se necesita
+                            Requerimiento de Ingreso?:
+                        </label>
+                        <select id="addGastoIngresoRequired" class="w-full px-3 py-2 border rounded"
+                            onchange="toggleIngresoInput()">
+                            <option value="no" selected>No</option>
+                            <option value="si">Sí</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-4" id="IngresoInputContainer" style="display: none;">
+                        <label for="addGastoIngreso" class="block text-gray-700">Ingrese el costo asociado a el
+                            Requerimiento de Ingreso:
+                        </label>
+                        <input type="text" id="addGastoIngreso" class="w-full px-3 py-2 border rounded"
+                            oninput="formatCurrency(this)" />
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="addGastoHidratacionRequired" class="block text-gray-700">¿Se necesita Hidratacion?:
+                        </label>
+                        <select id="addGastoHidratacionRequired" class="w-full px-3 py-2 border rounded"
+                            onchange="toggleHidratacionInput()">
+                            <option value="no" selected>No</option>
+                            <option value="si">Sí</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-4" id="HidratacionInputContainer" style="display: none;">
+                        <label for="addGastoHidratacion" class="block text-gray-700">Ingrese el costo asociado a
+                            Hidratacion:
+                        </label>
+                        <input type="text" id="addGastoHidratacion" class="w-full px-3 py-2 border rounded"
+                            oninput="formatCurrency(this)" />
                     </div>
 
                     <div class="flex justify-end">

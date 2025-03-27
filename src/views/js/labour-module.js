@@ -115,11 +115,15 @@ document
             .getElementById('addEmpleadoCargo')
             .value.trim();
 
-        const salario_base_empleados = document
+        let salario_base_empleados = document
             .getElementById('addEmpleadoSalario')
             .value.trim();
 
-        salario_base_empleados.value = salario_base_empleados.value.replace(/\D/g, '');
+        console.log(salario_base_empleados);
+
+        salario_base_empleados = salario_base_empleados.replace(/\D/g, '').slice(0, -2);
+
+        console.log(salario_base_empleados);
 
         console.log(
             'cargo_empleado:', cargo_empleados, 'salario_base_empleado:', salario_base_empleados,
@@ -845,6 +849,123 @@ function formatCurrency(input) {
     input.value = new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP', minimumFractionDigits: 2 }).format(value / 100).replace(/\./g, '#').replace(/,/g, '.').replace(/#/g, ',');
 }
 
+document.addEventListener('DOMContentLoaded', function () {
+    fetch(`http://localhost:5000/selectEmpleadoData`)
+        .then(response => response.json())
+        .then(data => {
+
+            const select = document.getElementById('addGastoCargo');
+            const salarioInput = document.getElementById('addGastoSalario');
+            const cargaInput = document.getElementById('addGastoCarga');
+            const desayunoInput = document.getElementById('addGastoDesayuno');
+            const almuerzoInput = document.getElementById('addGastoAlmuerzo');
+            const cenaInput = document.getElementById('addGastoCena');
+
+            console.log(data);
+
+            data.forEach(empleado => {
+                const option = document.createElement('option');
+                option.value = empleado.id_empleados;
+                option.textContent = empleado.cargo_empleados;
+                option.dataset.salario = empleado.salario_base_empleados;
+                select.appendChild(option);
+            });
+
+            const salarioMinimo = 1423500;
+            const alimentacionDiariaIngeniero = 0.06;
+            const alimentacionDiariaOperativo = 0.035;
+
+            select.addEventListener('change', function () {
+
+                const selectedOption = select.options[select.selectedIndex];
+                salarioInput.value = (selectedOption.dataset.salario / 30).toFixed(2);
+                cargaInput.value = (selectedOption.dataset.salario / 30 * 0.48).toFixed(2);
+
+                if (selectedOption.dataset.salario > 4000000) {
+                    desayunoInput.value = (salarioMinimo * alimentacionDiariaIngeniero / 3).toFixed(2);
+                    almuerzoInput.value = (salarioMinimo * alimentacionDiariaIngeniero / 3).toFixed(2);
+                    cenaInput.value = (salarioMinimo * alimentacionDiariaIngeniero / 3).toFixed(2);
+                } else {
+                    desayunoInput.value = (salarioMinimo * alimentacionDiariaOperativo / 3).toFixed(2);
+                    almuerzoInput.value = (salarioMinimo * alimentacionDiariaOperativo / 3).toFixed(2);
+                    cenaInput.value = (salarioMinimo * alimentacionDiariaOperativo / 3).toFixed(2);
+                }
+
+
+
+                formatCurrency(salarioInput);
+                formatCurrency(cargaInput);
+                formatCurrency(desayunoInput);
+                formatCurrency(almuerzoInput);
+                formatCurrency(cenaInput);
+
+            });
+        })
+        .catch(error => console.error('Error fetching empleados:', error));
+});
+
+function updateSalario() {
+    const select = document.getElementById('addGastoCargo');
+    const salarioInput = document.getElementById('addGastoSalario');
+    const cargaInput = document.getElementById('addGastoCarga');
+    const selectedOption = select.options[select.selectedIndex];
+    salarioInput.value = parseFloat(selectedOption.dataset.salario / 30).toFixed(2);
+    cargaInput.value = (selectedOption.dataset.salario / 30 * 0.48).toFixed(2);
+}
+
+function toggleEPPInput() {
+    const eppInputContainer = document.getElementById('eppInputContainer');
+    const eppRequired = document.getElementById('addGastoEPPRequired').value;
+    eppInputContainer.style.display = eppRequired === 'si' ? 'block' : 'none';
+}
+
+function toggleHotelInput() {
+    const hotelInputContainer = document.getElementById('hotelInputContainer');
+    const hotelRequired = document.getElementById('addGastoHotelRequired').value;
+    hotelInputContainer.style.display = hotelRequired === 'si' ? 'block' : 'none';
+}
+
+function toggleRefrigerioInput() {
+    const refrigerioInputContainer = document.getElementById('refrigerioInputContainer');
+    const refrigerioRequired = document.getElementById('addGastoRefrigerioRequired').value;
+    refrigerioInputContainer.style.display = refrigerioRequired === 'si' ? 'block' : 'none';
+}
+
+function toggleLavanderiaInput() {
+    const LavanderiaInputContainer = document.getElementById('LavanderiaInputContainer');
+    const LavanderiaRequired = document.getElementById('addGastoLavanderiaRequired').value;
+    LavanderiaInputContainer.style.display = LavanderiaRequired === 'si' ? 'block' : 'none';
+}
+
+function toggleTransporteInput() {
+    const TransporteInputContainer = document.getElementById('TransporteInputContainer');
+    const TransporteRequired = document.getElementById('addGastoTransporteRequired').value;
+    TransporteInputContainer.style.display = TransporteRequired === 'si' ? 'block' : 'none';
+}
+
+function toggleHieloInput() {
+    const HieloInputContainer = document.getElementById('HieloInputContainer');
+    const HieloRequired = document.getElementById('addGastoHieloRequired').value;
+    HieloInputContainer.style.display = HieloRequired === 'si' ? 'block' : 'none';
+}
+
+function toggleBioseguridadInput() {
+    const BioseguridadInputContainer = document.getElementById('BioseguridadInputContainer');
+    const BioseguridadRequired = document.getElementById('addGastoBioseguridadRequired').value;
+    BioseguridadInputContainer.style.display = BioseguridadRequired === 'si' ? 'block' : 'none';
+}
+
+function toggleIngresoInput() {
+    const IngresoInputContainer = document.getElementById('IngresoInputContainer');
+    const IngresoRequired = document.getElementById('addGastoIngresoRequired').value;
+    IngresoInputContainer.style.display = IngresoRequired === 'si' ? 'block' : 'none';
+}
+
+function toggleHidratacionInput() {
+    const HidratacionInputContainer = document.getElementById('HidratacionInputContainer');
+    const HidratacionRequired = document.getElementById('addGastoHidratacionRequired').value;
+    HidratacionInputContainer.style.display = HidratacionRequired === 'si' ? 'block' : 'none';
+}
 
 // Llamar a la función fetchData cuando el DOM esté completamente cargado
 
