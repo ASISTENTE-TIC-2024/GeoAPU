@@ -12,6 +12,8 @@ import fs from 'fs-extra';
 import dotenv, { config } from 'dotenv';
 import { PORT } from './views/config/config.js';
 
+/* SERVIDOR */
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
