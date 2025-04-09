@@ -102,7 +102,6 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 /* ---------------------------------------------------------------- AGREGAR EMPLEADO ----------------------------------------------------------------------------- */
-
 document
     .getElementById('addEmpleadoForm')
     .addEventListener('submit', async function (event) {
@@ -154,6 +153,7 @@ document
 
             closeModal();
             fetchData();
+            location.reload(); // Actualizar la página después de agregar un empleado
 
         } catch (error) {
             console.error('Error al agregar al empleado:', error);
@@ -378,6 +378,7 @@ async function fetchDataGastos() {
         // Aquí puedes actualizar tu tabla con los datos recibidos
         const dataTable = document.getElementById('data-table-gastos');
         dataTable.innerHTML = ''; // Limpiar la tabla antes de agregar nuevos datos
+
         data.forEach((gasto) => {
 
             const row = document.createElement('tr');
@@ -387,26 +388,28 @@ async function fetchDataGastos() {
             const nombreEmpleado = empleado ? empleado.cargo_empleados : 'No encontrado';
 
             row.innerHTML = `
-                <td class="py-2 border-b border-r text-center">${gasto.id_gastos}</td>
 
+                <td class="py-2 border-b border-r text-center">${gasto.id_gastos}</td>
                 <td class="py-2 border-b border-r text-center">${nombreEmpleado}</td>
-                
-                <td class="py-2 border-b border-r text-center">${gasto.lugar_diario}</td>
-                <td class="py-2 border-b border-r text-center">$${parseFloat(gasto.hotel_diario).toLocaleString('es-CO')}</td>
+                <td class="py-2 border-b border-r text-center">${gasto.zona_diario}</td>
+                <td class="py-2 border-b border-r text-center">$${parseFloat(gasto.salario_diario).toLocaleString('es-CO')}</td>
+                <td class="py-2 border-b border-r text-center">$${parseFloat(gasto.carga_prestacional_diario).toLocaleString('es-CO')}</td>
                 <td class="py-2 border-b border-r text-center">$${parseFloat(gasto.desayuno_diario).toLocaleString('es-CO')}</td>
                 <td class="py-2 border-b border-r text-center">$${parseFloat(gasto.almuerzo_diario).toLocaleString('es-CO')}</td>
                 <td class="py-2 border-b border-r text-center">$${parseFloat(gasto.cena_diario).toLocaleString('es-CO')}</td>
-                <td class="py-2 border-b border-r text-center">$${parseFloat(gasto.lavanderia_diario).toLocaleString('es-CO')}</td>
+                <td class="py-2 border-b border-r text-center">$${parseFloat(gasto.refrigerio_diario).toLocaleString('es-CO')}</td>
                 <td class="py-2 border-b border-r text-center">$${parseFloat(gasto.hidratacion_diario).toLocaleString('es-CO')}</td>
                 <td class="py-2 border-b border-r text-center">$${parseFloat(gasto.hielo_diario).toLocaleString('es-CO')}</td>
-                <td class="py-2 border-b border-r text-center">$${parseFloat(gasto.refrigerio_diario).toLocaleString('es-CO')}</td>
-                <td class="py-2 border-b border-r text-center">$${parseFloat(gasto.salario_diario).toLocaleString('es-CO')}</td>
-                <td class="py-2 border-b border-r text-center">$${parseFloat(gasto.carga_prestacional_diario).toLocaleString('es-CO')}</td>
-                <td class="py-2 border-b border-r text-center">$${parseFloat(gasto.eepp_diario).toLocaleString('es-CO')}</td>
+                <td class="py-2 border-b border-r text-center">$${parseFloat(gasto.hotel_diario).toLocaleString('es-CO')}</td>
+                <td class="py-2 border-b border-r text-center">$${parseFloat(gasto.lavanderia_diario).toLocaleString('es-CO')}</td>
+                <td class="py-2 border-b border-r text-center">$${parseFloat(gasto.transporte_diario).toLocaleString('es-CO')}</td>
+                <td class="py-2 border-b border-r text-center">$${parseFloat(gasto.epp_diario).toLocaleString('es-CO')}</td>
+                <td class="py-2 border-b border-r text-center">$${parseFloat(gasto.kit_bioseguridad_diario).toLocaleString('es-CO')}</td>
+                <td class="py-2 border-b border-r text-center">$${parseFloat(gasto.requerimiento_ingreso_diario).toLocaleString('es-CO')}</td>
 
                 <td class="flex items-center justify-center h-full w-full mb-2" style="text-align: center; height: inherit;">
 
-                    <button class="bg-gray-500 text-white px-3 py-2 rounded mr-2" onclick="editGasto(${gasto.id_gastos}, '${encodeURIComponent(gasto.id_empleados)}', '${encodeURIComponent(gasto.lugar_diario)}', '${encodeURIComponent(gasto.hotel_diario)}', '${encodeURIComponent(gasto.desayuno_diario)}', '${encodeURIComponent(gasto.almuerzo_diario)}', '${encodeURIComponent(gasto.cena_diario)}', '${encodeURIComponent(gasto.lavanderia_diario)}', '${encodeURIComponent(gasto.hidratacion_diario)}', '${encodeURIComponent(gasto.hielo_diario)}', '${encodeURIComponent(gasto.refrigerio_diario)}', '${encodeURIComponent(gasto.salario_diario)}', '${encodeURIComponent(gasto.carga_prestacional_diario)}', '${encodeURIComponent(gasto.eepp_diario)}')">
+                    <button class="bg-gray-500 text-white px-3 py-2 rounded mr-2" onclick="editGasto(${gasto.id_gastos}, '${encodeURIComponent(gasto.zona_diario)}', '${encodeURIComponent(gasto.salario_diario)}', '${encodeURIComponent(gasto.carga_prestacional_diario)}', '${encodeURIComponent(gasto.desayuno_diario)}', '${encodeURIComponent(gasto.almuerzo_diario)}', '${encodeURIComponent(gasto.cena_diario)}', '${encodeURIComponent(gasto.refrigerio_diario)}', '${encodeURIComponent(gasto.hidratacion_diario)}', '${encodeURIComponent(gasto.hielo_diario)}', '${encodeURIComponent(gasto.hotel_diario)}', '${encodeURIComponent(gasto.lavanderia_diario)}', '${encodeURIComponent(gasto.transporte_diario)}', '${encodeURIComponent(gasto.epp_diario)}', '${encodeURIComponent(gasto.kit_bioseguridad_diario)}', '${encodeURIComponent(gasto.requerimiento_ingreso_diario)}')">
                         <i class="fa-solid fa-pencil" style="color:rgb(255, 255, 255);"></i>
                     </button>
 
@@ -503,18 +506,22 @@ document
         }
         const id_empleados = id_empleadosElement.value.trim();
 
-        const lugar_diario = document.getElementById('addGastoLugar').value.trim();
-        const hotel_diario = parseFloat(document.getElementById('addGastoHotel').value.replace(/[^0-9.-]+/g, ''));
-        const desayuno_diario = parseFloat(document.getElementById('addGastoDesayuno').value.replace(/[^0-9.-]+/g, ''));
-        const almuerzo_diario = parseFloat(document.getElementById('addGastoAlmuerzo').value.replace(/[^0-9.-]+/g, ''));
-        const cena_diario = parseFloat(document.getElementById('addGastoCena').value.replace(/[^0-9.-]+/g, ''));
-        const lavanderia_diario = parseFloat(document.getElementById('addGastoLavanderia').value.replace(/[^0-9.-]+/g, ''));
-        const hidratacion_diario = parseFloat(document.getElementById('addGastoHidratacion').value.replace(/[^0-9.-]+/g, ''));
-        const hielo_diario = parseFloat(document.getElementById('addGastoHielo').value.replace(/[^0-9.-]+/g, ''));
-        const refrigerio_diario = parseFloat(document.getElementById('addGastoRefrigerio').value.replace(/[^0-9.-]+/g, ''));
-        const salario_diario = parseFloat(document.getElementById('addGastoSalario').value.replace(/[^0-9.-]+/g, ''));
-        const carga_prestacional_diario = parseFloat(document.getElementById('addGastoCarga').value.replace(/[^0-9.-]+/g, ''));
-        const eepp_diario = parseFloat(document.getElementById('addGastoEPP').value.replace(/[^0-9.-]+/g, ''));
+        const zona_diario = document.getElementById('addGastoZona').value.trim();
+        const salario_diario = parseFloat(document.getElementById('addGastoSalario').value.replace(/[^0-9.-]+/g, '')) || 0;
+        const carga_prestacional_diario = parseFloat(document.getElementById('addGastoCarga').value.replace(/[^0-9.-]+/g, '')) || 0;
+        const desayuno_diario = parseFloat(document.getElementById('addGastoDesayuno').value.replace(/[^0-9.-]+/g, '')) || 0;
+        const almuerzo_diario = parseFloat(document.getElementById('addGastoAlmuerzo').value.replace(/[^0-9.-]+/g, '')) || 0;
+        const cena_diario = parseFloat(document.getElementById('addGastoCena').value.replace(/[^0-9.-]+/g, '')) || 0;
+        const refrigerio_diario = parseFloat(document.getElementById('addGastoRefrigerio').value.replace(/[^0-9.-]+/g, '')) || 0;
+        const hidratacion_diario = parseFloat(document.getElementById('addGastoHidratacion').value.replace(/[^0-9.-]+/g, '')) || 0;
+        const hielo_diario = parseFloat(document.getElementById('addGastoHielo').value.replace(/[^0-9.-]+/g, '')) || 0;
+        const hotel_diario = parseFloat(document.getElementById('addGastoHotel').value.replace(/[^0-9.-]+/g, '')) || 0;
+        const lavanderia_diario = parseFloat(document.getElementById('addGastoLavanderia').value.replace(/[^0-9.-]+/g, '')) || 0;
+        const transporte_diario = parseFloat(document.getElementById('addGastoTransporte').value.replace(/[^0-9.-]+/g, '')) || 0;
+        const epp_diario = parseFloat(document.getElementById('addGastoEPP').value.replace(/[^0-9.-]+/g, '')) || 0;
+        const kit_bioseguridad_diario = parseFloat(document.getElementById('addGastoBioseguridad').value.replace(/[^0-9.-]+/g, '')) || 0;
+        const requerimiento_ingreso_diario = parseFloat(document.getElementById('addGastoIngreso').value.replace(/[^0-9.-]+/g, '')) || 0;
+
 
         // Validate that id_empleados is not null or empty
         if (!id_empleados) {
@@ -524,18 +531,21 @@ document
 
         formData.append('id_empleados', id_empleados);
 
-        formData.append('lugar_diario', lugar_diario);
-        formData.append('hotel_diario', hotel_diario);
+        formData.append('zona_diario', zona_diario);
+        formData.append('salario_diario', salario_diario);
+        formData.append('carga_prestacional_diario', carga_prestacional_diario);
         formData.append('desayuno_diario', desayuno_diario);
         formData.append('almuerzo_diario', almuerzo_diario);
         formData.append('cena_diario', cena_diario);
-        formData.append('lavanderia_diario', lavanderia_diario);
+        formData.append('refrigerio_diario', refrigerio_diario);
         formData.append('hidratacion_diario', hidratacion_diario);
         formData.append('hielo_diario', hielo_diario);
-        formData.append('refrigerio_diario', refrigerio_diario);
-        formData.append('salario_diario', salario_diario);
-        formData.append('carga_prestacional_diario', carga_prestacional_diario);
-        formData.append('eepp_diario', eepp_diario);
+        formData.append('hotel_diario', hotel_diario);
+        formData.append('lavanderia_diario', lavanderia_diario);
+        formData.append('transporte_diario', transporte_diario);
+        formData.append('epp_diario', epp_diario);
+        formData.append('kit_bioseguridad_diario', kit_bioseguridad_diario);
+        formData.append('requerimiento_ingreso_diario', requerimiento_ingreso_diario);
 
         try {
 
@@ -638,37 +648,40 @@ document.getElementById('editGastoForm').addEventListener('submit', async functi
     event.preventDefault();
 
     const id_gastos = document.querySelector('#editGastoId').value.trim();
-    const id_empleados = document.querySelector('#editGastoCargo').value.trim();
-    const lugar_diario = document.querySelector('#editGastoLugar').value.trim();
-    const hotel_diario = document.querySelector('#editGastoHotel').value.trim();
+
+    const zona_diario = document.querySelector('#editGastoZona').value.trim();
+    const salario_diario = document.querySelector('#editGastoSalario').value.trim();
+    const carga_prestacional_diario = document.querySelector('#editGastoCarga').value.trim();
     const desayuno_diario = document.querySelector('#editGastoDesayuno').value.trim();
     const almuerzo_diario = document.querySelector('#editGastoAlmuerzo').value.trim();
     const cena_diario = document.querySelector('#editGastoCena').value.trim();
-    const lavanderia_diario = document.querySelector('#editGastoLavanderia').value.trim();
+    const refrigerio_diario = document.querySelector('#editGastoRefrigerio').value.trim();
     const hidratacion_diario = document.querySelector('#editGastoHidratacion').value.trim();
     const hielo_diario = document.querySelector('#editGastoHielo').value.trim();
-    const refrigerio_diario = document.querySelector('#editGastoRefrigerio').value.trim();
-    const salario_diario = document.querySelector('#editGastoSalario').value.trim();
-    const carga_prestacional_diario = document.querySelector('#editGastoCarga').value.trim();
-    const eepp_diario = document.querySelector('#editGastoEPP').value.trim();
+    const hotel_diario = document.querySelector('#editGastoHotel').value.trim();
+    const lavanderia_diario = document.querySelector('#editGastoLavanderia').value.trim();
+    const transporte_diario = document.querySelector('#editGastoTransporte').value.trim();
+    const epp_diario = document.querySelector('#editGastoEPP').value.trim();
+    const kit_bioseguridad_diario = document.querySelector('#editGastoKitBio').value.trim();
+    const requerimiento_ingreso_diario = document.querySelector('#editGastoReqIngreso').value.trim();
 
     const updatedGasto = {
-        id_empleados,
-        lugar_diario,
-        hotel_diario,
+        zona_diario,
+        salario_diario,
+        carga_prestacional_diario,
         desayuno_diario,
         almuerzo_diario,
         cena_diario,
-        lavanderia_diario,
+        refrigerio_diario,
         hidratacion_diario,
         hielo_diario,
-        refrigerio_diario,
-        salario_diario,
-        carga_prestacional_diario,
-        eepp_diario,
+        hotel_diario,
+        lavanderia_diario,
+        transporte_diario,
+        epp_diario,
+        kit_bioseguridad_diario,
+        requerimiento_ingreso_diario,
     };
-
-    console.log(id_gastos, updatedGasto);
 
     try {
 
@@ -703,33 +716,32 @@ document.getElementById('editGastoForm').addEventListener('submit', async functi
 
 async function editGasto(
     id_gastos,
-    id_empleados,
-    lugar_diario,
-    hotel_diario,
+    zona_diario,
+    salario_diario,
+    carga_prestacional_diario,
     desayuno_diario,
     almuerzo_diario,
     cena_diario,
-    lavanderia_diario,
+    refrigerio_diario,
     hidratacion_diario,
     hielo_diario,
-    refrigerio_diario,
-    salario_diario,
-    carga_prestacional_diario,
-    eepp_diario,
+    hotel_diario,
+    lavanderia_diario,
+    transporte_diario,
+    epp_diario,
+    kit_bioseguridad_diario,
+    requerimiento_ingreso_diario,
 ) {
-
-    console.log(id_gastos, id_empleados, lugar_diario, hotel_diario, desayuno_diario, almuerzo_diario, cena_diario, lavanderia_diario, hidratacion_diario, hielo_diario, refrigerio_diario, salario_diario, carga_prestacional_diario, eepp_diario);
-
     document.getElementById('editGastoId').value = id_gastos;
 
-    document.getElementById('editGastoCargo').value =
-        decodeURIComponent(id_empleados);
+    document.getElementById('editGastoZona').value =
+        decodeURIComponent(zona_diario);
 
-    document.getElementById('editGastoLugar').value =
-        decodeURIComponent(lugar_diario);
+    document.getElementById('editGastoSalario').value =
+        decodeURIComponent(salario_diario);
 
-    document.getElementById('editGastoHotel').value =
-        decodeURIComponent(hotel_diario);
+    document.getElementById('editGastoCarga').value =
+        decodeURIComponent(carga_prestacional_diario);
 
     document.getElementById('editGastoDesayuno').value =
         decodeURIComponent(desayuno_diario);
@@ -740,8 +752,8 @@ async function editGasto(
     document.getElementById('editGastoCena').value =
         decodeURIComponent(cena_diario);
 
-    document.getElementById('editGastoLavanderia').value =
-        decodeURIComponent(lavanderia_diario);
+    document.getElementById('editGastoRefrigerio').value =
+        decodeURIComponent(refrigerio_diario);
 
     document.getElementById('editGastoHidratacion').value =
         decodeURIComponent(hidratacion_diario);
@@ -749,25 +761,23 @@ async function editGasto(
     document.getElementById('editGastoHielo').value =
         decodeURIComponent(hielo_diario);
 
-    document.getElementById('editGastoRefrigerio').value =
-        decodeURIComponent(refrigerio_diario);
+    document.getElementById('editGastoHotel').value =
+        decodeURIComponent(hotel_diario);
 
-    document.getElementById('editGastoSalario').value =
-        decodeURIComponent(salario_diario);
+    document.getElementById('editGastoLavanderia').value =
+        decodeURIComponent(lavanderia_diario);
 
-    const editGastoCargaElement = document.getElementById('editGastoCarga');
-    if (editGastoCargaElement) {
-        editGastoCargaElement.value = decodeURIComponent(carga_prestacional_diario);
-    } else {
-        console.error('Element with ID "editGastoCarga" not found.');
-    }
+    document.getElementById('editGastoTransporte').value =
+        decodeURIComponent(transporte_diario);
 
-    const editGastoEeppElement = document.getElementById('editGastoEPP');
-    if (editGastoEeppElement) {
-        editGastoEeppElement.value = decodeURIComponent(eepp_diario);
-    } else {
-        console.error('Element with ID "editGastoEepp" not found.');
-    }
+    document.getElementById('editGastoEPP').value =
+        decodeURIComponent(epp_diario);
+
+    document.getElementById('editGastoKitBio').value =
+        decodeURIComponent(kit_bioseguridad_diario);
+
+    document.getElementById('editGastoReqIngreso').value =
+        decodeURIComponent(requerimiento_ingreso_diario);
 
     document.getElementById('editModalGastos').classList.remove('hidden');
 }
@@ -881,7 +891,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 salarioInput.value = (selectedOption.dataset.salario / 30).toFixed(2);
                 cargaInput.value = (selectedOption.dataset.salario / 30 * 0.48).toFixed(2);
 
-                if (selectedOption.dataset.salario > 4000000) {
+                if (selectedOption.dataset.salario >= 4000000) {
                     desayunoInput.value = (salarioMinimo * alimentacionDiariaIngeniero / 3).toFixed(2);
                     almuerzoInput.value = (salarioMinimo * alimentacionDiariaIngeniero / 3).toFixed(2);
                     cenaInput.value = (salarioMinimo * alimentacionDiariaIngeniero / 3).toFixed(2);
@@ -890,8 +900,6 @@ document.addEventListener('DOMContentLoaded', function () {
                     almuerzoInput.value = (salarioMinimo * alimentacionDiariaOperativo / 3).toFixed(2);
                     cenaInput.value = (salarioMinimo * alimentacionDiariaOperativo / 3).toFixed(2);
                 }
-
-
 
                 formatCurrency(salarioInput);
                 formatCurrency(cargaInput);
