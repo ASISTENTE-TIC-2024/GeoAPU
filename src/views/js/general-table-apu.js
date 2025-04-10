@@ -327,11 +327,11 @@ document
 
         localStorage.setItem('datosTransportes', JSON.stringify(datosTransportes))
 
-        actualizarTablaTransporte()
+        actualizarTablaTransportes()
 
     })
 
-function actualizarTablaTransporte() {
+function actualizarTablaTransportes() {
 
     let tbody = document.querySelector('#dataTableTransporte tbody')
 
@@ -382,10 +382,24 @@ function eliminarElementoTransporte(index) {
     localStorage.setItem('datosTransportes', JSON.stringify(storedDatosTransportes))
 
     // Actualizar la tabla
-    actualizarTablaTransporte()
+    actualizarTablaTransportes()
 }
 
-actualizarTablaTransporte();
+function actualizarValorUnitarioTransportes() {
+
+    const storedDatosTransportes =
+        JSON.parse(localStorage.getItem('datosTransportes')) || []
+
+    storedDatosTransportes.forEach((item) => {
+        item.valor_unitario_transporte = (item.precio_unitario_transporte * item.rendimiento_transporte).toFixed(4)
+    })
+
+    localStorage.setItem('datosTransportes', JSON.stringify(storedDatosTransportes))
+
+    actualizarTablaTransportes()
+}
+
+actualizarTablaTransportes();
 
 /******************************* MANO DE OBRA *******************************/
 
@@ -694,7 +708,6 @@ function valoresOfertaComercial() {
 
 }
 
-
 function guardarInformacionProyecto() {
 
     let storedDatosEquipos = JSON.parse(localStorage.getItem('datosEquiposMov')) || []
@@ -733,7 +746,7 @@ function eliminarTodo() {
 
     actualizarTablaEquipos();
     actualizarTablaMateriales();
-    actualizarTablaTransporte();
+    actualizarTablaTransportes();
     actualizarTablaManoDeObra();
     calcularTotalGeneral();
 }

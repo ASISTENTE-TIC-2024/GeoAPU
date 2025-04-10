@@ -32,7 +32,7 @@
             <div class="grid grid-cols-8">
                 <div
                     class="col-start-1 col-end-2 col-span-8 border border-solid border-gray-400 text-center flex items-center justify-center break-all text-5xl p-5">
-                    <img src="https://geopolimerossas.com/wp-content/uploads/2021/10/logo-geopolimeros.png" alt="" />
+                    <img src="https://i.imgur.com/eSo1TAN.png" alt="" />
                 </div>
                 <div
                     class="col-start-2 col-end-8 col-span-8 border border-solid border-gray-400 text-center flex items-center justify-center break-all text-5xl p-5 font-bold">
@@ -99,12 +99,18 @@
                     <p id="unidadDia"></p>
                     /dia
                 </div>
+
                 <div
                     class="col-start-5 row-start-5 border border-solid border-gray-400 text-center flex items-center justify-center">
                     <b>Cantidad a instalar:</b>
                 </div>
-                <div class="col-start-6 row-start-5 border border-solid border-gray-400 text-center flex items-center justify-center break-all"
-                    id="cantidadAInstalar"></div>
+
+                <div
+                    class="col-start-6 row-start-5 border border-solid border-gray-400 text-center flex items-center justify-center break-all">
+                    <input type="number" id="cantidadAInstalar" class="w-full h-full text-center"
+                        oninput="cantidadInstalarLocalStorage(); actualizarRendimientoTransportes(); actualizarValorUnitarioTransportes(); actualizarTablaTransportes(); rendimientoTransporteLocalStorage(); rendimientoTransporteLocalStorage(); rendimientoTransporteLocalStorage(); valorUnitarioTransporteLocalStorage();" />
+                </div>
+
                 <div
                     class="col-start-7 row-start-5 border border-solid border-gray-400 text-center flex items-center justify-center">
                     <b>Distancia de movilización</b>
@@ -405,7 +411,8 @@
                                 <td scope="col" class="px-6 py-3">
                                     <input type="number" id="RENDIMIENTO TRANSPORTE" placeholder="RENDIMIENTO"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg pl-3 h-10 mx-2"
-                                        step="any" />
+                                        step="any"
+                                        oninput="valorUnitarioTransporteLocalStorage(); rendimientoTransporteLocalStorage();" />
                                 </td>
 
                                 <td scope="col" class="px-6 py-3">
