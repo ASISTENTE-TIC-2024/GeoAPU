@@ -1,7 +1,7 @@
 function cancelAPU() {
 
     if (confirm('¿Estás seguro de cancelar el APU?')) {
-
+        ico
         let informacionRotulos = JSON.parse(localStorage.getItem('informacionRotulos')) || [];
 
         informacionRotulos.splice(0, 1);
@@ -14,6 +14,8 @@ function cancelAPU() {
     }
 
 }
+
+/* FUNCION PARA TRAER EL VALOR DE LA TRM */
 
 function fetchTRMValue() {
 
@@ -65,6 +67,8 @@ function fetchTRMValue() {
     })
 }
 
+/* FUNCION PARA TRAER LOS DATOS DEL APU Y MOSTRARLOS EN EL HTML */
+
 function displayDataAPU() {
 
     const informacionProyecto = JSON.parse(localStorage.getItem('informacionProyecto')) || [];
@@ -80,8 +84,10 @@ function displayDataAPU() {
     const unidad = document.getElementById("unidad")
     const unidadDia = document.getElementById("unidadDia")
     const actividad = document.getElementById("actividad")
+
     const rendimiento_diario = document.getElementById("rendimientoDiario")
     const cantidad_instalar = document.getElementById("cantidadAInstalar")
+
     const distancia_movilizacion = document.getElementById("distanciaMovilizacion")
     const cantidad_dias = document.getElementById("cantidadDias")
 
@@ -101,12 +107,13 @@ function displayDataAPU() {
         unidad.innerHTML = `${data.unidad}`;
         unidadDia.innerHTML = `${data.unidad}`;
         actividad.innerHTML = `${data.descripcion_actividad}`;
+
         rendimiento_diario.value = isNaN(data.rendimiento) ? "No aplica" : `${data.rendimiento}`;
+        cantidad_instalar.value = isNaN(data.cantidad_instalar) ? "No aplica" : `${data.cantidad_instalar}`;
 
         rendimiento_equipos.value = `${(1 / data.rendimiento).toFixed(4)}`;
         cantidad_materiales.value = `${(3 / data.rendimiento).toFixed(4)}`;
 
-        cantidad_instalar.innerHTML = `${data.cantidad_instalar}`;
         distancia_movilizacion.innerHTML = `${data.distancia_movilizacion}`;
         cantidad_dias.innerHTML = `${data.cantidad_dias}`;
     })
@@ -119,22 +126,23 @@ function displayDataAPU() {
         unidad.innerHTML = `${firstData.unidad}`;
         unidadDia.innerHTML = `${firstData.unidad}`;
         actividad.innerHTML = `${firstData.descripcion_actividad}`;
+
         rendimiento_diario.value = isNaN(firstData.rendimiento) ? "No aplica" : `${firstData.rendimiento}`;
+        cantidad_instalar.innerHTML = isNaN(firstData.cantiad_instalar) ? "No aplica" : `${firstData.cantidad_instalar}`;
 
         rendimiento_equipos.value = `${(1 / firstData.rendimiento).toFixed(4)}`;
         cantidad_materiales.value = `${(3 / firstData.rendimiento).toFixed(4)}`;
 
-        cantidad_instalar.innerHTML = `${firstData.cantidad_instalar}`;
         distancia_movilizacion.innerHTML = `${firstData.distancia_movilizacion}`;
         cantidad_dias.innerHTML = `${firstData.cantidad_dias}`;
     }
 
     fetchTRMValue()
-
-
 }
 
 displayDataAPU()
+
+/* FUNCION PARA TRAER LOS DATOS DEL APU Y MOSTRARLOS EN EL HTML */
 
 function rendimientoEquiposLocalStorage() {
 
@@ -161,9 +169,12 @@ function rendimientoEquiposLocalStorage() {
     )
 }
 
+/* MODULO DE EQUIPOS */
+
+/* MODULO DEL INPUT DE RENDIMIENTO DE EQUIPOS */
+
 function valorUnitarioEquiposLocalStorage() {
 
-    // Obtener el valor del input
     const TARIFA_DIA_EQUIPOS = document.getElementById('TARIFA_DIA_EQUIPOS').value
     const RENDIMIENTO_EQUIPOS = document.getElementById("RENDIMIENTO_EQUIPOS").value
 
@@ -174,6 +185,10 @@ function valorUnitarioEquiposLocalStorage() {
     VALOR_UNITARIO_EQUIPOS.value = `${valor.toFixed(2)}`;
 
 }
+
+/* MODULO DE MATERIALES */
+
+/* MODULO DEL INPUT DE CANTIDAD DE MATERIALES */
 
 function cantidadMaterialesLocalStorage() {
 
@@ -192,6 +207,8 @@ function cantidadMaterialesLocalStorage() {
 
 cantidadMaterialesLocalStorage()
 
+/* MODULO DEL INPUT DE PRECIO UNITARIO MATERIALES */
+
 function valorUnitarioMaterialesLocalStorage() {
 
     // Obtener el valor del input
@@ -208,26 +225,24 @@ function valorUnitarioMaterialesLocalStorage() {
 
 }
 
+valorUnitarioMaterialesLocalStorage();
+
+/* MODULO DE TRANSPORTE */
+
+/* MODULO DEL INPUT DE PRECIO UNITARIO TRANSPORTE */
+
 function precioUnitarioTransporte() {
 
     let ofertaComercialMov =
         JSON.parse(localStorage.getItem('ofertaComercialMov')) || []
 
-    console.log(ofertaComercialMov);
-
     let informacionRotulos = JSON.parse(localStorage.getItem('informacionRotulos')) || [];
 
-    console.log(informacionRotulos);
-
     const PRECIO_UNITARIO_TRANSPORTE = document.getElementById("PRECIO UNITARIO TRANSPORTE");
-
-    console.log(PRECIO_UNITARIO_TRANSPORTE);
 
     const distancia_movilizacion = parseFloat(informacionRotulos[0].distancia_movilizacion.replace(' %', ''));
 
     const valor = ofertaComercialMov.length > 0 ? ofertaComercialMov[0].valor_sin_aiu * distancia_movilizacion / 100 : 0;
-
-    console.log(valor);
 
     PRECIO_UNITARIO_TRANSPORTE.value = `${valor.toFixed(2)}`;
 
@@ -235,34 +250,33 @@ function precioUnitarioTransporte() {
 
 precioUnitarioTransporte();
 
-valorUnitarioMaterialesLocalStorage();
-
-function rendimientoTransporteLocalStorage() {
-
-    const RENDIMIENTO_TRANSPORTE = document.getElementById("RENDIMIENTO TRANSPORTE")
-
-    const informacionRotulos = JSON.parse(localStorage.getItem('informacionRotulos')) || [];
-
-    RENDIMIENTO_TRANSPORTE.value = 1 / informacionRotulos[0].cantidad_instalar;
-
-}
-
-rendimientoTransporteLocalStorage();
+/* MODULO DEL INPUT DE RENDIMIENTO DE TRANSPORTE */
 
 function valorUnitarioTransporteLocalStorage() {
 
     const PRECIO_UNITARIO_TRANSPORTE = document.getElementById('PRECIO UNITARIO TRANSPORTE').value
 
+    console.log("precio unitario transporte", PRECIO_UNITARIO_TRANSPORTE);
+
     const RENDIMIENTO_TRANSPORTE = document.getElementById("RENDIMIENTO TRANSPORTE").value
+
+    console.log("rendimiento transporte", RENDIMIENTO_TRANSPORTE);
 
     const VALOR_UNITARIO_TRANSPORTE = document.getElementById("VALOR UNITARIO TRANSPORTE")
 
     const valor = RENDIMIENTO_TRANSPORTE * PRECIO_UNITARIO_TRANSPORTE;
 
+    console.log("valor unitario transporte", valor);
+
+
     VALOR_UNITARIO_TRANSPORTE.value = `${valor.toFixed(2)}`;
 }
 
 valorUnitarioTransporteLocalStorage();
+
+/* MODULO DE MANO DE OBRA */
+
+/* MODULO DE EL RENDIMIENTO DE LA MANO DE OBRA EN EL LS */
 
 function rendimientoManoDeObraLocalStorage() {
 
@@ -290,12 +304,13 @@ function rendimientoManoDeObraLocalStorage() {
 
 rendimientoManoDeObraLocalStorage();
 
+/* MODULO DEL INPUT DE PRECIO UNITARIO MANO DE OBRA */
+
 function valorUnitarioManoDeObraLocalStorage() {
 
     const JORNAL_MANO_DE_OBRA = document.getElementById('JORNAL MANO DE OBRA').value
     const JORNAL_TOTAL_MANO_DE_OBRA = document.getElementById("JORNAL TOTAL MANO DE OBRA").value
     const RENDIMIENTO_MANO_DE_OBRA = document.getElementById("RENDIMIENTO MANO DE OBRA").value
-
     const VALOR_UNITARIO_MANO_DE_OBRA = document.getElementById("VALOR UNITARIO MANO DE OBRA")
 
     const valor = JORNAL_MANO_DE_OBRA * JORNAL_TOTAL_MANO_DE_OBRA * RENDIMIENTO_MANO_DE_OBRA;
@@ -305,4 +320,58 @@ function valorUnitarioManoDeObraLocalStorage() {
 
 valorUnitarioManoDeObraLocalStorage();
 
+/* MODULO DEL INPUT DE CANTIDAD A INSTALAR */
+
+function cantidadInstalarLocalStorage() {
+
+    // Obtener el valor del input
+    const cantidadAInstalar =
+        document.getElementById('cantidadAInstalar').value
+
+    // Obtener el objeto informacionRotulos desde localStorage
+    const informacionRotulos =
+        JSON.parse(localStorage.getItem('informacionRotulos')) || []
+
+    informacionRotulos.forEach((data, index) => {
+        data.cantidad_instalar = cantidadAInstalar
+    })
+
+    // Guardar el objeto actualizado de nuevo en localStorage
+    localStorage.setItem(
+        'informacionRotulos',
+        JSON.stringify(informacionRotulos)
+    )
+}
+
+function rendimientoTransporteLocalStorage() {
+
+    const RENDIMIENTO_TRANSPORTE = document.getElementById("RENDIMIENTO TRANSPORTE")
+
+    const informacionRotulos = JSON.parse(localStorage.getItem('informacionRotulos')) || [];
+
+    console.log("informacion rotulos", informacionRotulos);
+
+    RENDIMIENTO_TRANSPORTE.value = 1 / informacionRotulos[0].cantidad_instalar;
+
+}
+
+rendimientoTransporteLocalStorage();
+
+function actualizarRendimientoTransportes() {
+
+    const informacionRotulos =
+        JSON.parse(localStorage.getItem('informacionRotulos')) || []
+
+    let storedDatosTransportes =
+        JSON.parse(localStorage.getItem('datosTransportes')) || []
+
+    informacionRotulos.forEach((data) => {
+        storedDatosTransportes.forEach((item) => {
+            item.rendimiento_transporte = (1 / data.cantidad_instalar).toFixed(4)
+        })
+    })
+
+    localStorage.setItem('datosTransportes', JSON.stringify(storedDatosTransportes))
+
+}
 

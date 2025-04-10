@@ -165,7 +165,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     option.value = gasto.id_gastos;
 
                     if (gasto.id_empleados == empleado.id_empleados) {
-                        option.textContent = empleado.cargo_empleados;
+                        option.textContent = empleado.cargo_empleados + " en " + gasto.zona_diario;
                     } else {
                         option.style.display = 'none';
                     }

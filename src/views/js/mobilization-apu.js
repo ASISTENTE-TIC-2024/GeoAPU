@@ -209,3 +209,4 @@ function valorUnitarioManoDeObra() {
 
 }
 
+valorUnitarioManoDeObra();

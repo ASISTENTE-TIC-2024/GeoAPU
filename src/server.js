@@ -1086,55 +1086,64 @@ app.post('/addGasto', multer({ storage }).single('foto_gasto'), (req, res) => {
 
     const {
         id_empleados,
-        lugar_diario,
-        hotel_diario,
+        zona_diario,
+        salario_diario,
+        carga_prestacional_diario,
         desayuno_diario,
         almuerzo_diario,
         cena_diario,
-        lavanderia_diario,
+        refrigerio_diario,
         hidratacion_diario,
         hielo_diario,
-        refrigerio_diario,
-        salario_diario,
-        carga_prestacional_diario,
-        eepp_diario,
+        hotel_diario,
+        lavanderia_diario,
+        transporte_diario,
+        epp_diario,
+        kit_bioseguridad_diario,
+        requerimiento_ingreso_diario
     } = req.body;
 
     console.log(req.body);
 
     const query = `INSERT INTO gastos_diarios (
-            id_empleados,
-            lugar_diario,
-            hotel_diario,
-            desayuno_diario,
-            almuerzo_diario,
-            cena_diario,
-            lavanderia_diario,
-            hidratacion_diario,
-            hielo_diario,
-            refrigerio_diario,
-            salario_diario,
-            carga_prestacional_diario,
-            eepp_diario
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-    `;
+        id_empleados,
+        zona_diario,
+        salario_diario,
+        carga_prestacional_diario,
+        desayuno_diario,
+        almuerzo_diario,
+        cena_diario,
+        refrigerio_diario,
+        hidratacion_diario,
+        hielo_diario,
+        hotel_diario,
+        lavanderia_diario,
+        transporte_diario,
+        epp_diario,
+        kit_bioseguridad_diario,
+        requerimiento_ingreso_diario
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+
 
     db_con.query(
         query,
         [
             id_empleados,
-            lugar_diario,
-            hotel_diario,
+            zona_diario,
+            salario_diario,
+            carga_prestacional_diario,
             desayuno_diario,
             almuerzo_diario,
             cena_diario,
-            lavanderia_diario,
+            refrigerio_diario,
             hidratacion_diario,
             hielo_diario,
-            refrigerio_diario,
-            salario_diario,
-            carga_prestacional_diario,
-            eepp_diario,
+            hotel_diario,
+            lavanderia_diario,
+            transporte_diario,
+            epp_diario,
+            kit_bioseguridad_diario,
+            requerimiento_ingreso_diario
         ],
         (err) => {
             if (err) {
@@ -1148,6 +1157,7 @@ app.post('/addGasto', multer({ storage }).single('foto_gasto'), (req, res) => {
 
 // deleteData - Eliminar datos de la tabla gastos_diarios
 app.delete('/deleteGasto/:id_gastos', (req, res) => {
+
     const { id_gastos } = req.params;
 
     const deleteQuery = `DELETE FROM gastos_diarios WHERE id_gastos = ?`;
@@ -1166,55 +1176,63 @@ app.delete('/deleteGasto/:id_gastos', (req, res) => {
 
 // updateData - Actualizar datos de la tabla gastos_diarios
 app.put('/updateGasto/:id_gastos', (req, res) => {
+
     const { id_gastos } = req.params;
+
     const {
-        id_empleados,
-        lugar_diario,
-        hotel_diario,
+        zona_diario,
+        salario_diario,
+        carga_prestacional_diario,
         desayuno_diario,
         almuerzo_diario,
         cena_diario,
-        lavanderia_diario,
+        refrigerio_diario,
         hidratacion_diario,
         hielo_diario,
-        refrigerio_diario,
-        salario_diario,
-        carga_prestacional_diario,
-        eepp_diario,
+        hotel_diario,
+        lavanderia_diario,
+        transporte_diario,
+        epp_diario,
+        kit_bioseguridad_diario,
+        requerimiento_ingreso_diario,
     } = req.body;
 
     const updateQuery = `
-        UPDATE gastos_diarios SET
-            id_empleados = ?,
-            lugar_diario = ?,
-            hotel_diario = ?,
-            desayuno_diario = ?,
-            almuerzo_diario = ?,
-            cena_diario = ?,
-            lavanderia_diario = ?,
-            hidratacion_diario = ?,
-            hielo_diario = ?,
-            refrigerio_diario = ?,
-            salario_diario = ?,
-            carga_prestacional_diario = ?,
-            eepp_diario = ?
-        WHERE id_gastos = ?
-    `;
+    UPDATE gastos_diarios SET
+        zona_diario = ?,
+        salario_diario = ?,
+        carga_prestacional_diario = ?,
+        desayuno_diario = ?,
+        almuerzo_diario = ?,
+        cena_diario = ?,
+        refrigerio_diario = ?,
+        hidratacion_diario = ?,
+        hielo_diario = ?,
+        hotel_diario = ?,
+        lavanderia_diario = ?,
+        transporte_diario = ?,
+        epp_diario = ?,
+        kit_bioseguridad_diario = ?,
+        requerimiento_ingreso_diario = ?
+    WHERE id_gastos = ?
+`;
 
     const queryParams = [
-        id_empleados,
-        lugar_diario,
-        hotel_diario,
+        zona_diario,
+        salario_diario,
+        carga_prestacional_diario,
         desayuno_diario,
         almuerzo_diario,
         cena_diario,
-        lavanderia_diario,
+        refrigerio_diario,
         hidratacion_diario,
         hielo_diario,
-        refrigerio_diario,
-        salario_diario,
-        carga_prestacional_diario,
-        eepp_diario,
+        hotel_diario,
+        lavanderia_diario,
+        transporte_diario,
+        epp_diario,
+        kit_bioseguridad_diario,
+        requerimiento_ingreso_diario,
         id_gastos,
     ];
 
@@ -1241,13 +1259,26 @@ app.get('/totalGastos/:id_gastos', (req, res) => {
     console.log('ID de gastos:', id_gastos);
 
     const query = `
-        SELECT 
-            (hotel_diario + desayuno_diario + almuerzo_diario + cena_diario + lavanderia_diario + hidratacion_diario + hielo_diario + refrigerio_diario + salario_diario + carga_prestacional_diario + eepp_diario) AS total_gastos
-        FROM 
-            gastos_diarios
-        WHERE 
-            id_gastos = ?;  
-    `;
+    SELECT 
+        (salario_diario + 
+        carga_prestacional_diario + 
+        desayuno_diario + 
+        almuerzo_diario + 
+        cena_diario + 
+        refrigerio_diario + 
+        hidratacion_diario + 
+        hielo_diario + 
+        hotel_diario + 
+        lavanderia_diario + 
+        transporte_diario + 
+        epp_diario + 
+        kit_bioseguridad_diario + 
+        requerimiento_ingreso_diario) AS total_gastos
+    FROM 
+        gastos_diarios
+    WHERE 
+        id_gastos = ?;
+`;
 
     console.log('Query:', query);
 

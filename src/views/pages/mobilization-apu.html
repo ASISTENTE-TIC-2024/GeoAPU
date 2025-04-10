@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>GeoAPU</title>
     <link rel="stylesheet" href="./build/main.css" />
-    <link rel="icon" href="../images/icono geo.ico" type="image/png" />
+    <link rel="icon" href="../images/ICONO GEO NUEVO.ico" type="image/png" />
     <script src="../middleware/check-auth.js"></script>
     <link href="https://fonts.cdnfonts.com/css/museo-sans-rounded" rel="stylesheet" />
 </head>
@@ -39,7 +39,7 @@
             <div class="grid grid-cols-8">
                 <div
                     class="col-start-1 col-end-2 col-span-8 border border-solid border-gray-400 text-center flex items-center justify-center break-all text-5xl p-5">
-                    <img src="https://geopolimerossas.com/wp-content/uploads/2021/10/logo-geopolimeros.png" alt="" />
+                    <img src="https://i.imgur.com/eSo1TAN.png" alt="" />
                 </div>
                 <div
                     class="col-start-2 col-end-8 col-span-8 border border-solid border-gray-400 text-center flex items-center justify-center break-all text-5xl p-5 font-bold">
@@ -404,7 +404,7 @@
                         <select
                             class="w-full h-10 m-5 bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded pl-3 pr-8 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-400 shadow-sm focus:shadow-md appearance-none cursor-pointer"
                             id="selectTransportes" style="max-width: -webkit-fill-available"
-                            onclick="valorUnitarioTransportes(); actualizarTablaTransportes();  actualizarValorUnitarioTransportes()">
+                            onclick="valorUnitarioTransportes(); actualizarTablaTransportes(); actualizarValorUnitarioTransportes()">
                             <option value="">Seleccione un item de transporte</option>
                         </select>
                     </div>
@@ -477,7 +477,7 @@
                                 <td scope="col" class="px-6 py-3">
                                     <input type="text" id="JORNAL MANO DE OBRA" placeholder="JORNAL" step="0.01"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg pl-3 h-10 mx-2"
-                                        oninput="formatCurrency(this); valorUnitarioManoDeObra(); actualizarTablaManoDeObra();" />
+                                        oninput="formatCurrency(this); valorUnitarioManoDeObra(); actualizarTablaManoDeObra(); actualizarValorUnitarioManoDeObra();" />
                                 </td>
 
                                 <script>
@@ -505,12 +505,12 @@
                                 <td scope="col" class="px-6 py-3">
                                     <input type="number" id="JORNAL TOTAL MANO DE OBRA" placeholder="JORNAL TOTAL"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg pl-3 h-10 mx-2"
-                                        oninput="valorUnitarioManoDeObra(); actualizarTablaManoDeObra();" />
+                                        oninput="valorUnitarioManoDeObra(); actualizarTablaManoDeObra(); actualizarValorUnitarioManoDeObra();" />
                                 </td>
                                 <td scope="col" class="px-6 py-3">
                                     <input type="number" id="RENDIMIENTO MANO DE OBRA" placeholder="RENDIMIENTO"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg pl-3 h-10 mx-2"
-                                        oninput="valorUnitarioManoDeObra(); actualizarTablaManoDeObra();" />
+                                        oninput="valorUnitarioManoDeObra(); actualizarTablaManoDeObra(); actualizarValorUnitarioManoDeObra();" />
                                 </td>
                                 <td scope="col" class="px-6 py-3">
                                     <input type="number" id="VALOR UNITARIO MANO DE OBRA" placeholder="VALOR UNITARIO"
@@ -535,9 +535,18 @@
                         <select
                             class="w-full h-10 m-5 bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded pl-3 pr-8 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-400 shadow-sm focus:shadow-md appearance-none cursor-pointer"
                             id="selectManoDeObra" style="max-width: -webkit-fill-available"
-                            onclick="valorUnitarioManoDeObra(); actualizarTablaManoDeObra();">
+                            onclick=" valorUnitarioManoDeObra(); ordenarSelectAlfabeticamente('selectManoDeObra'); actualizarTablaManoDeObra(); actualizarValorUnitarioManoDeObra();">
                             <option value="">Seleccione un cargo</option>
                         </select>
+
+                        <script>
+                            function ordenarSelectAlfabeticamente(selectId) {
+                                const select = document.getElementById(selectId);
+                                const opciones = Array.from(select.options).slice(1); // Excluir la primera opción
+                                opciones.sort((a, b) => a.text.localeCompare(b.text));
+                                opciones.forEach(opcion => select.appendChild(opcion));
+                            }
+                        </script>
 
                     </div>
                 </div>
@@ -650,6 +659,8 @@
             valorUnitarioMateriales();
 
             actualizarValorUnitarioMateriales();
+
+            actualizarValorUnitarioManoDeObra();
 
         }
 

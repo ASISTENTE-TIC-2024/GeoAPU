@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>GeoAPU</title>
-    <link rel="icon" href="../images/icono geo.ico" type="image/png" />
+    <link rel="icon" href="../images/ICONO GEO NUEVO.ico" type="image/png" />
     <link rel="stylesheet" href="./build/main.css" />
     <script src="../middleware/check-auth.js"></script>
     <link href="https://fonts.cdnfonts.com/css/museo-sans-rounded" rel="stylesheet" />
@@ -30,8 +30,7 @@
 
 <body style="font-family: 'Museo Sans Rounded', sans-serif" class="bg-fixed">
     <div class="h-full w-full relative">
-        <!-- Code block starts -->
-        <!--- more free and premium Tailwind CSS components at https://tailwinduikit.com/ --->
+
         <nav role="navigation" class="bg-white shadow xl:block hidden fixed w-full z-50" id="navegador-principal">
             <div class="mx-auto container px-6 py-2 xl:py-0">
                 <div class="flex items-center justify-between">
@@ -154,7 +153,7 @@
                         class="focus:outline-none rounded-md flex w-full sm:w-auto items-center sm:items-stretch justify-end sm:justify-start"
                         onclick="window.location.href='./projects.html'">
                         <div class="flex items-center">
-                            <img class="h-15 w-20" src="https://i.imgur.com/xQhZRWX.png" alt="logo" />
+                            <img class="h-15 w-20" src="https://i.imgur.com/eSo1TAN.png" alt="logo" />
                         </div>
                     </button>
                     <div class="flex">
@@ -242,11 +241,12 @@
                 </div>
             </div>
         </nav>
+
         <nav>
             <div class="py-4 px-6 w-full flex xl:hidden justify-between items-center bg-white fixed top-0 z-40">
                 <div aria-label="logo" role="img" tabindex="0" class="focus:outline-none w-24">
                     <a href="./projects.html">
-                        <img class="h-10 w-15" src="https://i.imgur.com/xQhZRWX.png" alt="logo" />
+                        <img class="h-10 w-15" src="https://i.imgur.com/eSo1TAN.png" alt="logo" />
                     </a>
                 </div>
                 <div class="flex items-center">
@@ -285,7 +285,7 @@
                                     <div class="flex items-center justify-between w-full">
                                         <div class="flex items-center">
                                             <a href="./projects.html">
-                                                <img class="h-10 w-15" src="https://i.imgur.com/xQhZRWX.png"
+                                                <img class="h-10 w-15" src="https://i.imgur.com/eSo1TAN.png"
                                                     alt="logo" />
                                             </a>
                                             <p tabindex="0"
@@ -402,7 +402,6 @@
             </div>
         </nav>
 
-        <!-- Code block ends -->
     </div>
 
     <div class="w-full flex flex-col justify-center items-center relative top-[8em]">
@@ -415,35 +414,28 @@
                 class="w-6/12 p-10 border border-gray-300 mt-5 flex flex-col justify-start items-stretch rounded-xl bg-gray-200 mb-6"
                 method="post">
                 <label for="fecha">Fecha:</label>
+
                 <div class="relative w-full">
                     <input id="datepicker-actions" type="date"
                         class="bg-white-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 cursor-pointer"
                         onclick="this.showPicker()" required />
-                    <!-- <script>
-                            function formatDate(input) {
-                                const date = new Date(input.value)
-                                const formattedDate =
-                                    ('0' + date.getDate()).slice(-2) +
-                                    '/' +
-                                    ('0' + (date.getMonth() + 1)).slice(-2) +
-                                    '/' +
-                                    date.getFullYear()
-                                input.value = formattedDate
-                            }
-                        </script> -->
                 </div>
+
                 <label for="nombre-proyecto">Nombre del proyecto:</label>
                 <input type="text" id="nombre-proyecto" name="nombre-proyecto"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                     placeholder="Ingrese el nombre del proyecto" />
+
                 <label for="cliente">Cliente:</label>
                 <input type="text" id="cliente" name="cliente"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                     placeholder="Ingrese el nombre del cliente" />
+
                 <label for="contacto">Contacto:</label>
                 <input type="text" id="contacto" name="contacto"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                     placeholder="Ingrese el nombre del contacto" />
+
                 <label for="correo">Correo del contacto:</label>
                 <div class="relative mb-6">
                     <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
@@ -455,6 +447,7 @@
                                 d="M11.241 9.817c-.36.275-.801.425-1.255.427-.428 0-.845-.138-1.187-.395L0 2.6V14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2.5l-8.759 7.317Z" />
                         </svg>
                     </div>
+
                     <input type="text" id="correo" name="correo"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5"
                         placeholder="name@example.com" />

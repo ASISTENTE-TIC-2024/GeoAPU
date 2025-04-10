@@ -459,6 +459,7 @@ document
         localStorage.setItem('datosManoDeObraMov', JSON.stringify(datosManoDeObraMov))
 
         actualizarTablaManoDeObra()
+        actualizarValorUnitarioManoDeObra()
 
     })
 
@@ -500,6 +501,22 @@ function actualizarTablaManoDeObra() {
         tbody.appendChild(tr)
     })
 }
+
+function actualizarValorUnitarioManoDeObra() {
+
+    const storedDatosManoDeObra =
+        JSON.parse(localStorage.getItem('datosManoDeObraMov')) || []
+
+    storedDatosManoDeObra.forEach((item) => {
+        item.valor_unitario_mano_de_obra = (item.jornal_mano_de_obra * item.jornal_total_mano_de_obra * item.rendimiento_mano_de_obra).toFixed(4)
+    })
+
+    localStorage.setItem('datosManoDeObraMov', JSON.stringify(storedDatosManoDeObra))
+
+    actualizarTablaManoDeObra()
+}
+
+actualizarValorUnitarioManoDeObra();
 
 function eliminarElementoManoDeObra(index) {
 
