@@ -4,13 +4,17 @@ import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import bodyParser from 'body-parser';
 import passport from './views/config/auth.js';
-import path from 'path';
-import { fileURLToPath } from 'url';
 import cors from 'cors';
-import multer from 'multer';
 import fs from 'fs-extra';
 import dotenv, { config } from 'dotenv';
 import { PORT } from './views/config/config.js';
+import { fileURLToPath } from 'url';
+import path from 'path';
+import cloudinaryPkg from 'cloudinary';
+const { v2: cloudinary } = cloudinaryPkg;
+import multer from 'multer';
+import { CloudinaryStorage } from 'multer-storage-cloudinary';
+
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -48,17 +52,36 @@ app.use(express.urlencoded({ extended: true }));
 
 const secretKey = process.env.SECRET_KEY;
 
-let __nombreDirec = path.dirname(__filename);
+// let __nombreDirec = path.dirname(__filename);
 
-const storage = multer.diskStorage({
-    destination: path.join(__nombreDirec, './views/images'),
-    filename: function (_, file, cb) {
-        cb(
-            null,
-            file.fieldname + '-' + Date.now() + path.extname(file.originalname),
-        );
-    },
+// const storage = multer.diskStorage({
+//     destination: path.join(__nombreDirec, './views/images'),
+//     filename: function (_, file, cb) {
+//         cb(
+//             null,
+//             file.fieldname + '-' + Date.now() + path.extname(file.originalname),
+//         );
+//     },
+// });
+
+
+cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET
 });
+
+const storage = new CloudinaryStorage({
+    cloudinary: cloudinary,
+    params: {
+        folder: 'uploads', // Nombre de la carpeta en Cloudinary
+        format: async (req, file) => 'jpg', // Formato de las imágenes
+        public_id: (req, file) => file.fieldname + '-' + Date.now()
+    }
+});
+
+const upload = multer({ storage: storage });
+
 
 // Ruta de login
 app.post('/login', (req, res) => {
@@ -203,12 +226,12 @@ app.get('/selectUserData', (_, res) => {
 });
 
 // addData - Agregar datos a la tabla usuarios
-app.post('/addUser', multer({ storage }).single('foto_usuario'), (req, res) => {
+app.post('/addUser', upload.single('foto_usuario'), (req, res) => {
 
     const { nombre_usuario, correo_usuario, contrasena_usuario, rol_usuario } =
         req.body;
 
-    const ruta_foto_usuario = `../../images/${req.file.filename}`;
+    const ruta_foto_usuario = req.file.path;
 
     // Hash the password before storing it in the database
     bcrypt.hash(contrasena_usuario, 10, (err, hashedPassword) => {
@@ -241,6 +264,7 @@ app.post('/addUser', multer({ storage }).single('foto_usuario'), (req, res) => {
 
 // deleteData - Eliminar datos de la tabla usuarios
 app.delete('/deleteUser/:id_usuario', (req, res) => {
+
     const { id_usuario } = req.params;
 
     // Primero, obtener la ruta de la foto del usuario
@@ -285,9 +309,11 @@ app.delete('/deleteUser/:id_usuario', (req, res) => {
 // updateData - Actualizar datos de la tabla usuarios
 app.put(
     '/updateUser/:id_usuario',
-    multer({ storage }).single('foto_usuario'),
+    upload.single('foto_usuario'),
     (req, res) => {
+
         const { id_usuario } = req.params;
+
         const {
             nombre_usuario,
             correo_usuario,
@@ -295,16 +321,17 @@ app.put(
             rol_usuario,
         } = req.body;
 
-        const newImagePath = req.file
-            ? `../../images/${req.file.filename}`
-            : null;
+        const newImagePath = req.file.path;
 
         console.log('Nueva ruta de la imagen:', newImagePath);
 
         const getOldImageQuery =
             'SELECT foto_usuario, contrasena_usuario FROM usuarios WHERE id_usuario = ?';
 
+        console.log('Imagen anterior', getOldImageQuery);
+
         db_con.query(getOldImageQuery, [id_usuario], (err, results) => {
+
             if (err) {
                 return res.status(500).send(err);
             }
@@ -318,6 +345,7 @@ app.put(
             let queryParams;
 
             const updateUser = (hashedPassword) => {
+
                 if (newImagePath) {
                     updateQuery = `UPDATE usuarios SET foto_usuario = ?, nombre_usuario = ?, correo_usuario = ?, contrasena_usuario = ?, rol_usuario = ? WHERE id_usuario = ?`;
                     queryParams = [
@@ -388,7 +416,7 @@ app.get('/selectEquipoData', (_, res) => {
 // addData - Agregar datos a la tabla equipos
 app.post(
     '/addEquipo',
-    multer({ storage }).single('foto_equipo'),
+    upload.single('foto_equipo'),
     (req, res) => {
         const {
             descripcion_equipo,
@@ -400,7 +428,7 @@ app.post(
         console.log('Datos del equipo:', req.body);
 
         const ruta_foto_equipo = req.file
-            ? `../../images/${req.file.filename}`
+            ? req.file.path
             : null;
 
         console.log('Ruta de la foto del equipo:', ruta_foto_equipo);
@@ -443,6 +471,7 @@ app.post(
 
 // deleteData - Eliminar datos de la tabla equipos
 app.delete('/deleteEquipo/:id_equipos', (req, res) => {
+
     const { id_equipos } = req.params;
 
     // Primero, obtener la ruta de la foto del usuario
@@ -487,9 +516,11 @@ app.delete('/deleteEquipo/:id_equipos', (req, res) => {
 // updateData - Actualizar datos de la tabla equipos
 app.put(
     '/updateEquipo/:id_equipos',
-    multer({ storage }).single('foto_equipo'),
+    upload.single('foto_equipo'),
     (req, res) => {
+
         const { id_equipos } = req.params;
+
         const {
             descripcion_equipos,
             marca_equipos,
@@ -498,7 +529,7 @@ app.put(
         } = req.body;
 
         const newImagePath = req.file
-            ? `../../images/${req.file.filename}`
+            ? req.file.path
             : null;
 
         console.log('Nueva ruta de la imagen:', newImagePath);

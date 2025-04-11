@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", fetchData);
 
 async function fetchData() {
     try {
-        const url = `${window.location.origin}/selectUserData/`;
+        const url = `http://localhost:5000/selectUserData/`;
 
         const response = await fetch(url);
 
@@ -97,7 +97,7 @@ document
         }
 
         try {
-            const url = `${window.location.origin}/addUser/`;
+            const url = `http://localhost:5000/addUser/`;
 
             const response = await fetch(url, {
                 method: "POST",
@@ -163,7 +163,7 @@ async function confirmDelete() {
     try {
         console.log("Usuario a eliminar: " + userIdToDelete);
 
-        const url = `${window.location.origin}/deleteUser/${userIdToDelete}/`;
+        const url = `http://localhost:5000/deleteUser/${userIdToDelete}/`;
 
         const response = await fetch(url, {
             method: "DELETE",
@@ -192,19 +192,25 @@ async function confirmDelete() {
 document
     .getElementById("editForm")
     .addEventListener("submit", async function (event) {
+
         event.preventDefault();
 
         const formData = new FormData(this);
 
         const id_usuario = document.getElementById("editUserId").value.trim();
+
         const nombre_usuario = document.getElementById("editUserName").value.trim();
+
         const foto_usuario = document.getElementById("editUserPhoto").value.trim();
+
         const correo_usuario = document
             .getElementById("editUserEmail")
             .value.trim();
+
         const contrasena_usuario = document
             .getElementById("editUserPwd")
             .value.trim();
+
         const rol_usuario = document.getElementById("editUserRol").value.trim();
 
         console.log(
@@ -227,7 +233,7 @@ document
         }
 
         try {
-            const url = `${window.location.origin}/updateUser/${id_usuario}/`;
+            const url = `http://localhost:5000/updateUser/${id_usuario}/`;
 
             const response = await fetch(url, {
                 method: "PUT",
@@ -240,6 +246,7 @@ document
 
             closeModal();
             fetchData(); // Actualizar la tabla después de editar
+
         } catch (error) {
             console.error("Error al actualizar al usuario:", error);
         }
@@ -271,7 +278,7 @@ async function editUser(
             "Ingresa la contraseña del usuario para editar:"
         );
 
-        const url = `${window.location.origin}/verify-password/`;
+        const url = `http://localhost:5000/verify-password/`;
 
         const response = await fetch(url, {
             method: "POST",
@@ -302,6 +309,7 @@ async function editUser(
         document.getElementById("editUserPwd").value = plainTextPassword; // Use the plain text password
         document.getElementById("editUserRol").value = rol_usuario;
         document.getElementById("editModal").classList.remove("hidden");
+
     } catch (error) {
         console.error("Error verifying password:", error);
     }
