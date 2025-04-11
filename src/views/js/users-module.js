@@ -192,19 +192,25 @@ async function confirmDelete() {
 document
     .getElementById("editForm")
     .addEventListener("submit", async function (event) {
+
         event.preventDefault();
 
         const formData = new FormData(this);
 
         const id_usuario = document.getElementById("editUserId").value.trim();
+
         const nombre_usuario = document.getElementById("editUserName").value.trim();
+
         const foto_usuario = document.getElementById("editUserPhoto").value.trim();
+
         const correo_usuario = document
             .getElementById("editUserEmail")
             .value.trim();
+
         const contrasena_usuario = document
             .getElementById("editUserPwd")
             .value.trim();
+
         const rol_usuario = document.getElementById("editUserRol").value.trim();
 
         console.log(
@@ -240,6 +246,7 @@ document
 
             closeModal();
             fetchData(); // Actualizar la tabla después de editar
+
         } catch (error) {
             console.error("Error al actualizar al usuario:", error);
         }
@@ -302,6 +309,7 @@ async function editUser(
         document.getElementById("editUserPwd").value = plainTextPassword; // Use the plain text password
         document.getElementById("editUserRol").value = rol_usuario;
         document.getElementById("editModal").classList.remove("hidden");
+
     } catch (error) {
         console.error("Error verifying password:", error);
     }
