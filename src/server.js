@@ -418,6 +418,7 @@ app.post(
     '/addEquipo',
     upload.single('foto_equipo'),
     (req, res) => {
+
         const {
             descripcion_equipo,
             marca_equipo,
@@ -427,9 +428,7 @@ app.post(
 
         console.log('Datos del equipo:', req.body);
 
-        const ruta_foto_equipo = req.file
-            ? req.file.path
-            : null;
+        const ruta_foto_equipo = req.file.path;
 
         console.log('Ruta de la foto del equipo:', ruta_foto_equipo);
 
@@ -514,6 +513,7 @@ app.delete('/deleteEquipo/:id_equipos', (req, res) => {
 });
 
 // updateData - Actualizar datos de la tabla equipos
+
 app.put(
     '/updateEquipo/:id_equipos',
     upload.single('foto_equipo'),
@@ -528,9 +528,7 @@ app.put(
             tarifa_dia_equipos,
         } = req.body;
 
-        const newImagePath = req.file
-            ? req.file.path
-            : null;
+        const newImagePath = req.file.path;
 
         console.log('Nueva ruta de la imagen:', newImagePath);
 
@@ -538,6 +536,7 @@ app.put(
             'SELECT foto_equipos FROM equipos WHERE id_equipos = ?';
 
         db_con.query(getOldImageQuery, [id_equipos], (err, results) => {
+
             if (err) {
                 return res.status(500).json({ error: err.message });
             }
@@ -550,6 +549,7 @@ app.put(
             let queryParams;
 
             if (newImagePath) {
+
                 updateQuery = `UPDATE equipos SET
                                     foto_equipos = ?,
                                     descripcion_equipos = ?,
@@ -584,6 +584,7 @@ app.put(
             }
 
             db_con.query(updateQuery, queryParams, (error, results) => {
+
                 if (error) {
                     return res.status(500).json({ error: error.message });
                 }
@@ -595,9 +596,11 @@ app.put(
                 }
 
                 console.log('Equipo actualizado:', results);
+
                 res.status(200).json({
                     message: 'Equipo actualizado correctamente',
                 });
+
             });
         });
     },
@@ -619,7 +622,7 @@ app.get('/selectMaterialData', (_, res) => {
 // addData - Agregar datos a la tabla materiales
 app.post(
     '/addMaterial',
-    multer({ storage }).single('foto_material'),
+    upload.single('foto_material'),
     (req, res) => {
         const {
             descripcion_material,
@@ -637,9 +640,7 @@ app.post(
 
         console.log('Datos del material:', req.body);
 
-        const ruta_foto_material = req.file
-            ? `../../images/${req.file.filename}`
-            : null;
+        const ruta_foto_material = req.file.path;
 
         console.log('Ruta de la foto del material:', ruta_foto_material);
 
@@ -735,9 +736,11 @@ app.delete('/deleteMaterial/:id_materiales', (req, res) => {
 // updateData - Actualizar datos de la tabla materiales
 app.put(
     '/updateMaterial/:id_materiales',
-    multer({ storage }).single('foto_material'),
+    upload.single('foto_material'),
     (req, res) => {
+
         const { id_materiales } = req.params;
+
         const {
             descripcion_materiales,
             tipo_moneda_materiales,
@@ -752,9 +755,7 @@ app.put(
             proveedor_materiales,
         } = req.body;
 
-        const newImagePath = req.file
-            ? `../../images/${req.file.filename}`
-            : null;
+        const newImagePath = req.file.path;
 
         console.log('Nueva ruta de la imagen:', newImagePath);
 
@@ -762,6 +763,7 @@ app.put(
             'SELECT foto_materiales FROM materiales WHERE id_materiales = ?';
 
         db_con.query(getOldImageQuery, [id_materiales], (err, results) => {
+
             if (err) {
                 return res.status(500).json({ error: err.message });
             }
@@ -861,6 +863,7 @@ app.put(
 
 // selectData - Seleccionar datos de la tabla transportes
 app.get('/selectTransporteData', (_, res) => {
+
     let selectQuery = `SELECT * FROM transportes`;
 
     db_con.query(selectQuery, (error, results) => {
@@ -872,7 +875,7 @@ app.get('/selectTransporteData', (_, res) => {
 
 app.post(
     '/addTransporte',
-    multer({ storage }).single('foto_transporte'),
+    upload.single('foto_transporte'),
     (req, res) => {
         const {
             descripcion_transporte,
@@ -939,7 +942,9 @@ app.delete('/deleteTransporte/:id_transportes', (req, res) => {
 
 // updateData - Actualizar datos de la tabla transportes
 app.put('/updateTransporte/:id_transportes', (req, res) => {
+
     const { id_transportes } = req.params;
+
     const {
         descripcion_transportes,
         unidad_transportes,
@@ -992,7 +997,7 @@ app.get('/selectEmpleadoData', (_, res) => {
 
 app.post(
     '/addEmpleado',
-    multer({ storage }).single('foto_empleado'),
+    upload.single('foto_empleado'),
     (req, res) => {
 
         const {
@@ -1027,6 +1032,7 @@ app.post(
 
 // deleteData - Eliminar datos de la tabla transportes
 app.delete('/deleteEmpleado/:id_empleados', (req, res) => {
+
     const { id_empleados } = req.params;
 
     const getQuery = `SELECT * FROM empleados WHERE id_empleados = ?`;
@@ -1064,7 +1070,9 @@ app.delete('/deleteEmpleado/:id_empleados', (req, res) => {
 
 // updateData - Actualizar datos de la tabla empleados
 app.put('/updateEmpleado/:id_empleados', (req, res) => {
+
     const { id_empleados } = req.params;
+
     const {
         cargo_empleados,
         salario_base_empleados
@@ -1111,7 +1119,7 @@ app.get('/selectGastoData', (_, res) => {
 
 
 // addData - Agregar datos a la tabla gastos_diarios
-app.post('/addGasto', multer({ storage }).single('foto_gasto'), (req, res) => {
+app.post('/addGasto', upload.single('foto_gasto'), (req, res) => {
 
     const {
         id_empleados,
@@ -1331,6 +1339,7 @@ app.get('/totalGastos/:id_gastos', (req, res) => {
 });
 
 const startServer = (port) => {
+
     const server = app.listen(port, () => {
         console.log(`El servidor está corriendo en el puerto ${port} ...`);
     });

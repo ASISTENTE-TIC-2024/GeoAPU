@@ -7,7 +7,7 @@ document.getElementById('loginForm').addEventListener('submit', async function (
 
     try {
 
-        const url = `${window.location.origin}/login/`;
+        const url = `http://localhost:5000/login/`;
 
         console.log("DONDE SE HACE EL POST: " + url);
 
