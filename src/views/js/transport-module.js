@@ -54,19 +54,22 @@ document
 
         const descripcion_transporte = document
             .getElementById('addTransporteDescripcion')
-            .value.trim();
+            .value.trim() || "No tiene descripcion";
 
         const unidad_transporte = document
             .getElementById('addTransporteUnidad')
-            .value.trim();
+            .value.trim() || "No tiene unidad de medida";
 
         const distancia_transporte = document
             .getElementById('addTransporteDistancia')
-            .value.trim();
+            .value.trim() || 0;
 
         const precio_unitario_transporte = document
             .getElementById('addTransportePrecio')
-            .value.trim();
+            .value.replace(/[^0-9.-]+/g, '').trim();
+
+        console.log(precio_unitario_transporte);
+
 
         console.log(
             descripcion_transporte,
