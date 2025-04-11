@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", fetchData);
 
 async function fetchData() {
     try {
-        const url = `http://localhost:5000/selectUserData/`;
+        const url = `${window.location.origin}/selectUserData/`;
 
         const response = await fetch(url);
 
@@ -97,7 +97,7 @@ document
         }
 
         try {
-            const url = `http://localhost:5000/addUser/`;
+            const url = `${window.location.origin}/addUser/`;
 
             const response = await fetch(url, {
                 method: "POST",
@@ -163,7 +163,7 @@ async function confirmDelete() {
     try {
         console.log("Usuario a eliminar: " + userIdToDelete);
 
-        const url = `http://localhost:5000/deleteUser/${userIdToDelete}/`;
+        const url = `${window.location.origin}/deleteUser/${userIdToDelete}/`;
 
         const response = await fetch(url, {
             method: "DELETE",
@@ -233,7 +233,7 @@ document
         }
 
         try {
-            const url = `http://localhost:5000/updateUser/${id_usuario}/`;
+            const url = `${window.location.origin}/updateUser/${id_usuario}/`;
 
             const response = await fetch(url, {
                 method: "PUT",
@@ -278,7 +278,7 @@ async function editUser(
             "Ingresa la contraseña del usuario para editar:"
         );
 
-        const url = `http://localhost:5000/verify-password/`;
+        const url = `${window.location.origin}/verify-password/`;
 
         const response = await fetch(url, {
             method: "POST",
