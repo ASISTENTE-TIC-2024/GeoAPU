@@ -26,6 +26,7 @@
 </style>
 
 <body class="flex items-center justify-center bg-gray-100" style="font-family: 'Museo Sans Rounded', sans-serif">
+
     <div class="container w-full h-auto flex items-center justify-center">
         <div class="grid-container p-8">
 
@@ -190,12 +191,12 @@
                                 <td class="px-6 py-3">
                                     <input type="number" id="RENDIMIENTO_EQUIPOS" placeholder="RENDIMIENTO"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg pl-3 h-10 mx-2"
-                                        readonly />
+                                        data-tippy-content="1 / Rendimiento diario promedio" readonly />
                                 </td>
                                 <td class="px-6 py-3">
                                     <input type="number" id="VALOR_UNITARIO_EQUIPOS" placeholder="VALOR UNITARIO"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg pl-3 h-10 mx-2"
-                                        readonly />
+                                        data-tippy-content="Tarifa dia * Rendimiento de equipos" readonly />
                                 </td>
                                 <td class="px-6 py-3">
                                     <button type="submit" class="mr-5 text-4xl active:scale-90 transition-transform">
@@ -301,12 +302,14 @@
 
                                 <td class="px-6 py-3">
                                     <input type="number" id="CANTIDAD_MATERIALES" placeholder="CANTIDAD"
+                                        data-tippy-content="3 / Rendimiento diario promedio"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg pl-3 h-10 mx-2"
                                         readonly />
                                 </td>
 
                                 <td class="px-6 py-3">
                                     <input type="number" id="VALOR_UNITARIO_MATERIALES" placeholder="VALOR UNITARIO"
+                                        data-tippy-content="Precio unitario * Cantidad de material"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg pl-3 h-10 mx-2"
                                         readonly />
                                 </td>
@@ -403,22 +406,27 @@
                                     <input type="text" id="DISTANCIA TRANSPORTE" placeholder="DISTANCIA"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg pl-3 h-10 mx-2" />
                                 </td>
+
                                 <td scope="col" class="px-6 py-3">
                                     <input type="text" id="PRECIO UNITARIO TRANSPORTE" placeholder="PRECIO UNITARIO"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg pl-3 h-10 mx-2"
-                                        oninput="rendimientoTransporteLocalStorage(); valorUnitarioTransporteLocalStorage();" />
+                                        onchange="rendimientoTransporteLocalStorage(); valorUnitarioTransporteLocalStorage();"
+                                        readonly />
                                 </td>
+
                                 <td scope="col" class="px-6 py-3">
                                     <input type="number" id="RENDIMIENTO TRANSPORTE" placeholder="RENDIMIENTO"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg pl-3 h-10 mx-2"
-                                        step="any"
-                                        oninput="valorUnitarioTransporteLocalStorage(); rendimientoTransporteLocalStorage();" />
+                                        data-tippy-content="1 / Cantidad a instalar" step="any"
+                                        oninput="valorUnitarioTransporteLocalStorage(); rendimientoTransporteLocalStorage();"
+                                        readonly />
                                 </td>
 
                                 <td scope="col" class="px-6 py-3">
                                     <input type="number" id="VALOR UNITARIO TRANSPORTE" placeholder="VALOR UNITARIO"
+                                        data-tippy-content="Precio unitario * Rendimiento de transporte"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg pl-3 h-10 mx-2"
-                                        step="any" />
+                                        step="any" readonly />
                                 </td>
 
                                 <td scope="col" class="px-6 py-3">
@@ -513,11 +521,13 @@
                                 </td>
                                 <td scope="col" class="px-6 py-3">
                                     <input type="number" id="RENDIMIENTO MANO DE OBRA" placeholder="RENDIMIENTO"
+                                        data-tippy-content="1 / Rendimiento diario promedio"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg pl-3 h-10 mx-2 readonly"
                                         step="0.0001" />
                                 </td>
                                 <td scope="col" class="px-6 py-3">
                                     <input type="number" id="VALOR UNITARIO MANO DE OBRA" placeholder="VALOR UNITARIO"
+                                        data-tippy-content="Jornal total * Rendimiento de mano de obra"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg pl-3 h-10 mx-2"
                                         step="0.0001" />
                                 </td>
@@ -637,6 +647,14 @@
     <script src="../js/general-table-apu.js"></script>
     <script src="../js/general-apu.js"></script>
     <script src="../js/select.js"></script>
+
+    <!-- Development -->
+    <script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.min.js"></script>
+    <script src="https://unpkg.com/tippy.js@6/dist/tippy-bundle.umd.js"></script>
+
+    <!-- Production -->
+    <!-- <script src="https://unpkg.com/@popperjs/core@2"></script>
+    <script src="https://unpkg.com/tippy.js@6"></script> -->
 
     <script src="https://kit.fontawesome.com/a233ca1469.js" crossorigin="anonymous"></script>
 </body>
