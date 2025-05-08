@@ -134,6 +134,8 @@ document
         } catch (error) {
             console.error('Error al agregar al material:', error);
         }
+
+        this.reset();
     });
 
 function openAddModal() {

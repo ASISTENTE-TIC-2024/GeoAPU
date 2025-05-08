@@ -42,6 +42,8 @@ document
 
         actualizarValorUnitarioEquipos()
         actualizarTablaEquipos()
+
+        this.reset();
     })
 
 function actualizarTablaEquipos() {
@@ -179,6 +181,8 @@ document
 
         actualizarValorUnitarioMateriales()
         actualizarTablaMateriales()
+
+        this.reset();
     })
 
 function actualizarTablaMateriales() {
@@ -329,6 +333,7 @@ document
 
         actualizarTablaTransportes()
 
+        this.reset();
     })
 
 function actualizarTablaTransportes() {
@@ -451,6 +456,8 @@ document
         localStorage.setItem('datosManoDeObra', JSON.stringify(datosManoDeObra))
 
         actualizarTablaManoDeObra()
+
+        this.reset();
     })
 
 function actualizarTablaManoDeObra() {

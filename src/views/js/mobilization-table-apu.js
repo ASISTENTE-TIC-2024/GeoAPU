@@ -1,35 +1,34 @@
 
 /******************************* EQUIPOS *******************************/
-
 document
     .getElementById('dataFormEquipos')
     .addEventListener('submit', function (e) {
 
-        e.preventDefault()
+        e.preventDefault();
 
         let descripcion_equipos =
-            document.getElementById('DESCRIPCIÓN EQUIPOS').value || 'SIN DESCRIPCIÓN'
+            document.getElementById('DESCRIPCIÓN EQUIPOS').value || 'SIN DESCRIPCIÓN';
 
         let marca_equipos =
-            document.getElementById('MARCA EQUIPOS').value || 'SIN MARCA'
+            document.getElementById('MARCA EQUIPOS').value || 'SIN MARCA';
 
         let tipo_equipos =
-            document.getElementById('TIPO EQUIPOS').value || 'SIN TIPO'
+            document.getElementById('TIPO EQUIPOS').value || 'SIN TIPO';
 
         let tarifa_dia_equipos =
-            parseFloat(document.getElementById('TARIFA_DIA_EQUIPOS').value) || 0
+            parseFloat(document.getElementById('TARIFA_DIA_EQUIPOS').value) || 0;
 
         let rendimiento_equipos =
-            parseFloat(document.getElementById('RENDIMIENTO_EQUIPOS').value).toFixed(4) || 0
+            parseFloat(document.getElementById('RENDIMIENTO_EQUIPOS').value).toFixed(4) || 0;
 
-        parseFloat(document.getElementById('RENDIMIENTO_EQUIPOS').value) || 0
+        parseFloat(document.getElementById('RENDIMIENTO_EQUIPOS').value) || 0;
 
         let valor_unitario_equipos =
-            parseFloat(document.getElementById('VALOR_UNITARIO_EQUIPOS').value) || 0
+            parseFloat(document.getElementById('VALOR_UNITARIO_EQUIPOS').value) || 0;
 
         // Obtener los datos existentes del localStorage
         let datosEquiposMov =
-            JSON.parse(localStorage.getItem('datosEquiposMov')) || []
+            JSON.parse(localStorage.getItem('datosEquiposMov')) || [];
 
         datosEquiposMov.push({
             descripcion_equipos,
@@ -39,14 +38,15 @@ document
             rendimiento_equipos,
             valor_unitario_equipos,
             porcentaje_incidencia: 0,
-        })
+        });
 
-        localStorage.setItem('datosEquiposMov', JSON.stringify(datosEquiposMov))
+        localStorage.setItem('datosEquiposMov', JSON.stringify(datosEquiposMov));
 
-        actualizarValorUnitarioEquipos()
-        actualizarTablaEquipos()
+        actualizarValorUnitarioEquipos();
+        actualizarTablaEquipos();
 
-    })
+        this.reset();
+    });
 
 function actualizarTablaEquipos() {
 
@@ -171,6 +171,9 @@ document
 
         actualizarValorUnitarioMateriales()
         actualizarTablaMateriales()
+
+        this.reset();
+
     })
 
 function actualizarTablaMateriales() {
@@ -332,6 +335,9 @@ document
 
         actualizarValorUnitarioTransportes()
         actualizarTablaTransportes()
+
+        this.reset();
+
     })
 
 function actualizarTablaTransportes() {
@@ -460,6 +466,8 @@ document
 
         actualizarTablaManoDeObra()
         actualizarValorUnitarioManoDeObra()
+
+        this.reset();
 
     })
 
@@ -692,7 +700,6 @@ function valoresOfertaComercial() {
 
 }
 
-
 function guardarInformacionProyecto() {
 
     let storedDatosEquipos = JSON.parse(localStorage.getItem('datosEquiposMov')) || []
@@ -735,7 +742,6 @@ function eliminarTodo() {
     actualizarTablaManoDeObra();
     calcularTotalGeneral();
 }
-
 
 // Configurar el MutationObserver para observar cambios en el contenedor de filas
 const observer = new MutationObserver((mutationsList) => {

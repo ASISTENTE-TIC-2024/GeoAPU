@@ -12,14 +12,12 @@
 </head>
 
 <style>
-    /* Para navegadores Webkit (Chrome, Safari, Edge) */
     input[type='number']::-webkit-outer-spin-button,
     input[type='number']::-webkit-inner-spin-button {
         -webkit-appearance: none;
         margin: 0;
     }
 
-    /* Para Firefox */
     input[type='number'] {
         -moz-appearance: textfield;
     }
@@ -160,12 +158,14 @@
                                 <td class="px-6 py-3">
                                     <input type="number" id="RENDIMIENTO_EQUIPOS" placeholder="RENDIMIENTO"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg pl-3 h-10 mx-2"
+                                        data-tippy-content="Campo abierto para ingresar el rendimiento del equipo"
                                         step="0.01" oninput="valorUnitarioEquipos()" />
                                 </td>
+
                                 <td class="px-6 py-3">
                                     <input type="number" id="VALOR_UNITARIO_EQUIPOS" placeholder="VALOR UNITARIO"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg pl-3 h-10 mx-2"
-                                        readonly />
+                                        data-tippy-content="Tarifa diaria * Rendimiento de equipos" readonly />
                                 </td>
                                 <td class="px-6 py-3">
                                     <button type="submit" class="mr-5 text-4xl active:scale-90 transition-transform">
@@ -273,13 +273,13 @@
                                 <td class="px-6 py-3">
                                     <input type="number" id="CANTIDAD_MATERIALES" placeholder="CANTIDAD"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg pl-3 h-10 mx-2"
-                                        readonly />
+                                        data-tippy-content="3 / Rendimiento diario promedio" readonly />
                                 </td>
 
                                 <td class="px-6 py-3">
                                     <input type="number" id="VALOR_UNITARIO_MATERIALES" placeholder="VALOR UNITARIO"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg pl-3 h-10 mx-2"
-                                        readonly />
+                                        data-tippy-content="Precio unitario * Cantidad" step="0.0001" readonly />
                                 </td>
 
                                 <td class="px-6 py-3">
@@ -381,11 +381,13 @@
                                 <td scope="col" class="px-6 py-3">
                                     <input type="number" id="RENDIMIENTO TRANSPORTE" placeholder="RENDIMIENTO"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg pl-3 h-10 mx-2"
+                                        data-tippy-content="Campo abierto para ingresar el rendimiento del transporte"
                                         oninput="valorUnitarioTransportes(); actualizarTablaTransportes(); actualizarValorUnitarioTransportes()" />
                                 </td>
                                 <td scope="col" class="px-6 py-3">
                                     <input type="number" id="VALOR UNITARIO TRANSPORTE" placeholder="VALOR UNITARIO"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg pl-3 h-10 mx-2"
+                                        data-tippy-content="Precio unitario * Rendimiento del transporte" step="0.0001"
                                         readonly />
                                 </td>
                                 <td scope="col" class="px-6 py-3">
@@ -480,23 +482,6 @@
                                         oninput="formatCurrency(this); valorUnitarioManoDeObra(); actualizarTablaManoDeObra(); actualizarValorUnitarioManoDeObra();" />
                                 </td>
 
-                                <script>
-
-                                    function formatCurrency(input) {
-                                        let value = input.value.replace(/\D/g, '');
-                                        if (value) {
-                                            value = (value / 100).toFixed(2);
-                                            value = value.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-                                            input.value = '$ ' + value;
-                                        }
-                                    }
-
-                                    const jornalManoDeObra = document.getElementById('JORNAL MANO DE OBRA');
-
-                                    setInterval(() => formatCurrency(jornalManoDeObra), 50);
-
-                                </script>
-
                                 <td scope="col" class="px-6 py-3">
                                     <input type="text" id="PRESTACION (%) MANO DE OBRA" placeholder="PRESTACION (%)"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg pl-3 h-10 mx-2" />
@@ -505,18 +490,24 @@
                                 <td scope="col" class="px-6 py-3">
                                     <input type="number" id="JORNAL TOTAL MANO DE OBRA" placeholder="JORNAL TOTAL"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg pl-3 h-10 mx-2"
+                                        data-tippy-content="Campo abierto para ingresar el jornal total"
                                         oninput="valorUnitarioManoDeObra(); actualizarTablaManoDeObra(); actualizarValorUnitarioManoDeObra();" />
                                 </td>
+
                                 <td scope="col" class="px-6 py-3">
                                     <input type="number" id="RENDIMIENTO MANO DE OBRA" placeholder="RENDIMIENTO"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg pl-3 h-10 mx-2"
+                                        data-tippy-content="Campo abierto para ingresar el rendimiento de la mano de obra"
                                         oninput="valorUnitarioManoDeObra(); actualizarTablaManoDeObra(); actualizarValorUnitarioManoDeObra();" />
                                 </td>
+
                                 <td scope="col" class="px-6 py-3">
                                     <input type="number" id="VALOR UNITARIO MANO DE OBRA" placeholder="VALOR UNITARIO"
+                                        data-tippy-content="Jornal * Jornal total * Rendimiento de la mano de obra"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg pl-3 h-10 mx-2"
                                         readonly />
                                 </td>
+
                                 <td scope="col" class="px-6 py-3">
                                     <button type="submit" class="mr-5 text-4xl active:scale-90 transition-transform">
                                         <i class="fa-solid fa-circle-plus text-4xl"></i>
@@ -538,15 +529,6 @@
                             onclick=" valorUnitarioManoDeObra(); ordenarSelectAlfabeticamente('selectManoDeObra'); actualizarTablaManoDeObra(); actualizarValorUnitarioManoDeObra();">
                             <option value="">Seleccione un cargo</option>
                         </select>
-
-                        <script>
-                            function ordenarSelectAlfabeticamente(selectId) {
-                                const select = document.getElementById(selectId);
-                                const opciones = Array.from(select.options).slice(1); // Excluir la primera opción
-                                opciones.sort((a, b) => a.text.localeCompare(b.text));
-                                opciones.forEach(opcion => select.appendChild(opcion));
-                            }
-                        </script>
 
                     </div>
                 </div>
@@ -644,6 +626,10 @@
     <script src="../js/select.js"></script>
 
     <script src="https://kit.fontawesome.com/a233ca1469.js" crossorigin="anonymous"></script>
+
+    <!-- Development -->
+    <script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.min.js"></script>
+    <script src="https://unpkg.com/tippy.js@6/dist/tippy-bundle.umd.js"></script>
 
     <script>
         function handleInputChange() {

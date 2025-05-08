@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", function () {
 function cancelAPU() {
 
     if (confirm('¿Estás seguro de cancelar el APU?')) {
-        ico
+
         let informacionRotulos = JSON.parse(localStorage.getItem('informacionRotulos')) || [];
 
         informacionRotulos.splice(0, 1);
@@ -276,7 +276,6 @@ function valorUnitarioTransporteLocalStorage() {
     const valor = RENDIMIENTO_TRANSPORTE * PRECIO_UNITARIO_TRANSPORTE;
 
     console.log("valor unitario transporte", valor);
-
 
     VALOR_UNITARIO_TRANSPORTE.value = `${valor.toFixed(2)}`;
 }

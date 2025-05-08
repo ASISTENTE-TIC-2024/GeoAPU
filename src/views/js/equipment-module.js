@@ -141,6 +141,9 @@ document
         } catch (error) {
             console.error('Error al agregar al equipo:', error);
         }
+
+        this.reset();
+
     });
 
 function openAddModal() {

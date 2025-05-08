@@ -111,6 +111,8 @@ document
         } catch (error) {
             console.error('Error al agregar al transporte:', error);
         }
+
+        this.reset();
     });
 
 function openAddModal() {

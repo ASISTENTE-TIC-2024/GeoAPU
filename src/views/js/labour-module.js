@@ -158,6 +158,8 @@ document
         } catch (error) {
             console.error('Error al agregar al empleado:', error);
         }
+
+        this.reset();
     });
 
 function openAddModal() {
@@ -570,6 +572,9 @@ document
         } catch (error) {
             console.error('Error al agregar al gasto:', error);
         }
+
+
+        this.reset();
 
     });
 
