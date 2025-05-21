@@ -7,8 +7,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
-
-
 function formatCurrency(input) {
     let value = input.value.replace(/\D/g, '');
     if (value) {

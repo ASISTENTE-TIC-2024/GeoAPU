@@ -18,6 +18,7 @@
         margin: 0;
     }
 
+
     input[type='number'] {
         -moz-appearance: textfield;
     }
@@ -612,18 +613,35 @@
                     onclick="valoresOfertaComercial(); guardarInformacionProyecto()">
                     Finalizar APU
                 </button>
+
                 <button type="button"
                     class="text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
                     onclick="eliminarTodo(); cancelAPU();">
                     Cancelar APU
                 </button>
+
+                <button type="button" id="volverBoton" style="display: none;">
+                    Volver
+                </button>
+
             </div>
         </div>
     </div>
 
-    <script src="../js/mobilization-table-apu.js"></script>
-    <script src="../js/mobilization-apu.js"></script>
+
+    <script src="../js/mobilization-apu-interact.js"></script>
+
+    <script>
+        const origin = localStorage.getItem('origin');
+
+        if (!origin) {
+            document.write('<script src="../js/mobilization-table-apu.js"><\/script>');
+            document.write('<script src="../js/mobilization-apu.js"><\/script>');
+        }
+    </script>
+
     <script src="../js/select.js"></script>
+
 
     <script src="https://kit.fontawesome.com/a233ca1469.js" crossorigin="anonymous"></script>
 

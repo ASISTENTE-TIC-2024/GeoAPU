@@ -50,23 +50,6 @@ function deleteItem(rowIndex) {
 
 }
 
-function deleteMovItem() {
-
-    if (confirm('¿Esta seguro de que quiere eliminar la APU de movilización?')) {
-
-        const ofertaComercialMov = JSON.parse(localStorage.getItem('ofertaComercialMov')) || [];
-
-        // Eliminar el elemento del array
-        ofertaComercialMov.splice(0, 1);
-
-        // Actualizar el localStorage
-        localStorage.setItem('ofertaComercialMov', JSON.stringify(ofertaComercialMov));
-
-        // Recargar la página para reflejar los cambios
-        location.reload();
-    }
-
-}
 
 function sortTable(column) {
 
@@ -106,8 +89,6 @@ function cancelOffer() {
         location.href = './main.html';
     }
 }
-
-
 
 function mostrarInformacionProyecto() {
 
