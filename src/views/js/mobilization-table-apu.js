@@ -651,7 +651,6 @@ function calcularTotalGeneral() {
 
 function valoresOfertaComercial() {
 
-
     let totalesMovilizacion =
         JSON.parse(localStorage.getItem('totalesMovilizacion')) || []
 

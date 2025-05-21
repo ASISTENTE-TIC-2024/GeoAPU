@@ -670,9 +670,45 @@
                 <div class="mb-4">
                     <label for="addMaterialMedida" class="block text-gray-700">Unidad de medida:</label>
                     <div class="relative">
-                        <input id="addMaterialMedida" type="text"
+                        <select id="addMaterialMedida"
                             class="py-3 px-4 block w-full border rounded border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
-                            required />
+                            required>
+                            <option value="" disabled selected>Selecciona una unidad de medida</option>
+                            <option value="und">Unidad (und)</option>
+                            <option value="hora">Hora (hora)</option>
+                            <option value="dia">Dia (dia)</option>
+                            <option value="m">Metro (m)</option>
+                            <option value="cm">Centímetro (cm)</option>
+                            <option value="mm">Milímetro (mm)</option>
+                            <option value="km">Kilómetro (km)</option>
+                            <option value="in">Pulgada (in)</option>
+                            <option value="ft">Pie (ft)</option>
+                            <option value="yd">Yarda (yd)</option>
+                            <option value="ml">Metro lineal (ml)</option>
+                            <option value="m2">Metro cuadrado (m²)</option>
+                            <option value="cm2">Centímetro cuadrado (cm²)</option>
+                            <option value="mm2">Milímetro cuadrado (mm²)</option>
+                            <option value="ha">Hectárea (ha)</option>
+                            <option value="m3">Metro cúbico (m³)</option>
+                            <option value="cm3">Centímetro cúbico (cm³)</option>
+                            <option value="l">Litro (l)</option>
+                            <option value="ml">Mililitro (ml)</option>
+                            <option value="gal">Galón (gal)</option>
+                            <option value="kg">Kilogramo (kg)</option>
+                            <option value="g">Gramo (g)</option>
+                            <option value="mg">Miligramo (mg)</option>
+                            <option value="lb">Libra (lb)</option>
+                            <option value="ton">Tonelada (ton)</option>
+                            <option value="unidad">Unidad (u)</option>
+                            <option value="par">Par (par)</option>
+                            <option value="docena">Docena (doc)</option>
+                            <option value="bulto">Bulto (bulto)</option>
+                            <option value="saco">Saco (saco)</option>
+                            <option value="rollo">Rollo (rollo)</option>
+                            <option value="caja">Caja (caja)</option>
+                            <option value="pza">Pieza (pza)</option>
+                            <option value="barril">Barril (barril)</option>
+                        </select>
                     </div>
                 </div>
                 <div class="mb-4">
