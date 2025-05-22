@@ -3,7 +3,11 @@ document.addEventListener('DOMContentLoaded', fetchData);
 async function fetchData() {
     try {
         const response = await fetch(
+<<<<<<< HEAD
             `${window.location.origin}/selectTransporteData`,
+=======
+            `${window.location.origin} /selectTransporteData`,
+>>>>>>> main-local
         );
 
         const data = await response.json();
@@ -54,19 +58,22 @@ document
 
         const descripcion_transporte = document
             .getElementById('addTransporteDescripcion')
-            .value.trim();
+            .value.trim() || "No tiene descripcion";
 
         const unidad_transporte = document
             .getElementById('addTransporteUnidad')
-            .value.trim();
+            .value.trim() || "No tiene unidad de medida";
 
         const distancia_transporte = document
             .getElementById('addTransporteDistancia')
-            .value.trim();
+            .value.trim() || 0;
 
         const precio_unitario_transporte = document
             .getElementById('addTransportePrecio')
-            .value.trim();
+            .value.replace(/[^0-9.-]+/g, '').trim();
+
+        console.log(precio_unitario_transporte);
+
 
         console.log(
             descripcion_transporte,
@@ -88,7 +95,11 @@ document
 
         try {
             const response = await fetch(
+<<<<<<< HEAD
                 `${window.location.origin}/addTransporte`,
+=======
+                `${window.location.origin} /addTransporte`,
+>>>>>>> main-local
                 {
                     method: 'POST',
                     body: formData,
@@ -108,6 +119,8 @@ document
         } catch (error) {
             console.error('Error al agregar al transporte:', error);
         }
+
+        this.reset();
     });
 
 function openAddModal() {
@@ -146,7 +159,11 @@ async function confirmDelete() {
 
     try {
         const response = await fetch(
+<<<<<<< HEAD
             `${window.location.origin}/deleteTransporte/${transporteIdToDelete}`,
+=======
+            `${window.location.origin} /deleteTransporte/${transporteIdToDelete}`,
+>>>>>>> main-local
             {
                 method: 'DELETE',
             },
@@ -192,7 +209,11 @@ document.getElementById('editTransporteForm').addEventListener('submit', async f
     console.log(id_transportes, updatedTransporte);
 
     try {
+<<<<<<< HEAD
         const response = await fetch(`${window.location.origin}/updateTransporte/${id_transportes}`, {
+=======
+        const response = await fetch(`${window.location.origin} /updateTransporte/${id_transportes}`, {
+>>>>>>> main-local
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',

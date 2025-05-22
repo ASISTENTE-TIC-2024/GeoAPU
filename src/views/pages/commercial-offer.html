@@ -25,6 +25,7 @@
 <body style="font-family: 'Museo Sans Rounded', sans-serif">
 
     <div class="h-full w-full">
+
         <nav role="navigation" class="bg-white shadow xl:block hidden fixed w-full z-50" id="navegador-principal">
             <div class="mx-auto container px-6 py-2 xl:py-0">
                 <div class="flex items-center justify-between">
@@ -232,6 +233,7 @@
                 </div>
             </div>
         </nav>
+
         <nav>
             <div class="py-4 px-6 w-full flex xl:hidden justify-between items-center bg-white fixed top-0 z-40">
                 <div aria-label="logo" role="img" tabindex="0" class="focus:outline-none w-24">
@@ -314,7 +316,7 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a class="cursor-pointer" href="./materials-module.html">
+                                        <a class="cursor-pointer" href="./material-module.html">
                                             <div class="text-gray-800 pt-10">
                                                 <div class="flex items-center">
                                                     <p tabindex="0"
@@ -393,7 +395,6 @@
             </div>
         </nav>
 
-        <!-- Code block ends -->
     </div>
 
     <div id="text-container" class="relative top-[6em]">
@@ -417,11 +418,13 @@
             <br>
 
             <div id="buttonsMovContainer" class="flex justify-start flex-wrap">
+
                 <button id="btnMovView"
                     class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full m-2"
-                    onclick="movView()">
+                    onclick="handleMovView()">
                     Ver APU Movilización
                 </button>
+
                 <button id="btnMovEdit"
                     class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded-full m-2"
                     onclick="movEdit()">
@@ -577,6 +580,7 @@
             </div>
         </div>
 
+
         <footer class="text-gray-600 py-6 mt-10">
             <div class="container mx-auto px-6">
                 <div class="flex flex-wrap justify-between text-center">
@@ -629,16 +633,18 @@
 
             <button
                 class="focus:ring-2 focus:ring-offset-2 focus:ring-blue-700 focus:text-gray-50 focus:outline-none bg-blue-700 border-blue-300 border transition duration-150 ease-in-out hover:bg-blue-300 rounded-full text-gray-50 px-20 py-4 text-lg"
-                onclick="window.location.href='./sign-apu.html'">
+                onclick="localStorage.removeItem('origin'); window.location.href='./sign-apu.html';">
                 CREAR UNA NUEVA APU
             </button>
         </div>
 
+    </div>
 
+    <script src="../js/nav.js"></script>
+    <script src="../js/commercial-offer.js"></script>
+    <script src="../js/mobilization-apu-interact.js"></script>
 
-        <script src="../js/nav.js"></script>
-        <script src="../js/commercial-offer.js"></script>
-        <script src="https://kit.fontawesome.com/a233ca1469.js" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/a233ca1469.js" crossorigin="anonymous"></script>
 </body>
 
 </html>

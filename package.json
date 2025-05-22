@@ -43,6 +43,7 @@
         "passport-openidconnect": "^0.1.2",
         "path": "^0.12.7",
         "railway": "^2.0.17",
-        "sweetalert2": "^11.14.1"
+        "sweetalert2": "^11.14.1",
+        "tippy.js": "^6.3.7"
     }
 }

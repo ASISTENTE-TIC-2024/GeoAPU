@@ -1,3 +1,32 @@
+// TOOLTIPS
+
+document.addEventListener("DOMContentLoaded", function () {
+    tippy('[data-tippy-content]', {
+        content: (reference) => reference.getAttribute('data-tippy-content'),
+        placement: 'top',
+    });
+});
+
+function formatCurrency(input) {
+    let value = input.value.replace(/\D/g, '');
+    if (value) {
+        value = (value / 100).toFixed(2);
+        value = value.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        input.value = '$ ' + value;
+    }
+}
+
+const jornalManoDeObra = document.getElementById('JORNAL MANO DE OBRA');
+
+setInterval(() => formatCurrency(jornalManoDeObra), 50);
+
+function ordenarSelectAlfabeticamente(selectId) {
+    const select = document.getElementById(selectId);
+    const opciones = Array.from(select.options).slice(1); // Excluir la primera opción
+    opciones.sort((a, b) => a.text.localeCompare(b.text));
+    opciones.forEach(opcion => select.appendChild(opcion));
+}
+
 function cancelAPU() {
 
     if (confirm('¿Estás seguro de cancelar el APU?')) {

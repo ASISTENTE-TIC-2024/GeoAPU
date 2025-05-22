@@ -42,6 +42,8 @@ document
 
         actualizarValorUnitarioEquipos()
         actualizarTablaEquipos()
+
+        this.reset();
     })
 
 function actualizarTablaEquipos() {
@@ -179,6 +181,8 @@ document
 
         actualizarValorUnitarioMateriales()
         actualizarTablaMateriales()
+
+        this.reset();
     })
 
 function actualizarTablaMateriales() {
@@ -329,6 +333,7 @@ document
 
         actualizarTablaTransportes()
 
+        this.reset();
     })
 
 function actualizarTablaTransportes() {
@@ -451,6 +456,8 @@ document
         localStorage.setItem('datosManoDeObra', JSON.stringify(datosManoDeObra))
 
         actualizarTablaManoDeObra()
+
+        this.reset();
     })
 
 function actualizarTablaManoDeObra() {
@@ -562,11 +569,15 @@ function calcularTotalGeneral() {
     let storedDatosTransportes =
         JSON.parse(localStorage.getItem('datosTransportes')) || []
 
+    console.log("datos almacenados en transporte: ", storedDatosTransportes);
+
     // Sumar los valores
     let totalTransporte = storedDatosTransportes.reduce(
-        (sum, item) => sum + item.valor_unitario_transporte,
+        (sum, item) => sum + (isNaN(parseFloat(item.valor_unitario_transporte)) || !isFinite(item.valor_unitario_transporte) ? 0 : parseFloat(item.valor_unitario_transporte)),
         0
     )
+
+    console.log("suma de los valores en transporte: ", totalTransporte);
 
     let storedDatosManoDeObra =
         JSON.parse(localStorage.getItem('datosManoDeObra')) || []

@@ -7,7 +7,11 @@ function checkAuth() {
         return;
     }
 
+<<<<<<< HEAD
     const url = `${window.location.origin}/verify-token/`;
+=======
+    const url = `${window.location.origin} /verify-token/`;
+>>>>>>> main-local
 
     // Opcional: Verificar la validez del token con el servidor
     fetch(url, {

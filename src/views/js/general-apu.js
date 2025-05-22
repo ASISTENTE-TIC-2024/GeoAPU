@@ -1,7 +1,17 @@
+// TOOLTIPS
+
+document.addEventListener("DOMContentLoaded", function () {
+    tippy('[data-tippy-content]', {
+        content: (reference) => reference.getAttribute('data-tippy-content'),
+        placement: 'top',
+    });
+});
+
+
 function cancelAPU() {
 
     if (confirm('¿Estás seguro de cancelar el APU?')) {
-        ico
+
         let informacionRotulos = JSON.parse(localStorage.getItem('informacionRotulos')) || [];
 
         informacionRotulos.splice(0, 1);
@@ -233,8 +243,7 @@ valorUnitarioMaterialesLocalStorage();
 
 function precioUnitarioTransporte() {
 
-    let ofertaComercialMov =
-        JSON.parse(localStorage.getItem('ofertaComercialMov')) || []
+    let ofertaComercialMov = JSON.parse(localStorage.getItem('ofertaComercialMov')) || []
 
     let informacionRotulos = JSON.parse(localStorage.getItem('informacionRotulos')) || [];
 
@@ -267,7 +276,6 @@ function valorUnitarioTransporteLocalStorage() {
     const valor = RENDIMIENTO_TRANSPORTE * PRECIO_UNITARIO_TRANSPORTE;
 
     console.log("valor unitario transporte", valor);
-
 
     VALOR_UNITARIO_TRANSPORTE.value = `${valor.toFixed(2)}`;
 }

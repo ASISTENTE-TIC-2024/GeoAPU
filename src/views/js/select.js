@@ -10,7 +10,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function obtenerEquipos() {
         try {
+<<<<<<< HEAD
             const response = await fetch(`${window.location.origin}/selectEquipoData`);
+=======
+            const response = await fetch(`${window.location.origin} /selectEquipoData`);
+>>>>>>> main-local
             const equipos = await response.json();
 
             equipos.forEach(equipo => {
@@ -55,7 +59,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function obtenerMateriales() {
         try {
+<<<<<<< HEAD
             const response = await fetch(`${window.location.origin}/selectMaterialData`);
+=======
+            const response = await fetch(`${window.location.origin} /selectMaterialData`);
+>>>>>>> main-local
             const materiales = await response.json();
 
             materiales.forEach(material => {
@@ -103,7 +111,11 @@ document.addEventListener('DOMContentLoaded', () => {
         if (selectTransportes && descripcionTransporte && unidadTransporte && distanciaTransporte && precioUnitarioTransporte && valorUnitarioTransporte) {
             async function obtenerTransportes() {
                 try {
+<<<<<<< HEAD
                     const response = await fetch(`${window.location.origin}/selectTransporteData`);
+=======
+                    const response = await fetch(`${window.location.origin} /selectTransporteData`);
+>>>>>>> main-local
                     const transportes = await response.json();
 
                     transportes.forEach(transporte => {
@@ -151,8 +163,13 @@ document.addEventListener('DOMContentLoaded', () => {
     async function obtenerManoObra() {
         try {
 
+<<<<<<< HEAD
             const response_1 = await fetch(`${window.location.origin}/selectGastoData`);
             const response_2 = await fetch(`${window.location.origin}/selectEmpleadoData`);
+=======
+            const response_1 = await fetch(`${window.location.origin} /selectGastoData`);
+            const response_2 = await fetch(`${window.location.origin} /selectEmpleadoData`);
+>>>>>>> main-local
 
             const gastos = await response_1.json();
             const empleados = await response_2.json();
@@ -193,7 +210,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
             try {
 
+<<<<<<< HEAD
                 const response = await fetch(`${window.location.origin}/totalGastos/${selectedOption.value}`);
+=======
+                const response = await fetch(`${window.location.origin} /totalGastos/${selectedOption.value}`);
+>>>>>>> main-local
 
                 const data = await response.json();
 

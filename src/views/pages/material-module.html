@@ -670,9 +670,45 @@
                 <div class="mb-4">
                     <label for="addMaterialMedida" class="block text-gray-700">Unidad de medida:</label>
                     <div class="relative">
-                        <input id="addMaterialMedida" type="text"
+                        <select id="addMaterialMedida"
                             class="py-3 px-4 block w-full border rounded border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
-                            required />
+                            required>
+                            <option value="" disabled selected>Selecciona una unidad de medida</option>
+                            <option value="und">Unidad (und)</option>
+                            <option value="hora">Hora (hora)</option>
+                            <option value="dia">Dia (dia)</option>
+                            <option value="m">Metro (m)</option>
+                            <option value="cm">Centímetro (cm)</option>
+                            <option value="mm">Milímetro (mm)</option>
+                            <option value="km">Kilómetro (km)</option>
+                            <option value="in">Pulgada (in)</option>
+                            <option value="ft">Pie (ft)</option>
+                            <option value="yd">Yarda (yd)</option>
+                            <option value="ml">Metro lineal (ml)</option>
+                            <option value="m2">Metro cuadrado (m²)</option>
+                            <option value="cm2">Centímetro cuadrado (cm²)</option>
+                            <option value="mm2">Milímetro cuadrado (mm²)</option>
+                            <option value="ha">Hectárea (ha)</option>
+                            <option value="m3">Metro cúbico (m³)</option>
+                            <option value="cm3">Centímetro cúbico (cm³)</option>
+                            <option value="l">Litro (l)</option>
+                            <option value="ml">Mililitro (ml)</option>
+                            <option value="gal">Galón (gal)</option>
+                            <option value="kg">Kilogramo (kg)</option>
+                            <option value="g">Gramo (g)</option>
+                            <option value="mg">Miligramo (mg)</option>
+                            <option value="lb">Libra (lb)</option>
+                            <option value="ton">Tonelada (ton)</option>
+                            <option value="unidad">Unidad (u)</option>
+                            <option value="par">Par (par)</option>
+                            <option value="docena">Docena (doc)</option>
+                            <option value="bulto">Bulto (bulto)</option>
+                            <option value="saco">Saco (saco)</option>
+                            <option value="rollo">Rollo (rollo)</option>
+                            <option value="caja">Caja (caja)</option>
+                            <option value="pza">Pieza (pza)</option>
+                            <option value="barril">Barril (barril)</option>
+                        </select>
                     </div>
                 </div>
                 <div class="mb-4">
@@ -748,10 +784,15 @@
     <div id="editModal"
         class="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 hidden z-50 overflow-auto">
         <div class="bg-white p-6 rounded-lg w-[40em] m-auto relative">
+
             <h2 class="text-xl mb-4">Editar Materiales</h2>
+
             <form id="editMaterialForm" enctype="multipart/form-data">
+
                 <input type="hidden" id="editMaterialId" />
+
                 <div class="mb-4">
+
                     <div class="flex flex-row justify-around">
                         <div class="mb-4">
                             <label class="block text-gray-700">Imagen Anterior:</label>
@@ -763,45 +804,54 @@
                             <img id="newPhotoPreview" class="w-32 h-32 object-cover border rounded-full" />
                         </div>
                     </div>
+
                     <div class="mb-4">
                         <label for="editMaterialPhoto" class="block text-gray-700">Foto:</label>
                         <input type="file" id="editMaterialPhoto" class="w-full px-3 py-2 border rounded"
                             accept="image/*" name="foto_material" />
                     </div>
+
                     <label for="editMaterialDescripcion" class="block text-gray-700">Descripción:</label>
                     <input type="text" id="editMaterialDescripcion" class="w-full px-3 py-2 border rounded" />
+
                     <label for="editMaterialMoneda" class="block text-gray-700">Tipo de Moneda:</label>
                     <input type="text" id="editMaterialMoneda" class="w-full px-3 py-2 border rounded" />
-                    <label for="editMaterialMedida" class="block text-gray-700">Unidad de Medida:</label>
 
+                    <label for="editMaterialMedida" class="block text-gray-700">Unidad de Medida:</label>
                     <div class="relative">
                         <input id="editMaterialMedida" type="text"
                             class="py-3 px-4 block w-full border rounded border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none" />
                     </div>
+
                     <label for="editMaterialValor" class="block text-gray-700">Valor Unitario:</label>
-                    <input type="text" id="editMaterialValor" class="w-full px-3 py-2 border rounded" />
+                    <input type="text" id="editMaterialValor" class="w-full px-3 py-2 border rounded" step="0.01"
+                        min="0" />
+
                     <label for="editMaterialFabricacion" class="block text-gray-700">Fabricación:</label>
                     <input type="date" id="editMaterialFabricacion" class="w-full px-3 py-2 border rounded" />
+
                     <label for="editMaterialCosto" class="block text-gray-700">Costo:</label>
-                    <input type="number" id="editMaterialCosto" class="w-full px-3 py-2 border rounded" />
+                    <input type="number" id="editMaterialCosto" class="w-full px-3 py-2 border rounded" step="0.01"
+                        min="0" />
+
                     <label for="editMaterialDimension" class="block text-gray-700">Dimensión:</label>
-                    <input type="text" id="editMaterialDimension" class="w-full px-3 py-2 border rounded" />
+                    <input type="text" id="editMaterialDimension" class="w-full px-3 py-2 border rounded" step="0.01"
+                        min="0" />
 
                     <label for="editMaterialUnidad" class="block text-gray-700">Unidad:</label>
-
                     <input type="text" id="editMaterialUnidad" class="w-full px-3 py-2 border rounded" />
 
                     <label for="editMaterialMargen" class="block text-gray-700">Margen:</label>
-
-                    <input type="number" id="editMaterialMargen" class="w-full px-3 py-2 border rounded" />
+                    <input type="number" id="editMaterialMargen" class="w-full px-3 py-2 border rounded" step="0.01"
+                        min="0" />
 
                     <label for="editMaterialPrecio" class="block text-gray-700">Precio del Producto:</label>
-
-                    <input type="number" id="editMaterialPrecio" class="w-full px-3 py-2 border rounded" />
+                    <input type="number" id="editMaterialPrecio" class="w-full px-3 py-2 border rounded" step="0.01"
+                        min="0" />
 
                     <label for="editMaterialProveedor" class="block text-gray-700">Proveedor:</label>
-
                     <input type="text" id="editMaterialProveedor" class="w-full px-3 py-2 border rounded" />
+
                 </div>
                 <div class="flex justify-end">
                     <button type="button" class="bg-gray-500 text-white px-4 py-2 rounded mr-2" onclick="closeModal()">
