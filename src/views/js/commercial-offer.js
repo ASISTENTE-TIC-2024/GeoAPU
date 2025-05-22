@@ -1,12 +1,12 @@
 document.addEventListener('DOMContentLoaded', function () {
 
-    const ofertaComercial = JSON.parse(localStorage.getItem('ofertaComercial')) || {};
+    const ofertaComercial = JSON.parse(localStorage.getItem('ofertaComercial')) || [];
 
     console.log('ofertaComercial', ofertaComercial);
 
     const tableBody = document.getElementById('data-table')
 
-    ofertaComercial.forEach((item, index) => {
+    ofertaComercial.forEach((item) => {
 
         const row = document.createElement('tr')
         row.className = 'border-b'
