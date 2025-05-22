@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', fetchData);
 async function fetchData() {
     try {
 
-        const url = `http://localhost:5000/selectEmpleadoData/`;
+        const url = `${window.location.origin} /selectEmpleadoData/`;
 
         const response = await fetch(url);
         const data = await response.json();
@@ -133,7 +133,7 @@ document
 
         try {
 
-            const url = `http://localhost:5000/addEmpleado/`;
+            const url = `${window.location.origin} /addEmpleado/`;
 
             const response = await fetch(
                 url,
@@ -200,7 +200,7 @@ async function confirmDeleteEmpleados() {
 
     try {
 
-        const url = `http://localhost:5000/deleteEmpleado/${empleadoIdToDelete}`;
+        const url = `${window.location.origin} /deleteEmpleado/${empleadoIdToDelete}`;
 
         const response = await fetch(
             url,
@@ -249,7 +249,7 @@ document.getElementById('editEmpleadoForm').addEventListener('submit', async fun
 
     try {
 
-        const url = `http://localhost:5000/updateEmpleado/${id_empleados}`;
+        const url = `${window.location.origin} /updateEmpleado/${id_empleados}`;
 
         const response = await fetch(url, {
             method: 'PUT',
@@ -366,12 +366,12 @@ function searchTable() {
 async function fetchDataGastos() {
     try {
 
-        const url = `http://localhost:5000/selectGastoData/`;
+        const url = `${window.location.origin} /selectGastoData/`;
 
         const response = await fetch(url);
         const data = await response.json();
 
-        const url2 = `http://localhost:5000/selectEmpleadoData/`;
+        const url2 = `${window.location.origin} /selectEmpleadoData/`;
 
         const response2 = await fetch(url2);
         const data2 = await response2.json();
@@ -551,7 +551,7 @@ document
 
         try {
 
-            const url = `http://localhost:5000/addGasto/`;
+            const url = `${window.location.origin} /addGasto/`;
 
             const response = await fetch(url, {
                 method: 'POST',
@@ -616,7 +616,7 @@ async function confirmDeleteGastos() {
 
     try {
 
-        const url = `http://localhost:5000/deleteGasto/${gastoIdToDelete}`;
+        const url = `${window.location.origin} /deleteGasto/${gastoIdToDelete}`;
 
         const response = await fetch(
             url,
@@ -690,7 +690,7 @@ document.getElementById('editGastoForm').addEventListener('submit', async functi
 
     try {
 
-        const url = `http://localhost:5000/updateGasto/${id_gastos}`;
+        const url = `${window.location.origin} /updateGasto/${id_gastos}`;
 
         const response = await fetch(url, {
             method: 'PUT',
@@ -865,7 +865,7 @@ function formatCurrency(input) {
 }
 
 document.addEventListener('DOMContentLoaded', function () {
-    fetch(`http://localhost:5000/selectEmpleadoData`)
+    fetch(`${window.location.origin} /selectEmpleadoData`)
         .then(response => response.json())
         .then(data => {
 

@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', fetchData);
 async function fetchData() {
     try {
 
-        const url = `http://localhost:5000/selectEquipoData/`;
+        const url = `${window.location.origin} /selectEquipoData/`;
 
         const response = await fetch(url);
 
@@ -121,7 +121,7 @@ document
 
         try {
 
-            const url = `http://localhost:5000/addEquipo/`;
+            const url = `${window.location.origin} /addEquipo/`;
 
             const response = await fetch(url, {
                 method: 'POST',
@@ -192,7 +192,7 @@ async function confirmDelete() {
 
     try {
 
-        const url = `http://localhost:5000/deleteEquipo/${equipoIdToDelete}/`;
+        const url = `${window.location.origin} /deleteEquipo/${equipoIdToDelete}/`;
 
         const response = await fetch(
             url,
@@ -257,7 +257,7 @@ document
 
         try {
 
-            const url = `http://localhost:5000/updateEquipo/${id_equipos}/`;
+            const url = `${window.location.origin} /updateEquipo/${id_equipos}/`;
 
             const response = await fetch(
                 url,
