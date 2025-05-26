@@ -7,7 +7,7 @@ import passport from './views/config/auth.js';
 import cors from 'cors';
 import fs from 'fs-extra';
 import dotenv, { config } from 'dotenv';
-import { DB_PORT } from './views/config/config.js';
+import { PORT } from './views/config/config.js';
 import { fileURLToPath } from 'url';
 import path from 'path';
 import cloudinaryPkg from 'cloudinary';
@@ -1340,21 +1340,21 @@ app.get('/totalGastos/:id_gastos', (req, res) => {
     });
 });
 
-const startServer = (DB_PORT) => {
+const startServer = (PORT) => {
 
-    const server = app.listen(DB_PORT, () => {
-        console.log(`El servidor está corriendo en el puerto ${DB_PORT} ...`);
+    const server = app.listen(PORT, () => {
+        console.log(`El servidor está corriendo en el puerto ${PORT} ...`);
     });
 
     server.on('error', (err) => {
         if (err.code === 'EADDRINUSE') {
-            console.error(`El puerto ${DB_PORT} está en uso, intentando con el puerto ${DB_PORT + 1}...`);
-            DB_PORT += 1;
-            startServer(DB_PORT);
+            console.error(`El puerto ${PORT} está en uso, intentando con el puerto ${PORT + 1}...`);
+            PORT += 1;
+            startServer(PORT);
         } else {
             console.error('Error al iniciar el servidor:', err);
         }
     });
 };
 
-startServer(DB_PORT);
+startServer(PORT);
