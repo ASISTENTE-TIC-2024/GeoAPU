@@ -3,11 +3,7 @@ document.addEventListener('DOMContentLoaded', fetchData);
 async function fetchData() {
     try {
         const response = await fetch(
-<<<<<<< HEAD
-            `${window.location.origin}/selectTransporteData`,
-=======
             `${window.location.origin} /selectTransporteData`,
->>>>>>> main-local
         );
 
         const data = await response.json();
@@ -95,11 +91,7 @@ document
 
         try {
             const response = await fetch(
-<<<<<<< HEAD
-                `${window.location.origin}/addTransporte`,
-=======
                 `${window.location.origin} /addTransporte`,
->>>>>>> main-local
                 {
                     method: 'POST',
                     body: formData,
@@ -159,11 +151,7 @@ async function confirmDelete() {
 
     try {
         const response = await fetch(
-<<<<<<< HEAD
-            `${window.location.origin}/deleteTransporte/${transporteIdToDelete}`,
-=======
             `${window.location.origin} /deleteTransporte/${transporteIdToDelete}`,
->>>>>>> main-local
             {
                 method: 'DELETE',
             },
@@ -209,11 +197,7 @@ document.getElementById('editTransporteForm').addEventListener('submit', async f
     console.log(id_transportes, updatedTransporte);
 
     try {
-<<<<<<< HEAD
-        const response = await fetch(`${window.location.origin}/updateTransporte/${id_transportes}`, {
-=======
         const response = await fetch(`${window.location.origin} /updateTransporte/${id_transportes}`, {
->>>>>>> main-local
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',

@@ -3,11 +3,7 @@ document.addEventListener('DOMContentLoaded', fetchData)
 async function fetchData() {
     try {
 
-<<<<<<< HEAD
-        const url = `${window.location.origin}/selectMaterialData`
-=======
         const url = `${window.location.origin} /selectMaterialData`
->>>>>>> main-local
 
         const response = await fetch(url)
 
@@ -117,11 +113,7 @@ document
 
         try {
 
-<<<<<<< HEAD
-            const url = `${window.location.origin}/addMaterial`
-=======
             const url = `${window.location.origin} /addMaterial`
->>>>>>> main-local
 
             const response = await fetch(url, {
                 method: 'POST',
@@ -190,11 +182,7 @@ async function confirmDelete() {
     try {
         console.log("Material a eliminar: " + materialIdToDelete);
 
-<<<<<<< HEAD
-        const url = `${window.location.origin}/deleteMaterial/${materialIdToDelete}`
-=======
         const url = `${window.location.origin} /deleteMaterial/${materialIdToDelete}`
->>>>>>> main-local
 
         const response = await fetch(url, {
             method: 'DELETE',
@@ -263,11 +251,7 @@ document
 
         try {
 
-<<<<<<< HEAD
-            const url = `${window.location.origin}/updateMaterial/${id_materiales}`
-=======
             const url = `${window.location.origin} /updateMaterial/${id_materiales}`
->>>>>>> main-local
 
             const response = await fetch(
                 url,

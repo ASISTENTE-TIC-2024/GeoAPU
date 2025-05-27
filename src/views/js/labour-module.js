@@ -3,11 +3,7 @@ document.addEventListener('DOMContentLoaded', fetchData);
 async function fetchData() {
     try {
 
-<<<<<<< HEAD
-        const url = `${window.location.origin}/selectEmpleadoData/`;
-=======
         const url = `${window.location.origin} /selectEmpleadoData/`;
->>>>>>> main-local
 
         const response = await fetch(url);
         const data = await response.json();
@@ -137,11 +133,7 @@ document
 
         try {
 
-<<<<<<< HEAD
-            const url = `${window.location.origin}/addEmpleado/`;
-=======
             const url = `${window.location.origin} /addEmpleado/`;
->>>>>>> main-local
 
             const response = await fetch(
                 url,
@@ -208,11 +200,7 @@ async function confirmDeleteEmpleados() {
 
     try {
 
-<<<<<<< HEAD
-        const url = `${window.location.origin}/deleteEmpleado/${empleadoIdToDelete}`;
-=======
         const url = `${window.location.origin} /deleteEmpleado/${empleadoIdToDelete}`;
->>>>>>> main-local
 
         const response = await fetch(
             url,
@@ -261,11 +249,7 @@ document.getElementById('editEmpleadoForm').addEventListener('submit', async fun
 
     try {
 
-<<<<<<< HEAD
-        const url = `${window.location.origin}/updateEmpleado/${id_empleados}`;
-=======
         const url = `${window.location.origin} /updateEmpleado/${id_empleados}`;
->>>>>>> main-local
 
         const response = await fetch(url, {
             method: 'PUT',
@@ -382,20 +366,12 @@ function searchTable() {
 async function fetchDataGastos() {
     try {
 
-<<<<<<< HEAD
-        const url = `${window.location.origin}/selectGastoData/`;
-=======
         const url = `${window.location.origin} /selectGastoData/`;
->>>>>>> main-local
 
         const response = await fetch(url);
         const data = await response.json();
 
-<<<<<<< HEAD
-        const url2 = `${window.location.origin}/selectEmpleadoData/`;
-=======
         const url2 = `${window.location.origin} /selectEmpleadoData/`;
->>>>>>> main-local
 
         const response2 = await fetch(url2);
         const data2 = await response2.json();
@@ -575,11 +551,7 @@ document
 
         try {
 
-<<<<<<< HEAD
-            const url = `${window.location.origin}/addGasto/`;
-=======
             const url = `${window.location.origin} /addGasto/`;
->>>>>>> main-local
 
             const response = await fetch(url, {
                 method: 'POST',
@@ -644,11 +616,7 @@ async function confirmDeleteGastos() {
 
     try {
 
-<<<<<<< HEAD
-        const url = `${window.location.origin}/deleteGasto/${gastoIdToDelete}`;
-=======
         const url = `${window.location.origin} /deleteGasto/${gastoIdToDelete}`;
->>>>>>> main-local
 
         const response = await fetch(
             url,
@@ -722,11 +690,7 @@ document.getElementById('editGastoForm').addEventListener('submit', async functi
 
     try {
 
-<<<<<<< HEAD
-        const url = `${window.location.origin}/updateGasto/${id_gastos}`;
-=======
         const url = `${window.location.origin} /updateGasto/${id_gastos}`;
->>>>>>> main-local
 
         const response = await fetch(url, {
             method: 'PUT',
@@ -901,11 +865,7 @@ function formatCurrency(input) {
 }
 
 document.addEventListener('DOMContentLoaded', function () {
-<<<<<<< HEAD
-    fetch(`${window.location.origin}/selectEmpleadoData`)
-=======
     fetch(`${window.location.origin} /selectEmpleadoData`)
->>>>>>> main-local
         .then(response => response.json())
         .then(data => {
 

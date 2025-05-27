@@ -3,11 +3,7 @@ document.addEventListener('DOMContentLoaded', fetchData);
 async function fetchData() {
     try {
 
-<<<<<<< HEAD
-        const url = `${window.location.origin}/selectEquipoData/`;
-=======
         const url = `${window.location.origin} /selectEquipoData/`;
->>>>>>> main-local
 
         const response = await fetch(url);
 
@@ -125,11 +121,7 @@ document
 
         try {
 
-<<<<<<< HEAD
-            const url = `${window.location.origin}/addEquipo/`;
-=======
             const url = `${window.location.origin} /addEquipo/`;
->>>>>>> main-local
 
             const response = await fetch(url, {
                 method: 'POST',
@@ -200,11 +192,7 @@ async function confirmDelete() {
 
     try {
 
-<<<<<<< HEAD
-        const url = `${window.location.origin}/deleteEquipo/${equipoIdToDelete}/`;
-=======
         const url = `${window.location.origin} /deleteEquipo/${equipoIdToDelete}/`;
->>>>>>> main-local
 
         const response = await fetch(
             url,
@@ -269,11 +257,7 @@ document
 
         try {
 
-<<<<<<< HEAD
-            const url = `${window.location.origin}/updateEquipo/${id_equipos}/`;
-=======
             const url = `${window.location.origin} /updateEquipo/${id_equipos}/`;
->>>>>>> main-local
 
             const response = await fetch(
                 url,

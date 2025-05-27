@@ -2,11 +2,9 @@ document.addEventListener("DOMContentLoaded", fetchData);
 
 async function fetchData() {
     try {
-<<<<<<< HEAD
+
         const url = `${window.location.origin}/selectUserData/`;
-=======
-        const url = `${window.location.origin} /selectUserData/`;
->>>>>>> main-local
+
 
         const response = await fetch(url);
 
@@ -101,11 +99,7 @@ document
         }
 
         try {
-<<<<<<< HEAD
-            const url = `${window.location.origin}/addUser/`;
-=======
             const url = `${window.location.origin} /addUser/`;
->>>>>>> main-local
 
             const response = await fetch(url, {
                 method: "POST",
@@ -171,11 +165,7 @@ async function confirmDelete() {
     try {
         console.log("Usuario a eliminar: " + userIdToDelete);
 
-<<<<<<< HEAD
-        const url = `${window.location.origin}/deleteUser/${userIdToDelete}/`;
-=======
         const url = `${window.location.origin} /deleteUser/${userIdToDelete}/`;
->>>>>>> main-local
 
         const response = await fetch(url, {
             method: "DELETE",
@@ -245,11 +235,7 @@ document
         }
 
         try {
-<<<<<<< HEAD
-            const url = `${window.location.origin}/updateUser/${id_usuario}/`;
-=======
             const url = `${window.location.origin} /updateUser/${id_usuario}/`;
->>>>>>> main-local
 
             const response = await fetch(url, {
                 method: "PUT",
@@ -294,11 +280,7 @@ async function editUser(
             "Ingresa la contraseña del usuario para editar:"
         );
 
-<<<<<<< HEAD
-        const url = `${window.location.origin}/verify-password/`;
-=======
         const url = `${window.location.origin} /verify-password/`;
->>>>>>> main-local
 
         const response = await fetch(url, {
             method: "POST",
