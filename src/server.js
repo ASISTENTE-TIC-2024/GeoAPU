@@ -54,18 +54,6 @@ app.use(express.urlencoded({ extended: true }));
 
 const secretKey = process.env.SECRET_KEY;
 
-// let __nombreDirec = path.dirname(__filename);
-
-// const storage = multer.diskStorage({
-//     destination: path.join(__nombreDirec, './views/images'),
-//     filename: function (_, file, cb) {
-//         cb(
-//             null,
-//             file.fieldname + '-' + Date.now() + path.extname(file.originalname),
-//         );
-//     },
-// });
-
 
 cloudinary.config({
     cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
